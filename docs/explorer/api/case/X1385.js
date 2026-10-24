@@ -1,0 +1,1 @@
+__disc("api/case/X1385",{"id":"X1385","event":"X1385","date":"2024-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Foundation for Research and Technology Hellas","developer"],["Municipality of Trento","deployer"]]});

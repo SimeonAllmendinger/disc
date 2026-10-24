@@ -1,0 +1,1 @@
+__disc("api/case/O2021-07-13-8b6d",{"id":"O2021-07-13-8b6d","event":"O2021-07-13-8b6d","date":"2021-07-13","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Fiat-Chrysler Automobiles (FCA) Italie","deployer"],["Fiat-Chrysler Automobiles (FCA) Italie","developer"]]});

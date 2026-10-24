@@ -1,0 +1,1 @@
+__disc("api/case/X1347",{"id":"X1347","event":"X1347","date":"2017-10-01","lanes":[{"cik":1759509,"name":"Lyft, Inc.","regime":"10-K","processed":true,"roles":["deployer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Sterling","developer"]]});

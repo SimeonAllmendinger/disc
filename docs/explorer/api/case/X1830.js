@@ -1,0 +1,1 @@
+__disc("api/case/X1830",{"id":"X1830","event":"X1830","date":"2024-11-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Apple, Anthropic, Meta, Nvidia, Salesforce, Bloomberg and other companies","deployer"],["Apple, Anthropic, Meta, Nvidia, Salesforce, Bloomberg and other companies","developer"]]});

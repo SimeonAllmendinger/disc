@@ -1,0 +1,1 @@
+__disc("api/case/O2021-08-17-1ca2",{"id":"O2021-08-17-1ca2","event":"O2021-08-17-1ca2","date":"2021-08-17","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Taliban","deployer"],["U.S. military","developer"]]});

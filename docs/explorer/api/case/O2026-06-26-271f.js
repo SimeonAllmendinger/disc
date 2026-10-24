@@ -1,0 +1,1 @@
+__disc("api/case/O2026-06-26-271f",{"id":"O2026-06-26-271f","event":"O2026-06-26-271f","date":"2026-06-26","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Religious Zionism party (הציונות הדתית); Bezalel Smotrich","deployer"]]});

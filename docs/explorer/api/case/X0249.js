@@ -1,0 +1,1 @@
+__disc("api/case/X0249",{"id":"X0249","event":"X0249","date":"2019-03-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["InTouch Health and iRobot","developer"],["Kaiser Permanente","deployer"]]});

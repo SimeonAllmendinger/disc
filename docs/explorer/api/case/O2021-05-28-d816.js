@@ -1,0 +1,1 @@
+__disc("api/case/O2021-05-28-d816",{"id":"O2021-05-28-d816","event":"O2021-05-28-d816","date":"2021-05-28","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Respondus, Inc","developer"],["Universidade do Minho","deployer"]]});

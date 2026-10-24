@@ -1,0 +1,1 @@
+__disc("api/case/X1938",{"id":"X1938","event":"X1938","date":"2025-04-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Anthropic","developer"],["European Parliament","deployer"]]});

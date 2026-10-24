@@ -1,0 +1,1 @@
+__disc("api/case/A00249",{"id":"A00249","event":"A00249","date":"2016-10-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Chinese government","developer"],["Chinese government (Xinjiang authorities)","deployer"]]});

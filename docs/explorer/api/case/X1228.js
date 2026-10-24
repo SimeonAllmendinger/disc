@@ -1,0 +1,1 @@
+__disc("api/case/X1228",{"id":"X1228","event":"X1228","date":"2023-11-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI; Stanford University","developer"],["University of California, Los Angeles researchers","deployer"]]});

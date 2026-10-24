@@ -1,0 +1,1 @@
+__disc("api/case/A00036",{"id":"A00036","event":"A00036","date":"2018-11-22","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Intellifusion","developer"],["Ningbo traffic police","deployer"]]});

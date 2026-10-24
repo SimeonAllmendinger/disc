@@ -1,0 +1,1 @@
+__disc("api/case/X1172",{"id":"X1172","event":"X1172","date":"2023-08-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Logically","deployer"],["Midjourney Inc., OpenAI and Stability AI","developer"]]});

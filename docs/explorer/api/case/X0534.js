@@ -1,0 +1,1 @@
+__disc("api/case/X0534",{"id":"X0534","event":"X0534","date":"2019-12-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["McKinsey & Company","developer"],["New York City Department of Correction","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A00189",{"id":"A00189","event":"A00189","date":"2019-10-15","lanes":[{"cik":1734722,"name":"UiPath, Inc.","regime":"10-K","processed":true,"roles":["developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Department for Work and Pensions (DWP)","deployer"]]});

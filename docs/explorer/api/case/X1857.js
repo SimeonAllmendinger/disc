@@ -1,0 +1,1 @@
+__disc("api/case/X1857",{"id":"X1857","event":"X1857","date":"2017-01-01","lanes":[{"cik":1639920,"name":"Spotify Technology S.A.","regime":"20-F/40-F","processed":true,"roles":["developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Spotify","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2025-07-28-ffca",{"id":"O2025-07-28-ffca","event":"O2025-07-28-ffca","date":"2025-07-28","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["GPT-4o mini; ChatGPT; Claude 3.5 Haiku","developer"],["Technical University of Applied Sciences Würzburg-Schweinfurt (THWS)","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2025-11-18-2373",{"id":"O2025-11-18-2373","event":"O2025-11-18-2373","date":"2025-11-18","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI; Character.AI","developer"]]});

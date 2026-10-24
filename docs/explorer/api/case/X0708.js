@@ -1,0 +1,1 @@
+__disc("api/case/X0708",{"id":"X0708","event":"X0708","date":"2016-10-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Cognitec","developer"],["FBI and state and local police departments","deployer"]]});

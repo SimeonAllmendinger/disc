@@ -1,0 +1,1 @@
+__disc("api/case/X1100",{"id":"X1100","event":"X1100","date":"2023-07-01","lanes":[{"cik":2004711,"name":"Bending Spoons S.p.A.","regime":"none","processed":true,"roles":["developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

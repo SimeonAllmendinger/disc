@@ -1,0 +1,1 @@
+__disc("api/case/A00441",{"id":"A00441","event":"A00441","date":"2019-06-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Ministry of Science and ICT","developer"],["South Korea's Ministry of Justice","deployer"]]});

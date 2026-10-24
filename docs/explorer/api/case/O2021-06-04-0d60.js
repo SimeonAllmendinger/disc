@@ -1,0 +1,1 @@
+__disc("api/case/O2021-06-04-0d60",{"id":"O2021-06-04-0d60","event":"O2021-06-04-0d60","date":"2021-06-04","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Iran's Quds Force","developer"]]});

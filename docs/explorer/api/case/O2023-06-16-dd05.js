@@ -1,0 +1,1 @@
+__disc("api/case/O2023-06-16-dd05",{"id":"O2023-06-16-dd05","event":"O2023-06-16-dd05","date":"2023-06-16","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["ChatGPT (and Google Bard)","developer"]]});

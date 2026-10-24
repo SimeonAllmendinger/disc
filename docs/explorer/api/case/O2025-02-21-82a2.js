@@ -1,0 +1,1 @@
+__disc("api/case/O2025-02-21-82a2",{"id":"O2025-02-21-82a2","event":"O2025-02-21-82a2","date":"2025-02-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Folha de São Paulo","deployer"],["OpenAI","developer"]]});

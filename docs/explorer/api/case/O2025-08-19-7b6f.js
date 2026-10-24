@@ -1,0 +1,1 @@
+__disc("api/case/O2025-08-19-7b6f",{"id":"O2025-08-19-7b6f","event":"O2025-08-19-7b6f","date":"2025-08-19","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Partido Liberal (PL)","deployer"]]});

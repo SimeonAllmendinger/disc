@@ -1,0 +1,1 @@
+__disc("api/case/X0438",{"id":"X0438","event":"X0438","date":"2020-06-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Huawei","developer"],["Municipality of Como","deployer"]]});

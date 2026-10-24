@@ -1,0 +1,1 @@
+__disc("api/case/O2026-07-18-6cda",{"id":"O2026-07-18-6cda","event":"O2026-07-18-6cda","date":"2026-07-18","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Temerland","developer"],["Ukraine's armed forces","deployer"]]});

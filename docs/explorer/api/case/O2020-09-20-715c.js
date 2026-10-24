@@ -1,0 +1,1 @@
+__disc("api/case/O2020-09-20-715c",{"id":"O2020-09-20-715c","event":"O2020-09-20-715c","date":"2020-09-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Chinese Ministry of Public Security; Chinese universities with police ties","deployer"],["Noldus Information Technology","developer"]]});

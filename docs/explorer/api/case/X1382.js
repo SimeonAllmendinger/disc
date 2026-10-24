@@ -1,0 +1,1 @@
+__disc("api/case/X1382",{"id":"X1382","event":"X1382","date":"2024-03-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["researchers at the Allen Institute for AI, Oxford, Stanford, LMU Munich and Chicago","deployer"]]});

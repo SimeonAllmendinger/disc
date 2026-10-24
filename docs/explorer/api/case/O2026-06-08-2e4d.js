@@ -1,0 +1,1 @@
+__disc("api/case/O2026-06-08-2e4d",{"id":"O2026-06-08-2e4d","event":"O2026-06-08-2e4d","date":"2026-06-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Da'an Sports Center (大安運動中心); Taipei City Government","deployer"],["SWIMSAFE","developer"]]});

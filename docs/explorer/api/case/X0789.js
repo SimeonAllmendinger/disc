@@ -1,0 +1,1 @@
+__disc("api/case/X0789",{"id":"X0789","event":"X0789","date":"2019-03-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Gabriele Trovato","deployer"],["Gabriele Trovato (Waseda University)","developer"]]});

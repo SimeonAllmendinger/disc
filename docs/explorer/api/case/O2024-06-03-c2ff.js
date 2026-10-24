@@ -1,0 +1,1 @@
+__disc("api/case/O2024-06-03-c2ff",{"id":"O2024-06-03-c2ff","event":"O2024-06-03-c2ff","date":"2024-06-03","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Globo (Globoplay)","deployer"]]});

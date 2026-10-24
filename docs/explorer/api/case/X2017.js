@@ -1,0 +1,1 @@
+__disc("api/case/X2017",{"id":"X2017","event":"X2017","date":"2025-08-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Character.AI","deployer"],["Character.AI","developer"]]});

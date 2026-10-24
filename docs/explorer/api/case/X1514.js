@@ -1,0 +1,1 @@
+__disc("api/case/X1514",{"id":"X1514","event":"X1514","date":"2024-06-01","lanes":[{"cik":2003292,"name":"Klarna Group plc","regime":"20-F/40-F","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

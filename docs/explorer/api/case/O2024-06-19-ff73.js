@@ -1,0 +1,1 @@
+__disc("api/case/O2024-06-19-ff73",{"id":"O2024-06-19-ff73","event":"O2024-06-19-ff73","date":"2024-06-19","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Ukrainian Defence Intelligence (GUR); Ukrainian Ministry of Defence","developer"],["Ukrainian Navy","deployer"]]});

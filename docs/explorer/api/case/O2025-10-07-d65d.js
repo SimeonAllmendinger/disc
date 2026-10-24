@@ -1,0 +1,1 @@
+__disc("api/case/O2025-10-07-d65d",{"id":"O2025-10-07-d65d","event":"O2025-10-07-d65d","date":"2025-10-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Szerencse Klub","deployer"]]});

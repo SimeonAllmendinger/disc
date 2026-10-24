@@ -1,0 +1,1 @@
+__disc("api/case/X1680",{"id":"X1680","event":"X1680","date":"2024-08-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Deep-Live-Cam open-source project","developer"]]});

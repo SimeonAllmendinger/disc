@@ -1,0 +1,1 @@
+__disc("api/case/X1802",{"id":"X1802","event":"X1802","date":"2024-10-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Mistral AI","developer"],["UCSD and Nanyang Technological University","deployer"]]});

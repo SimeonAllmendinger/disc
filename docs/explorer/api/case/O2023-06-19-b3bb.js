@@ -1,0 +1,1 @@
+__disc("api/case/O2023-06-19-b3bb",{"id":"O2023-06-19-b3bb","event":"O2023-06-19-b3bb","date":"2023-06-19","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Israeli army","deployer"]]});

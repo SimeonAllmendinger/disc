@@ -1,0 +1,1 @@
+__disc("api/case/X0596",{"id":"X0596","event":"X0596","date":"2021-04-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Bo Zhao and colleagues (University of Washington)","deployer"],["Bo Zhao and colleagues (University of Washington)","developer"]]});

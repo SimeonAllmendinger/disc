@@ -1,0 +1,1 @@
+__disc("api/case/X0829",{"id":"X0829","event":"X0829","date":"2021-10-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["GPT-2","developer"],["Jonas Bendiksen","deployer"]]});

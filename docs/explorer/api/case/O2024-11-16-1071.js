@@ -1,0 +1,1 @@
+__disc("api/case/O2024-11-16-1071",{"id":"O2024-11-16-1071","event":"O2024-11-16-1071","date":"2024-11-16","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["NORDA Dynamics","developer"],["Ukraine's armed forces","deployer"]]});

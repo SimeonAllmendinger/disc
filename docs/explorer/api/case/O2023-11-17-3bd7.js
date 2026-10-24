@@ -1,0 +1,1 @@
+__disc("api/case/O2023-11-17-3bd7",{"id":"O2023-11-17-3bd7","event":"O2023-11-17-3bd7","date":"2023-11-17","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Russian military","deployer"]]});

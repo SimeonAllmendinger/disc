@@ -1,0 +1,2817 @@
+{
+ "@context": {
+  "@language": "en",
+  "@vocab": "https://schema.org/",
+  "sc": "https://schema.org/",
+  "cr": "http://mlcommons.org/croissant/",
+  "rai": "http://mlcommons.org/croissant/RAI/",
+  "dct": "http://purl.org/dc/terms/",
+  "citeAs": "cr:citeAs",
+  "column": "cr:column",
+  "conformsTo": "dct:conformsTo",
+  "data": {
+   "@id": "cr:data",
+   "@type": "@json"
+  },
+  "dataType": {
+   "@id": "cr:dataType",
+   "@type": "@vocab"
+  },
+  "examples": {
+   "@id": "cr:examples",
+   "@type": "@json"
+  },
+  "extract": "cr:extract",
+  "field": "cr:field",
+  "fileObject": "cr:fileObject",
+  "fileProperty": "cr:fileProperty",
+  "fileSet": "cr:fileSet",
+  "format": "cr:format",
+  "includes": "cr:includes",
+  "isLiveDataset": "cr:isLiveDataset",
+  "jsonPath": "cr:jsonPath",
+  "key": "cr:key",
+  "md5": "cr:md5",
+  "parentField": "cr:parentField",
+  "path": "cr:path",
+  "recordSet": "cr:recordSet",
+  "references": "cr:references",
+  "regex": "cr:regex",
+  "repeated": "cr:repeated",
+  "replace": "cr:replace",
+  "separator": "cr:separator",
+  "source": "cr:source",
+  "subField": "cr:subField",
+  "transform": "cr:transform",
+  "equivalentProperty": "cr:equivalentProperty",
+  "samplingRate": "cr:samplingRate"
+ },
+ "@type": "sc:Dataset",
+ "conformsTo": "http://mlcommons.org/croissant/1.0",
+ "name": "DISC",
+ "alternateName": "Disclosure–Incident Securities Corpus",
+ "description": "AI incidents recorded by the AI Incident Database (AIID), the AIAAIC Repository and the OECD AI Incidents and Hazards Monitor (AIM), deduplicated into 9,001 incidents since 2016 and linked to the SEC filings of the AI actors they implicate. Incidents carry coded labels (AI actor positions, AI subject, autonomy, harm types, MIT risk type, impact layer, use); risk-factor, legal and current-report passages of 328 SEC-registered AI actors carry the same labels; and each matched incident × AI actor pair records whether disclosure anticipated the incident's risk type when the incident started and how it addressed it at the next report.",
+ "creator": [
+  {
+   "@type": "sc:Organization",
+   "name": "Anonymous authors"
+  }
+ ],
+ "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+ "citeAs": "DISC: Disclosure–Incident Securities Corpus (anonymised for review). Citation and DOI to follow.",
+ "keywords": [
+  "AI incidents",
+  "risk disclosure",
+  "SEC filings",
+  "AI accountability",
+  "MIT AI Risk Repository",
+  "OECD AI incidents"
+ ],
+ "version": "0.1.0",
+ "datePublished": "2026-10-24",
+ "rai:dataCollection": "Incidents: the AIID snapshot of 1 September 2026, the AIAAIC Repository and OECD AIM as of 8 September 2026, deduplicated across the three into incidents with record dates from 1 January 2016; OECD AIM records were screened and linked to AI actors by the coders. Disclosure: the SEC EDGAR filings of the AI actors the incidents name that file with the SEC — annual reports (10-K, 20-F, 40-F), 10-Qs and AI-related current reports (8-K, 6-K) filed 1 January 2015 – 30 September 2026 — with risk-factor sections extracted and every sentence matching the AI terms kept with its neighbours as a passage.",
+ "rai:dataCollectionType": "Web API and bulk downloads (AIID snapshots, SEC EDGAR); web scraping (AIAAIC Repository pages, OECD AIM web service).",
+ "rai:dataCollectionMissingData": "74% of incidents name no AI actor that files with the SEC and cannot be matched to disclosure; 349 more name one that cannot be matched (no annual report yet, no coded report before the harm, or none after it by 30 September 2026). When the incident started is dated for 4,276 incidents and otherwise anchored on the record date. 1,403 incident × current-report pairs have no excerpt naming AI, the incident or an adverse event and were not read. Article bodies are not released.",
+ "rai:dataCollectionRawData": "AIID incident and report records (CC BY-SA 4.0, report texts excluded), AIAAIC Repository pages (CC BY-SA 4.0), OECD AIM incident records and article metadata (OECD content under CC BY 4.0; articles remain their publishers'), and SEC EDGAR filings (public information). Licence and attribution per source: LICENSE and docs/documentation.md.",
+ "rai:dataCollectionTimeframe": [
+  "2026-09-01T00:00:00",
+  "2026-09-30T23:59:59"
+ ],
+ "rai:dataImputationProtocol": "No values are imputed. Where the start of an incident could not be dated, outcomes are anchored on the record date, and started_precision says so.",
+ "rai:dataManipulationProtocol": "Evidence quotes from news articles longer than 30 words are cut to their first 30 words and marked with an ellipsis. Autonomy codes are released under the OECD's names. No other values are altered.",
+ "rai:dataPreprocessingProtocol": "Records from the three databases are deduplicated into incidents; OECD AIM records are screened for AI involvement and linked to AI actors; AI actors are resolved to SEC registrants by CIK; risk-factor sections are extracted from filings and AI passages cut from them; near-identical passages coded differently were re-read by two blind readers.",
+ "rai:dataAnnotationProtocol": "Incidents and passages are coded against written codebooks (attribution, harm, MIT risk) by LLM coders that quote the evidence for each label. Incident labels: AI actor positions and status, AI subject, autonomy, harm types, MIT risk domain and subdomain, impact layer, intended purpose, relation and misuse, use. Passage labels: whether an AI harm is disclosed, MIT subdomains, status (hypothetical, elsewhere, materialised), harm types, subjects, whose AI, impact layers. Current reports are coded for whether they respond to an incident. Every rule change is recorded in the codebooks before the affected items are recoded.",
+ "rai:dataAnnotationPlatform": "A scripted LLM coding pipeline with written codebooks and coding packets (record text and source articles), and adjudication sheets; not a crowdsourcing platform.",
+ "rai:dataAnnotationAnalysis": "Incident labels were double-coded on a fixed tenth; Cohen's κ (curated / OECD-linked / OECD-rest): provider 0.92 / 0.86 / 0.89, deployer 0.84 / 0.66 / 0.84, MIT subdomain 0.88 / 0.89 / 0.90, subject type 0.83 / 0.76 / 0.77, impact layer 0.73 / 0.75 / 0.80. Status and autonomy disagreements were adjudicated by hand; other disagreements keep coder A's label (730 incidents). Filing passages: a 213-passage pilot was double-coded (discloses κ 0.92; status 0.97; primary MIT subdomain 0.85); the full run is single-coded. Current-report responses: a blind second reader on 735 pairs, κ 0.83, its disagreements adjudicated.",
+ "rai:dataReleaseMaintenancePlan": "Date-stamped releases, each archived with a DOI; earlier versions stay available. Maintained by the authors; corrections and takedown requests through the repository's contact, honoured within days.",
+ "rai:personalSensitiveInformation": "Incidents name people: those harmed, parties, and people in source descriptions, evidence quotes and article headlines; some incidents concern sexual deepfakes, violence, suicide or health. Public figures named for a public role keep their names. The names of private individuals and minors are replaced by \"[private individual]\" in every incident-side text field: 3,017 names in 1,641 incidents, classified by an LLM coder with a blind second reader on a tenth (κ 0.89 on kept against removed), a re-read for the rules on sexual imagery, crime, relatives and a harmed minor's family, a scan for missed minors, and an LLM reader for the 57,907 strings in other scripts that the recogniser reads badly (κ 0.94 with a blind second reader) (docs/documentation.md, Personal data). Email addresses and telephone numbers are replaced by \"[email]\" and \"[phone]\" in every text field, the SEC filing texts included (mostly press and investor contacts in current reports). URLs are kept as published, less query parameters that grant access or identify a reader (share and gift tokens, guest keys, session and subscriber ids), and can contain names. SEC filing text is otherwise the registrants' own publication and is not redacted. No demographic attributes of individuals are coded beyond the subject type.",
+ "rai:dataSocialImpact": "The data make it possible to check corporate AI risk disclosure against recorded AI harm — what AI actors anticipated, admitted and changed — which supports accountability research and policy on AI incident reporting and double materiality. Risks: LLM-coded labels can misattribute an incident to an AI actor or misjudge a disclosure, with reputational effect; every label therefore carries its evidence quote and source link, and the release is not a finding that any filing is misleading.",
+ "rai:dataBiases": "Incident databases record what the press reports: coverage favours English-language media and large, well-known companies — five AI actors are implicated in 78% of the matched incidents. OECD AIM detects incidents automatically from news. Only AI actors that file with the SEC can be matched. Both LLM coders are Anthropic models, so their agreement can overstate reliability.",
+ "rai:dataLimitations": "Incidents are a lower bound of AI harm. Each incident carries one MIT risk type while passages can name several; results at subdomain and domain level differ, most for social system harms. Annual-report and 10-Q passages are single-coded. Current reports mentioning AI were found with the AI terms before they were widened. Associations are not causal, and an unaddressed incident is not a finding that a filing is misleading. Not recommended for legal determinations, for rating individual companies, or for training classifiers without validating the labels.",
+ "rai:dataUseCases": "Research on corporate AI risk disclosure, AI accountability and AI incident reporting; auditing disclosure against recorded incidents; the DISC explorer.",
+ "rai:annotationsPerItem": "Incident labels: one LLM coder per incident, two on a fixed tenth. Passage labels: one, two on a 213-passage pilot. Current-report responses: one, two on 735 pairs.",
+ "rai:annotatorDemographics": "No human crowd annotators. Labels are produced by two LLM coders; rules and adjudications are decided by the research team and recorded in the codebooks. No annotator demographics apply.",
+ "rai:machineAnnotationTools": "Anthropic Claude Opus 5.5 (coder A) and Claude Sonnet 5.5 (coder B), prompted with the codebooks; OECD AIM's own LLM-generated labels are not used as labels.",
+ "distribution": [
+  {
+   "@type": "cr:FileObject",
+   "@id": "incidents.parquet",
+   "name": "incidents.parquet",
+   "contentUrl": "data/incidents.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "4ba1afe98f915606b0f247ce6a1833cc2ed374cd2234c4c27a34491c6d9773fe"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "incident_records.parquet",
+   "name": "incident_records.parquet",
+   "contentUrl": "data/incident_records.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "ec423f9cbd1c293215e30431499eaa102145e651a4afc79386edb1f9adb2c2b2"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "articles.parquet",
+   "name": "articles.parquet",
+   "contentUrl": "data/articles.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "ffc82c02a32f921369163f4bc62bd78d23d27833f64f7ad5a10be8d4dbc0b19b"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "source_labels.parquet",
+   "name": "source_labels.parquet",
+   "contentUrl": "data/source_labels.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "7b064177469ce4070b3cf58dec6acdf4a923daa74752f92f67944bbf3ee165c4"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "incident_actors.parquet",
+   "name": "incident_actors.parquet",
+   "contentUrl": "data/incident_actors.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "7b5feb9511fcd25ec7a40236d58320de3fd69a08820740fd90cdd64174d61a36"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "actors.parquet",
+   "name": "actors.parquet",
+   "contentUrl": "data/actors.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "43278e789090665040e35e4b122554e4d22772aa9df4aded33fd460891ebe8d5"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "evidence.parquet",
+   "name": "evidence.parquet",
+   "contentUrl": "data/evidence.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "34546c183c4121c8d65371bbf73c757f1969f9262a00117d2f1a2d4d8ae9013b"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "filings.parquet",
+   "name": "filings.parquet",
+   "contentUrl": "data/filings.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "0da13d39a2aafd8d77042e18df9079dccbb2b87b9f00c2575a91c7ad2d344de8"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "passages.parquet",
+   "name": "passages.parquet",
+   "contentUrl": "data/passages.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "8ae88da05eb39ee4db0431a4e058cbfcb4f4a0810f1618c5ed02332a01e06229"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "passage_filings.parquet",
+   "name": "passage_filings.parquet",
+   "contentUrl": "data/passage_filings.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "249f7d8ee8efab019152a3cc8f122d86412249453a530ced286c4ad19a9fe9d7"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "passage_codes.parquet",
+   "name": "passage_codes.parquet",
+   "contentUrl": "data/passage_codes.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "db500ae78d61b8a0fd10dfc4c494065a3f6a9d9183171b2a56f21aedf8e16a3d"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "passage_evidence.parquet",
+   "name": "passage_evidence.parquet",
+   "contentUrl": "data/passage_evidence.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "65e5fa854ac303d4ec76889e88372c224abf788c37ed5da268a7477134ef973d"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "outcomes.parquet",
+   "name": "outcomes.parquet",
+   "contentUrl": "data/outcomes.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "0a65bcfb6c1b2024a793a578b40343dc0a9eb7c58e30ffec94d48da2d342456a"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "responses.parquet",
+   "name": "responses.parquet",
+   "contentUrl": "data/responses.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "79cbe26a6daf31fead55055130983b5b1f46583ab2fc13678dd9729561195e17"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "reported_references.parquet",
+   "name": "reported_references.parquet",
+   "contentUrl": "data/reported_references.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "a967cea37af400ebce9f53eeb7d365a47be997cbcdf280ca414d7185e20ba68e"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "revisions.parquet",
+   "name": "revisions.parquet",
+   "contentUrl": "data/revisions.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "013a07130cc04942f8c21f48649f7c1d8335c8cb4ca665e1268e74c13babc67e"
+  },
+  {
+   "@type": "cr:FileSet",
+   "@id": "risk_factor_sections-files",
+   "name": "risk_factor_sections-files",
+   "encodingFormat": "application/x-parquet",
+   "includes": "data/risk_factor_sections_*.parquet"
+  },
+  {
+   "@type": "cr:FileObject",
+   "@id": "mit_taxonomy.parquet",
+   "name": "mit_taxonomy.parquet",
+   "contentUrl": "data/mit_taxonomy.parquet",
+   "encodingFormat": "application/x-parquet",
+   "sha256": "dbe296c88bbd9698d03b1dd2c1412231ee95013ec1dbd42c1411430784d444b4"
+  }
+ ],
+ "recordSet": [
+  {
+   "@type": "cr:RecordSet",
+   "@id": "incidents",
+   "name": "incidents",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/incident_id",
+     "name": "incident_id",
+     "description": "key",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "incident_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/title",
+     "name": "title",
+     "description": "title, from the incident's first record",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "title"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/in_aiid",
+     "name": "in_aiid",
+     "description": "AIID records the incident",
+     "dataType": "sc:Boolean",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "in_aiid"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/in_aiaaic",
+     "name": "in_aiaaic",
+     "description": "AIAAIC records the incident",
+     "dataType": "sc:Boolean",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "in_aiaaic"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/in_oecd",
+     "name": "in_oecd",
+     "description": "OECD AIM records the incident",
+     "dataType": "sc:Boolean",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "in_oecd"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/record_date",
+     "name": "record_date",
+     "description": "date of the earliest record",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "record_date"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/record_date_basis",
+     "name": "record_date_basis",
+     "description": "source of the record date: aiid, aiaaic, oecd, corrected",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "record_date_basis"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/record_date_precision",
+     "name": "record_date_precision",
+     "description": "day, month, year",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "record_date_precision"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/started",
+     "name": "started",
+     "description": "when the incident started",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "started"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/started_precision",
+     "name": "started_precision",
+     "description": "day, month, year, unknown",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "started_precision"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/started_bound",
+     "name": "started_bound",
+     "description": "exact, or no_later_than (the incident had started by this date)",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "started_bound"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/deployer_status",
+     "name": "deployer_status",
+     "description": "named, described, unknown, personal_use",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "deployer_status"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/provider_status",
+     "name": "provider_status",
+     "description": "named, described, unknown",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "provider_status"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/upstream_provider_status",
+     "name": "upstream_provider_status",
+     "description": "named, described, unknown",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "upstream_provider_status"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/subject_status",
+     "name": "subject_status",
+     "description": "named, described, no_harm, unknown",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "subject_status"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/subject_type",
+     "name": "subject_type",
+     "description": "AI subject type: Individual, Group of persons, Society, Organization, Nature, Other",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "subject_type"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/subject_who",
+     "name": "subject_who",
+     "description": "who was harmed, in the coder's words",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "subject_who"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/autonomy_level",
+     "name": "autonomy_level",
+     "description": "action autonomy: human support, human-in-the-loop, human-on-the-loop, human-out-of-the-loop, unknown",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "autonomy_level"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/harm_types",
+     "name": "harm_types",
+     "description": "OECD harm types",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "harm_types"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/mit_domain",
+     "name": "mit_domain",
+     "description": "MIT risk domain (1–7)",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "mit_domain"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/mit_subdomain",
+     "name": "mit_subdomain",
+     "description": "MIT risk subdomain: the risk type",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "mit_subdomain"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/impact_layer",
+     "name": "impact_layer",
+     "description": "capability, human_interaction, systemic",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "impact_layer"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/intended_purpose",
+     "name": "intended_purpose",
+     "description": "what the AI system is for, in the coder's words",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "intended_purpose"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/relation",
+     "name": "relation",
+     "description": "within_purpose, misuse, unclear",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "relation"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/misuse_by",
+     "name": "misuse_by",
+     "description": "deployer, user, third_party, where the use was misuse",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "misuse_by"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/use_capability",
+     "name": "use_capability",
+     "description": "what the AI system does, as a capability verb (Herdel et al., 2024)",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "use_capability"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/use_technique",
+     "name": "use_technique",
+     "description": "the AI technique, as a class of the VAIR vocabulary (Golpayegani et al., 2023)",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "use_technique"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/use_domains",
+     "name": "use_domains",
+     "description": "the domain of the use, one or two (Herdel et al., 2024)",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "use_domains"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/answers_for",
+     "name": "answers_for",
+     "description": "who answers for the incident: SEC registrant (annual report in force, or none yet), private AI company, other company not SEC-registered, public body, person (personal use), no AI actor named",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "answers_for"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/matched",
+     "name": "matched",
+     "description": "the incident is matched",
+     "dataType": "sc:Boolean",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "matched"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/where",
+     "name": "where",
+     "description": "for unmatched incidents, the reason",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "where"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/quadrant",
+     "name": "quadrant",
+     "description": "Covered, Fixed, Dropped, Missed; empty if unmatched",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "quadrant"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/how",
+     "name": "how",
+     "description": "outcome: Reported, Revised, Retained, Added, Removed, Absent",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "how"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/unaddressed_kind",
+     "name": "unaddressed_kind",
+     "description": "for Missed and Dropped: No disclosure, Incomplete disclosure",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "unaddressed_kind"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "incident_records",
+   "name": "incident_records",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "incident_records/record_id",
+     "name": "record_id",
+     "description": "AIID incident number, AIAAIC id or OECD AIM id",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incident_records.parquet"
+      },
+      "extract": {
+       "column": "record_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_records/incident_id",
+     "name": "incident_id",
+     "description": "the incident",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incident_records.parquet"
+      },
+      "extract": {
+       "column": "incident_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_records/source",
+     "name": "source",
+     "description": "aiid, aiaaic, oecd",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incident_records.parquet"
+      },
+      "extract": {
+       "column": "source"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_records/url",
+     "name": "url",
+     "description": "the record's page",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incident_records.parquet"
+      },
+      "extract": {
+       "column": "url"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_records/record_title",
+     "name": "record_title",
+     "description": "the record's title",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incident_records.parquet"
+      },
+      "extract": {
+       "column": "record_title"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_records/record_date",
+     "name": "record_date",
+     "description": "the record's date",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "incident_records.parquet"
+      },
+      "extract": {
+       "column": "record_date"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_records/description",
+     "name": "description",
+     "description": "AIID description, AIAAIC summary or OECD AIM summary",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incident_records.parquet"
+      },
+      "extract": {
+       "column": "description"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_records/n_articles",
+     "name": "n_articles",
+     "description": "articles linked to the record",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileObject": {
+       "@id": "incident_records.parquet"
+      },
+      "extract": {
+       "column": "n_articles"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "articles",
+   "name": "articles",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "articles/incident_id",
+     "name": "incident_id",
+     "description": "the incident",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "articles.parquet"
+      },
+      "extract": {
+       "column": "incident_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "articles/record_id",
+     "name": "record_id",
+     "description": "the record that links the article; empty where found by search",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "articles.parquet"
+      },
+      "extract": {
+       "column": "record_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "articles/source",
+     "name": "source",
+     "description": "aiid, aiaaic, oecd, search",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "articles.parquet"
+      },
+      "extract": {
+       "column": "source"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "articles/kind",
+     "name": "kind",
+     "description": "report, news, legal, other, article",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "articles.parquet"
+      },
+      "extract": {
+       "column": "kind"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "articles/url",
+     "name": "url",
+     "description": "the article",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "articles.parquet"
+      },
+      "extract": {
+       "column": "url"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "articles/article_title",
+     "name": "article_title",
+     "description": "headline",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "articles.parquet"
+      },
+      "extract": {
+       "column": "article_title"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "articles/publisher",
+     "name": "publisher",
+     "description": "outlet, else the URL's domain",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "articles.parquet"
+      },
+      "extract": {
+       "column": "publisher"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "articles/published",
+     "name": "published",
+     "description": "publication date, where given",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "articles.parquet"
+      },
+      "extract": {
+       "column": "published"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "articles/ref",
+     "name": "ref",
+     "description": "`R1`, `R2` … where the coders read the article; the target of `evidence.ref`",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "articles.parquet"
+      },
+      "extract": {
+       "column": "ref"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "source_labels",
+   "name": "source_labels",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "source_labels/incident_id",
+     "name": "incident_id",
+     "description": "the incident",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "source_labels.parquet"
+      },
+      "extract": {
+       "column": "incident_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "source_labels/record_id",
+     "name": "record_id",
+     "description": "the record",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "source_labels.parquet"
+      },
+      "extract": {
+       "column": "record_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "source_labels/source",
+     "name": "source",
+     "description": "aiid, oecd, aiaaic",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "source_labels.parquet"
+      },
+      "extract": {
+       "column": "source"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "source_labels/label",
+     "name": "label",
+     "description": "the database's label name",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "source_labels.parquet"
+      },
+      "extract": {
+       "column": "label"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "source_labels/value",
+     "name": "value",
+     "description": "the database's value or values",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "source_labels.parquet"
+      },
+      "extract": {
+       "column": "value"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "incident_actors",
+   "name": "incident_actors",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "incident_actors/incident_id",
+     "name": "incident_id",
+     "description": "the incident",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incident_actors.parquet"
+      },
+      "extract": {
+       "column": "incident_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_actors/position",
+     "name": "position",
+     "description": "deployer, provider, upstream_provider",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incident_actors.parquet"
+      },
+      "extract": {
+       "column": "position"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_actors/status",
+     "name": "status",
+     "description": "named, described, unknown, personal_use",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incident_actors.parquet"
+      },
+      "extract": {
+       "column": "status"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_actors/party",
+     "name": "party",
+     "description": "the party, as named or described",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incident_actors.parquet"
+      },
+      "extract": {
+       "column": "party"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_actors/acting_as",
+     "name": "acting_as",
+     "description": "what the party did, in the coder's words",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incident_actors.parquet"
+      },
+      "extract": {
+       "column": "acting_as"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_actors/actor_id",
+     "name": "actor_id",
+     "description": "the AI actor in `actors`, where resolved",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incident_actors.parquet"
+      },
+      "extract": {
+       "column": "actor_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_actors/cik",
+     "name": "cik",
+     "description": "SEC CIK, where the party files with the SEC",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileObject": {
+       "@id": "incident_actors.parquet"
+      },
+      "extract": {
+       "column": "cik"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incident_actors/link",
+     "name": "link",
+     "description": "asserted (a database names it) or coded (the coders named it)",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incident_actors.parquet"
+      },
+      "extract": {
+       "column": "link"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "actors",
+   "name": "actors",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "actors/actor_id",
+     "name": "actor_id",
+     "description": "key",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "actors.parquet"
+      },
+      "extract": {
+       "column": "actor_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "actors/name",
+     "name": "name",
+     "description": "name",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "actors.parquet"
+      },
+      "extract": {
+       "column": "name"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "actors/entity_type",
+     "name": "entity_type",
+     "description": "organisation, person",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "actors.parquet"
+      },
+      "extract": {
+       "column": "entity_type"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "actors/aliases",
+     "name": "aliases",
+     "description": "other names it appears under",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "actors.parquet"
+      },
+      "extract": {
+       "column": "aliases"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "actors/cik",
+     "name": "cik",
+     "description": "SEC CIK, where it files with the SEC",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileObject": {
+       "@id": "actors.parquet"
+      },
+      "extract": {
+       "column": "cik"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "actors/sec_name",
+     "name": "sec_name",
+     "description": "its name at the SEC",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "actors.parquet"
+      },
+      "extract": {
+       "column": "sec_name"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "actors/regime",
+     "name": "regime",
+     "description": "the annual form it files: 10-K, 20-F/40-F, none",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "actors.parquet"
+      },
+      "extract": {
+       "column": "regime"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "actors/eu_ai_act_roles",
+     "name": "eu_ai_act_roles",
+     "description": "provider or deployer, in EU AI Act terms",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "actors.parquet"
+      },
+      "extract": {
+       "column": "eu_ai_act_roles"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "actors/n_incidents",
+     "name": "n_incidents",
+     "description": "incidents it is named in",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileObject": {
+       "@id": "actors.parquet"
+      },
+      "extract": {
+       "column": "n_incidents"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "actors/aiid_entity_ids",
+     "name": "aiid_entity_ids",
+     "description": "AIID entity ids",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "actors.parquet"
+      },
+      "extract": {
+       "column": "aiid_entity_ids"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "evidence",
+   "name": "evidence",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "evidence/incident_id",
+     "name": "incident_id",
+     "description": "the incident",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "evidence.parquet"
+      },
+      "extract": {
+       "column": "incident_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "evidence/label",
+     "name": "label",
+     "description": "the column of `incidents` the quote supports",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "evidence.parquet"
+      },
+      "extract": {
+       "column": "label"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "evidence/quote",
+     "name": "quote",
+     "description": "the span the label rests on, at most about 30 words",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "evidence.parquet"
+      },
+      "extract": {
+       "column": "quote"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "evidence/ref",
+     "name": "ref",
+     "description": "`record` (the database record) or `R1`, `R2` … (`articles.ref`)",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "evidence.parquet"
+      },
+      "extract": {
+       "column": "ref"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "filings",
+   "name": "filings",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "filings/accession",
+     "name": "accession",
+     "description": "SEC accession number; key with `cik`",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "filings.parquet"
+      },
+      "extract": {
+       "column": "accession"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "filings/cik",
+     "name": "cik",
+     "description": "SEC CIK of the filer",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileObject": {
+       "@id": "filings.parquet"
+      },
+      "extract": {
+       "column": "cik"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "filings/form",
+     "name": "form",
+     "description": "10-K, 20-F, 40-F, 10-Q, 8-K, 6-K, DEF 14A",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "filings.parquet"
+      },
+      "extract": {
+       "column": "form"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "filings/filing_date",
+     "name": "filing_date",
+     "description": "filing date",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "filings.parquet"
+      },
+      "extract": {
+       "column": "filing_date"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "filings/report_date",
+     "name": "report_date",
+     "description": "the period the filing covers",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "filings.parquet"
+      },
+      "extract": {
+       "column": "report_date"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "filings/url",
+     "name": "url",
+     "description": "the primary document on EDGAR",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "filings.parquet"
+      },
+      "extract": {
+       "column": "url"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "filings/items",
+     "name": "items",
+     "description": "8-K items, where reported",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "filings.parquet"
+      },
+      "extract": {
+       "column": "items"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "filings/risk_factor_words",
+     "name": "risk_factor_words",
+     "description": "words in the risk-factor section",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileObject": {
+       "@id": "filings.parquet"
+      },
+      "extract": {
+       "column": "risk_factor_words"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "passages",
+   "name": "passages",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "passages/passage_id",
+     "name": "passage_id",
+     "description": "key: a hash of the text",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "passages.parquet"
+      },
+      "extract": {
+       "column": "passage_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passages/cik",
+     "name": "cik",
+     "description": "the filer",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileObject": {
+       "@id": "passages.parquet"
+      },
+      "extract": {
+       "column": "cik"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passages/channel",
+     "name": "channel",
+     "description": "annual risk factors, 10-Q risk factors, legal, current report",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "passages.parquet"
+      },
+      "extract": {
+       "column": "channel"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passages/first_filed",
+     "name": "first_filed",
+     "description": "the first filing that carries the text",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "passages.parquet"
+      },
+      "extract": {
+       "column": "first_filed"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passages/text",
+     "name": "text",
+     "description": "the passage",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "passages.parquet"
+      },
+      "extract": {
+       "column": "text"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "passage_filings",
+   "name": "passage_filings",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "passage_filings/passage_id",
+     "name": "passage_id",
+     "description": "the passage",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "passage_filings.parquet"
+      },
+      "extract": {
+       "column": "passage_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_filings/accession",
+     "name": "accession",
+     "description": "a filing that carries it",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "passage_filings.parquet"
+      },
+      "extract": {
+       "column": "accession"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_filings/form",
+     "name": "form",
+     "description": "the filing's form",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "passage_filings.parquet"
+      },
+      "extract": {
+       "column": "form"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_filings/filing_date",
+     "name": "filing_date",
+     "description": "the filing's date",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "passage_filings.parquet"
+      },
+      "extract": {
+       "column": "filing_date"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "passage_codes",
+   "name": "passage_codes",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "passage_codes/passage_id",
+     "name": "passage_id",
+     "description": "the passage",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "passage_codes.parquet"
+      },
+      "extract": {
+       "column": "passage_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_codes/discloses",
+     "name": "discloses",
+     "description": "ai_harm, business_only",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "passage_codes.parquet"
+      },
+      "extract": {
+       "column": "discloses"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_codes/mit_subdomains",
+     "name": "mit_subdomains",
+     "description": "every risk type the passage names",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "passage_codes.parquet"
+      },
+      "extract": {
+       "column": "mit_subdomains"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_codes/mit_primary",
+     "name": "mit_primary",
+     "description": "the risk type the passage is chiefly about",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "passage_codes.parquet"
+      },
+      "extract": {
+       "column": "mit_primary"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_codes/status",
+     "name": "status",
+     "description": "hypothetical, elsewhere, materialised",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "passage_codes.parquet"
+      },
+      "extract": {
+       "column": "status"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_codes/harm_types",
+     "name": "harm_types",
+     "description": "OECD harm types",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "passage_codes.parquet"
+      },
+      "extract": {
+       "column": "harm_types"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_codes/subjects",
+     "name": "subjects",
+     "description": "`name:type` for each AI subject the passage names",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "passage_codes.parquet"
+      },
+      "extract": {
+       "column": "subjects"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_codes/registrant_harmed",
+     "name": "registrant_harmed",
+     "description": "the passage names a harm to the AI actor itself",
+     "dataType": "sc:Boolean",
+     "source": {
+      "fileObject": {
+       "@id": "passage_codes.parquet"
+      },
+      "extract": {
+       "column": "registrant_harmed"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_codes/whose_ai",
+     "name": "whose_ai",
+     "description": "own, others, general",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "passage_codes.parquet"
+      },
+      "extract": {
+       "column": "whose_ai"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_codes/impact_layers",
+     "name": "impact_layers",
+     "description": "capability, human_interaction, systemic",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "passage_codes.parquet"
+      },
+      "extract": {
+       "column": "impact_layers"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_codes/relation",
+     "name": "relation",
+     "description": "within_purpose, misuse, unclear",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "passage_codes.parquet"
+      },
+      "extract": {
+       "column": "relation"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_codes/misuse_by",
+     "name": "misuse_by",
+     "description": "deployer, user, third_party",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "passage_codes.parquet"
+      },
+      "extract": {
+       "column": "misuse_by"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "passage_evidence",
+   "name": "passage_evidence",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "passage_evidence/passage_id",
+     "name": "passage_id",
+     "description": "the passage",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "passage_evidence.parquet"
+      },
+      "extract": {
+       "column": "passage_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_evidence/label",
+     "name": "label",
+     "description": "the label the quote supports, e.g. `mit:7.3`, `status`",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "passage_evidence.parquet"
+      },
+      "extract": {
+       "column": "label"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "passage_evidence/quote",
+     "name": "quote",
+     "description": "the span of the passage",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "passage_evidence.parquet"
+      },
+      "extract": {
+       "column": "quote"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "outcomes",
+   "name": "outcomes",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "outcomes/incident_id",
+     "name": "incident_id",
+     "description": "the matched incident",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "outcomes.parquet"
+      },
+      "extract": {
+       "column": "incident_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "outcomes/cik",
+     "name": "cik",
+     "description": "the implicated AI actor",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileObject": {
+       "@id": "outcomes.parquet"
+      },
+      "extract": {
+       "column": "cik"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "outcomes/started_used",
+     "name": "started_used",
+     "description": "the date the outcome is read at",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "outcomes.parquet"
+      },
+      "extract": {
+       "column": "started_used"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "outcomes/anticipated",
+     "name": "anticipated",
+     "description": "the risk type was in force when the incident started",
+     "dataType": "sc:Boolean",
+     "source": {
+      "fileObject": {
+       "@id": "outcomes.parquet"
+      },
+      "extract": {
+       "column": "anticipated"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "outcomes/anticipating_passages",
+     "name": "anticipating_passages",
+     "description": "the passages in force that name the risk type",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "outcomes.parquet"
+      },
+      "extract": {
+       "column": "anticipating_passages"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "outcomes/how",
+     "name": "how",
+     "description": "Reported, Revised, Retained, Added, Removed, Absent",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "outcomes.parquet"
+      },
+      "extract": {
+       "column": "how"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "outcomes/decided_by",
+     "name": "decided_by",
+     "description": "accession of the deciding filing: the responding current filing or the next periodic filing",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "outcomes.parquet"
+      },
+      "extract": {
+       "column": "decided_by"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "outcomes/decided_on",
+     "name": "decided_on",
+     "description": "its filing date",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "outcomes.parquet"
+      },
+      "extract": {
+       "column": "decided_on"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "outcomes/days",
+     "name": "days",
+     "description": "days from when the incident started to `decided_on`",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileObject": {
+       "@id": "outcomes.parquet"
+      },
+      "extract": {
+       "column": "days"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "outcomes/current_reports",
+     "name": "current_reports",
+     "description": "read, or open (the window for current filings had not closed)",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "outcomes.parquet"
+      },
+      "extract": {
+       "column": "current_reports"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "responses",
+   "name": "responses",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "responses/incident_id",
+     "name": "incident_id",
+     "description": "the incident",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "responses.parquet"
+      },
+      "extract": {
+       "column": "incident_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "responses/cik",
+     "name": "cik",
+     "description": "the AI actor",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileObject": {
+       "@id": "responses.parquet"
+      },
+      "extract": {
+       "column": "cik"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "responses/accession",
+     "name": "accession",
+     "description": "the current filing",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "responses.parquet"
+      },
+      "extract": {
+       "column": "accession"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "responses/form",
+     "name": "form",
+     "description": "8-K, 6-K",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "responses.parquet"
+      },
+      "extract": {
+       "column": "form"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "responses/filing_date",
+     "name": "filing_date",
+     "description": "filing date",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "responses.parquet"
+      },
+      "extract": {
+       "column": "filing_date"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "responses/items",
+     "name": "items",
+     "description": "8-K items",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "responses.parquet"
+      },
+      "extract": {
+       "column": "items"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "responses/days_from_record",
+     "name": "days_from_record",
+     "description": "days from the record date to the filing",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileObject": {
+       "@id": "responses.parquet"
+      },
+      "extract": {
+       "column": "days_from_record"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "responses/read",
+     "name": "read",
+     "description": "the filing names AI, the incident or an adverse event and was read",
+     "dataType": "sc:Boolean",
+     "source": {
+      "fileObject": {
+       "@id": "responses.parquet"
+      },
+      "extract": {
+       "column": "read"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "responses/responds",
+     "name": "responds",
+     "description": "the filing responds to the incident",
+     "dataType": "sc:Boolean",
+     "source": {
+      "fileObject": {
+       "@id": "responses.parquet"
+      },
+      "extract": {
+       "column": "responds"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "responses/quote",
+     "name": "quote",
+     "description": "the responding sentence",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "responses.parquet"
+      },
+      "extract": {
+       "column": "quote"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "reported_references",
+   "name": "reported_references",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "reported_references/incident_id",
+     "name": "incident_id",
+     "description": "the incident",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "reported_references.parquet"
+      },
+      "extract": {
+       "column": "incident_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "reported_references/cik",
+     "name": "cik",
+     "description": "the AI actor",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileObject": {
+       "@id": "reported_references.parquet"
+      },
+      "extract": {
+       "column": "cik"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "reported_references/passage_id",
+     "name": "passage_id",
+     "description": "the passage saying the risk type materialised",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "reported_references.parquet"
+      },
+      "extract": {
+       "column": "passage_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "reported_references/channel",
+     "name": "channel",
+     "description": "risk factors, legal, current report",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "reported_references.parquet"
+      },
+      "extract": {
+       "column": "channel"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "reported_references/date",
+     "name": "date",
+     "description": "filing date of the passage",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "reported_references.parquet"
+      },
+      "extract": {
+       "column": "date"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "reported_references/label_a",
+     "name": "label_a",
+     "description": "first reader: this_incident, includes, other",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "reported_references.parquet"
+      },
+      "extract": {
+       "column": "label_a"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "reported_references/label_b",
+     "name": "label_b",
+     "description": "second reader, same scale",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "reported_references.parquet"
+      },
+      "extract": {
+       "column": "label_b"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "reported_references/reported",
+     "name": "reported",
+     "description": "date the passage refers to this incident",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "reported_references.parquet"
+      },
+      "extract": {
+       "column": "reported"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "reported_references/reported_incl",
+     "name": "reported_incl",
+     "description": "the same, counting passages that include it among others",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "reported_references.parquet"
+      },
+      "extract": {
+       "column": "reported_incl"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "revisions",
+   "name": "revisions",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "revisions/unit_id",
+     "name": "unit_id",
+     "description": "the revised passage (`passages.passage_id`)",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "revisions.parquet"
+      },
+      "extract": {
+       "column": "unit_id"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "revisions/replaces",
+     "name": "replaces",
+     "description": "the earlier passage of the same risk type it replaces",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "revisions.parquet"
+      },
+      "extract": {
+       "column": "replaces"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "revisions/cik",
+     "name": "cik",
+     "description": "the AI actor",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileObject": {
+       "@id": "revisions.parquet"
+      },
+      "extract": {
+       "column": "cik"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "revisions/about",
+     "name": "about",
+     "description": "what the revision is about",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "revisions.parquet"
+      },
+      "extract": {
+       "column": "about"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "revisions/domain_of_change",
+     "name": "domain_of_change",
+     "description": "MIT domains the revision touches",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "revisions.parquet"
+      },
+      "extract": {
+       "column": "domain_of_change"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "revisions/revision_types",
+     "name": "revision_types",
+     "description": "`incident_id:revision_type` for each incident the revision is read against: incident_specific, risk_type_specific, unspecific",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "revisions.parquet"
+      },
+      "extract": {
+       "column": "revision_types"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "revisions/domains_before",
+     "name": "domains_before",
+     "description": "MIT domains the passage named before",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "revisions.parquet"
+      },
+      "extract": {
+       "column": "domains_before"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "revisions/domains_after",
+     "name": "domains_after",
+     "description": "MIT domains it names after",
+     "dataType": "sc:Text",
+     "repeated": true,
+     "source": {
+      "fileObject": {
+       "@id": "revisions.parquet"
+      },
+      "extract": {
+       "column": "domains_after"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "risk_factor_sections",
+   "name": "risk_factor_sections",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "risk_factor_sections/accession",
+     "name": "accession",
+     "description": "the filing",
+     "dataType": "sc:Text",
+     "source": {
+      "fileSet": {
+       "@id": "risk_factor_sections-files"
+      },
+      "extract": {
+       "column": "accession"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "risk_factor_sections/cik",
+     "name": "cik",
+     "description": "the filer",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileSet": {
+       "@id": "risk_factor_sections-files"
+      },
+      "extract": {
+       "column": "cik"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "risk_factor_sections/form",
+     "name": "form",
+     "description": "form",
+     "dataType": "sc:Text",
+     "source": {
+      "fileSet": {
+       "@id": "risk_factor_sections-files"
+      },
+      "extract": {
+       "column": "form"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "risk_factor_sections/filing_date",
+     "name": "filing_date",
+     "description": "filing date",
+     "dataType": "sc:Date",
+     "source": {
+      "fileSet": {
+       "@id": "risk_factor_sections-files"
+      },
+      "extract": {
+       "column": "filing_date"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "risk_factor_sections/report_date",
+     "name": "report_date",
+     "description": "the period the filing covers",
+     "dataType": "sc:Date",
+     "source": {
+      "fileSet": {
+       "@id": "risk_factor_sections-files"
+      },
+      "extract": {
+       "column": "report_date"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "risk_factor_sections/section",
+     "name": "section",
+     "description": "risk_factors, business, ai_excerpt",
+     "dataType": "sc:Text",
+     "source": {
+      "fileSet": {
+       "@id": "risk_factor_sections-files"
+      },
+      "extract": {
+       "column": "section"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "risk_factor_sections/method",
+     "name": "method",
+     "description": "how it was extracted",
+     "dataType": "sc:Text",
+     "source": {
+      "fileSet": {
+       "@id": "risk_factor_sections-files"
+      },
+      "extract": {
+       "column": "method"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "risk_factor_sections/words",
+     "name": "words",
+     "description": "words",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileSet": {
+       "@id": "risk_factor_sections-files"
+      },
+      "extract": {
+       "column": "words"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "risk_factor_sections/sentences",
+     "name": "sentences",
+     "description": "sentences",
+     "dataType": "sc:Integer",
+     "source": {
+      "fileSet": {
+       "@id": "risk_factor_sections-files"
+      },
+      "extract": {
+       "column": "sentences"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "risk_factor_sections/url",
+     "name": "url",
+     "description": "the document on EDGAR",
+     "dataType": "sc:Text",
+     "source": {
+      "fileSet": {
+       "@id": "risk_factor_sections-files"
+      },
+      "extract": {
+       "column": "url"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "risk_factor_sections/text",
+     "name": "text",
+     "description": "the section",
+     "dataType": "sc:Text",
+     "source": {
+      "fileSet": {
+       "@id": "risk_factor_sections-files"
+      },
+      "extract": {
+       "column": "text"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "cr:RecordSet",
+   "@id": "mit_taxonomy",
+   "name": "mit_taxonomy",
+   "field": [
+    {
+     "@type": "cr:Field",
+     "@id": "mit_taxonomy/code",
+     "name": "code",
+     "description": "MIT subdomain code, e.g. 7.3",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "mit_taxonomy.parquet"
+      },
+      "extract": {
+       "column": "code"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "mit_taxonomy/name",
+     "name": "name",
+     "description": "subdomain name",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "mit_taxonomy.parquet"
+      },
+      "extract": {
+       "column": "name"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "mit_taxonomy/domain",
+     "name": "domain",
+     "description": "MIT domain code",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "mit_taxonomy.parquet"
+      },
+      "extract": {
+       "column": "domain"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "mit_taxonomy/domain_name",
+     "name": "domain_name",
+     "description": "domain name",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "mit_taxonomy.parquet"
+      },
+      "extract": {
+       "column": "domain_name"
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+__disc("api/case/A00238",{"id":"A00238","event":"A00238","date":"2018-10-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Oregon Department of Human Services","deployer"],["Oregon Department of Human Services","developer"]]});

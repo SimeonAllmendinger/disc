@@ -1,0 +1,1 @@
+__disc("api/case/X1715",{"id":"X1715","event":"X1715","date":"2023-04-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Turnitin, GPT Zero, Compilatio and the other detection-tool makers","developer"],["researchers led by Debora Weber-Wulff (HTW Berlin)","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/X1364",{"id":"X1364","event":"X1364","date":"2024-02-27","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["AI Democracy Projects","deployer"],["OpenAI, Meta, Google, Anthropic and Mistral","developer"]]});

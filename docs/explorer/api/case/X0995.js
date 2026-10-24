@@ -1,0 +1,1 @@
+__disc("api/case/X0995",{"id":"X0995","event":"X0995","date":"2023-04-18","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Character AI","developer"],["Die Aktuelle","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A00482",{"id":"A00482","event":"A00482","date":"2023-02-16","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["Peabody College Office of Equity, Diversity and Inclusion, Vanderbilt University","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/X0454",{"id":"X0454","event":"X0454","date":"2020-05-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Indian government","deployer"],["National Informatics Centre (NIC)","developer"]]});

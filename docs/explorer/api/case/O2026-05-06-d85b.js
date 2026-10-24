@@ -1,0 +1,1 @@
+__disc("api/case/O2026-05-06-d85b",{"id":"O2026-05-06-d85b","event":"O2026-05-06-d85b","date":"2026-05-06","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Polícia Rodoviária Federal (PRF)","deployer"]]});

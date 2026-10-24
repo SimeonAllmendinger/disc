@@ -1,0 +1,1 @@
+__disc("api/case/X1691",{"id":"X1691","event":"X1691","date":"2024-08-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Dong-A Publishing","developer"],["South Korea's Education Ministry","deployer"]]});

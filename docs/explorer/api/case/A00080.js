@@ -1,0 +1,1 @@
+__disc("api/case/A00080",{"id":"A00080","event":"A00080","date":"2020-10-24","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Inverness Caledonian Thistle FC","deployer"],["Pixellot","developer"]]});

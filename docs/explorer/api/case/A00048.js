@@ -1,0 +1,1 @@
+__disc("api/case/A00048",{"id":"A00048","event":"A00048","date":"2016-12-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["New Zealand Department of Internal Affairs","deployer"]]});

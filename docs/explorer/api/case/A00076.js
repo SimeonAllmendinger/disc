@@ -1,0 +1,1 @@
+__disc("api/case/A00076",{"id":"A00076","event":"A00076","date":"2019-04-24","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Buenos Aires city government","deployer"],["Danaide S.A.","developer"]]});

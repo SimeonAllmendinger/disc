@@ -1,0 +1,1 @@
+__disc("api/case/A00051",{"id":"A00051","event":"A00051","date":"2016-07-12","lanes":[{"cik":1600983,"name":"Knightscope, Inc.","regime":"10-K","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

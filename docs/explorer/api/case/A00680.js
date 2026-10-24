@@ -1,0 +1,1 @@
+__disc("api/case/A00680",{"id":"A00680","event":"A00680","date":"2024-03-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["CopyCop","deployer"],["OpenAI","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2023-03-28-7c1e",{"id":"O2023-03-28-7c1e","event":"O2023-03-28-7c1e","date":"2023-03-28","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["Clearview AI; US police","deployer"]]});

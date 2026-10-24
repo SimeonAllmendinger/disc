@@ -1,0 +1,1 @@
+__disc("api/case/O2020-08-13-601d",{"id":"O2020-08-13-601d","event":"O2020-08-13-601d","date":"2020-08-13","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Landeskriminalamt NRW","deployer"]]});

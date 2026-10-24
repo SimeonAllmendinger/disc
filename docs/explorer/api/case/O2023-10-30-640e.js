@@ -1,0 +1,1 @@
+__disc("api/case/O2023-10-30-640e",{"id":"O2023-10-30-640e","event":"O2023-10-30-640e","date":"2023-10-30","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Government of Ghana; Government of Nigeria","deployer"],["Huawei; ZTE","developer"]]});

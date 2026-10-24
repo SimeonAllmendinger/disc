@@ -1,0 +1,1 @@
+__disc("api/case/A01362",{"id":"A01362","event":"A01362","date":"2026-01-10","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["U.S. Customs and Border Protection (Border Patrol)","deployer"]]});

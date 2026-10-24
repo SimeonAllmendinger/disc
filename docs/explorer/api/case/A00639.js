@@ -1,0 +1,1 @@
+__disc("api/case/A00639",{"id":"A00639","event":"A00639","date":"2022-11-11","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Air Canada","deployer"],["Air Canada","developer"]]});

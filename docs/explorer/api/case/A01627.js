@@ -1,0 +1,1 @@
+__disc("api/case/A01627",{"id":"A01627","event":"A01627","date":"2026-07-30","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Anthropic","deployer"],["Anthropic","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A00862",{"id":"A00862","event":"A00862","date":"2024-11-03","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Dilley Meme Team (Ramble Rants account), reposted by MAGA Resource","deployer"]]});

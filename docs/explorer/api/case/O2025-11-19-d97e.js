@@ -1,0 +1,1 @@
+__disc("api/case/O2025-11-19-d97e",{"id":"O2025-11-19-d97e","event":"O2025-11-19-d97e","date":"2025-11-19","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Universität Erfurt","deployer"]]});

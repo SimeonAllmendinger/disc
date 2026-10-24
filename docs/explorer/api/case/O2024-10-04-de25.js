@@ -1,0 +1,1 @@
+__disc("api/case/O2024-10-04-de25",{"id":"O2024-10-04-de25","event":"O2024-10-04-de25","date":"2024-10-04","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Cartel Jalisco Nueva Generación; Primeiro Comando da Capital; Comando Vermelho","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/X0645",{"id":"X0645","event":"X0645","date":"2021-06-10","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["RCMP","deployer"]]});

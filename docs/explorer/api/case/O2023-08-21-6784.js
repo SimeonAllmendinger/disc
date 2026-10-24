@@ -1,0 +1,1 @@
+__disc("api/case/O2023-08-21-6784",{"id":"O2023-08-21-6784","event":"O2023-08-21-6784","date":"2023-08-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Jordanian authorities at Amman airport","deployer"]]});

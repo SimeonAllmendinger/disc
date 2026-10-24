@@ -1,0 +1,1 @@
+__disc("api/case/X1529",{"id":"X1529","event":"X1529","date":"2019-03-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Georgia Institute of Technology researchers","deployer"],["Georgia Institute of Technology researchers","developer"]]});

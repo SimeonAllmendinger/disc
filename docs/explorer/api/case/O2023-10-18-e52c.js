@@ -1,0 +1,1 @@
+__disc("api/case/O2023-10-18-e52c",{"id":"O2023-10-18-e52c","event":"O2023-10-18-e52c","date":"2023-10-18","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["North Korea","deployer"]]});

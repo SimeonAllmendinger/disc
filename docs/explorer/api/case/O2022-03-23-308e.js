@@ -1,0 +1,1 @@
+__disc("api/case/O2022-03-23-308e",{"id":"O2022-03-23-308e","event":"O2022-03-23-308e","date":"2022-03-23","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["Ukrainian government","deployer"]]});

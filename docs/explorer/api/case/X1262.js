@@ -1,0 +1,1 @@
+__disc("api/case/X1262",{"id":"X1262","event":"X1262","date":"2023-12-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["Pharmacists at Long Island University","deployer"]]});

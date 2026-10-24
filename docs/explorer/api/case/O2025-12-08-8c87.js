@@ -1,0 +1,1 @@
+__disc("api/case/O2025-12-08-8c87",{"id":"O2025-12-08-8c87","event":"O2025-12-08-8c87","date":"2025-12-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["CETC (China Electronics Technology Group Corporation); iFlytek; SenseTime; CloudWalk; Intellifusion","developer"],["Chinese government","deployer"]]});

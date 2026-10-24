@@ -1,0 +1,1 @@
+__disc("api/case/O2026-05-23-9c09",{"id":"O2026-05-23-9c09","event":"O2026-05-23-9c09","date":"2026-05-23","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Democracia Cristã","deployer"]]});

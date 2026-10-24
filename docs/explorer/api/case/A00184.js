@@ -1,0 +1,1 @@
+__disc("api/case/A00184",{"id":"A00184","event":"A00184","date":"2018-04-12","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Companhia do Metropolitano de São Paulo (METRO)","deployer"],["Intelligent Security Systems (ISS)","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2026-04-09-c178",{"id":"O2026-04-09-c178","event":"O2026-04-09-c178","date":"2026-04-09","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Cobwebs Technologies","developer"],["Nemzeti Információs Központ; Alkotmányvédelmi Hivatal; Nemzetbiztonsági Szakszolgálat","deployer"]]});

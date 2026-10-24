@@ -1,0 +1,1 @@
+__disc("api/case/O2025-06-22-f606",{"id":"O2025-06-22-f606","event":"O2025-06-22-f606","date":"2025-06-22","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Wiener Polizei; Innenministerium","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/X1547",{"id":"X1547","event":"X1547","date":"2021-02-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["University of Massachusetts, Amherst","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2021-01-08-bb0b",{"id":"O2021-01-08-bb0b","event":"O2021-01-08-bb0b","date":"2021-01-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["Oxford Police Department","deployer"]]});

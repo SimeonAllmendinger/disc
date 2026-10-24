@@ -1,0 +1,1 @@
+__disc("api/case/O2025-11-24-ff07",{"id":"O2025-11-24-ff07","event":"O2025-11-24-ff07","date":"2025-11-24","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Öncü Derya Eğitim Hizmetleri ve Tic. A.Ş","deployer"]]});

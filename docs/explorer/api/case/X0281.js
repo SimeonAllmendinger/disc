@@ -1,0 +1,1 @@
+__disc("api/case/X0281",{"id":"X0281","event":"X0281","date":"2018-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Skelleftea municipality (Anderstorp High School)","deployer"],["Tieto","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2026-07-25-5c09",{"id":"O2026-07-25-5c09","event":"O2026-07-25-5c09","date":"2026-07-25","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["PL (Partido Liberal); Flávio Bolsonaro campaign","deployer"]]});

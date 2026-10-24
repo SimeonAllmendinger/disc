@@ -1,0 +1,1 @@
+__disc("api/case/X1882",{"id":"X1882","event":"X1882","date":"2025-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Respeecher","developer"],["The Brutalist production (editor Dávid Jancsó, director Brady Corbet)","deployer"]]});

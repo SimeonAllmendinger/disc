@@ -1,0 +1,1 @@
+__disc("api/case/A00356",{"id":"A00356","event":"A00356","date":"2020-09-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Murat Ayfer (Philosopher AI)","developer"]]});

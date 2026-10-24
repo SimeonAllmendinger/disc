@@ -1,0 +1,1 @@
+__disc("api/case/A01198",{"id":"A01198","event":"A01198","date":"2025-07-08","lanes":[{"cik":1181412,"name":"SPACE EXPLORATION TECHNOLOGIES CORP","regime":"none","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

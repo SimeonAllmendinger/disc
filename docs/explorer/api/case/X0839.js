@@ -1,0 +1,1 @@
+__disc("api/case/X0839",{"id":"X0839","event":"X0839","date":"2022-02-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Yoon Suk-yeol's presidential campaign","deployer"]]});

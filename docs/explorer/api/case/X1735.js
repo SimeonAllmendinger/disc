@@ -1,0 +1,1 @@
+__disc("api/case/X1735",{"id":"X1735","event":"X1735","date":"2024-09-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Grok; MiniMax","developer"],["House Judiciary Committee Republicans","deployer"]]});

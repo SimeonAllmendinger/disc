@@ -1,0 +1,1 @@
+__disc("api/case/A00371",{"id":"A00371","event":"A00371","date":"2019-11-29","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Huawei","developer"],["Uganda Police Force","deployer"]]});

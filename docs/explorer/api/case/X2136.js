@@ -1,0 +1,1 @@
+__disc("api/case/X2136",{"id":"X2136","event":"X2136","date":"2025-11-01","lanes":[{"cik":1477333,"name":"Cloudflare, Inc.","regime":"10-K","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

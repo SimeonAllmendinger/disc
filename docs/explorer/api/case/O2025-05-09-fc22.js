@@ -1,0 +1,1 @@
+__disc("api/case/O2025-05-09-fc22",{"id":"O2025-05-09-fc22","event":"O2025-05-09-fc22","date":"2025-05-09","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Головне управління розвідки (ГУР)","deployer"]]});

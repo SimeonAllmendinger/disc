@@ -1,0 +1,1 @@
+__disc("api/case/O2025-04-07-55ba",{"id":"O2025-04-07-55ba","event":"O2025-04-07-55ba","date":"2025-04-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Prefeitura de São Paulo; Guarda Civil Metropolitana; consórcio Smart City SP","deployer"]]});

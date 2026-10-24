@@ -1,0 +1,1 @@
+__disc("api/case/X1732",{"id":"X1732","event":"X1732","date":"2024-08-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["ChatGPT","developer"],["Kevin Roose","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2026-09-03-086a",{"id":"O2026-09-03-086a","event":"O2026-09-03-086a","date":"2026-09-03","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Rede Globo","deployer"]]});

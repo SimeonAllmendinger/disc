@@ -1,0 +1,1 @@
+__disc("api/case/X2220",{"id":"X2220","event":"X2220","date":"2026-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Anthropic","developer"],["U.S. military (Pentagon)","deployer"]]});

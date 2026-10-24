@@ -1,0 +1,1 @@
+__disc("api/case/X2196",{"id":"X2196","event":"X2196","date":"2026-01-27","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Anthropic","deployer"],["Anthropic","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2021-12-15-5e0e",{"id":"O2021-12-15-5e0e","event":"O2021-12-15-5e0e","date":"2021-12-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Cloudwalk Technology; Megvii Technology; Netposa Technologies; Yitu; DJI; Xiamen Meiya Pico Information","developer"],["Xinjiang Public Security Bureau; Chinese government","deployer"]]});

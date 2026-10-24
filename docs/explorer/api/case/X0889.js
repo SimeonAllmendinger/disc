@@ -1,0 +1,1 @@
+__disc("api/case/X0889",{"id":"X0889","event":"X0889","date":"2022-04-12","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Danaide S.A.","developer"],["Government of the City of Buenos Aires (Ministry of Justice and Security)","deployer"]]});

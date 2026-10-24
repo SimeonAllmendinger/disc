@@ -1,0 +1,1 @@
+__disc("api/case/X1716",{"id":"X1716","event":"X1716","date":"2023-08-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Turnitin","developer"],["Vanderbilt University","deployer"]]});

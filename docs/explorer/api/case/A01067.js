@@ -1,0 +1,1 @@
+__disc("api/case/A01067",{"id":"A01067","event":"A01067","date":"2025-02-18","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["fraudster operating as [private individual]","deployer"]]});

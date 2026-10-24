@@ -1,0 +1,1 @@
+__disc("api/case/O2026-02-05-b9b7",{"id":"O2026-02-05-b9b7","event":"O2026-02-05-b9b7","date":"2026-02-05","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["國民黨新媒體團隊 (Kuomintang new media team)","deployer"]]});

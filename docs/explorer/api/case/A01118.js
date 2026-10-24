@@ -1,0 +1,1 @@
+__disc("api/case/A01118",{"id":"A01118","event":"A01118","date":"2021-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Anthropic","developer"],["North Korean government","deployer"]]});

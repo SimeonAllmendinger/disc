@@ -1,0 +1,1 @@
+__disc("api/case/X0815",{"id":"X0815","event":"X0815","date":"2022-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Mainz police (Polizeipräsidium Mainz)","deployer"],["culture4life","developer"]]});

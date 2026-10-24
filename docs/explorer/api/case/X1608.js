@@ -1,0 +1,1 @@
+__disc("api/case/X1608",{"id":"X1608","event":"X1608","date":"2023-11-14","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["BriefCam","developer"],["French national police","deployer"]]});

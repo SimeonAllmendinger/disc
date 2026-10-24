@@ -1,0 +1,1 @@
+__disc("api/case/X1905",{"id":"X1905","event":"X1905","date":"2024-07-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Catalan penitentiary system (Generalitat de Catalunya, Department of Justice)","deployer"],["University of Barcelona research group directed by Antonio Andrés Pueyo","developer"]]});

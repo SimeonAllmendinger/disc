@@ -1,0 +1,1 @@
+__disc("api/case/O2026-06-12-1318",{"id":"O2026-06-12-1318","event":"O2026-06-12-1318","date":"2026-06-12","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["CFAKE.com; SOCFAKE.com; [private individual].","deployer"]]});

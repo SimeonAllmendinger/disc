@@ -1,0 +1,1 @@
+__disc("api/case/X0681",{"id":"X0681","event":"X0681","date":"2019-10-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["H.I.S. Hotel Group","deployer"],["MJI Robotics","developer"]]});

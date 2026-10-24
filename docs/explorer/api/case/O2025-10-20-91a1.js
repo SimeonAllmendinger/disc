@@ -1,0 +1,1 @@
+__disc("api/case/O2025-10-20-91a1",{"id":"O2025-10-20-91a1","event":"O2025-10-20-91a1","date":"2025-10-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Telenor; 3; TDC; Norlys","deployer"]]});

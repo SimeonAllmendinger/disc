@@ -1,0 +1,1 @@
+__disc("api/case/X0740",{"id":"X0740","event":"X0740","date":"2021-09-12","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["NHS Digital","deployer"],["iProov","developer"]]});

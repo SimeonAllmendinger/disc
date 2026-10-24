@@ -1,0 +1,1 @@
+__disc("api/case/X1143",{"id":"X1143","event":"X1143","date":"2023-10-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Danaide SA","developer"],["Ministerio de Seguridad de la Ciudad de Buenos Aires","deployer"]]});

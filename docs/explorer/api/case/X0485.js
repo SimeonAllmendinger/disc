@@ -1,0 +1,1 @@
+__disc("api/case/X0485",{"id":"X0485","event":"X0485","date":"2020-12-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["南宁市自然资源局 (Nanning Natural Resources Bureau)","deployer"],["南宁市自然资源局 (Nanning Natural Resources Bureau)","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A00679",{"id":"A00679","event":"A00679","date":"2023-02-20","lanes":[{"cik":1418091,"name":"Twitter","regime":"10-K","processed":true,"roles":["deployer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

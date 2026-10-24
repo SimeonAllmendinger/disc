@@ -1,0 +1,1 @@
+__disc("api/case/A00074",{"id":"A00074","event":"A00074","date":"2020-01-30","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["DataWorks Plus","developer"],["Detroit Police Department; Michigan State Police","deployer"]]});

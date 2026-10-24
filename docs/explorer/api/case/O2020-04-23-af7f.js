@@ -1,0 +1,1 @@
+__disc("api/case/O2020-04-23-af7f",{"id":"O2020-04-23-af7f","event":"O2020-04-23-af7f","date":"2020-04-23","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Moscow police; Moscow Department of Information Technology (DIT)","deployer"],["NtechLab","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2024-12-03-2975",{"id":"O2024-12-03-2975","event":"O2024-12-03-2975","date":"2024-12-03","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Hayden AI","developer"],["Metropolitan Transportation Authority (MTA); New York City Department of Transportation","deployer"]]});

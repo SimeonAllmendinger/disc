@@ -1,0 +1,1 @@
+__disc("api/case/X0283",{"id":"X0283","event":"X0283","date":"2019-07-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["[private individual]","deployer"],["[private individual]","developer"]]});

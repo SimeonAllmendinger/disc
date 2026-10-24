@@ -1,0 +1,1 @@
+__disc("api/case/O2021-10-05-a93f",{"id":"O2021-10-05-a93f","event":"O2021-10-05-a93f","date":"2021-10-05","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Government Technology Agency","developer"],["Ministry of Health (Singapore)","deployer"]]});

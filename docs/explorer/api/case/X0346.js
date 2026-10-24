@@ -1,0 +1,1 @@
+__disc("api/case/X0346",{"id":"X0346","event":"X0346","date":"2020-03-09","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["China's Ministry of Public Security","deployer"],["Hanwang Technology (Hanvon)","developer"]]});

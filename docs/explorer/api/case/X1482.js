@@ -1,0 +1,1 @@
+__disc("api/case/X1482",{"id":"X1482","event":"X1482","date":"2024-04-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Polícia Militar de Sergipe (PM/SE)","deployer"]]});

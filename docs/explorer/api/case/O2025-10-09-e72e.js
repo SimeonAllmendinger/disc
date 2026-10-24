@@ -1,0 +1,1 @@
+__disc("api/case/O2025-10-09-e72e",{"id":"O2025-10-09-e72e","event":"O2025-10-09-e72e","date":"2025-10-09","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["ChatGPT; LeoLM","developer"],["Hochschule München","deployer"]]});

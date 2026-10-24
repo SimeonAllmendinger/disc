@@ -1,0 +1,1 @@
+__disc("api/case/A00261",{"id":"A00261","event":"A00261","date":"2017-11-15","lanes":[{"cik":1600983,"name":"Knightscope, Inc.","regime":"10-K","processed":true,"roles":["developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[["San Francisco SPCA","deployer"]]});

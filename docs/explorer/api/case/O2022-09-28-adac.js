@@ -1,0 +1,1 @@
+__disc("api/case/O2022-09-28-adac",{"id":"O2022-09-28-adac","event":"O2022-09-28-adac","date":"2022-09-28","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["PT Teknologi Investasi Indonesia","deployer"],["PT Teknologi Investasi Indonesia","developer"]]});

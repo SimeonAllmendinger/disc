@@ -1,0 +1,1 @@
+__disc("api/case/A00101",{"id":"A00101","event":"A00101","date":"2018-09-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Belastingdienst (Tax and Customs Administration)","deployer"],["Dutch tax authority","developer"]]});

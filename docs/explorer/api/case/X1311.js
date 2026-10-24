@@ -1,0 +1,1 @@
+__disc("api/case/X1311",{"id":"X1311","event":"X1311","date":"2016-08-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Posidex Technologies Private Limited","developer"],["Telangana government","deployer"]]});

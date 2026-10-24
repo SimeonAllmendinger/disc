@@ -1,0 +1,1 @@
+__disc("api/case/X0471",{"id":"X0471","event":"X0471","date":"2020-10-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Verificient Technologies","developer"],["Western University","deployer"]]});

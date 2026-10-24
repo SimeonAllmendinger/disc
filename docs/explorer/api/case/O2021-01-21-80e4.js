@@ -1,0 +1,1 @@
+__disc("api/case/O2021-01-21-80e4",{"id":"O2021-01-21-80e4","event":"O2021-01-21-80e4","date":"2021-01-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["Staten Island District Attorney's Office","deployer"]]});

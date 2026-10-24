@@ -1,0 +1,1 @@
+__disc("api/case/O2026-07-20-adcb",{"id":"O2026-07-20-adcb","event":"O2026-07-20-adcb","date":"2026-07-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["ChatGPT; Google Gemini","developer"]]});

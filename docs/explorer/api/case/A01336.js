@@ -1,0 +1,1 @@
+__disc("api/case/A01336",{"id":"A01336","event":"A01336","date":"2020-02-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Delhi BJP IT Cell","deployer"],["The Ideaz Factory","developer"]]});

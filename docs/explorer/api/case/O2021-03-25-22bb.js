@@ -1,0 +1,1 @@
+__disc("api/case/O2021-03-25-22bb",{"id":"O2021-03-25-22bb","event":"O2021-03-25-22bb","date":"2021-03-25","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Faculdade de Direito da Universidade de Lisboa (FDUL)","deployer"],["Proctorio","developer"]]});

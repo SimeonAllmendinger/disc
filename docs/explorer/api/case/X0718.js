@@ -1,0 +1,1 @@
+__disc("api/case/X0718",{"id":"X0718","event":"X0718","date":"2021-08-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Deenova","developer"],["Mater Dei Hospital","deployer"]]});

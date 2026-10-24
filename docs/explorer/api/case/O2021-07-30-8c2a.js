@@ -1,0 +1,1 @@
+__disc("api/case/O2021-07-30-8c2a",{"id":"O2021-07-30-8c2a","event":"O2021-07-30-8c2a","date":"2021-07-30","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Russian military","deployer"],["Uran series","developer"]]});

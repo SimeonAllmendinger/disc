@@ -1,0 +1,1 @@
+__disc("api/case/O2020-09-06-15e9",{"id":"O2020-09-06-15e9","event":"O2020-09-06-15e9","date":"2020-09-06","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Jandarma (İl Jandarma Komutanlığı); İçişleri Bakanlığı","deployer"]]});

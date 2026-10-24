@@ -1,0 +1,1 @@
+__disc("api/case/X0967",{"id":"X0967","event":"X0967","date":"2022-03-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Collaborations Pharmaceuticals","deployer"],["Collaborations Pharmaceuticals","developer"]]});

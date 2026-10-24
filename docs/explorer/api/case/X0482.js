@@ -1,0 +1,1 @@
+__disc("api/case/X0482",{"id":"X0482","event":"X0482","date":"2021-02-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["ByteDance","deployer"],["ByteDance (Dali Education)","developer"]]});

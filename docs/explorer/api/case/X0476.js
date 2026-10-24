@@ -1,0 +1,1 @@
+__disc("api/case/X0476",{"id":"X0476","event":"X0476","date":"2020-07-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["ExamSoft","developer"],["Michigan Board of Law Examiners","deployer"]]});

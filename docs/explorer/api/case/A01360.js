@@ -1,0 +1,1 @@
+__disc("api/case/A01360",{"id":"A01360","event":"A01360","date":"2025-07-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Madhu Gottumukkala, acting director of CISA","deployer"],["OpenAI","developer"]]});

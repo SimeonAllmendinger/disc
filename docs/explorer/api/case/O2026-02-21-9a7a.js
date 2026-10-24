@@ -1,0 +1,1 @@
+__disc("api/case/O2026-02-21-9a7a",{"id":"O2026-02-21-9a7a","event":"O2026-02-21-9a7a","date":"2026-02-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Sosyal Güvenlik Kurumu (SGK)","deployer"]]});

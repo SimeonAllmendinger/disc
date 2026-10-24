@@ -1,0 +1,1 @@
+__disc("api/case/O2020-02-24-1735",{"id":"O2020-02-24-1735","event":"O2020-02-24-1735","date":"2020-02-24","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["Clearview AI; Gendarmerie royale du Canada (RCMP)","deployer"]]});

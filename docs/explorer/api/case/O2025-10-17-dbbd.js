@@ -1,0 +1,1 @@
+__disc("api/case/O2025-10-17-dbbd",{"id":"O2025-10-17-dbbd","event":"O2025-10-17-dbbd","date":"2025-10-17","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Tools for Humanity","developer"],["World Foundation; Tools for Humanity","deployer"]]});

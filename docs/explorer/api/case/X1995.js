@@ -1,0 +1,1 @@
+__disc("api/case/X1995",{"id":"X1995","event":"X1995","date":"2025-05-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["AEMPS","developer"],["Agencia Española de Medicamentos y Productos Sanitarios (AEMPS)","deployer"]]});

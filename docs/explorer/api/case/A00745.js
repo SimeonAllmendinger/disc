@@ -1,0 +1,1 @@
+__disc("api/case/A00745",{"id":"A00745","event":"A00745","date":"2024-07-02","lanes":[{"cik":1579878,"name":"Figma, Inc.","regime":"10-K","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2025-10-08-a122",{"id":"O2025-10-08-a122","event":"O2025-10-08-a122","date":"2025-10-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["[private individual]; [private individual]; Matthew Garces; a California attorney; two lawyers for MyPillow CEO Mike Lindell","deployer"]]});

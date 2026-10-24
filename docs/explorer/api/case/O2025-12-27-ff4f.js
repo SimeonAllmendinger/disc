@@ -1,0 +1,1 @@
+__disc("api/case/O2025-12-27-ff4f",{"id":"O2025-12-27-ff4f","event":"O2025-12-27-ff4f","date":"2025-12-27","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Flock Safety","developer"],["Johnson County Sheriff's Office; Grand Prairie Police Department; Delaware State Police; San Jose Police Department; Flock Safety","deployer"]]});

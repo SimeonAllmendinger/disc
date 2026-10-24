@@ -1,0 +1,1 @@
+__disc("api/case/O2024-05-14-1e98",{"id":"O2024-05-14-1e98","event":"O2024-05-14-1e98","date":"2024-05-14","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Liberal Alliance; Dansk Folkeparti","deployer"]]});

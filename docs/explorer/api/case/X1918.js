@@ -1,0 +1,1 @@
+__disc("api/case/X1918",{"id":"X1918","event":"X1918","date":"2024-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Deloitte","developer"],["Texas Health and Human Services Commission","deployer"]]});

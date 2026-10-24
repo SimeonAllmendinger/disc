@@ -1,0 +1,1 @@
+__disc("api/case/O2020-11-10-05ff",{"id":"O2020-11-10-05ff","event":"O2020-11-10-05ff","date":"2020-11-10","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["ExamSoft; Proctorio; ProctorU","developer"],["New York state's law exams board; California State University, Chico; University of Queensland","deployer"]]});

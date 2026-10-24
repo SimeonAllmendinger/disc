@@ -1,0 +1,1 @@
+__disc("api/case/A01659",{"id":"A01659","event":"A01659","date":"2026-08-14","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["ChatGPT and Perplexity","deployer"],["ChatGPT and Perplexity","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A00110",{"id":"A00110","event":"A00110","date":"2016-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Arkansas Department of Human Services (DHS)","deployer"],["InterRAI","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2026-03-26-e1fc",{"id":"O2026-03-26-e1fc","event":"O2026-03-26-e1fc","date":"2026-03-26","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["유튜브 채널 ‘이국종 교수의 조언’","deployer"]]});

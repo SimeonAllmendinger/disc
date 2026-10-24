@@ -1,0 +1,1 @@
+__disc("api/case/X0644",{"id":"X0644","event":"X0644","date":"2021-05-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Epic Systems","developer"],["Parkview Health and hundreds of other hospitals","deployer"]]});

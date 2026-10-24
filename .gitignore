@@ -1,0 +1,5 @@
+# the tables' CSV copies are built locally; the repository carries the Parquet files in data/
+data/*.csv
+__pycache__/
+.DS_Store
+explorer/.cache/

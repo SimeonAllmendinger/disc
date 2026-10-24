@@ -1,0 +1,1 @@
+__disc("api/case/A00483",{"id":"A00483","event":"A00483","date":"2023-02-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Medak police (Telangana Police)","deployer"]]});

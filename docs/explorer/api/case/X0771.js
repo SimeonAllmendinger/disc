@@ -1,0 +1,1 @@
+__disc("api/case/X0771",{"id":"X0771","event":"X0771","date":"2022-12-12","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Chu Yu-chen (Xiaoyu) and his assistant [private individual]","deployer"]]});

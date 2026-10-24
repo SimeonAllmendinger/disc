@@ -1,0 +1,1 @@
+__disc("api/case/X041",{"id":"X041","event":"X041","date":"2016-11-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Beijing Evolver Robotics Technology Co., Ltd.","developer"],["Shenzhen Spreadview Century Technologies Co. (深圳展景世纪科技有限公司)","deployer"]]});

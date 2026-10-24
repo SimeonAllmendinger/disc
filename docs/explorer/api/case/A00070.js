@@ -1,0 +1,1 @@
+__disc("api/case/A00070",{"id":"A00070","event":"A00070","date":"2016-02-10","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Volvo Cars","deployer"],["Volvo Cars","developer"]]});

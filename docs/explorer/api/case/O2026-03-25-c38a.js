@@ -1,0 +1,1 @@
+__disc("api/case/O2026-03-25-c38a",{"id":"O2026-03-25-c38a","event":"O2026-03-25-c38a","date":"2026-03-25","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Secretaria de Estado da Segurança Pública e Defesa Social (Espírito Santo)","deployer"]]});

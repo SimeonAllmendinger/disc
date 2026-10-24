@@ -1,0 +1,1 @@
+__disc("api/case/O2021-06-21-ff98",{"id":"O2021-06-21-ff98","event":"O2021-06-21-ff98","date":"2021-06-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Government of Indonesia","deployer"],["Universitas Gadjah Mada (UGM)","developer"]]});

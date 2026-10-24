@@ -1,0 +1,1 @@
+__disc("api/case/A00031",{"id":"A00031","event":"A00031","date":"2017-12-19","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Delhi Metro Rail Corporation (DMRC)","deployer"],["Hyundai Rotem","developer"]]});

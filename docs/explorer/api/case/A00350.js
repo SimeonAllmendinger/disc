@@ -1,0 +1,1 @@
+__disc("api/case/A00350",{"id":"A00350","event":"A00350","date":"2022-09-13","lanes":[{"cik":1832483,"name":"Serve Robotics Inc. /DE/","regime":"10-K","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

@@ -1,0 +1,1 @@
+__disc("api/case/A01396",{"id":"A01396","event":"A01396","date":"2021-04-22","lanes":[{"cik":1635327,"name":"Flutter Entertainment plc","regime":"10-K","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

@@ -1,0 +1,1 @@
+__disc("api/case/X0259",{"id":"X0259","event":"X0259","date":"2017-05-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Evangelical Church in Hesse and Nassau","developer"],["Protestant Church in Hesse and Nassau","deployer"]]});

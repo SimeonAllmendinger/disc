@@ -1,0 +1,2399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- everything loads from the page's own origin; serve.py page() fills in the inline script's hash -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-INLINE'; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DISC</title>
+<script src="static/vendor/d3.min.js"></script>
+<script src="static/vendor/diff.min.js"></script>
+<style>
+/* fonts shipped with the page (SIL OFL 1.1, static/fonts/OFL-*.txt): IBM Plex Sans for the interface, IBM Plex
+   Mono for identifiers, Libertinus Serif for long reading text (passages, filing text, the diff view) */
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 300; font-display: swap; src: url(static/fonts/ibm-plex-sans-latin-300-normal.woff2) format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 300; font-display: swap; src: url(static/fonts/ibm-plex-sans-latin-ext-300-normal.woff2) format("woff2"); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url(static/fonts/ibm-plex-sans-latin-400-normal.woff2) format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url(static/fonts/ibm-plex-sans-latin-ext-400-normal.woff2) format("woff2"); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "IBM Plex Sans"; font-style: italic; font-weight: 400; font-display: swap; src: url(static/fonts/ibm-plex-sans-latin-400-italic.woff2) format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "IBM Plex Sans"; font-style: italic; font-weight: 400; font-display: swap; src: url(static/fonts/ibm-plex-sans-latin-ext-400-italic.woff2) format("woff2"); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 500; font-display: swap; src: url(static/fonts/ibm-plex-sans-latin-500-normal.woff2) format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 500; font-display: swap; src: url(static/fonts/ibm-plex-sans-latin-ext-500-normal.woff2) format("woff2"); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url(static/fonts/ibm-plex-sans-latin-600-normal.woff2) format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url(static/fonts/ibm-plex-sans-latin-ext-600-normal.woff2) format("woff2"); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url(static/fonts/ibm-plex-sans-latin-700-normal.woff2) format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url(static/fonts/ibm-plex-sans-latin-ext-700-normal.woff2) format("woff2"); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url(static/fonts/ibm-plex-mono-latin-400-normal.woff2) format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "Libertinus Serif"; font-style: normal; font-weight: 400; font-display: swap; src: url(static/fonts/libertinus-serif-regular.woff2) format("woff2"); }
+@font-face { font-family: "Libertinus Serif"; font-style: italic; font-weight: 400; font-display: swap; src: url(static/fonts/libertinus-serif-italic.woff2) format("woff2"); }
+@font-face { font-family: "Libertinus Serif"; font-style: normal; font-weight: 700; font-display: swap; src: url(static/fonts/libertinus-serif-bold.woff2) format("woff2"); }
+:root { --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif; --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; --serif: "Libertinus Serif", Georgia, serif; }
+:root {
+  color-scheme: light;
+  --page: #ffffff; --surface: #fcfcfb; --raised: #ffffff;
+  --ink: #0b0b0b; --ink2: #52514e; --muted: #898781; --grid: #e1e0d9; --axis: #c3c2b7;
+  --ring: rgba(11,11,11,.10); --shadow: 0 2px 14px rgba(0,0,0,.08);
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --m1: #92d9bd;
+  --mixed: #52514e; --pending: #a9a8a2; --none: #d3d2cb;
+  --g1: rgba(11,11,11,.025); --g2: rgba(11,11,11,.035); --gstroke: rgba(11,11,11,.13);
+  --seq: #2a78d6;
+  --o1: #86b6ef; --o2: #3987e5; --o3: #1c5cab; --o4: #0d366b;
+  --ins: rgba(12,163,12,.20); --del: rgba(208,59,59,.16);
+  --c1: #2a78d6; --c2: #eb6834; --c3: #1baf7a; --c4: #eda100; --c5: #e87ba4; --c6: #008300; --c7: #6250d6; --c8: #e34948;
+  --qaa: #1a427a; --qua: #86b6ef; --qau: #9b4dca; --quu: #c2410c; --qum: #6b6a66;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --raised: #1f1f1e;
+    --ink: #ffffff; --ink2: #c3c2b7; --muted: #898781; --grid: #2c2c2a; --axis: #383835;
+    --ring: rgba(255,255,255,.10); --shadow: 0 2px 14px rgba(0,0,0,.5);
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --m1: #126b4c;
+    --mixed: #c3c2b7; --pending: #6b6a66; --none: #3d3d39;
+    --g1: rgba(255,255,255,.025); --g2: rgba(255,255,255,.04); --gstroke: rgba(255,255,255,.14);
+    --seq: #3987e5;
+    --o1: #184f95; --o2: #2a78d6; --o3: #6da7ec; --o4: #b7d3f6;
+    --ins: rgba(12,163,12,.30); --del: rgba(208,59,59,.30);
+    --c1: #3987e5; --c2: #d95926; --c3: #199e70; --c4: #c98500; --c5: #d55181; --c6: #008300; --c7: #9085e9; --c8: #e66767;
+    --qaa: #3d7fd1; --qua: #a9cbf3; --qau: #cf86e6; --quu: #e0612a; --qum: #8a8984;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --raised: #1f1f1e;
+  --ink: #ffffff; --ink2: #c3c2b7; --muted: #898781; --grid: #2c2c2a; --axis: #383835;
+  --ring: rgba(255,255,255,.10); --shadow: 0 2px 14px rgba(0,0,0,.5);
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --m1: #126b4c;
+  --mixed: #c3c2b7; --pending: #6b6a66; --none: #3d3d39;
+  --g1: rgba(255,255,255,.025); --g2: rgba(255,255,255,.04); --gstroke: rgba(255,255,255,.14);
+  --seq: #3987e5;
+  --o1: #184f95; --o2: #2a78d6; --o3: #6da7ec; --o4: #b7d3f6;
+  --ins: rgba(12,163,12,.30); --del: rgba(208,59,59,.30);
+  --c1: #3987e5; --c2: #d95926; --c3: #199e70; --c4: #c98500; --c5: #d55181; --c6: #008300; --c7: #9085e9; --c8: #e66767;
+  --qaa: #3d7fd1; --qua: #a9cbf3; --qau: #cf86e6; --quu: #e0612a; --qum: #8a8984;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--page); color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px; line-height: 1.45;
+  display: flex; flex-direction: column;
+}
+button, select, input { font: inherit; color: inherit; }
+
+/* header — the dataset's name, its licence and sources, and the two panels */
+[hidden] { display: none !important; }
+header { text-align: center; padding: 18px 16px 8px; }
+header h1 { font-size: clamp(26px, 4vw, 40px); font-weight: 750; letter-spacing: -.02em; margin: 0; }
+header h1 span { font-weight: 300; letter-spacing: -.01em; margin-left: .25em; }
+header p { margin: 4px auto 0; max-width: 820px; color: var(--ink2); font-size: 13.5px; }
+.tabs { display: inline-flex; gap: 4px; margin-top: 12px; padding: 3px; border-radius: 999px; background: var(--g2); }
+.tabs button { border: 0; background: transparent; padding: 5px 18px; border-radius: 999px; cursor: pointer; color: var(--ink2); }
+.tabs button.on { background: var(--ink); color: var(--page); }
+
+main { flex: 1; min-height: 0; display: flex; position: relative; }
+
+/* sidebar — stacked Atlas-style cells */
+aside { width: 290px; flex: none; padding: 10px 12px 16px 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.cell { background: var(--raised); border-radius: 14px; box-shadow: var(--shadow); padding: 12px 14px; }
+.cell > h4 {
+  margin: 0; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink2);
+  display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none;
+}
+.cell > h4::after { content: "→"; font-size: 15px; color: var(--ink); transition: transform .2s; }
+.cell:not(.closed) > h4::after { transform: rotate(90deg); }
+.cell.closed > .body { display: none; }
+.cell .body { margin-top: 10px; }
+.cell label.row[hidden] { display: none; }
+.cell label.row { display: flex; flex-direction: column; gap: 3px; font-size: 13px; color: var(--ink2); margin-bottom: 8px; }
+.cell select, .cell input[type=text] {
+  width: 100%; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--ring); background: var(--surface); color: var(--ink);
+}
+.seg { display: flex; border: 1px solid var(--ring); border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
+.seg button { flex: 1; border: 0; background: var(--surface); padding: 6px 3px; cursor: pointer; font-size: 12.5px; color: var(--ink2); white-space: nowrap; }
+.seg button.on { background: var(--ink); color: var(--page); }
+.seg button + button { border-left: 1px solid var(--grid); }
+.search { position: relative; }
+.search button { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); border: 0; background: none; cursor: pointer; color: var(--muted); }
+.hint { font-size: 12px; color: var(--muted); margin: 2px 0 8px; }
+.hint a { color: var(--ink2); }
+#legendhint { margin-top: 12px; }
+
+.legend { display: flex; flex-direction: column; gap: 2px; max-height: 300px; overflow-y: auto; }
+.legend button {
+  display: flex; align-items: center; gap: 8px; border: 0; background: none; padding: 4px 6px; border-radius: 6px;
+  cursor: pointer; text-align: left; font-size: 13px; color: var(--ink);
+}
+.legend button:hover { background: var(--g2); }
+.legend button.off { color: var(--muted); }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 2px; }
+.filters .chip { display: inline-flex; align-items: center; max-width: 100%; border-radius: 999px; background: color-mix(in oklab, var(--s1) 14%, transparent); font-size: 12.5px; }
+.filters .chip button { border: 0; background: none; color: var(--ink); cursor: pointer; font: inherit; }
+.filters .chip .go { padding: 3px 4px 3px 10px; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 210px; }
+.filters .chip .x { padding: 3px 9px 3px 4px; color: var(--ink2); }
+.filters .chip .x:hover { color: var(--ink); }
+.filters .clear { border: 0; background: none; color: var(--ink2); font-size: 12px; cursor: pointer; text-decoration: underline; }
+.legend button.off .sw { background: transparent !important; }
+.legend .sw { width: 12px; height: 12px; border-radius: 50%; flex: none; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--ring); }
+.legend .n { margin-left: auto; color: var(--ink2); font-variant-numeric: tabular-nums; }
+
+.counter .big { font-size: 34px; font-weight: 750; letter-spacing: -.01em; line-height: 1.1; padding-left: 2px; }
+.counter .lbl { font-size: 13px; color: var(--ink2); }
+.status { margin-top: 10px; font-size: 12px; color: var(--ink2); }
+.status b { color: var(--ink); font-weight: 650; }
+.status button { border: 1px solid var(--ring); background: var(--surface); border-radius: 6px; padding: 1px 8px; cursor: pointer; margin-left: 4px; }
+.help p { font-size: 13px; color: var(--ink2); margin: 0 0 6px; }
+
+/* the incidents, one dot each, in one of three arrangements */
+#viz { flex: 1; min-width: 0; position: relative; }
+#viz > svg, #viz > canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+#cv { pointer-events: none; }
+#svg { touch-action: none; cursor: grab; }
+#svg:active { cursor: grabbing; }
+#tscroll { position: absolute; bottom: 8px; height: 28px; border-radius: 6px; background: var(--g2); z-index: 2; cursor: pointer; touch-action: none; overflow: hidden; }
+#tscroll svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+#tscroll path { fill: var(--axis); }
+#tscroll line { stroke: var(--grid); }
+#tscroll .thumb { position: absolute; top: 0; bottom: 0; border: 1.5px solid var(--ink2); border-radius: 6px; background: color-mix(in oklab, var(--ink) 7%, transparent); cursor: grab; }
+#tscroll .thumb:active { cursor: grabbing; }
+circle.ring { fill: none; stroke: var(--ink); stroke-width: 2; vector-effect: non-scaling-stroke; pointer-events: none; }
+.cellbg { fill-opacity: .09; stroke-opacity: .35; stroke-width: 1.2; vector-effect: non-scaling-stroke; cursor: zoom-in; }
+text.vlab.q { fill: var(--ink2); font-size: 13.5px; font-weight: 600; }
+.pager { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; border: 0; background: none; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--ink2); font: inherit; font-size: 12px; }
+.pager.next { right: 14px; }
+.pager.prev { left: 14px; }
+.pager .c { width: 46px; height: 46px; border-radius: 50%; background: var(--ink); color: var(--page); display: grid; place-items: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,.18); transition: transform .15s; }
+.pager .c svg { width: 22px; height: 22px; }
+.pager:hover .c { transform: scale(1.08); }
+.bandbg { fill: var(--g2); }
+.blob { fill: var(--g1); stroke: var(--gstroke); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.wave { fill: var(--g1); }
+.sector { fill: var(--g2); stroke: var(--gstroke); stroke-width: .6; vector-effect: non-scaling-stroke; }
+.base { stroke: var(--axis); }
+text.vlab { fill: var(--ink); font-size: 13px; font-weight: 650; paint-order: stroke; stroke: var(--page); stroke-width: 3px; stroke-linejoin: round; pointer-events: none; }
+text.vlab.big { font-size: 17px; font-weight: 750; }
+text.vlab.small { font-size: 11px; font-weight: 600; fill: var(--ink); stroke-width: 5px; }
+text.vlab .tsub { fill: var(--ink2); font-size: 12.5px; font-weight: 500; }
+text.vlab.axis { fill: var(--ink2); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; }
+text.vlab.note { fill: var(--muted); font-size: 12px; font-weight: 500; }
+.vaxis text { fill: var(--muted); font-size: 11px; font-family: inherit; }
+.vaxis path, .vaxis line { stroke: var(--axis); }
+.viztools { position: absolute; right: 14px; top: 8px; z-index: 2; display: flex; gap: 8px; align-items: center; font-size: 12.5px; color: var(--ink2); }
+.viztools button { border: 0; background: var(--raised); box-shadow: var(--shadow); border-radius: 999px; padding: 3px 12px; cursor: pointer; color: var(--ink); }
+.empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); pointer-events: none; }
+.vlegend { position: absolute; left: 24px; top: 46px; z-index: 2; width: 260px; background: var(--raised); border-radius: 14px; box-shadow: var(--shadow); padding: 10px 10px 8px; }
+.vlegend h5 { margin: 0 0 6px 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink2); font-weight: 600; }
+.vlegend .hint { margin: 4px 6px 0; }
+
+/* download: the tables, the docs and the codebooks */
+#download { flex: 1; min-width: 0; overflow-y: auto; padding: 4px 16px 48px; }
+#download .wrap { max-width: 940px; margin: 0 auto; }
+#download h2 { font-size: 19px; margin: 22px 0 6px; }
+#download .lead { color: var(--ink2); font-size: 14px; margin: 0 0 12px; max-width: 760px; }
+.dlmain { display: inline-flex; align-items: center; gap: 10px; background: var(--ink); color: var(--page); border-radius: 999px; padding: 9px 22px; font-weight: 650; text-decoration: none; margin: 4px 0 14px; }
+.tablewrap { overflow-x: auto; }
+table.files { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+table.files th, table.files td { text-align: left; padding: 6px 8px; border-top: 1px solid var(--grid); vertical-align: top; }
+table.files th { font-size: 12px; color: var(--ink2); font-weight: 600; border-top: 0; }
+table.files .n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink2); }
+table.files a { color: var(--ink); font-weight: 650; }
+table.files.years { width: auto; min-width: min(100%, 420px); }
+details.cb { border: 1px solid var(--grid); border-radius: 12px; margin: 0 0 8px; background: var(--raised); }
+details.cb > summary { cursor: pointer; padding: 10px 14px; font-weight: 650; list-style: none; display: flex; gap: 12px; align-items: center; }
+details.cb > summary::-webkit-details-marker { display: none; }
+details.cb > summary::before { content: "→"; transition: transform .2s; }
+details.cb[open] > summary::before { transform: rotate(90deg); }
+details.cb > summary .raw { margin-left: auto; font-weight: 400; font-size: 12.5px; color: var(--ink2); }
+details.cb .md { padding: 0 20px 16px; font-size: 14px; line-height: 1.55; overflow-x: auto; }
+.md table { border-collapse: collapse; font-size: 13px; margin: 8px 0; }
+.md th, .md td { border: 1px solid var(--grid); padding: 4px 8px; text-align: left; vertical-align: top; }
+.md code { font-size: 12.5px; background: var(--g2); padding: 0 3px; border-radius: 4px; }
+.md pre { background: var(--g2); padding: 8px 10px; border-radius: 8px; overflow-x: auto; }
+.md pre code { background: none; padding: 0; }
+.md h1 { font-size: 19px; } .md h2 { font-size: 16.5px; margin-top: 20px; } .md h3 { font-size: 15px; }
+.md a { color: var(--ink); }
+.md pre.plain { white-space: pre-wrap; background: none; padding: 0; font-size: 12.5px; line-height: 1.5; }
+/* long reading text in the serif, identifiers in the mono; the serif's smaller x-height takes a larger size */
+.case-detail .ptext, .hunk, .text p { font-family: var(--serif); font-size: 15px; }
+.hunk .chips, .hunk .ctx, .hunk summary, .hunk .meta { font-family: var(--sans); }
+.cid, .mono, .md code, .md pre { font-family: var(--mono); }
+
+/* incident card — the paper's case card: a tinted hero with the quadrant and the id, the AI actor, the
+   harm's labels, a "Disclosure ⇄ Incident" rail (the filing in force, the start of the incident, the next
+   report) and a verdict; the Atlas's axes, record text and articles follow below */
+#card {
+  position: absolute; right: 16px; top: 8px; bottom: 16px; width: min(560px, calc(100% - 32px));
+  background: var(--raised); border-radius: 16px; border: 1px solid var(--grid); box-shadow: 0 4px 18px rgba(0,0,0,.06);
+  overflow-y: auto; padding: 0 0 22px; z-index: 5;
+  --qc: var(--pending); --qink: var(--pending); --accent: #f59e0b;
+}
+#card[hidden] { display: none; }
+#card .x { position: absolute; right: 12px; top: 12px; border: 0; background: var(--ink); color: var(--page); border-radius: 50%; width: 28px; height: 28px; cursor: pointer; z-index: 2; }
+#card .hero { position: relative; height: 150px; background: linear-gradient(135deg, color-mix(in oklab, var(--qc) 14%, var(--raised)), var(--raised) 85%); display: grid; place-items: center; }
+#card .hero .pill { position: absolute; top: 14px; background: var(--raised); box-shadow: 0 1px 4px rgba(0,0,0,.10); font-size: 12px; font-weight: 700; }
+#card .hero .quad { left: 16px; color: var(--qink); letter-spacing: .06em; text-transform: uppercase; }
+#card .hero .cid { right: 52px; color: var(--ink2); font-weight: 600; }
+#card .hero .cid svg { width: 13px; height: 13px; }
+#card .hero .art { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+#card .hero .art .ico { width: 56px; height: 56px; color: var(--qink); stroke-width: 1.5; }
+#card .hero .art .badge { width: 26px; height: 26px; border-radius: 50%; background: var(--raised); box-shadow: 0 1px 4px rgba(0,0,0,.14); display: grid; place-items: center; margin-top: 26px; }
+#card .hero .art .badge svg { width: 15px; height: 15px; color: var(--accent); stroke-width: 2.2; }
+#card .body { padding: 10px 20px 0; }
+#card .meta { font-size: 12px; color: var(--ink2); font-variant-numeric: tabular-nums; }
+#card .meta a { color: var(--ink2); }
+#card h2 { font-size: 19px; line-height: 1.25; margin: 2px 0 6px; }
+#card .actor { font-size: 15px; font-weight: 700; margin: 0 0 4px; }
+#card .actor .role { font-weight: 400; color: var(--ink2); }
+#card .facts { display: flex; flex-wrap: wrap; gap: 3px 16px; font-size: 13px; color: var(--ink2); }
+#card .facts span { display: inline-flex; align-items: center; gap: 5px; }
+#card .facts svg { width: 14px; height: 14px; color: var(--accent); stroke-width: 2.1; flex: none; }
+#card .lbl { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 700; background: linear-gradient(var(--g2), var(--g2)), var(--raised); border-radius: 8px; padding: 4px 12px; margin: 14px auto 0; position: relative; z-index: 1; }
+#card .lbl svg { width: 15px; height: 15px; color: var(--accent); stroke-width: 2.3; }
+#card .lblrow { position: relative; display: flex; justify-content: center; }
+#card .lblrow .lead { position: absolute; left: 7px; top: 50%; height: calc(50% + 8px); width: calc(50% - 7px); border-left: 1.5px solid var(--axis); border-top: 1.5px solid var(--axis); border-top-left-radius: 8px; }
+#card .rail { position: relative; margin: 6px 0 0 7px; padding-left: 20px; border-left: 1.5px solid var(--axis); }
+#card .rail::after { content: ""; position: absolute; left: -4.7px; bottom: -2px; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 7px solid var(--axis); }
+#card .node { position: relative; padding: 0 0 12px; }
+#card .node .dot { position: absolute; left: -20.75px; transform: translateX(-50%); top: 4px; width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--qc); background: var(--raised); box-sizing: border-box; }
+#card .node .dot.full { background: var(--qc); }
+#card .node .disc { position: absolute; left: -20.75px; transform: translateX(-50%); top: 0; width: 20px; height: 20px; }
+#card .node .head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 13.5px; }
+#card .node .head b { font-weight: 700; }
+#card .node.harm .head b { color: var(--accent); }
+#card .node .tag { color: var(--muted); font-size: 12px; font-style: italic; white-space: nowrap; }
+#card .node .q { font-size: 13px; color: var(--ink2); line-height: 1.4; margin-top: 2px; }
+#card .node .q.inc { color: var(--ink); }
+#card .node .q i { color: var(--muted); }
+#card .verdict { display: block; margin: 10px 0 4px; padding: 7px 14px; border-radius: 999px; background: var(--raised); border: 1.5px solid var(--qc); color: var(--qink); text-align: center; font-size: 13px; font-weight: 700; }
+#card .verdict.soft { border-color: var(--axis); color: var(--ink2); font-weight: 600; }
+#card button.verdict { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; font-family: inherit; cursor: pointer; }
+#card button.verdict:hover, #card button.verdict.open { background: var(--qc); color: #fff; }
+#card button.verdict.soft:hover, #card button.verdict.soft.open { background: var(--ink2); border-color: var(--ink2); color: var(--page); }
+#card button.verdict svg { width: 16px; height: 16px; stroke-width: 2.3; flex: none; transition: transform .2s; }
+#card button.verdict.open svg { transform: rotate(180deg); }
+#card .csec { border: 1px solid var(--grid); border-radius: 14px; margin: 12px 0 0; padding: 11px 14px; }
+#card .csec > h4 { margin: 0; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink2); display: flex;
+  justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+#card .csec > h4::after { content: "→"; font-size: 15px; color: var(--ink); transition: transform .2s; }
+#card .csec:not(.closed) > h4::after { transform: rotate(90deg); }
+#card .csec.closed > .body { display: none; }
+#card .csec > .body { margin-top: 8px; padding: 0; }
+#card .lab { display: grid; grid-template-columns: 150px 1fr; gap: 2px 12px; padding: 7px 0; border-top: 1px solid var(--grid); font-size: 13px; }
+#card .lab:first-child { border-top: 0; }
+#card .lab .k { color: var(--ink2); }
+#card .lab .note { display: block; color: var(--ink2); font-size: 12.5px; margin-top: 2px; }
+#card .lab .q { display: block; margin-top: 4px; color: var(--ink2); font-style: italic; font-size: 12.5px; border-left: 2px solid var(--grid); padding-left: 8px; }
+#card .lab .ref { font-style: normal; margin-left: 6px; font-size: 11.5px; color: var(--ink2); }
+#card .dbsrc { padding: 8px 0; border-top: 1px solid var(--grid); }
+#card .dbsrc:first-child { border-top: 0; padding-top: 0; }
+#card .dbsrc .src { font-weight: 650; font-size: 13px; margin-bottom: 4px; }
+#card .dbsrc .src a { font-weight: 400; color: var(--ink2); }
+#card .csec h3:first-child { margin-top: 0; }
+#card .sources { text-align: right; margin: 14px 0 0; }
+#card h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink2); margin: 18px 0 6px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #card .hero .quad, :root:not([data-theme="light"]) #card .hero .art .ico { color: color-mix(in oklab, var(--qink) 55%, white); } }
+:root[data-theme="dark"] #card .hero .quad, :root[data-theme="dark"] #card .hero .art .ico { color: color-mix(in oklab, var(--qink) 55%, white); }
+.path { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 4px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background: var(--g2); font-size: 13px; }
+.pill .key { width: 10px; height: 10px; border-radius: 50%; }
+.ax { border-top: 1px solid var(--grid); padding: 8px 0; }
+.ax .name { font-size: 13px; font-weight: 650; margin-bottom: 4px; }
+.ax .src { display: grid; grid-template-columns: 76px 1fr; gap: 2px 8px; font-size: 13px; margin-bottom: 4px; }
+.ax .who { color: var(--muted); }
+.ax .how { font-size: 11px; color: var(--muted); margin-left: 8px; white-space: nowrap; }
+.ax .q { grid-column: 2; color: var(--ink2); font-style: italic; font-size: 12.5px; border-left: 2px solid var(--grid); padding-left: 8px; }
+.ax .q .ref { font-style: normal; color: var(--muted); margin-left: 4px; }
+.void { text-decoration: line-through; color: var(--muted); }
+.voidnote { color: #d03b3b; font-size: 11.5px; font-style: normal; margin-left: 4px; }
+.text p { margin: 0 0 8px; font-size: 13.5px; }
+ol.arts { margin: 0 0 8px; padding-left: 20px; font-size: 13px; }
+ol.arts li { margin-bottom: 4px; }
+ol.arts .meta { margin-left: 6px; }
+.text b { font-weight: 650; }
+dl.db { display: grid; grid-template-columns: 140px 1fr; gap: 4px 10px; font-size: 13px; margin: 0; }
+dl.db dt { color: var(--ink2); }
+dl.db dd { margin: 0; }
+
+#tip {
+  position: fixed; pointer-events: none; z-index: 10; max-width: 340px; background: var(--raised); color: var(--ink);
+  border-radius: 10px; box-shadow: 0 4px 18px rgba(0,0,0,.18); padding: 8px 11px; font-size: 13px; display: none;
+}
+#tip .t { font-weight: 650; margin-bottom: 2px; }
+#tip .m { color: var(--ink2); }
+#tip .r { display: flex; align-items: center; gap: 6px; }
+#tip .r .key { width: 9px; height: 9px; border-radius: 50%; }
+#tip .r .n { margin-left: auto; padding-left: 12px; font-variant-numeric: tabular-nums; color: var(--ink2); }
+
+.loader { position: fixed; inset: 0; display: grid; place-items: center; background: var(--page); z-index: 20; color: var(--ink2); }
+.loader[hidden] { display: none; }
+
+/* case timeline — the drawer under the map */
+#case {
+  position: absolute; left: 306px; right: calc(min(560px, 100% - 32px) + 24px); top: 8px; bottom: 16px;
+  background: var(--raised); border-radius: 16px; border: 1px solid var(--grid); box-shadow: 0 4px 18px rgba(0,0,0,.06); z-index: 4;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+#case[hidden] { display: none; }
+.case-h { display: flex; align-items: center; justify-content: space-between; gap: 10px 14px; padding: 12px 14px 10px 16px; }
+.case-h .case-tools { padding: 0; }
+.case-h .note { margin: 0; font-size: 13px; color: var(--ink2); }
+.case-h h3 { margin: 0; font-size: 17px; white-space: nowrap; }
+.case-facts { display: flex; flex-direction: column; gap: 3px; padding: 4px 16px 8px; font-size: 13px; color: var(--ink2); }
+.case-facts span { display: flex; align-items: flex-start; gap: 6px; }
+.case-facts span b { color: var(--ink); font-weight: 600; white-space: nowrap; }
+.case-facts svg { width: 14px; height: 14px; color: var(--accent, #f59e0b); stroke-width: 2.1; flex: none; margin-top: 2px; }
+.case-facts .note { margin: 4px 0 0; font-size: 12.5px; }
+.case-tools { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 0 16px 10px; font-size: 12.5px; color: var(--ink2); }
+.case-tools .seg { margin: 0; }
+.case-tools .seg button { padding: 4px 12px; }
+.case-tools label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+#case .csec { border: 1px solid var(--grid); border-radius: 12px; margin: 0 16px 10px; padding: 8px 12px; }
+#case .csec > h4 { margin: 0; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink2); display: flex;
+  justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+#case .csec > h4::after { content: "→"; font-size: 15px; color: var(--ink); transition: transform .2s; }
+#case .csec:not(.closed) > h4::after { transform: rotate(90deg); }
+#case .csec.closed > .body { display: none; }
+#case .csec > .keys { border: 0; padding: 8px 0 0; }
+.case-h .sub { font-size: 12.5px; color: var(--ink2); flex: 1 1 320px; }
+.case-h .x { border: 0; background: var(--ink); color: var(--page); border-radius: 50%; width: 26px; height: 26px; cursor: pointer; flex: none; }
+.case-h .tools { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--ink2); }
+.case-h .tools button { border: 1px solid var(--ring); background: var(--surface); border-radius: 999px; padding: 2px 10px; cursor: pointer; font-size: 12px; }
+.keys { display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 0 16px 10px; font-size: 12px; color: var(--ink2); border-bottom: 1px solid var(--grid); }
+.keys span { display: inline-flex; align-items: center; gap: 5px; }
+.keys svg { overflow: visible; }
+.case-body { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.tl-wrap { flex: 0 1 auto; max-height: 58%; overflow-y: auto; border-bottom: 1px solid var(--grid); position: relative; }
+#tl { display: block; width: 100%; touch-action: none; }
+#tl .axis text { fill: var(--muted); font-size: 11px; font-family: inherit; }
+#tl .axis line, #tl .axis path { stroke: var(--grid); }
+#tl .lane-name { fill: var(--ink); font-weight: 650; font-size: 12px; }
+#tl .lane-meta { fill: var(--ink2); font-size: 11px; }
+#tl .sep { stroke: var(--grid); }
+#tl .hit { fill: transparent; cursor: pointer; }
+#tl .pbar { cursor: pointer; }
+#tl .pbar:hover { stroke-width: 2.5px; }
+#tl .harm { stroke: var(--ink2); stroke-dasharray: 4 3; }
+#tl .hline { stroke: var(--ink); stroke-width: 2px; }
+#tl .hband { fill: var(--ink); opacity: .07; }
+#tl .harm-lab.pub { font-weight: 500; fill: var(--ink2); }
+#tl .harm-lab { fill: var(--ink); font-size: 11px; font-weight: 650; paint-order: stroke; stroke: var(--raised); stroke-width: 3px; }
+#tl .inforce { fill: var(--g2); }
+#tl .drop { stroke: var(--s3); stroke-width: 2px; stroke-dasharray: 5 3; }
+#tl .drop.m { stroke-dasharray: 2 3; }
+#tl .drop-lab { fill: var(--s3); font-size: 11px; font-weight: 650; paint-order: stroke; stroke: var(--raised); stroke-width: 3px; }
+.tl-wrap.sized { max-height: none; }
+.split { flex: none; height: 11px; cursor: row-resize; background: var(--g2); border-bottom: 1px solid var(--grid); position: relative; touch-action: none; }
+.split::after { content: ""; position: absolute; left: 50%; top: 4px; width: 40px; height: 3px; margin-left: -20px; border-radius: 2px; background: var(--muted); }
+.split:hover, .split.drag { background: var(--ring); }
+.case-detail { flex: 1; min-height: 0; overflow-y: auto; padding: 10px 14px 16px; font-size: 13.5px; }
+.case-detail h4 { margin: 0 0 6px; font-size: 14px; }
+.case-detail .meta { font-size: 12px; color: var(--ink2); margin: 0 0 8px; }
+.case-detail .chips { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.case-detail .chip { font-size: 12px; background: var(--g2); border-radius: 999px; padding: 2px 9px; }
+.case-detail button.chip { border: 1px solid transparent; color: inherit; font-family: inherit; cursor: pointer; }
+.case-detail button.chip:hover { border-color: var(--ring); }
+.case-detail button.chip.on { background: color-mix(in oklab, var(--s1) 22%, transparent); border-color: var(--s1); font-weight: 650; }
+.case-detail .evnote { font-size: 12px; color: var(--ink2); margin: 0 0 6px; }
+.case-detail .ptext { line-height: 1.55; }
+.case-detail .ptext ins { background: var(--ins); text-decoration: none; border-radius: 2px; }
+.case-detail .ptext del { background: var(--del); color: var(--ink2); border-radius: 2px; }
+.case-detail button.q { border: 1px solid var(--ring); background: var(--surface); border-radius: 999px; padding: 3px 10px; cursor: pointer; margin: 0 6px 6px 0; font-size: 12.5px; }
+mark { background: color-mix(in oklab, var(--s1) 24%, transparent); color: inherit; border-radius: 2px; padding: 0 1px; }
+
+.hunk { border-top: 1px solid var(--grid); padding: 8px 0; line-height: 1.55; }
+.hunk .ctx { color: var(--muted); font-size: 12px; margin-bottom: 3px; }
+.hunk ins { background: var(--ins); text-decoration: underline; text-decoration-color: rgba(12,163,12,.6); }
+.hunk del { background: var(--del); color: var(--ink2); }
+.hunk details { display: inline; }
+.hunk summary { display: inline; cursor: pointer; color: var(--muted); }
+
+@media (max-width: 1200px) and (min-width: 821px) {
+  #case { right: 16px; z-index: 6; }
+}
+@media (max-width: 820px) {
+  main { flex-direction: column; }
+  aside { width: 100%; padding: 8px 16px; max-height: none; overflow: visible; }
+  #viz { min-height: 150vw; }
+  #card { position: fixed; inset: 8px 8px calc(50vh + 16px) 8px; width: auto; }
+  #case { position: fixed; left: 8px; right: 8px; top: auto; bottom: 8px; height: 50vh; }
+}
+</style>
+</head>
+<body>
+<div class="loader" id="loader">Loading incidents…</div>
+
+<header>
+  <h1>DISC<span>Disclosure–Incident Securities Corpus</span></h1>
+  <p>Licence CC BY-SA 4.0. Merges the AI Incident Database (AIID), the AIAAIC Repository and the OECD AI
+     Incidents and Hazards Monitor (AIM), linked to the SEC EDGAR filings of the AI actors they implicate.</p>
+  <div class="tabs" role="tablist">
+    <button data-view="explore" class="on">Explore</button>
+    <button data-view="download">Download</button>
+  </div>
+</header>
+
+<main>
+  <aside>
+    <section class="cell closed">
+      <h4>Search</h4>
+      <div class="body search">
+        <input type="text" id="q" placeholder="Title or incident id…" autocomplete="off">
+        <button id="clearq" aria-label="Clear search">✕</button>
+      </div>
+    </section>
+
+    <section class="cell">
+      <h4>Arrange</h4>
+      <div class="body">
+        <div class="seg" id="arrange">
+          <button data-v="timeline" class="on">Timeline</button>
+          <button data-v="quadrants">Quadrants</button>
+          <button data-v="layers">Impact layers</button>
+        </div>
+        <p class="hint" id="arrangehint"></p>
+      </div>
+    </section>
+
+    <section class="cell closed">
+      <h4>Color by</h4>
+      <div class="body">
+        <select id="colorby" aria-label="Color by"></select>
+        <div class="filters" id="filters" hidden></div>
+        <p class="hint" id="legendhint"></p>
+        <div class="legend" id="legend"></div>
+      </div>
+    </section>
+
+    <section class="cell counter">
+      <div class="big" id="count">–</div>
+      <div class="lbl" id="countlbl">incidents shown</div>
+      <div class="status" id="status"></div>
+    </section>
+
+    <section class="cell help closed">
+      <h4>How to read it</h4>
+      <div class="body">
+        <p>Each dot represents one incident.</p>
+        <p><b>Timeline</b>: when the incident started. <b>Quadrants</b>: the 2,000 matched incidents, by whether their risk type was disclosed when the incident started (anticipated) and in the next periodic filing (addressed). <b>Impact layers</b>: waves out from the AI system.</p>
+        <p>Scroll to zoom, drag to move. Hover a dot for its labels, click it to open the incident's details.</p>
+      </div>
+    </section>
+  </aside>
+
+  <section id="viz">
+    <svg id="svgb" aria-hidden="true"></svg>
+    <canvas id="cv"></canvas>
+    <svg id="svg" role="img" aria-label="One dot per incident"></svg>
+    <div class="viztools"><span id="binlab"></span><button id="rz">Reset zoom</button></div>
+    <div class="vlegend" id="vlegend" hidden><h5></h5><div class="legend"></div></div>
+    <button class="pager next" id="pgNext" hidden aria-label="Show the unmatched incidents"><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="n"></span></button>
+    <button class="pager prev" id="pgPrev" hidden aria-label="Back to the matched incidents"><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></span><span class="n"></span></button>
+    <div id="tscroll" hidden title="Drag the window, or click beside it, to move in time"><svg preserveAspectRatio="none"></svg><div class="thumb"></div></div>
+  </section>
+  <section id="download" hidden></section>
+
+  <article id="card" hidden></article>
+  <section id="case" hidden aria-label="What the implicated AI actors disclosed over time"></section>
+</main>
+<div id="tip"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+// a link only for an http(s) URL; anything else is shown as plain text
+const safeUrl = u => { try { const p = new URL(u, location.href); return /^https?:$/.test(p.protocol) ? p.href : null; } catch { return null; } };
+const extLink = (u, text, attrs = "") => safeUrl(u) ? `<a href="${esc(safeUrl(u))}" target="_blank" rel="noopener"${attrs}>${text}</a>` : `<span${attrs}>${text}</span>`;
+const fmt = d3.format(",");
+const pct = d3.format(".0%");
+
+// One page for both ways of serving it: explorer/serve.py answers /api/…, and explorer/export.py writes
+// the same answers as files, with STATIC set to true in its copy, for hosting without a server.
+const STATIC = false;
+const API = {
+  data: () => STATIC ? "api/data.json" : "/api/data",
+  codes: () => STATIC ? "api/codes.json" : "/api/codes",
+  incident: id => STATIC ? `api/incident/${encodeURIComponent(id)}.json` : `/api/incident/${encodeURIComponent(id)}`,
+  case: id => STATIC ? `api/case/${encodeURIComponent(id)}.json` : `/api/case/${encodeURIComponent(id)}`,
+  downloads: () => STATIC ? "api/downloads.json" : "/api/downloads",
+};
+// a static copy holds its data as scripts that hand it over through __disc(key, data): a page sandboxed
+// without an origin of its own (Anonymous GitHub's /w/ view) may load scripts where every fetch is refused
+const DATA_WAIT = new Map();                                   // key -> {promise, done}
+window.__disc = (key, data) => DATA_WAIT.get(key)?.done(data);
+function loadData(key) {
+  if (DATA_WAIT.has(key)) return DATA_WAIT.get(key).promise;
+  let resolve;
+  const promise = new Promise(r => { resolve = r; }), s = document.createElement("script");
+  const done = v => { if (DATA_WAIT.get(key)?.promise === promise) DATA_WAIT.delete(key); s.remove(); resolve(v); };
+  DATA_WAIT.set(key, {promise, done});
+  s.src = `${key}.js`;
+  s.onload = s.onerror = () => done(null);                    // after the script ran: a no-op once it handed over
+  document.head.append(s);
+  return promise;
+}
+const getJSON = url => STATIC ? loadData(url.replace(/\.json$/, "")).then(d => d ?? {error: "unknown incident"})
+  : fetch(url).then(r => r.json());
+// a static case names its AI actors; each AI actor's filings, passages and current reports are a file of their own
+async function getCase(id) {
+  const c = await getJSON(API.case(id));
+  if (STATIC && c.lanes) c.lanes = await Promise.all(c.lanes.map(async l => ({...await getJSON(`api/actor/${l.cik}.json`), ...l})));
+  return c;
+}
+
+const S = {
+  rows: [], domains: {}, subs: {}, codes: {}, files: [], stamp: "", annual: {}, dates: {}, anchor: "harm",
+  arrange: "timeline", colorBy: "quadrant", nFinal: 0,
+  hidden: new Set(), filters: [], lit: null, query: "", view: "explore", open: null,
+};
+
+// ------------------------------------------------------------------ labels, as the codebooks and research.md name them
+// `d` on an entry is the short definition shown when the pointer rests on it in the legend
+const LAYERS = {capability: ["Capability", "var(--c1)", "The harm arises in the system's own outputs or behaviour: an error, a biased output, a failure to perform."],
+                human_interaction: ["Human interaction", "var(--c2)", "The harm arises where people use or meet the system: deception, manipulation, over-reliance, misuse by a user."],
+                systemic: ["Systemic", "var(--c3)", "The harm arises in the wider systems the AI is part of: labour, markets, institutions, information, the environment."]};
+const STATES = {unknown: ["Unclear", "var(--pending)"],
+                none: ["Not coded", "var(--none)"]};
+const isSub = k => /^\d\.\d$/.test(k);
+const norm = v => v == null || v === "" ? "unknown" : String(v);
+// the released labels (serve.py's /api/codes), one set per incident
+function coded(d, f) { const r = S.codes[d.id]; return r ? norm(r[f]) : "none"; }
+function codedList(d, f) { const r = S.codes[d.id]; return !r ? [] : Array.isArray(r[f]) ? r[f] : r[f] ? [r[f]] : []; }
+const mitOf = d => coded(d, "mit");
+const domOf = k => isSub(k) ? k[0] : "x";
+const layerName = k => (LAYERS[k] || STATES[k] || [k])[0];
+const subName = k => isSub(k) ? `${k} ${S.subs[k] || ""}` : (STATES[k] || [k])[0];
+const domName = k => S.domains[k] ? `${k}. ${S.domains[k]}` : "No risk type";
+
+const withStates = (items, keys = ["unknown", "none"]) =>
+  [...items, ...keys.map(k => ({k, l: STATES[k][0], c: STATES[k][1], state: true}))];
+// categorical hues in their fixed order (--c1 … --c8); values past the eighth fold into "Other"
+const PAL = d3.range(1, 9).map(i => `var(--c${i})`);
+const slots = list => list.map(([k, l, d], i) => ({k, l: l ?? k, c: PAL[i], d}));
+const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+const SUBJECTS = [                                                  // codebook-harm §1, after Bogucka et al. (2026)
+  ["Individual", null, "A single person."],
+  ["Group of persons", null, "A subset of people in a specific context: students, employees, delivery drivers."],
+  ["Society", null, "A broad regional, national or global population."],
+  ["Organization", null, "An institution, company, NGO, public body, university or media outlet."],
+  ["Nature", null, "Animals, plants or ecosystems."],
+  ["Other", null, "A living entity that fits none of the above."]];
+const HARMS = {                                                     // OECD AIM's harm types (codebook-harm §2)
+  "Physical (injury)": "Bodily injury to a person.",
+  "Physical (death)": "Loss of life.",
+  "Psychological": "Harm to a person's mental health or wellbeing.",
+  "Reputational": "Damage to the reputation of a person or organisation.",
+  "Economic/Property": "Financial loss or damage to property.",
+  "Human or fundamental rights": "A breach of rights such as privacy, non-discrimination or free expression.",
+  "Public interest": "Harm to public goods: democratic processes, public trust, the information ecosystem.",
+  "Environmental": "Harm to the environment.",
+  "Other": "A harm of another kind."};
+const SUBDOMAIN_DEF = {                                             // codebook-mit-risk: assign when the harm that occurred is …
+  "1.1": "Unequal treatment of people or groups, or a stereotyped or demeaning representation of them.",
+  "1.2": "People exposed to violent, sexual, hateful, self-harm or otherwise harmful content.",
+  "1.3": "The system works worse for some groups, harming them.",
+  "2.1": "Personal or sensitive data collected, exposed, leaked or inferred without consent.",
+  "2.2": "The AI system itself attacked or exploited: jailbreaks, prompt injection, theft, poisoning.",
+  "3.1": "False content (hallucination, wrong advice) that misled someone, with no intent to deceive.",
+  "3.2": "The shared information environment degraded at scale.",
+  "4.1": "AI used for propaganda, political deepfakes, influence operations or mass surveillance.",
+  "4.2": "AI used to attack systems, build or use weapons, or cause mass harm.",
+  "4.3": "AI used to defraud, scam, impersonate, extort or manipulate specific targets.",
+  "5.1": "Users trusted or depended on the system inappropriately.",
+  "5.2": "People's ability to decide for themselves displaced or undermined.",
+  "6.1": "AI concentrates power or benefits unfairly.",
+  "6.2": "Job losses, worse working conditions, surveillance of workers, widened inequality.",
+  "6.3": "Creative or skilled human work devalued or appropriated.",
+  "6.4": "A race between developers leads to unsafe release.",
+  "6.5": "Institutions or regulation failed to govern the system.",
+  "6.6": "Energy, water, emissions or other ecological damage.",
+  "7.1": "The system acted against its operators' or users' intent in pursuit of a goal.",
+  "7.2": "The system showed capabilities dangerous in themselves.",
+  "7.3": "The system failed at its task or behaved unreliably.",
+  "7.4": "Harm arose because the system's decisions could not be explained or audited.",
+  "7.5": "Concern for the moral status or treatment of AI systems.",
+  "7.6": "Harm from interaction between several AI agents."};
+const CAPABILITIES = ["Estimating", "Forecasting", "Comparing", "Detecting", "Identifying", "Discovering", "Generating", "Acting"];   // codebook-harm §10
+const AUTONOMY = [["human support", "Human support"], ["human-in-the-loop", "Human-in-the-loop"],      // codebook-attribution §5
+                  ["human-on-the-loop", "Human-on-the-loop"], ["human-out-of-the-loop", "Human-out-of-the-loop"]];
+const PURPOSE = [["within_purpose", "Within intended purpose"], ["misuse:deployer", "Misuse by the deployer"],   // codebook-harm §5
+                 ["misuse:user", "Misuse by a user"], ["misuse:third_party", "Misuse by a third party"]];
+const REVISIONS = [                                                 // notebook 04: how the new text speaks to the incident
+  ["incident_specific", "Incident-specific", "The new text names the incident's technology, product, AI actor or harm.", "#184f95"],
+  ["risk_type_specific", "Risk-type specific", "The new text adds the incident's kind of risk in general terms.", "#3987e5"],
+  ["unspecific", "Unspecific", "The new text says nothing on the incident's risk type, or the change is cosmetic.", "#9ec5f4"]];
+const DATES = [                                                     // codebook-harm §8
+  ["start", "Date incident started", "var(--o4)"], ["year", "Year incident started", "var(--o2)"],
+  ["record", "Unclear: date recorded", "var(--pending)"]];
+// the values an AI actor position holds where no party is named (serve.py, codebook-attribution §3)
+const UNNAMED = new Set(["Unclear", "Unnamed", "Personal, non-professional use"]);
+const partyDef = {
+  "Unclear": "The record shows a category (\"scammers\") or nothing.",
+  "Unnamed": "A specific party the record describes but does not name (\"a US regional bank\").",
+  "Personal, non-professional use": "No deployer in the AI Act's sense: a person used the system privately (Art. 3(4)).",
+  "Private individual (name removed)": "A private person, named in the sources; the name is removed in DISC (personal data)."};
+const named = list => (list || []).filter(v => !UNNAMED.has(v));
+
+// a short reference under the legend: [text, link or null]
+const REF = {
+  risk: [["MIT AI Risk Repository (Slattery et al., 2026)", "https://doi.org/10.1016/j.patter.2026.101517"]],
+  subdomain: [["MIT AI Risk Repository (Slattery et al., 2026)", "https://doi.org/10.1016/j.patter.2026.101517"]],
+  subject: [["Bogucka, Šćepanović & Quercia (2026)", "https://doi.org/10.1145/3805689.3812347"]],
+  layer: [["Weidinger et al. (2023)", "https://arxiv.org/abs/2310.11986"]],
+  harm: [["OECD AI Incidents and Hazards Monitor", "https://oecd.ai/en/incidents"]],
+  domain: [["Herdel et al. (2024)", "https://doi.org/10.1609/aies.v7i1.31660"]],
+  technique: [["VAIR (Golpayegani, Pandit & Lewis, 2023)", "https://doi.org/10.1145/3593013.3594050"]],
+  capability: [["Herdel et al. (2024)", "https://doi.org/10.1609/aies.v7i1.31660"]],
+  autonomy: [["OECD Framework for the Classification of AI Systems (2022)", "https://doi.org/10.1787/cb6d9eca-en"]],
+  purpose: [["EU AI Act, Art. 3(12)–(13)", "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"]],
+  deployer: [["EU AI Act, Art. 3(4)", "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"]],
+  provider: [["EU AI Act, Art. 3(3)", "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"]],
+  upstream: [["EU AI Act, Art. 25", "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"]],
+};
+
+const COLOR = {
+  quadrant: {group: "Disclosure", name: "Quadrant", kind: "cat", key: d => quadOf(d, "quad"), items: () => QUAD,
+    about: "Whether the incident's risk type was disclosed before and after it"},
+  outcome: {group: "Disclosure", name: "Outcome", kind: "cat", key: d => quadOf(d, "how"), items: () => OUTCOME,
+    about: "What the next periodic filing did with the incident's risk type"},
+  revision: {group: "Disclosure", name: "Revision type", kind: "cat", key: d => d.rv || "none",
+    items: () => [...REVISIONS.map(([k, l, d, c]) => ({k, l, d, c})),
+                  {k: "none", l: "No revision", c: "var(--none)", state: true, d: "No revised passage is linked to the incident."}],
+    about: "How a revised risk factor speaks to the incident"},
+  own: {group: "Disclosure", name: "Harm to the AI actor", kind: "cat",
+    key: d => d.rh === true ? "yes" : d.rh === false ? "no" : "none",
+    items: () => [{k: "yes", l: "Yes", c: "var(--c2)", d: "The disclosure in force when the incident started names a harm to the AI actor itself: liability, fines, lost revenue, reputation."},
+                  {k: "no", l: "No", c: "var(--c1)", d: "The disclosure in force names no harm to the AI actor itself."},
+                  {k: "none", l: "No disclosure before", c: "var(--none)", state: true, d: "No disclosure of the risk type was in force when the incident started."}],
+    about: "Whether the disclosure that anticipated the incident names a harm to the AI actor itself"},
+  risk: {group: "Harm", name: "Risk type", kind: "cat", key: d => domOf(mitOf(d)),
+    items: () => [...slots(Object.keys(S.domains).sort().map(k => [k, domName(k),
+                    Object.keys(S.subs).filter(s => s[0] === k).sort().map(s => subName(s)).join("; ")])),
+                  {k: "x", l: "No risk type", c: "var(--none)", state: true}],
+    about: "The MIT risk domain of the incident's risk type"},
+  subdomain: {group: "Harm", name: "Risk subdomain", kind: "multi", values: d => isSub(mitOf(d)) ? [mitOf(d)] : [],
+    label: k => subName(k), def: k => SUBDOMAIN_DEF[k], byKey: true,
+    about: "The incident's risk type: one of 24 MIT subdomains"},
+  subject: {group: "Harm", name: "AI subject", kind: "cat", key: d => coded(d, "subj"),
+    items: () => [...slots(SUBJECTS), {k: "unknown", l: "No AI subject harmed", c: "var(--none)", state: true,
+                  d: "The record shows no living being harmed: a hazard, or harm to a system only."}],
+    about: "Who was harmed"},
+  layer: {group: "Harm", name: "Impact layer", kind: "cat", key: d => coded(d, "layer"),
+    items: () => withStates(Object.entries(LAYERS).map(([k, [l, c, d]]) => ({k, l, c, d}))),
+    about: "Where the harm arises"},
+  harm: {group: "Harm", name: "Harm type", kind: "multi", values: d => codedList(d, "harm"), def: k => HARMS[k],
+    about: "What damage occurred"},
+  date: {group: "Harm", name: "Date of incident", kind: "cat", key: d => dateBasis(d),
+    items: () => DATES.map(([k, l, c]) => ({k, l, c, state: k === "record"})),
+    about: "How precisely the start of the incident is known"},
+  domain: {group: "Use", name: "Domain", kind: "multi", values: d => codedList(d, "dom"), about: "Where the AI system was used"},
+  technique: {group: "Use", name: "Technique", kind: "cat",
+    key: d => { const t = coded(d, "tech"); return ["Deep Learning", "Machine Learning", "unknown", "none"].includes(t) ? t : "other"; },
+    items: () => withStates([...slots([["Deep Learning"], ["Machine Learning"]]), {k: "other", l: "Other", c: "var(--muted)"}]),
+    about: "The AI technique"},
+  capability: {group: "Use", name: "Capability", kind: "cat",
+    key: d => { const v = coded(d, "cap"); return CAPABILITIES.includes(v) || v in STATES ? v : "other"; },
+    items: () => withStates([...slots(CAPABILITIES.map(k => [k])), {k: "other", l: "Other", c: "var(--muted)"}]),
+    about: "What the AI system does"},
+  autonomy: {group: "Use", name: "Action autonomy", kind: "cat", key: d => coded(d, "aut"),
+    items: () => withStates(AUTONOMY.map(([k, l], i) => ({k, l, c: `var(--o${i + 1})`}))),
+    about: "How far the system acted without a person"},
+  purpose: {group: "Use", name: "Intended purpose and misuse", kind: "cat",
+    key: d => { const r = coded(d, "rel"); return r === "misuse" ? `misuse:${S.codes[d.id].by || "unknown"}` : r; },
+    items: () => [...slots(PURPOSE), {k: "unclear", l: "Unclear", c: "var(--pending)", state: true},
+                  {k: "none", l: "Not coded", c: "var(--none)", state: true}],
+    about: "Whether the harm came from the use the system is for, or from misuse"},
+  actor: {group: "AI actors", name: "AI actor", kind: "multi",
+    values: d => { const v = [...new Set([...named(d.dep), ...named(d.pro), ...named(d.up)])]; return v.length ? v : ["Unclear"]; },
+    def: k => partyDef[k], about: "Every AI actor the incident names, in any position"},
+  implicated: {group: "AI actors", name: "Implicated AI actor", kind: "multi",
+    values: d => { const v = [...new Set((d.xa || []).filter(([, r]) => r !== "mentioned").map(([c]) => tidyName(S.regnames[c] || String(c))))];
+                   return v.length ? v : ["None SEC-registered"]; },
+    about: "The SEC-registered AI actors the incident implicates, whose filings are read"},
+  deployer: {group: "AI actors", name: "Deployer", kind: "multi", values: d => d.dep || [], def: k => partyDef[k], about: "Who used the AI system under its authority"},
+  provider: {group: "AI actors", name: "Provider", kind: "multi", values: d => d.pro || [], def: k => partyDef[k], about: "Who develops the AI system and puts it on the market under its name"},
+  upstream: {group: "AI actors", name: "Upstream provider", kind: "multi", values: d => d.up || [], def: k => partyDef[k],
+    about: "Who supplied the component that failed, or that the harm acted through"},
+};
+// how the start of the incident is known: to the day or month, to the year, or not (the record's date stands in)
+function dateBasis(d) {
+  const h = S.dates[d.id];
+  return !h || !h[0] || h[1] === "unknown" ? "record" : h[1] === "year" ? "year" : "start";
+}
+
+// ------------------------------------------------------------------ filters
+function matches(d) {
+  if (!S.query) return true;
+  const hay = `${d.id} ${d.t || ""}`.toLowerCase();
+  return S.query.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w));
+}
+// a selection made under one colour mode stays as a filter when the mode changes: a categorical one
+// keeps the entries left on, a multi one the incidents carrying the lit value; filters cross
+function filterOk(d) {
+  return S.filters.every(f => {
+    const C = COLOR[f.mode];
+    return !C ? true : f.off ? !f.off.includes(C.key(d)) : C.values(d).includes(f.lit);
+  });
+}
+function kept(d) {                         // legend switches and filters take incidents out of the layout
+  const C = COLOR[S.colorBy];
+  return filterOk(d) && (C.kind === "cat" ? !S.hidden.has(C.key(d)) : true);
+}
+function filterLabel(f) {
+  const C = COLOR[f.mode];
+  if (f.lit) return `${C.name}: ${f.lit}`;
+  const items = C.items(), on = items.filter(i => !f.off.includes(i.k) && !i.state), offs = items.filter(i => f.off.includes(i.k));
+  return `${C.name}: ` + (on.length <= offs.length ? on.map(i => i.l).join(", ") : "not " + offs.map(i => i.l).join(", "));
+}
+const LAST = new Set([...UNNAMED, "None SEC-registered"]);     // listed after the named values
+function topValue(C) {                     // a multi mode opens on its most frequent named value
+  const n = new Map();
+  S.rows.filter(filterOk).forEach(d => C.values(d).forEach(v => n.set(v, (n.get(v) || 0) + 1)));
+  const items = [...n].sort((a, b) => b[1] - a[1]);
+  return (items.find(([k]) => !LAST.has(k)) || items[0] || [null])[0];
+}
+function setColorBy(mode) {                // the current selection becomes a filter; a filter on the new mode becomes its selection again
+  const sel = S.hidden.size ? {mode: S.colorBy, off: [...S.hidden]} : S.lit && !S.litAuto ? {mode: S.colorBy, lit: S.lit} : null;
+  S.filters = S.filters.filter(f => f.mode !== S.colorBy);
+  if (sel) S.filters.push(sel);
+  const back = S.filters.find(f => f.mode === mode);
+  S.filters = S.filters.filter(f => f.mode !== mode);
+  S.colorBy = mode;
+  S.hidden = new Set(back && back.off || []);
+  S.lit = back && back.lit || null;
+  S.litAuto = !S.lit && COLOR[mode].kind === "multi";
+  if (S.litAuto) S.lit = topValue(COLOR[mode]);
+}
+function renderFilters() {
+  const box = $("#filters");
+  box.hidden = !S.filters.length;
+  box.innerHTML = S.filters.map((f, i) => `<span class="chip"><button class="go" data-i="${i}" title="${esc(filterLabel(f))}. Click to switch to this colour mode and change it.">${esc(filterLabel(f))}</button><button class="x" data-i="${i}" aria-label="Remove this filter">✕</button></span>`).join("")
+    + (S.filters.length > 1 ? `<button class="clear">Clear all</button>` : "");
+  box.querySelectorAll("button.x").forEach(b => b.onclick = () => { S.filters.splice(+b.dataset.i, 1); rerender(); });
+  box.querySelectorAll("button.go").forEach(b => b.onclick = () => { setColorBy(S.filters[+b.dataset.i].mode); syncControls(); rerender(); });
+  box.querySelector("button.clear")?.addEventListener("click", () => { S.filters = []; rerender(); });
+}
+const shown = d => kept(d) && matches(d);
+
+// ------------------------------------------------------------------ controls
+function fillColorBy() {
+  $("#colorby").innerHTML = [...d3.group(Object.entries(COLOR), ([, c]) => c.group)].map(([g, cs]) =>
+    `<optgroup label="${esc(g)}">${cs.map(([k, c]) => `<option value="${k}" title="${esc(c.about || "")}">${esc(c.name)}</option>`).join("")}</optgroup>`).join("");
+  $("#colorby").value = S.colorBy;
+}
+
+const LEGEND_MAX = 300;
+const swatch = c => `background:${c}`;
+function renderLegend() {
+  const C = COLOR[S.colorBy], leaves = S.rows.filter(d => matches(d) && filterOk(d)), box = $("#legend");
+  renderFilters();
+  $("#legendhint").innerHTML = (REF[S.colorBy] || []).map(([t, u]) => u ? extLink(u, esc(t)) : esc(t)).join("; ");
+  let items;
+  if (C.kind === "cat") {
+    const n = d3.rollup(leaves, v => v.length, C.key);
+    items = C.items().filter(i => !i.state || n.get(i.k)).map(i => ({...i, n: n.get(i.k) || 0, off: S.hidden.has(i.k)}));
+  } else {
+    const n = new Map();
+    leaves.forEach(d => C.values(d).forEach(v => n.set(v, (n.get(v) || 0) + 1)));
+    items = [...n].sort((a, b) => (LAST.has(a[0]) - LAST.has(b[0])) || (C.byKey ? a[0].localeCompare(b[0]) : b[1] - a[1] || a[0].localeCompare(b[0])))
+      .map(([k, c]) => ({k, l: C.label ? C.label(k) : k, n: c, d: C.def && C.def(k), c: S.lit === k ? "var(--c1)" : "var(--none)", off: S.lit !== k}));
+  }
+  const entry = (i, j) => `<button data-k="${esc(i.k)}" data-j="${j}" class="${i.off ? "off" : ""}">
+    <span class="sw" style="${swatch(i.c)}"></span>${esc(i.l)}<span class="n">${fmt(i.n)}</span></button>`;
+  box.innerHTML = items.slice(0, LEGEND_MAX).map(entry).join("")
+    + (items.length > LEGEND_MAX ? `<p class="hint">${fmt(items.length - LEGEND_MAX)} more values with fewer incidents.</p>` : "");
+  // the same legend on the timeline while Color by is folded: every entry, or for a label with many values the lit one
+  const mini = $("#vlegend");
+  mini.querySelector("h5").textContent = C.name;
+  const lit = items.findIndex(i => !i.off);
+  mini.querySelector(".legend").innerHTML = C.kind === "cat" ? items.map(entry).join("")
+    : (lit >= 0 ? entry(items[lit], lit) : "") + `<p class="hint">${fmt(leaves.filter(d => !S.lit || !C.values(d).includes(S.lit)).length)} incidents with other values</p>`;
+  miniLegend();
+  [box, mini].flatMap(b => [...b.querySelectorAll("button")]).forEach(b => {
+    const i = items[+b.dataset.j];
+    b.onclick = () => {
+      const k = b.dataset.k;
+      if (C.kind === "cat") S.hidden.has(k) ? S.hidden.delete(k) : S.hidden.add(k);
+      else { S.lit = S.lit === k ? null : k; S.litAuto = false; }
+      hideTip(); renderLegend(); renderViz(true); saveHash();
+    };
+    if (i.d) {
+      b.onmouseenter = e => { tip.innerHTML = `<div class="t">${esc(i.l)}</div><div class="m">${esc(i.d)}</div>`; tip.style.display = "block"; placeTip(e); };
+      b.onmousemove = placeTip;
+      b.onmouseleave = hideTip;
+    }
+  });
+}
+
+function miniLegend() {
+  $("#vlegend").hidden = !(S.view === "explore" && S.arrange === "timeline" && $("#colorby").closest(".cell").classList.contains("closed"));
+}
+
+function renderCounter() {
+  const n = S.rows.filter(shown).length;
+  $("#count").textContent = fmt(n);
+  $("#countlbl").textContent = n === S.rows.length ? "incidents, all of DISC" : `of ${fmt(S.rows.length)} incidents shown`;
+  $("#status").textContent = S.version ? `DISC ${S.version}` : "";
+}
+
+// ------------------------------------------------------------------ the incidents, one dot each
+// Three arrangements of the same dots. Each layout draws its frame and returns where every dot goes
+// ({x, y, r, o}: o fades a dot that stands outside the arrangement's main reading). The frame is SVG,
+// behind the dots (#svgb) and in front of them (#svg: labels, axis, rings); the 9,001 dots are drawn
+// on a canvas between the two, which keeps zooming, panning and switching quick.
+const svg = d3.select("#svg"), svgB = d3.select("#svgb"), cv = $("#cv"), ctx = cv.getContext("2d");
+const gZoomB = svgB.append("g"), gBack = gZoomB.append("g");
+const gZoom = svg.append("g"), gFront = gZoom.append("g"), gHi = gZoom.append("g");
+const gAxis = svg.append("g").attr("class", "vaxis");
+const hiRing = gHi.append("circle").attr("class", "ring").style("display", "none");
+const pickRing = gHi.append("circle").attr("class", "ring").style("display", "none");
+let W = 1000, H = 700, DPR = 1, POS = new Map(), DOTS = [], FILL = new Map(), ALPHA = new Map(), FIND = null, quiet = false, ANIM = null;
+const NOWHERE = {x: -50, y: -50, r: 0, o: 0};
+const at = d => POS.get(d.id) || NOWHERE;
+const viewT = () => S.arrange === "timeline" ? d3.zoomIdentity : d3.zoomTransform(svg.node());
+
+// on the timeline a sideways swipe, or shift and the wheel, scrolls; the wheel alone zooms
+const sideways = e => S.arrange === "timeline" && (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY));
+const zoom = d3.zoom()
+  .filter(e => (!e.ctrlKey || e.type === "wheel") && !e.button && !(e.type === "wheel" && sideways(e)))
+  .on("zoom", e => {
+    if (quiet) return;
+    if (S.arrange === "timeline") { TL.x = e.transform.rescaleX(TL.x0); placeTimeline(); }
+    else { gZoom.attr("transform", e.transform); gZoomB.attr("transform", e.transform); draw(); }
+    hideTip(); ring(null); pagers();
+  });
+const panBy = px => svg.call(zoom.translateBy, -px / d3.zoomTransform(svg.node()).k, 0);
+svg.call(zoom).on("dblclick.zoom", null)
+  .on("wheel.pan", e => { if (!sideways(e)) return; e.preventDefault(); panBy(Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY); });
+function resetZoom() {
+  quiet = true; svg.call(zoom.transform, d3.zoomIdentity); quiet = false;
+  gZoom.attr("transform", null); gZoomB.attr("transform", null);
+}
+$("#rz").onclick = () => { ZOOMED = null; svg.transition().duration(450).call(zoom.transform, S.arrange === "timeline" ? TL.home : S.arrange === "quadrants" ? pageT(pageOf()) : d3.zoomIdentity); };
+
+const ARRANGE = {
+  timeline: {layout: d => layoutTimeline(d),
+    hint: "By when the incident started. Scroll to zoom, drag or use the bar below to move in time."},
+  quadrants: {layout: d => layoutQuadrants(d),
+    hint: "Rows: risk type disclosed when the incident started, or not. Columns: in the next periodic filing, or not. Click a quadrant or a bubble to zoom in; the arrow leads to the unmatched incidents."},
+  layers: {layout: d => layoutLayers(d),
+    hint: "Waves out from the AI system: capability, human interaction, systemic (Weidinger et al., 2023). Sectors are the risk domains 1 to 7."},
+};
+
+let LAID = null;                                       // the arrangement last laid out
+function renderViz(animate = false) {
+  if (S.view !== "explore" || !S.rows.length) return;
+  const page = S.arrange === "quadrants" && LAID === "quadrants" ? pageOf() : 1;   // a new colour keeps the page on view
+  const box = $("#viz").getBoundingClientRect();
+  W = Math.max(320, Math.round(box.width)); H = Math.max(380, Math.round(box.height));
+  for (const s of [svg, svgB]) s.attr("viewBox", `0 0 ${W} ${H}`);
+  DPR = window.devicePixelRatio || 1;
+  cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR); cv.style.width = `${W}px`; cv.style.height = `${H}px`;
+  const from = animate && DOTS.length ? new Map(DOTS.map(d => [d.id, cur(d)])) : null;   // where each dot is now
+  if (ANIM) { ANIM.timer.stop(); ANIM = null; }
+  resetZoom();
+  gBack.selectAll("*").remove(); gFront.selectAll("*").remove(); gAxis.selectAll("*").remove();
+  $("#binlab").textContent = "";
+  const leaves = S.rows.filter(kept);
+  $("#viz .empty")?.remove();
+  if (!leaves.length) $("#viz").insertAdjacentHTML("beforeend", `<div class="empty">No incidents in this selection.</div>`);
+  zoom.scaleExtent(S.arrange === "timeline" ? [1, 2000] : [1, 30])
+      .translateExtent(S.arrange === "timeline" ? [[0, 0], [W, H]] : [[-W / 2, -H / 2], [(S.arrange === "quadrants" ? 2.5 : 1.5) * W, 1.5 * H]]);
+  $("#tscroll").hidden = S.arrange !== "timeline";
+  DOTS = leaves;
+  POS = ARRANGE[S.arrange].layout(leaves);
+  ZOOMED = null;
+  LAID = S.arrange;
+  if (page === 2 && QP.rest) {
+    quiet = true; svg.call(zoom.transform, pageT(2)); quiet = false;
+    gZoom.attr("transform", pageT(2)); gZoomB.attr("transform", pageT(2));
+  }
+  paint(false);
+  pagers();
+  if (from) animateFrom(from); else draw();
+}
+// a dot where it is now: between its old and new place while the arrangement changes
+function cur(d) {
+  const p = at(d);
+  if (!ANIM) return p;
+  const f = ANIM.from.get(d.id), k = ANIM.k;
+  if (!f || !f.r) return {x: p.x, y: p.y, r: p.r * k, o: p.o};
+  return {x: f.x + (p.x - f.x) * k, y: f.y + (p.y - f.y) * k, r: f.r + (p.r - f.r) * k, o: p.o};
+}
+function animateFrom(from) {
+  const a = ANIM = {from, k: 0};
+  a.timer = d3.timer(el => {
+    const t = Math.min(1, el / 650);
+    a.k = d3.easeCubicInOut(t);
+    draw();
+    if (t >= 1) { a.timer.stop(); if (ANIM === a) ANIM = null; draw(); }
+  });
+}
+const COLORS = new Map();                      // CSS colours resolved for the canvas; emptied when the theme changes
+const resolve = c => {
+  if (!c.startsWith("var(")) return c;
+  if (!COLORS.has(c)) COLORS.set(c, cssVar(c.slice(4, -1)) || "#999");
+  return COLORS.get(c);
+};
+function paint(redraw = true) {
+  const C = COLOR[S.colorBy], cmap = C.kind === "cat" ? new Map(C.items().map(i => [i.k, resolve(i.c)])) : null;
+  const none = resolve("var(--none)"), lit = resolve("var(--c1)"), on = [], off = [];
+  FILL = new Map(); ALPHA = new Map();
+  for (const d of DOTS) {
+    const hit = C.kind === "multi" && !!S.lit && C.values(d).includes(S.lit);
+    FILL.set(d.id, C.kind === "cat" ? cmap.get(C.key(d)) || none : hit ? lit : none);
+    ALPHA.set(d.id, matches(d) ? 1 : .08);
+    (hit ? on : off).push(d);
+  }
+  DOTS = [...off, ...on];                      // lit values drawn last, on top
+  FIND = null;
+  if (redraw) draw();
+  renderCounter();
+}
+function draw() {
+  const t = viewT();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  ctx.setTransform(DPR * t.k, 0, 0, DPR * t.k, DPR * t.x, DPR * t.y);
+  const [vx0, vy0] = t.invert([0, 0]), [vx1, vy1] = t.invert([W, H]), batches = new Map();
+  for (const d of DOTS) {                      // one path per colour and opacity, dots out of view skipped
+    const p = cur(d);
+    if (!p.r || p.x + p.r < vx0 || p.x - p.r > vx1 || p.y + p.r < vy0 || p.y - p.r > vy1) continue;
+    const key = `${FILL.get(d.id)}|${Math.round(ALPHA.get(d.id) * p.o * 100) / 100}`;
+    let b = batches.get(key);
+    if (!b) batches.set(key, b = []);
+    b.push(p);
+  }
+  for (const [key, ps] of batches) {
+    const i = key.lastIndexOf("|");
+    ctx.fillStyle = key.slice(0, i); ctx.globalAlpha = +key.slice(i + 1);
+    ctx.beginPath();
+    for (const p of ps) { ctx.moveTo(p.x + p.r, p.y); ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI); }
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  const o = S.open && POS.has(S.open) ? cur({id: S.open}) : null;
+  if (o && o.r) pickRing.style("display", null).attr("cx", o.x).attr("cy", o.y).attr("r", o.r + 2);
+  else pickRing.style("display", "none");
+}
+// the colour mode's order, so that each group's dots of one colour sit together
+function orderOf() {
+  const C = COLOR[S.colorBy];
+  if (C.kind === "cat") { const idx = new Map(C.items().map((i, j) => [i.k, j])); return d => idx.get(C.key(d)) ?? 99; }
+  return d => S.lit && C.values(d).includes(S.lit) ? 0 : 1;
+}
+// unit dots packed, nested by `nest` (or one group); positions are relative to the pack
+function packUnit(leaves, nest, ord, pad) {
+  const root = d3.hierarchy(nest ? d3.group(leaves, nest) : new Map([["", leaves]])).count()
+    .sort((a, b) => (b.value - a.value) || (a.data.id && b.data.id ? ord(a.data) - ord(b.data) : 0));
+  return d3.pack().radius(() => 1).padding(n => n.depth === 0 ? pad : 0.18)(root);
+}
+const grp = (name, sub, leaves) => ({grp: true, name, sub, leaves});
+const label = (g, x, y, cls, text, sub) => {
+  const t = g.append("text").attr("class", `vlab ${cls}`).attr("x", x).attr("y", y).text(text);
+  if (sub) t.append("tspan").attr("class", "tsub").attr("dx", 8).text(sub);
+  return t;
+};
+
+// ---------------------------------------------------------- quadrants: anticipated × addressed, and the grey band
+const QCELL = {AA: [0, 0], AU: [1, 0], UA: [0, 1], UU: [1, 1]};          // [column, row]
+const REASON = {
+  "SEC-registered AI actor: no annual report yet": "No annual filing yet",
+  "SEC-registered AI actor: no coded report before the harm": "No coded filing before",
+  "SEC-registered AI actor: no periodic report after the harm (censored)": "Next filing pending",
+  "beyond the horizon: no AI actor named": "No AI actor named",
+  "beyond the horizon: other company, not SEC-registered": "Other company, not SEC-registered",
+  "beyond the horizon: private AI company": "Private AI company",
+  "beyond the horizon: public body": "Public body",
+  "beyond the horizon: person (personal use)": "Personal use",
+};
+const reasonOf = d => (d.qd || [])[0] || "beyond the horizon: no AI actor named";
+const reasonSub = k => k.startsWith("SEC-registered") ? "unmatched: SEC-registered AI actor, filings missing" : "unmatched: no SEC-registered AI actor";
+
+// Two pages side by side: the matched incidents in the four quadrants (x 0 to W), the unmatched to the
+// right of them (x W to 2W); the arrows at the edges move between them. Each quadrant holds one bubble,
+// split into one per value when the dots are coloured by another label.
+const QP = {rest: 0, matched: 0};
+const pageOf = () => { const t = d3.zoomTransform(svg.node()); return (W / 2 - t.x) / t.k > W ? 2 : 1; };
+const pageT = n => n === 2 ? d3.zoomIdentity.translate(-W, 0) : d3.zoomIdentity;
+const shorten2 = (t, px, fs) => { const n = Math.max(3, Math.floor(px / (fs * .56))); return t.length > n ? t.slice(0, n - 1) + "…" : t; };
+
+function layoutQuadrants(leaves) {
+  const pos = new Map(), ord = orderOf(), C = COLOR[S.colorBy];
+  const nest = S.colorBy === "quadrant" ? null : C.kind === "cat" ? C.key : d => S.lit && C.values(d).includes(S.lit) ? "lit" : "rest";
+  const nestName = k => C.kind === "cat" ? (C.items().find(i => i.k === k) || {}).l || k : k === "lit" ? (C.label ? C.label(S.lit) : S.lit) : "Other values";
+  const test = leaves.filter(d => quadOf(d, "quad") in QCELL), rest = leaves.filter(d => !(quadOf(d, "quad") in QCELL));
+  QP.rest = rest.length; QP.matched = test.length;
+  // page 1: the quadrants, square, centred between the arrows, under the two questions
+  const side = 76, lab = 58, top = 66, cs = Math.max(110, Math.min((W - lab - 2 * side) / 2, (H - top - 14) / 2));
+  const gx0 = Math.round((W - 2 * cs - lab) / 2 + lab), gy0 = top;
+  label(gFront, gx0 + cs, gy0 - 40, "q", "Risk type disclosed in the next periodic filing?").attr("text-anchor", "middle");
+  label(gFront, gx0 + cs / 2, gy0 - 14, "axis", "Addressed").attr("text-anchor", "middle");
+  label(gFront, gx0 + 1.5 * cs, gy0 - 14, "axis", "Unaddressed").attr("text-anchor", "middle");
+  label(gFront, 0, 0, "q", "Risk type disclosed when the incident started?").attr("text-anchor", "middle")
+    .attr("transform", `translate(${gx0 - 40},${gy0 + cs}) rotate(-90)`);
+  label(gFront, 0, 0, "axis", "Anticipated").attr("text-anchor", "middle").attr("transform", `translate(${gx0 - 14},${gy0 + cs / 2}) rotate(-90)`);
+  label(gFront, 0, 0, "axis", "Unanticipated").attr("text-anchor", "middle").attr("transform", `translate(${gx0 - 14},${gy0 + 1.5 * cs}) rotate(-90)`);
+  const byQ = d3.group(test, d => quadOf(d, "quad")), head = 40;
+  const packs = new Map([...byQ].map(([q, xs]) => [q, packUnit(xs, nest, ord, 3)]));
+  const s = Math.min(6, ...[...packs.values()].map(p => ((cs - head - 22) / 2) / p.r));
+  for (const [q, [c, r]] of Object.entries(QCELL)) {
+    const x0 = gx0 + c * cs, y0 = gy0 + r * cs, it = QUAD.find(i => i.k === q), xs = byQ.get(q) || [];
+    gBack.append("rect").attr("class", "cellbg").attr("x", x0 + 4).attr("y", y0 + 4).attr("width", cs - 8).attr("height", cs - 8)
+      .attr("rx", 16).style("fill", it.c).style("stroke", it.c).datum({...grp(it.l, it.what, xs), box: [x0, y0, x0 + cs, y0 + cs]});
+    label(gFront, x0 + 18, y0 + 30, "big", it.l, `${fmt(xs.length)}, ${it.what}`);
+    const pk = packs.get(q);
+    if (!pk) continue;
+    const cx = x0 + cs / 2, cy = y0 + head + (cs - head) / 2;
+    for (const n of pk.descendants()) {
+      const x = cx + (n.x - pk.x) * s, y = cy + (n.y - pk.y) * s;
+      if (n.data.id) { pos.set(n.data.id, {x, y, r: s, o: 1}); continue; }
+      if (n.depth !== 1) continue;
+      const rr = n.r * s + s * .5, name = nest ? nestName(n.data[0]) : it.l;
+      gBack.append("circle").attr("class", "blob").attr("cx", x).attr("cy", y).attr("r", rr)
+        .datum({...grp(name, it.l, n.leaves().map(l => l.data)), box: [x - rr, y - rr, x + rr, y + rr]});
+      if (nest && rr > 24) label(gFront, x, y - rr + 14, "small", shorten2(name, 1.6 * rr, 11)).attr("text-anchor", "middle");
+    }
+  }
+  if (!rest.length) return pos;
+  // page 2: the unmatched, one bubble per reason, under the two kinds of reason
+  const bx0 = W + side, bx1 = 2 * W - 18, by0 = 8, by1 = H - 8, bw = bx1 - bx0 - 24;
+  gBack.append("rect").attr("class", "bandbg").attr("x", bx0 - 10).attr("y", by0).attr("width", bx1 - bx0 + 10).attr("height", by1 - by0).attr("rx", 16)
+    .datum(grp("Unmatched", "no quadrant", rest));
+  label(gFront, bx0 + 6, by0 + 30, "big", "Unmatched", `${fmt(rest.length)} incidents`);
+  const parts = d3.groups(rest, reasonOf).map(([k, xs]) => { const pk = packUnit(xs, null, ord, 1); return {k, xs, p: pk, r: pk.r + 3}; })
+    .sort((a, b) => b.xs.length - a.xs.length);
+  const A = parts.filter(g => g.k.startsWith("SEC-registered")), B = parts.filter(g => !g.k.startsWith("SEC-registered"));
+  d3.packSiblings(B);
+  const bb = B.length ? [d3.min(B, c => c.x - c.r), d3.max(B, c => c.x + c.r), d3.min(B, c => c.y - c.r), d3.max(B, c => c.y + c.r)] : [0, 1, 0, 1];
+  const rowH = A.length ? 2 * d3.max(A, g => g.r) : 0, slot = bw / Math.max(1, A.length);
+  const room = by1 - by0 - 56 - (A.length ? 20 + 36 : 0) - 22;
+  const sb = Math.min(s, bw / (bb[1] - bb[0]), A.length ? (slot - 10) / rowH : Infinity, room / (rowH + bb[3] - bb[2]));
+  const drawPart = (g, cx, cy, below) => {
+    const R = g.p.r * sb + sb, name = REASON[g.k] || g.k;
+    gBack.append("circle").attr("class", "blob").attr("cx", cx).attr("cy", cy).attr("r", R)
+      .datum({...grp(name, reasonSub(g.k), g.xs), box: [cx - R, cy - R, cx + R, cy + R]});
+    for (const n of g.p.leaves()) if (n.data.id) pos.set(n.data.id, {x: cx + (n.x - g.p.x) * sb, y: cy + (n.y - g.p.y) * sb, r: sb, o: 1});
+    const t = label(gFront, cx, below ? cy + R + 14 : R > 34 ? cy - R + 15 : cy + R + 13, "small", below || R > 34 ? name : fmt(g.xs.length))
+      .attr("text-anchor", "middle");
+    if (below || R > 34) t.append("tspan").attr("x", cx).attr("dy", 13).text(fmt(g.xs.length));
+  };
+  let y = by0 + 56;
+  if (A.length) {
+    label(gFront, bx0 + 6, y, "", "SEC-registered AI actor, filings missing", fmt(d3.sum(A, g => g.xs.length)));
+    const cy = y + 14 + rowH * sb / 2;
+    A.forEach((g, i) => drawPart(g, bx0 + 12 + slot * (i + .5), cy, true));
+    y = cy + rowH * sb / 2 + 50;
+  }
+  if (B.length) label(gFront, bx0 + 6, y, "", "No SEC-registered AI actor", fmt(d3.sum(B, g => g.xs.length)));
+  const top2 = y + 8, ox = (bx0 + bx1) / 2 - (bb[0] + bb[1]) / 2 * sb, oy = top2 + (by1 - top2) / 2 - (bb[2] + bb[3]) / 2 * sb;
+  for (const g of B) drawPart(g, ox + g.x * sb, oy + g.y * sb, false);
+  return pos;
+}
+// the arrows between the two pages, shown on the page they lead away from
+function pagers() {
+  const on = S.view === "explore" && S.arrange === "quadrants", pg = on ? pageOf() : 0;
+  $("#pgNext").hidden = pg !== 1 || !QP.rest;
+  $("#pgPrev").hidden = pg !== 2;
+  $("#pgNext .n").textContent = `${fmt(QP.rest)} unmatched`;
+  $("#pgPrev .n").textContent = `${fmt(QP.matched)} matched`;
+}
+$("#pgNext").onclick = () => { ZOOMED = null; svg.transition().duration(700).call(zoom.transform, pageT(2)); };
+$("#pgPrev").onclick = () => { ZOOMED = null; svg.transition().duration(700).call(zoom.transform, pageT(1)); };
+// a click on a quadrant or a bubble zooms to it; on the same one again, or on the background, back to its page
+let ZOOMED = null;
+function zoomToGroup(g) {
+  if (!g || !g.box || ZOOMED === g.box.join()) {
+    ZOOMED = null;
+    svg.transition().duration(550).call(zoom.transform, pageT(pageOf()));
+    return;
+  }
+  const [x0, y0, x1, y1] = g.box, k = Math.min(30, .9 * Math.min(W / (x1 - x0), H / (y1 - y0)));
+  ZOOMED = g.box.join();
+  svg.transition().duration(650).call(zoom.transform, d3.zoomIdentity.translate(W / 2 - k * (x0 + x1) / 2, H / 2 - k * (y0 + y1) / 2).scale(k));
+}
+
+// ---------------------------------------------------------- timeline: when the harm began, re-binned with the zoom
+const TL = {x0: null, x: null, items: [], y0: 0, nmax: [], home: d3.zoomIdentity};
+const INTERVALS = [["year", d3.utcYear], ["quarter", d3.utcMonth.every(3)], ["month", d3.utcMonth], ["week", d3.utcWeek], ["day", d3.utcDay]];
+function whenOf(d) {                        // the anchor notebook 03 uses: when the harm began, else the record date
+  const a = harmAnchor(harmOf(d.id), d.d);
+  if (!a) return null;
+  return parseDay(a.length === 4 ? `${a}-07-01` : a.length === 7 ? `${a}-15` : a.slice(0, 10));
+}
+const isDated = d => !!(S.dates[d.id] && S.dates[d.id][0] && S.dates[d.id][1] !== "unknown");
+const isExact = d => isDated(d) && ["day", "month"].includes(S.dates[d.id][1]);   // placed to its month at least
+
+function layoutTimeline(leaves) {
+  const ord = orderOf();
+  TL.items = leaves.map(d => ({d, t: whenOf(d), dated: isExact(d)})).filter(it => it.t);
+  TL.items.sort((a, b) => ord(a.d) - ord(b.d) || (b.dated - a.dated) || a.t - b.t);
+  for (const it of TL.items) it.keys = INTERVALS.map(([, iv]) => +iv.floor(it.t));   // its bin at every grain, once
+  TL.nmax = INTERVALS.map((_, i) => {
+    const c = new Map();
+    for (const it of TL.items) c.set(it.keys[i], (c.get(it.keys[i]) || 0) + 1);
+    return d3.max(c.values()) || 1;
+  });
+  const ext = d3.extent(TL.items, it => it.t);
+  const lo = ext[0] ? d3.utcYear.floor(ext[0]) : new Date(Date.UTC(2016, 0, 1));
+  const hi = ext[1] ? d3.utcMonth.offset(d3.utcMonth.ceil(ext[1]), 1) : new Date();
+  TL.x0 = d3.scaleUtc().domain([lo, hi]).range([28, W - 28]);
+  TL.y0 = H - 84;                                    // under the axis, the scrollbar
+  gBack.append("line").attr("class", "base").attr("x1", 0).attr("x2", W).attr("y1", TL.y0 + .5).attr("y2", TL.y0 + .5);
+  label(gFront, 28, 26, "big", "When the incident started");
+  const from = new Date(Date.UTC(2016, 0, 1));       // open on the decade 2016 to today; earlier harms are a scroll away
+  const k = lo < from ? (TL.x0(hi) - TL.x0(lo)) / (TL.x0(hi) - TL.x0(from)) : 1;
+  TL.home = k > 1 ? d3.zoomIdentity.translate(TL.x0.range()[0] - k * TL.x0(from), 0).scale(k) : d3.zoomIdentity;
+  quiet = true; svg.call(zoom.transform, TL.home); quiet = false;
+  TL.x = TL.home.rescaleX(TL.x0);
+  overview();
+  return placeTimeline(true);
+}
+function placeTimeline(first = false) {
+  const x = TL.x, avail = TL.y0 - 56, [d0, d1] = x.domain(), mid = new Date((+d0 + +d1) / 2);
+  let pick = null;
+  for (let i = 0; i < INTERVALS.length; i++) {       // the finest grain whose tallest column still fits
+    const [name, iv] = INTERVALS[i], nmax = TL.nmax[i], m0 = iv.floor(mid), bpx = (x(iv.offset(m0, 1)) - x(m0)) * .96;
+    const dd = Math.min(11, Math.sqrt(avail * bpx / nmax) * .9);
+    if (!pick || (dd >= 3 && bpx >= dd)) pick = {i, name, iv, dd, nmax, bpx};
+    if (dd < 3) break;
+  }
+  let {dd} = pick;
+  const {i: gi, iv, nmax, bpx} = pick;
+  while (dd > 1.2 && Math.ceil(nmax / Math.max(1, Math.floor(bpx / dd))) * dd > avail) dd *= .94;
+  const pos = new Map(), bins = new Map();
+  for (const it of TL.items) {
+    const k = it.keys[gi];
+    let b = bins.get(k);
+    if (!b) {
+      const xa = x(k), xb = x(iv.offset(new Date(k), 1)), cols = Math.max(1, Math.floor((xb - xa) / dd));
+      bins.set(k, b = {off: xa + ((xb - xa) - cols * dd) / 2, cols, n: 0});
+    }
+    const col = b.n % b.cols, row = Math.floor(b.n / b.cols);
+    b.n++;
+    pos.set(it.d.id, {x: b.off + (col + .5) * dd, y: TL.y0 - (row + .5) * dd, r: dd * .42, o: 1});
+  }
+  POS = pos; FIND = null;
+  gAxis.attr("transform", `translate(0,${TL.y0 + 4})`).call(d3.axisBottom(x).ticks(Math.max(4, Math.floor(W / 110))).tickSizeOuter(0));
+  $("#binlab").textContent = `Binned by ${pick.name}`;
+  thumb();
+  if (!first) draw();
+  return pos;
+}
+// the scrollbar: incidents per month over the whole span, and the window on view
+function overview() {
+  const box = $("#tscroll"), [r0, r1] = TL.x0.range(), w = r1 - r0, h = 28;
+  box.style.left = `${r0}px`; box.style.width = `${w}px`;
+  const n = d3.rollup(TL.items, v => v.length, it => it.keys[2]);
+  const ox = d3.scaleUtc().domain(TL.x0.domain()).range([0, w]), y = d3.scaleLinear().domain([0, d3.max(n.values()) || 1]).range([h, 3]);
+  const s = d3.select(box).select("svg").attr("viewBox", `0 0 ${w} ${h}`);
+  s.selectAll("*").remove();
+  s.selectAll("line").data(d3.utcYear.range(...TL.x0.domain())).join("line").attr("x1", ox).attr("x2", ox).attr("y1", 0).attr("y2", h);
+  s.append("path").attr("d", d3.area().x(m => ox(m)).y0(h).y1(m => y(n.get(+m) || 0)).curve(d3.curveStepAfter)(d3.utcMonth.range(...TL.x0.domain())));
+}
+function thumb() {
+  const th = $("#tscroll .thumb"), [r0, r1] = TL.x0.range(), w = r1 - r0, [d0, d1] = TL.x.domain();
+  const a = Math.max(0, (TL.x0(d0) - r0) / w), b = Math.min(1, (TL.x0(d1) - r0) / w);
+  th.style.left = `${a * w}px`; th.style.width = `${Math.max(10, (b - a) * w)}px`;
+}
+(function wireScroll() {
+  const box = $("#tscroll"), th = box.querySelector(".thumb");
+  const goTo = left => {                             // the window's left edge at `left` px along the bar, the zoom kept
+    const k = d3.zoomTransform(svg.node()).k, r0 = TL.x0.range()[0];
+    svg.call(zoom.transform, d3.zoomIdentity.translate(r0 - k * (r0 + left), 0).scale(k));
+  };
+  const room = () => box.clientWidth - th.offsetWidth;
+  th.onpointerdown = e => {
+    e.stopPropagation(); th.setPointerCapture(e.pointerId);
+    const x0 = e.clientX, l0 = th.offsetLeft;
+    th.onpointermove = m => goTo(Math.max(0, Math.min(room(), l0 + m.clientX - x0)));
+    th.onpointerup = () => { th.onpointermove = th.onpointerup = null; };
+  };
+  box.onpointerdown = e => {                         // a click beside the window centres it there
+    if (e.target === th) return;
+    goTo(Math.max(0, Math.min(room(), e.clientX - box.getBoundingClientRect().left - th.offsetWidth / 2)));
+  };
+  box.addEventListener("wheel", e => { e.preventDefault(); panBy(Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY); }, {passive: false});
+})();
+
+// ---------------------------------------------------------- impact layers: waves out from the AI system (Weidinger et al., 2023)
+const LAYER_ORDER = ["capability", "human_interaction", "systemic", "unknown", "none"];
+function layoutLayers(leaves) {
+  const pos = new Map(), ord = orderOf(), N = leaves.length;
+  if (!N) return pos;
+  const m = 22, half = H / 2 - m - 20;
+  const r3 = Math.max(160, Math.min(W - 2 * m - 120, half / Math.sin(Math.PI / 6)));
+  const alpha = Math.min(Math.PI / 2 * .97, Math.asin(Math.min(1, half / r3)));
+  const r0 = Math.max(58, r3 * .17);                                  // the source: the AI system
+  const ox = Math.max(r0 + m, (W - r3) / 2 - 20), oy = H / 2 + 10;
+  const bands = d3.groups(leaves, d => coded(d, "layer")).sort((a, b) => LAYER_ORDER.indexOf(a[0]) - LAYER_ORDER.indexOf(b[0]))
+    .map(([k, xs]) => ({k, secs: d3.groups(xs, x => domOf(mitOf(x))).sort((p, q) => p[0].localeCompare(q[0]))
+      .map(([sk, ys]) => [sk, [...ys].sort((p, q) => ord(p) - ord(q))]), xs}));
+  // the largest dot spacing whose waves, filled from the inside out, end within the fan's radius
+  let lo = .5, hi = Math.sqrt(2 * alpha * r3 * r3 / N) * 1.5, fit = null;
+  for (let i = 0; i < 28; i++) {
+    const d = (lo + hi) / 2, w = fillWaves(bands, alpha, d, r0);
+    if (w.R <= r3) { lo = d; fit = w; } else hi = d;
+  }
+  if (!fit) fit = fillWaves(bands, alpha, lo, r0);
+  const d = fit.d, arc = d3.arc(), A = a => a + Math.PI / 2;        // d3.arc counts angles from 12 o'clock
+  const T = `translate(${ox},${oy})`;
+  for (const b of fit.bands) {
+    gBack.append("path").attr("class", "wave").attr("transform", T)
+      .attr("d", arc({innerRadius: b.ra - d * .45, outerRadius: b.rb + d * .45, startAngle: A(-alpha), endAngle: A(alpha)}))
+      .datum(grp(layerName(b.k), "impact layer", b.xs));
+    const u = Math.max(r0, b.ra) + 6;                                  // the wave's name along the fan's upper edge
+    label(gFront, 0, 0, "", `${layerName(b.k)}`, fmt(b.xs.length))
+      .attr("transform", `translate(${ox + u * Math.cos(alpha) - 7 * Math.sin(alpha)},${oy - u * Math.sin(alpha) - 7 * Math.cos(alpha)}) rotate(${-alpha * 180 / Math.PI})`);
+  }
+  for (const s of fit.secs) {
+    const ra = s.ra - d * .4, rb = s.rb + d * .4;
+    gBack.append("path").attr("class", "sector").attr("transform", T)
+      .attr("d", arc({innerRadius: ra, outerRadius: rb, startAngle: A(s.a0 - d * .3 / rb), endAngle: A(s.a1 + d * .3 / rb)}))
+      .datum(grp(domName(s.k), layerName(s.band.k), s.xs));
+    const am = (s.a0 + s.a1) / 2, rm = (ra + rb) / 2;
+    if ((s.a1 - s.a0) * rm > 16 && rb - ra > 14)
+      label(gFront, ox + rm * Math.cos(am), oy + rm * Math.sin(am) + 4, "small", s.k === "x" ? "–" : s.k).attr("text-anchor", "middle");
+    for (const [x, rho, th] of s.pts) pos.set(x.id, {x: ox + rho * Math.cos(th), y: oy + rho * Math.sin(th), r: d * .42, o: 1});
+  }
+  gBack.append("circle").attr("cx", ox).attr("cy", oy).attr("r", r0 - 8).style("fill", "var(--raised)").style("stroke", "var(--ink)").style("stroke-width", 2);
+  label(gFront, ox, oy + 5, "", "AI system").attr("text-anchor", "middle");
+  return pos;
+}
+// each wave from where the last one ended: its sectors (one per risk domain, the angle by the domain's share
+// of the wave) filled row by row from the inside; R is where the outermost wave ends
+function fillWaves(bands, alpha, d, r0) {
+  const secs = [], out = [];
+  let ra = r0 + d * .9;
+  for (const b of bands) {
+    const gapA = d * 1.4 / (ra + 40), free = 2 * alpha - gapA * (b.secs.length - 1), minW = 2 * d / (ra + 40);
+    const raw = b.secs.map(([, xs]) => free * xs.length / b.xs.length);
+    const small = raw.filter(w => w < minW).length, scale = (free - small * minW) / Math.max(1e-9, d3.sum(raw.filter(w => w >= minW)));
+    let a = -alpha, rb = ra;
+    b.secs.forEach(([k, xs], i) => {
+      const w = raw[i] < minW ? minW : raw[i] * Math.max(scale, .05), a0 = a, a1 = a + w, sec = {band: b, k, a0, a1, xs, pts: [], ra};
+      a = a1 + gapA;
+      let j = 0, rho = ra + d / 2;
+      while (j < xs.length) {
+        const cap = Math.floor((a1 - a0) * rho / d);
+        if (cap > 0) {
+          const n = Math.min(cap, xs.length - j), am = (a0 + a1) / 2;
+          for (let q = 0; q < n; q++) sec.pts.push([xs[j + q], rho, n === cap ? a0 + (q + .5) * (a1 - a0) / cap : am + (q - (n - 1) / 2) * d / rho]);
+          j += n;
+        }
+        rho += d;
+      }
+      sec.rb = rho - d / 2;
+      rb = Math.max(rb, sec.rb);
+      secs.push(sec);
+    });
+    out.push({...b, ra, rb});
+    ra = rb + d * 1.6;
+  }
+  return {d, secs, bands: out, R: ra - d * 1.6};
+}
+
+// ---------------------------------------------------------- pointing: the nearest dot, else the shape under the pointer
+function nearest(e) {
+  if (!FIND) FIND = {ds: DOTS, del: d3.Delaunay.from(DOTS, d => at(d).x, d => at(d).y)};
+  if (!FIND.ds.length) return null;
+  const t = viewT();
+  const [px, py] = t.invert(d3.pointer(e, svg.node()));
+  const d = FIND.ds[FIND.del.find(px, py)], p = at(d);
+  return p.r && Math.hypot(p.x - px, p.y - py) * t.k <= Math.max(5, p.r * t.k + 3) ? d : null;
+}
+function ring(d) {
+  if (!d) { hiRing.style("display", "none"); return; }
+  const p = at(d);
+  hiRing.style("display", null).attr("cx", p.x).attr("cy", p.y).attr("r", p.r + 1.5);
+}
+svg.on("pointermove", e => {
+  if (e.buttons) return;
+  const d = nearest(e);
+  if (d) { ring(d); tipLeaf(e, d); svg.style("cursor", "pointer"); return; }
+  ring(null); svg.style("cursor", null);
+  const g = groupAt(e);
+  if (g && g.box && S.arrange === "quadrants") svg.style("cursor", "zoom-in");
+  if (g) tipGroup(e, g); else hideTip();
+}).on("pointerleave", () => { ring(null); hideTip(); })
+  .on("click", e => {
+    const d = nearest(e);
+    if (d) openCard(d.id);
+    else if (S.arrange === "quadrants") zoomToGroup(groupAt(e));
+  });
+function groupAt(e) { return document.elementsFromPoint(e.clientX, e.clientY).map(el => el.__data__).find(x => x && x.grp); }
+let resizeT;
+new ResizeObserver(() => { clearTimeout(resizeT); resizeT = setTimeout(() => renderViz(false), 120); }).observe($("#viz"));
+
+// ------------------------------------------------------------------ tooltip
+const tip = $("#tip");
+function placeTip(e) {
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  tip.style.left = `${Math.min(e.clientX + 14, innerWidth - w - 8)}px`;
+  tip.style.top = `${Math.min(e.clientY + 14, innerHeight - h - 8)}px`;
+}
+function tipLeaf(e, d) {
+  const C = COLOR[S.colorBy], q = quadOf(d, "quad"), qi = QUAD.find(i => i.k === q);
+  const val = C.kind === "cat" ? (C.items().find(i => i.k === C.key(d)) || {}).l : C.values(d).map(v => C.label ? C.label(v) : v).join("; ");
+  const hb = harmOf(d.id);
+  tip.innerHTML = `<div class="t">${esc(d.t)}</div>
+    <div class="m"><span class="mono">${esc(d.id)}</span>, ${esc(isDated(d) ? `started ${fmtHarm(hb)}` : `recorded ${day(d.d)}`)}</div>
+    <div class="m">${q in QCELL ? `${esc(qi.l)}: ${esc(qi.what)}` : `Unmatched: ${esc((REASON[reasonOf(d)] || reasonOf(d)).toLowerCase())}`}</div>
+    <div class="m">Risk type ${esc(subName(mitOf(d)))}</div>
+    <div class="m">${esc(layerName(coded(d, "layer")))}</div>
+    ${["quadrant", "risk", "layer"].includes(S.colorBy) || !val ? "" : `<div class="m">${esc(C.name)}: ${esc(val)}</div>`}`;
+  tip.style.display = "block"; placeTip(e);
+}
+function tipGroup(e, g) {
+  const C = COLOR[S.colorBy], xs = g.leaves;
+  let rows = "";
+  if (C.kind === "cat") {
+    const cnt = d3.rollup(xs, v => v.length, C.key);
+    rows = C.items().filter(i => cnt.get(i.k)).map(i =>
+      `<div class="r"><span class="key" style="${swatch(i.c)}"></span>${esc(i.l)}<span class="n">${fmt(cnt.get(i.k))}</span></div>`).join("");
+  } else if (S.lit) {
+    rows = `<div class="r"><span class="key" style="background:var(--c1)"></span>${esc(C.label ? C.label(S.lit) : S.lit)}<span class="n">${fmt(xs.filter(d => C.values(d).includes(S.lit)).length)}</span></div>`;
+  }
+  tip.innerHTML = `<div class="t">${esc(g.name)}</div><div class="m">${fmt(xs.length)} incidents${g.sub ? `, ${esc(g.sub)}` : ""}</div>${rows}`;
+  tip.style.display = "block"; placeTip(e);
+}
+const hideTip = () => tip.style.display = "none";
+
+
+// ------------------------------------------------------------------ incident card
+// ------------------------------------------------------------------ incident card: DISC's labels, the records, their labels
+// The labels carry the names Color by uses; each quote links to the article it comes from (R1, R2 …) or to
+// the database record ("record").
+const AUT_NAME = Object.fromEntries(AUTONOMY);
+const MISUSE_BY = {deployer: "the deployer", user: "a user", third_party: "a third party"};
+const PARTY_STATUS = {unknown: "Unclear", described: "Unnamed", personal_use: "Personal, non-professional use"};
+const orUnclear = v => v == null || v === "" || v === "unknown" ? "Unclear" : v;
+function partyOf(p) {
+  if (!p || !p.status) return "Unclear";
+  if (p.status !== "named" || !p.party) return PARTY_STATUS[p.status] || "Unclear";
+  return p.party.split(";").map(v => v.trim() === "[private individual]" ? "Private individual (name removed)" : v.trim()).join("; ");
+}
+function refLink(ref, x) {
+  if (!ref) return "";
+  const a = (x.articles || []).find(a => a.ref === ref), rec = x.links[0];
+  const [u, t] = a ? [a.url, a.article_title || a.url] : ref === "record" && rec ? [rec[1], rec[0]] : [null, null];
+  return u ? extLink(u, esc(ref), ` class="ref" title="${esc(t)}"`) : `<span class="ref">${esc(ref)}</span>`;
+}
+function labelRow(name, value, ev, x, note) {
+  const quotes = (Array.isArray(ev) ? ev : [ev]).filter(e => e && e.quote);
+  return `<div class="lab"><div class="k">${esc(name)}</div><div class="v">${esc(value)}${note ? `<span class="note">${esc(note)}</span>` : ""}${
+    quotes.map(e => `<span class="q">“${esc(e.quote)}”${refLink(e.ref, x)}</span>`).join("")}</div></div>`;
+}
+function cardLabels(x) {
+  const R = (x.coders || {}).A, u = x.use_coded || {}, hb = x.harm_began;
+  if (!R) return `<p class="meta">No labels for this incident.</p>`;
+  const use = R.use || {};
+  const rel = use.relation === "misuse" ? `Misuse by ${MISUSE_BY[use.misuse_by] || "someone"}` : use.relation === "within_purpose" ? "Within intended purpose" : "Unclear";
+  const rows = [
+    ["Risk type", isSub(String(R.mit?.subdomain)) ? subName(R.mit.subdomain) : "Unclear", R.mit],
+    ["AI subject", [R.subject?.type, ...(R.subject?.further_types || [])].filter(Boolean).join(", ")
+      || (R.subject?.status === "no_harm" ? "No AI subject harmed" : "Unclear"), R.subject, R.subject?.who],
+    ["Impact layer", layerName(norm(R.impact_layer?.layer)), R.impact_layer],
+    ["Harm type", (R.harm_types?.types || []).join(", ") || "Unclear", R.harm_types],
+    ["When the incident started", hb && hb.date && hb.precision !== "unknown"
+      ? `${fmtHarm(hb)} (${hb.precision}${hb.bound === "no_later_than" ? ", no later than" : ""})` : `Unclear; first recorded ${day(x.d)}`, hb],
+    ["Deployer", partyOf(R.deployer), R.deployer, R.deployer?.acting_as],
+    ["Provider", partyOf(R.provider), R.provider, R.provider?.acting_as],
+    ["Upstream provider", partyOf(R.upstream_provider), R.upstream_provider, R.upstream_provider?.acting_as],
+    ["Action autonomy", AUT_NAME[R.autonomy?.level] || "Unclear", R.autonomy],
+    ["Intended purpose and misuse", rel, [{quote: use.relation_quote, ref: use.relation_ref}, {quote: use.purpose_quote, ref: use.purpose_ref}],
+      use.intended_purpose ? `Intended purpose: ${use.intended_purpose}` : ""],
+    ["Capability", orUnclear(u.capability?.verb), u.capability],
+    ["Technique", orUnclear(u.technique?.technique), u.technique],
+    ["Domain", (u.domain?.domains || []).join("; ") || "Unclear", u.domain],
+  ];
+  return rows.map(([n, v, ev, note]) => labelRow(n, v, ev, x, note)).join("");
+}
+// every article the databases link to the incident; those the coders read (R1, R2 …) first
+function articlesOf(arts) {
+  if (!arts.length) return "";
+  const item = a => `<li>${a.ref ? `<b>${esc(a.ref)}</b> ` : ""}${extLink(a.url, esc(a.article_title || a.url))}
+    <span class="meta">${esc([a.publisher, a.published, a.source === "search" ? "found by search" : a.source].filter(Boolean).join(", "))}</span></li>`;
+  const read = arts.filter(a => a.ref), rest = arts.filter(a => !a.ref);
+  return `<h3>Articles (${arts.length})</h3><ol class="arts">${[...read, ...rest].map(item).join("")}</ol>`;
+}
+const cardRecords = x => `<div class="text">${x.text.map(([k, v]) => `<p><b>${esc(k)}.</b> ${esc(v)}</p>`).join("") || `<p class="meta">No description.</p>`}</div>${articlesOf(x.articles || [])}`;
+// each database record of the incident, linked, with the labels that database gives it
+function cardRecordLabels(x) {
+  const by = d3.group(x.db || [], r => r[0]), srcs = ["AIID", "AIAAIC", "OECD AIM"];
+  return srcs.map(src => {
+    const recs = x.links.filter(([l]) => l.startsWith(src + " ")), rs = by.get(src) || [];
+    if (!recs.length && !rs.length) return "";
+    return `<div class="dbsrc"><div class="src">${esc(src)} ${recs.map(([l, u]) => extLink(u, esc(l.slice(src.length + 1)))).join(", ")}</div>
+      ${rs.length ? `<dl class="db">${rs.map(([, k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>` : `<p class="meta">No labels in this database.</p>`}</div>`;
+  }).join("") || `<p class="meta">No database record.</p>`;
+}
+const cardSection = (title, body, open) => `<section class="csec${open ? "" : " closed"}"><h4>${esc(title)}</h4><div class="body">${body}</div></section>`;
+
+// Lucide icons (ISC, lucide.dev), inlined: the paths only
+const LUCIDE = {
+  "calendar-days": "<path d=\"M8 2v4\" /> <path d=\"M16 2v4\" /> <rect width=\"18\" height=\"18\" x=\"3\" y=\"4\" rx=\"2\" /> <path d=\"M3 10h18\" /> <path d=\"M8 14h.01\" /> <path d=\"M12 14h.01\" /> <path d=\"M16 14h.01\" /> <path d=\"M8 18h.01\" /> <path d=\"M12 18h.01\" /> <path d=\"M16 18h.01\" />",
+  "users": "<path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" /> <circle cx=\"9\" cy=\"7\" r=\"4\" /> <path d=\"M22 21v-2a4 4 0 0 0-3-3.87\" /> <path d=\"M16 3.13a4 4 0 0 1 0 7.75\" />",
+  "shield-alert": "<path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\" /> <path d=\"M12 8v4\" /> <path d=\"M12 16h.01\" />",
+  "file-text": "<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\" /> <path d=\"M14 2v4a2 2 0 0 0 2 2h4\" /> <path d=\"M10 9H8\" /> <path d=\"M16 13H8\" /> <path d=\"M16 17H8\" />",
+  "zap": "<path d=\"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z\" />",
+  "arrow-left-right": "<path d=\"M8 3 4 7l4 4\" /> <path d=\"M4 7h16\" /> <path d=\"m16 21 4-4-4-4\" /> <path d=\"M20 17H4\" />",
+  "scale": "<path d=\"m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z\" /> <path d=\"m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z\" /> <path d=\"M7 21h10\" /> <path d=\"M12 3v18\" /> <path d=\"M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2\" />",
+  "lock": "<rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\" ry=\"2\" /> <path d=\"M7 11V7a5 5 0 0 1 10 0v4\" />",
+  "message-square-warning": "<path d=\"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z\" /> <path d=\"M12 7v2\" /> <path d=\"M12 13h.01\" />",
+  "bug": "<path d=\"m8 2 1.88 1.88\" /> <path d=\"M14.12 3.88 16 2\" /> <path d=\"M9 7.13v-1a3.003 3.003 0 1 1 6 0v1\" /> <path d=\"M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6\" /> <path d=\"M12 20v-9\" /> <path d=\"M6.53 9C4.6 8.8 3 7.1 3 5\" /> <path d=\"M6 13H2\" /> <path d=\"M3 21c0-2.1 1.7-3.9 3.8-4\" /> <path d=\"M20.97 5c0 2.1-1.6 3.8-3.5 4\" /> <path d=\"M22 13h-4\" /> <path d=\"M17.2 17c2.1.1 3.8 1.9 3.8 4\" />",
+  "brain": "<path d=\"M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z\" /> <path d=\"M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z\" /> <path d=\"M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4\" /> <path d=\"M17.599 6.5a3 3 0 0 0 .399-1.375\" /> <path d=\"M6.003 5.125A3 3 0 0 0 6.401 6.5\" /> <path d=\"M3.477 10.896a4 4 0 0 1 .585-.396\" /> <path d=\"M19.938 10.5a4 4 0 0 1 .585.396\" /> <path d=\"M6 18a4 4 0 0 1-1.967-.516\" /> <path d=\"M19.967 17.484A4 4 0 0 1 18 18\" />",
+  "briefcase": "<path d=\"M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16\" /> <rect width=\"20\" height=\"14\" x=\"2\" y=\"6\" rx=\"2\" />",
+  "triangle-alert": "<path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\" /> <path d=\"M12 9v4\" /> <path d=\"M12 17h.01\" />",
+  "history": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\" /> <path d=\"M3 3v5h5\" /> <path d=\"M12 7v5l4 2\" />",
+  "arrow-left": "<path d=\"m12 19-7-7 7-7\" /> <path d=\"M19 12H5\" />",
+  "building-2": "<path d=\"M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z\" /> <path d=\"M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2\" /> <path d=\"M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2\" /> <path d=\"M10 6h4\" /> <path d=\"M10 10h4\" /> <path d=\"M10 14h4\" /> <path d=\"M10 18h4\" />",
+  "cpu": "<rect width=\"16\" height=\"16\" x=\"4\" y=\"4\" rx=\"2\" /> <rect width=\"6\" height=\"6\" x=\"9\" y=\"9\" rx=\"1\" /> <path d=\"M15 2v2\" /> <path d=\"M15 20v2\" /> <path d=\"M2 15h2\" /> <path d=\"M2 9h2\" /> <path d=\"M20 15h2\" /> <path d=\"M20 9h2\" /> <path d=\"M9 2v2\" /> <path d=\"M9 20v2\" />",
+  "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\" /> <path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\" /> <path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\" />",
+  "circle-help": "<circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" /> <path d=\"M12 17h.01\" />"
+  };
+const icon = (n, cls = "") => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${LUCIDE[n] || ""}</svg>`;
+const DOMAIN_ICON = {"1": "scale", "2": "lock", "3": "message-square-warning", "4": "bug", "5": "brain", "6": "briefcase", "7": "triangle-alert"};
+// the card's quadrant colours: the paper's figures (notebook 04: SIDE_COL, UU_COL); Fixed's light blue darkened for text
+const CARD_COL = {AA: ["#1a427a", "#1a427a"], UA: ["#86b6ef", "#3d7fd1"], UU: ["#c2410c", "#c2410c"], AU: ["#9b4dca", "#7d3aa8"]};
+const VERDICT = {AA: "Incident anticipated and addressed", UA: "Incident unanticipated but addressed",
+                 AU: "Incident anticipated but unaddressed", UU: "Incident unanticipated and unaddressed",
+                 untestable: "Unmatched: an SEC-registered AI actor is implicated, but a filing is missing",
+                 beyond: "No SEC-registered AI actor answers for the incident"};
+const OUTCOME_WORD = {Reported: "the next filing says the incident happened", Revised: "the risk type is disclosed in revised text",
+                      Retained: "the risk type stays in unchanged text", Added: "the risk type is listed for the first time",
+                      Removed: "the risk type is no longer disclosed", Absent: "the risk type is still not disclosed"};
+const PERIODIC = f => ANNUAL.includes(f.form) || f.form === "10-Q";
+function shorten(t, n) {                            // at a sentence end where one falls in the last third, else at a word
+  if (t.length <= n) return t;
+  const cut = t.slice(0, n);
+  let end = -1;                                     // the last sentence end that is not an initial or abbreviation
+  for (const m of cut.matchAll(/[.;](?=\s)/g)) if (!/(?:^|\s)(?:[A-Z]|[A-Z][a-z]{0,2}|Inc|Co|Ltd|No|vs|etc|e\.g|i\.e)$/.test(cut.slice(0, m.index))) end = m.index;
+  return end > n * 0.6 ? cut.slice(0, end + 1) : cut.replace(/\s+\S*$/, "") + "…";
+}
+const tidyName = n => /^[A-Z0-9 ,.&'()-]+$/.test(n) ? n.toLowerCase().replace(/\b([a-z])/g, m => m.toUpperCase()).replace(/\bInc\b/, "Inc").replace(/\bLlc\b/, "LLC") : n;   // EDGAR's all-caps names
+
+// notebook 03's anchor for the outcome at the next report: when the harm began, as precisely as it is
+// known, else the record date
+function harmAnchor(h, d) {
+  if (!h || !h.date || h.precision === "unknown") return d;
+  if (h.precision === "day") return h.date;
+  if (h.precision === "month") return d && d.startsWith(h.date) ? d : `${h.date}-01`;
+  return d && d.startsWith(h.date) ? d : `${h.date}-07-01`;
+}
+
+// the rail: the filing in force when the harm began, the start of the incident, the next periodic report —
+// for the implicated AI actor whose filings decide the incident's quadrant (the first lane with a coded
+// report in force, else the first lane)
+function railOf(row, x, c) {
+  const sub = mitOf(row), hb = harmOf(row.id);
+  const when = harmAnchor(hb, row.d);
+  const lanes = (c && c.lanes || []).filter(l => l.roles.some(r => r !== "mentioned"));
+  const pick = l => {
+    const fs = l.filings.filter(PERIODIC);
+    const before = [...fs].reverse().find(f => f.date < when), after = fs.find(f => f.date >= when);
+    const inForce = p => p.kind !== "8-K" && p.first < when && (!p.end || p.end >= when);
+    const ofType = l.passages.filter(p => inForce(p) && p.mit.includes(sub))   // the most specific first: primary type, then newest
+      .sort((a, b) => (b.primary === sub) - (a.primary === sub) || b.first.localeCompare(a.first));
+    const anyHarm = l.passages.some(p => inForce(p) && p.discloses === "ai_harm");
+    const nextOf = after ? l.passages.filter(p => p.reports.includes(after.acc) && p.mit.includes(sub))
+      .sort((a, b) => (b.first === after.date) - (a.first === after.date) || (b.primary === sub) - (a.primary === sub)) : [];
+    const resp = (c.responses || []).filter(r => r.cik === l.cik && r.responds).sort((a, b) => a.date.localeCompare(b.date));
+    return {l, before, after, ofType, anyHarm, nextOf, resp};
+  };
+  const cands = lanes.map(pick);
+  const r = cands.find(k => k.before && k.before.coded) || cands[0];
+  if (!r) return "";
+  const [where, how] = row.qd || [];
+  const quoteOf = p => p.harm_quote || p.status_quote || (p.text || "").slice(0, 220);
+  const beforeQ = !r.before ? "No periodic filing in force when the incident started."
+    : !r.before.coded ? "The filing in force is not coded."
+    : r.ofType.length ? `“${esc(quoteOf(r.ofType[0]))}”`
+    : r.anyHarm ? `The risk factors in force when the incident started disclose AI harms, not the incident’s risk type (${esc(sub)}).`
+    : "The risk factors in force when the incident started name no AI harm.";
+  const afterQ = !r.after ? "No periodic filing after the incident yet."
+    : how === "Reported" && r.resp.length ? `${esc(r.resp[0].form)} of ${esc(day(r.resp[0].date))}: “${esc(r.resp[0].quote || "")}”`
+    : r.nextOf.length ? `“${esc(quoteOf(r.nextOf[0]))}”` + (how && OUTCOME_WORD[how] ? ` <i>(${esc(OUTCOME_WORD[how])})</i>` : "")
+    : how && OUTCOME_WORD[how] ? `<i>${esc(OUTCOME_WORD[how][0].toUpperCase() + OUTCOME_WORD[how].slice(1))}.</i>` : "";
+  const filing = f => f ? `${esc(f.form)}, ${esc(day(f.date))}` : "–";
+  const incidentText = (x.text && x.text[0] && x.text[0][1]) || x.t;
+  const disc = `<svg class="disc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="var(--accent)"/><g transform="translate(12 12) scale(0.62) translate(-12 -12)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${LUCIDE.zap}</g></svg>`;
+  return `<div class="lblrow"><span class="lead"></span><span class="lbl">Disclosure ${icon("arrow-left-right")} Incident</span></div>
+    <div class="rail">
+      <div class="node"><span class="dot"></span><div class="head"><b>${filing(r.before)}</b><span class="tag">in force when the incident started</span></div><div class="q">${beforeQ}</div></div>
+      <div class="node harm">${disc}<div class="head"><b>${esc(hb ? fmtHarm(hb) : `public ${day(row.d)}`)}</b><span class="tag">start of incident</span></div><div class="q inc">${esc(shorten(incidentText, 280))}</div></div>
+      <div class="node"><span class="dot full"></span><div class="head"><b>${filing(r.after)}</b><span class="tag">next filing</span></div><div class="q">${afterQ}</div></div>
+    </div>
+    ${lanes.length > 1 ? `<p class="meta">Shown for ${esc(tidyName(r.l.name))}; also implicated: ${lanes.filter(l => l !== r.l).map(l => esc(tidyName(l.name))).join(", ")}.</p>` : ""}`;
+}
+
+async function openCard(id, refresh = false) {
+  S.open = id; paint(); saveHash();
+  if (!refresh) {
+    const pend = S.pendingCase || {};
+    if (pend.cmp || pend.pass || pend.k8 || pend.ev) openCase(id); else closeCase();
+  }
+  const card = $("#card");
+  card.hidden = false;
+  card.innerHTML = `<button class="x" aria-label="Close">✕</button><div class="body"><p class="meta">Loading ${esc(id)}…</p></div>`;
+  card.querySelector(".x").onclick = closeCard;
+  const [x, c] = await Promise.all([getJSON(API.incident(id)), getCase(id).catch(() => null)]);
+  if (S.open !== id) return;
+  if (x.error) { card.innerHTML = `<button class="x" aria-label="Close">✕</button><div class="body"><p class="meta">${esc(id)}: ${esc(x.error)}</p></div>`;
+                 card.querySelector(".x").onclick = closeCard; return; }
+  const row = S.recs.find(d => d.id === id) || {id, d: x.d, qd: null, xa: []};
+  const R = (x.coders || {}).A;
+  const mitKey = row.id ? mitOf(row) : "none";
+  // the header: quadrant, id, pictogram by MIT domain; the AI actor(s); the harm's labels
+  const q = row.qd ? quadOf(row, "quad") : "beyond";
+  const [qc, qink] = CARD_COL[q] || ["var(--pending)", "var(--ink2)"];
+  card.style.setProperty("--qc", qc); card.style.setProperty("--qink", qink);
+  const qlabel = (QUAD.find(k => k.k === q) || {}).l || "Unmatched";
+  const lanes = (c && c.lanes || []).filter(l => l.roles.some(r => r !== "mentioned"));
+  // the AI actors by role, as facts: the SEC-registered ones where any, else the named parties
+  const short = n => tidyName(n).replace(/,?\s+(?:Inc|Corp|Corporation|Co|Ltd|Limited|LLC|plc|PLC|N\.V|S\.A|AG|SE)\.?$/, "");
+  const roles = new Map();                                   // name -> its roles; names with the same roles share an entry
+  for (const [n, r] of lanes.length ? lanes.flatMap(l => l.roles.map(r => [l.name, r])) : x.actors) {
+    const v = n === "[private individual]" ? "Private individual (name removed)" : short(n);
+    if (["deployer", "developer", "upstream_provider"].includes(r)) roles.set(v, new Set([...(roles.get(v) || []), r]));
+  }
+  const ROLE_ICON = {deployer: ["building-2", "deployer"], developer: ["cpu", "provider"], upstream_provider: ["layers", "upstream provider"]};
+  const order = Object.keys(ROLE_ICON);
+  const actorFacts = [...d3.group([...roles], ([, rs]) => order.filter(r => rs.has(r)).join("+"))].map(([key, ns]) => {
+    const rs = key.split("+"), names = ns.map(([n]) => n);
+    const what = rs.map(r => ROLE_ICON[r][1]).join(" and ");
+    return `<span class="who" title="${esc(what[0].toUpperCase() + what.slice(1))}">${rs.map(r => icon(ROLE_ICON[r][0])).join("")}${esc(names.slice(0, 4).join(", ") + (names.length > 4 ? ` and ${names.length - 4} more` : ""))}</span>`;
+  }).join("");
+  const subj = R && R.subject ? [R.subject.type, R.subject.who].filter(Boolean)[0] : null;
+  const hb = x.harm_began;
+  const hero = `<div class="hero"><span class="pill quad">${esc(["AA", "AU", "UA", "UU"].includes(q) ? qlabel : "Unmatched")}</span>
+      <span class="pill cid">${icon("file-text")}${esc(x.id)}</span>
+      <div class="art">${icon(DOMAIN_ICON[domOf(mitKey)] || "circle-help", "ico")}<span class="badge">${icon("zap")}</span></div></div>`;
+  card.innerHTML = `<button class="x" aria-label="Close">✕</button>${hero}<div class="body">
+    <h2>${esc(x.t)}</h2>
+    <div class="facts">
+      <span title="When the incident started">${icon("calendar-days")}${esc(hb && hb.date && hb.precision !== "unknown" ? fmtHarm(hb) : `public ${day(x.d)}`)}</span>
+      ${actorFacts}
+      ${subj ? `<span title="AI subject">${icon("users")}${esc(subj)}</span>` : ""}
+      <span title="Risk type">${icon("shield-alert")}Risk type ${esc(subName(mitKey))}</span>
+    </div>
+    ${railOf(row, x, c)}
+    ${lanes.length ? `<button class="verdict${["AA", "AU", "UA", "UU"].includes(q) ? "" : " soft"}" title="What the implicated AI actors disclosed over time">${icon("arrow-left")}${esc(VERDICT[q] || VERDICT.beyond)}</button>`
+      : `<span class="verdict soft">${esc(VERDICT[q] || VERDICT.beyond)}</span>`}
+    ${cardSection("DISC labels", cardLabels(x), false)}
+    ${cardSection("Record descriptions", cardRecords(x), false)}
+    ${cardSection("Record labels", cardRecordLabels(x), false)}
+    <p class="meta sources">Public ${esc(day(x.d))}${x.links.length ? `. Sources: ${x.links.map(([l, u]) => extLink(u, esc(l))).join(", ")}` : ""}</p></div>`;
+  card.querySelectorAll(".csec > h4").forEach(h => h.onclick = () => h.parentElement.classList.toggle("closed"));
+  const vb = card.querySelector("button.verdict");
+  if (vb) vb.onclick = () => $("#case").hidden || CASE.data?.id !== id ? openCase(id) : closeCase();
+  verdictState();
+  card.querySelector(".x").onclick = closeCard;
+}
+// the verdict's arrow turns while the disclosure view is open
+function verdictState() { $("#card button.verdict")?.classList.toggle("open", !$("#case").hidden); }
+function closeCase() { $("#case").hidden = true; verdictState(); }
+function closeCard() { Object.assign(CASE, {sel: [], passage: null, diff: null, k8: null}); S.open = null; $("#card").hidden = true; $("#case").hidden = true; paint(); saveHash(); }
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeCard(); });
+
+// ------------------------------------------------------------------ the quadrants of research.md
+// Every incident is placed (src/quadrants.py, served as d.qd = [where, outcome]): its risk type disclosed
+// or not when the incident started (anticipated), and in the next periodic report (addressed), and how.
+// The 2,000 matched incidents fall in the four quadrants; the rest are unmatched, for the reason `where` gives.
+const UNTESTED = [
+  {k: "untestable", l: "Unmatched: filings missing", c: "var(--qum)", state: true,
+   d: "An SEC-registered AI actor is implicated, but a filing needed to match is missing: none before the incident, none coded, or the next one not yet filed."},
+  {k: "beyond", l: "Unmatched: no SEC-registered AI actor", c: "var(--none)", state: true,
+   d: "No AI actor the incident implicates files with the SEC."},
+];
+const QUAD = [                                    // the paper's colours (notebook 04: SIDE_COL, UU_COL)
+  {k: "AA", l: "Covered", c: "var(--qaa)", what: "anticipated and addressed", d: "Risk type disclosed before the incident, and still after it."},
+  {k: "UA", l: "Fixed", c: "var(--qua)", what: "unanticipated, then addressed", d: "Risk type disclosed only after the incident, or the incident reported."},
+  {k: "AU", l: "Dropped", c: "var(--qau)", what: "anticipated, then unaddressed", d: "Risk type disclosed before the incident, then no longer."},
+  {k: "UU", l: "Missed", c: "var(--quu)", what: "unanticipated and unaddressed", d: "Risk type disclosed neither before nor after the incident."},
+  ...UNTESTED,
+];
+const OUTCOME = [                                 // notebook 03's colours (HOW_COL); research.md's outcomes
+  {k: "Reported", l: "Reported", c: "#c23b4e", d: "A current filing (8-K or 6-K) responds to the incident, or a filing says its risk materialised in it."},
+  {k: "Revised", l: "Revised", c: "#2a78d6", d: "The next filing carries new text on the risk type."},
+  {k: "Retained", l: "Retained", c: "#8ab5e8", d: "The risk type stays in unchanged text."},
+  {k: "Added", l: "Added", c: "#eb6834", d: "The risk type is disclosed for the first time after the incident."},
+  {k: "Removed", l: "Removed", c: "#6d6c67", d: "The risk type is no longer disclosed."},
+  {k: "Absent", l: "Absent", c: "#f4ac8f", d: "The risk type is still not disclosed."},
+  ...UNTESTED,
+];
+function quadOf(d, level) {                       // level: "quad" or "how"
+  const [where, how] = d.qd || ["beyond the horizon", null];
+  if (!["AA", "AU", "UA", "UU"].includes(where)) return where.startsWith("SEC-registered AI actor") || where.startsWith("registrant") ? "untestable" : "beyond";
+  return level === "quad" ? where : how;
+}
+
+// ------------------------------------------------------------------ ex ante: disclosed before the incident?
+const XA = [
+  {k: "materialised", l: "its risk type, disclosed as having materialised", c: "var(--o4)"},
+  {k: "specific", l: "its risk type, disclosed as possible", c: "var(--o3)"},
+  {k: "generic", l: "AI harms, but not its risk type", c: "var(--o2)"},
+  {k: "notdisclosed", l: "no AI harm", c: "var(--o1)"},
+  {k: "nocode", l: "no coded annual filing", c: "var(--pending)", state: true},
+  {k: "noreg", l: "no SEC-registered AI actor", c: "var(--none)", state: true},
+];
+const ANNUAL = ["10-K", "20-F", "40-F"];
+const isCurrent = form => form.startsWith("8-K") || form.startsWith("6-K");   // current reports: an 8-K, or a foreign issuer's 6-K
+function harmStart(id) {                                  // when the harm began, at the start of its period
+  const h = S.dates[id];
+  if (!h || !h[0] || h[1] === "unknown") return null;
+  return h[0].length === 4 ? `${h[0]}-01-01` : h[0].length === 7 ? `${h[0]}-01` : h[0];
+}
+const anchorOf = d => (S.anchor === "harm" && harmStart(d.id)) || d.d;
+function beforeOf(cik, date) {                            // the last annual report filed strictly before the date
+  const list = S.annual[cik] || [];
+  let lo = 0, hi = list.length;
+  while (lo < hi) { const m = (lo + hi) >> 1; if (list[m][0] < date) lo = m + 1; else hi = m; }
+  return lo ? list[lo - 1] : [null, "none", false, {}];
+}
+function fmtHarm(h) {                                    // "by" where the date is a bound (codebook-harm §8)
+  if (!h || !h.date || h.precision === "unknown") return "unknown";
+  const t = h.precision === "day" ? day(h.date) : h.precision === "month" ? d3.utcFormat("%b %Y")(d3.utcParse("%Y-%m")(h.date)) : h.date;
+  return h.bound === "no_later_than" ? `by ${t}` : t;
+}
+const harmOf = id => { const h = S.dates[id]; return h && {date: h[0], precision: h[1], bound: h[2]}; };
+function laneStratum([date, state, ai, subs], sub) {      // one registrant's annual report in force
+  if (state !== "coded") return "nocode";
+  if (!ai) return "notdisclosed";
+  return subs[sub] ? (subs[sub] === 3 ? "materialised" : "specific") : "generic";
+}
+const roleName = r => r === "developer" ? "provider" : r;   // the data keep the sources' "developer" (EU AI Act Art. 3(3) provider)
+function stratum(d) {                                     // the strongest over its deployers and providers
+  let best = "noreg";
+  const rank = k => XA.findIndex(x => x.k === k), sub = mitOf(d);
+  for (const [cik, role] of d.xa || []) {
+    if (role === "mentioned") continue;
+    const s = laneStratum(beforeOf(cik, anchorOf(d)), sub);
+    if (rank(s) < rank(best)) best = s;
+  }
+  return best;
+}
+
+// ------------------------------------------------------------------ mitigate: dropped again after the harm?
+const MI = [
+  {k: "risk", l: "Dropped again after it: the risk", c: "var(--s3)"},
+  {k: "materialised", l: "Dropped again after it: that it materialised", c: "var(--m1)"},
+  {k: "kept", l: "Still disclosed in the latest filing", c: "var(--o2)"},
+  {k: "never", l: "Not disclosed from the harm on", c: "var(--muted)"},
+  {k: "nocode", l: "No coded annual filing", c: "var(--pending)", state: true},
+  {k: "noreg", l: "No SEC-registered AI actor deploys or develops it", c: "var(--none)", state: true},
+];
+function laneMitigation(cik, sub, at) {                   // notebook 03: a later annual report drops the risk, or
+  const coded = (S.annual[cik] || []).filter(s => s[1] === "coded");   // that it materialised, and nothing brings it back
+  if (!coded.length || !isSub(sub)) return {k: "nocode"};
+  const before = beforeOf(cik, at);
+  if (!(before[1] === "coded" && before[3][sub]) && !coded.some(s => s[0] >= at && s[3][sub])) return {k: "never"};
+  const last = f => coded.reduce((i, s, j) => f(s) ? j : i, -1);
+  const i = last(s => s[3][sub]), m = last(s => s[3][sub] === 3);   // a 10-Q only adds, so the next state is an annual report
+  if (coded[i + 1] && coded[i + 1][0] > at) return {k: "risk", date: coded[i + 1][0]};
+  if (m >= 0 && coded[m + 1] && coded[m + 1][0] > at) return {k: "materialised", date: coded[m + 1][0]};
+  return {k: "kept"};
+}
+
+// ------------------------------------------------------------------ case timeline
+const CASE = {data: null, sel: [], passage: null, diff: null, k8: null, ev: null, aiOnly: true, biz: false, x: null, view: null};
+const parseDay = d3.utcParse("%Y-%m-%d"), fmtDay = d3.utcFormat("%-d %b %Y");
+const day = s => s ? fmtDay(parseDay(s)) : "–";
+
+// the filing text takes the height left under the timeline; the splitter between them moves it (the height
+// is kept for the next case, and in this browser), a double-click folds the timeline away
+function wireSplit() {
+  const sp = $("#split"), tl = $(".tl-wrap");
+  if (!sp || !tl) return;
+  if (S.tlH === undefined) { try { const v = localStorage.getItem("tlH"); S.tlH = v === null ? null : +v; } catch { S.tlH = null; } }
+  const apply = h => { tl.classList.toggle("sized", h !== null); tl.style.height = h === null ? "" : `${h}px`; };
+  const keep = () => { try { S.tlH === null ? localStorage.removeItem("tlH") : localStorage.setItem("tlH", S.tlH); } catch { /* private window */ } };
+  apply(S.tlH);
+  sp.onpointerdown = e => {
+    sp.setPointerCapture(e.pointerId); sp.classList.add("drag");
+    const y0 = e.clientY, h0 = tl.getBoundingClientRect().height;
+    sp.onpointermove = m => { S.tlH = Math.round(Math.max(0, Math.min(h0 + m.clientY - y0, window.innerHeight))); apply(S.tlH); };
+    sp.onpointerup = () => { sp.classList.remove("drag"); sp.onpointermove = sp.onpointerup = null; keep(); };
+  };
+  sp.ondblclick = () => { S.tlH = S.tlH === 0 ? null : 0; apply(S.tlH); keep(); };
+}
+
+async function openCase(id) {
+  const box = $("#case");
+  box.hidden = false;
+  verdictState();
+  box.innerHTML = `<div class="case-h"><h3>Over time</h3><span class="sub">Loading the filings…</span></div>`;
+  const c = await getCase(id);
+  if (S.open !== id) return;
+  Object.assign(CASE, {data: c, sel: [], passage: null, diff: null, k8: null, view: null});
+  const pend = S.pendingCase || {};
+  S.pendingCase = null;
+  if (pend.pass) CASE.passage = pend.pass;
+  if (pend.k8) CASE.k8 = pend.k8;
+  if (pend.ev) CASE.ev = pend.ev;
+  if (pend.cmp) CASE.sel = pend.cmp.split(",").slice(0, 2);
+  renderCase();
+  if (CASE.sel.length === 2) loadDiff();
+}
+
+// the filings: a square for an annual filing (10-K, 20-F, 40-F), a circle for a 10-Q, a diamond for a current
+// filing (8-K, 6-K); blue outline: one of its AI passages names the incident's risk type; blue fill: one says that
+// risk type materialised, or the current filing responds to this incident; dashed: not coded
+const SHAPE = {
+  annual: (g, y) => g.append("rect").attr("x", -4.5).attr("y", y - 4.5).attr("width", 9).attr("height", 9).attr("rx", 1.5),
+  "10-Q": (g, y) => g.append("circle").attr("cy", y).attr("r", 4.5),
+  current: (g, y) => g.append("rect").attr("x", -3.6).attr("y", y - 3.6).attr("width", 7.2).attr("height", 7.2).attr("transform", `rotate(45 0 ${y})`),
+};
+const kindOf = f => isCurrent(f.form) ? "current" : f.form === "10-Q" ? "10-Q" : "annual";
+const shapeSvg = (kind, stroke, fill, dash) => {
+  const st = `stroke:${stroke};fill:${fill};stroke-width:1.5${dash ? ";stroke-dasharray:2 1.5" : ""}`;
+  const body = kind === "annual" ? `<rect x="1.5" y="1.5" width="9" height="9" rx="1.5" style="${st}"/>`
+    : kind === "10-Q" ? `<circle cx="6" cy="6" r="4.5" style="${st}"/>`
+    : `<rect x="2.4" y="2.4" width="7.2" height="7.2" transform="rotate(45 6 6)" style="${st}"/>`;
+  return `<svg width="12" height="12">${body}</svg>`;
+};
+const glyph = {
+  annual: shapeSvg("annual", "var(--ink2)", "var(--raised)"), q: shapeSvg("10-Q", "var(--ink2)", "var(--raised)"),
+  current: shapeSvg("current", "var(--ink2)", "var(--raised)"), names: shapeSvg("annual", "var(--s1)", "var(--raised)"),
+  says: shapeSvg("annual", "var(--s1)", "var(--s1)"), uncoded: shapeSvg("annual", "var(--muted)", "var(--raised)", true),
+  bar: (st, m) => `<svg width="26" height="10"><rect x="1" y="1" width="24" height="8" rx="2" style="stroke:var(${m ? "--s1" : "--pending"});stroke-width:1.5;fill:${
+    st === "materialised" ? `var(${m ? "--s1" : "--pending"})` : st === "elsewhere" ? `url(#hatch-${m ? "m" : "o"})` : "var(--raised)"}"/></svg>`,
+  drop: `<svg width="6" height="14"><line x1="3" x2="3" y1="0" y2="14" style="stroke:var(--s3);stroke-width:2;stroke-dasharray:4 2"/></svg>`,
+};
+
+function renderCase() {
+  const c = CASE.data, box = $("#case"), row = S.recs.find(d => d.id === c.id), sub = row ? mitOf(row) : null;
+  const head = `<div class="case-h">${c.lanes.length ? `<div class="case-tools">
+      <div class="seg" id="czoom"><button data-z="near" class="on">Around the incident</button><button data-z="all">All years</button></div>
+      <label title="Risk-factor passages on AI that name no risk type: they mention AI only as a business matter (investment, competition, demand, talent), not as a harm">
+        <input type="checkbox" id="biz" ${CASE.biz ? "checked" : ""}> Include risk-factor passages without risk type</label>
+    </div>` : `<p class="note">No AI actor of this incident files with the SEC, so there is no disclosure to follow.</p>`}
+    <button class="x" aria-label="Close the disclosure view">✕</button></div>`;
+  if (!c.lanes.length) { box.innerHTML = head; box.querySelector(".x").onclick = closeCase; return; }
+  box.innerHTML = head + `<div class="keys">
+      <span>${glyph.annual} 10-K, 20-F, 40-F</span><span>${glyph.q} 10-Q</span><span>${glyph.current} 8-K, 6-K</span>
+      <span>${glyph.names} names risk type ${esc(isSub(sub) ? sub : "–")}</span><span>${glyph.says} materialised or responds</span>
+      <span>${glyph.uncoded} not coded</span>
+    </div>
+    <div class="case-body"><div class="tl-wrap"><svg id="tl"></svg></div><div class="split" id="split" title="drag to resize the filing text; double-click to hide or show the timeline"></div><div class="case-detail" id="cdetail"></div></div>`;
+  wireSplit();
+  box.querySelector(".x").onclick = closeCase;
+  box.querySelectorAll("[data-z]").forEach(b => b.onclick = () => {
+    box.querySelectorAll("[data-z]").forEach(x => x.classList.toggle("on", x === b)); zoomCase(b.dataset.z);
+  });
+  $("#biz").onchange = e => { CASE.biz = e.target.checked; drawTimeline(); };
+  drawTimeline();
+  renderDetail();
+}
+
+function zoomCase(which, animate = true) {
+  const c = CASE.data, harm = parseDay(d3.min([harmStart(c.id) || c.date, c.date]));
+  const [a, b] = which === "all" ? CASE.x.domain()
+    : [d3.utcYear.offset(harm, -3), d3.min([d3.utcYear.offset(harm, 2), CASE.x.domain()[1]])];
+  const [r0, r1] = CASE.x.range(), k = (r1 - r0) / (CASE.x(b) - CASE.x(a));
+  const t = d3.zoomIdentity.translate(r0 - k * CASE.x(a), 0).scale(k);
+  animate ? d3.select("#tl").transition().duration(500).call(CASE.zoom.transform, t) : d3.select("#tl").call(CASE.zoom.transform, t);
+}
+
+function drawTimeline() {
+  const c = CASE.data, row = S.recs.find(d => d.id === c.id), sub = row ? mitOf(row) : null;
+  const svg = d3.select("#tl"), W = $(".tl-wrap").clientWidth || 600, ML = 178, MR = 16, TOP = 56, ROW = 12;
+  const pub = parseDay(c.date), end = d3.utcDay.offset(new Date(), 45);
+  const anchor = row ? anchorOf(row) : c.date, harm = parseDay(anchor);
+  const hb = S.dates[c.id], hs = harmStart(c.id);
+  const hEnd = !hs ? null : hb[1] === "year" ? d3.utcYear.offset(parseDay(hs), 1) : hb[1] === "month" ? d3.utcMonth.offset(parseDay(hs), 1) : null;
+  const isMatch = p => p.discloses === "ai_harm" && p.mit.includes(sub);
+  // the window on view, for stacking current filings that would sit on top of each other (re-laid out after a zoom)
+  const hAt = parseDay(d3.min([harmStart(c.id) || c.date, c.date]));
+  const view = CASE.view || [d3.utcYear.offset(hAt, -3), d3.min([d3.utcYear.offset(hAt, 2), end])];
+  const xv = d3.scaleUtc().domain(view).range([ML, W - MR]), GAP = 11, STEP = 14;
+  const stack = l => {
+    const rows = [], at = new Map();
+    for (const f of l.filings.filter(f => isCurrent(f.form)).sort((a, b) => a.date.localeCompare(b.date))) {
+      const x = xv(parseDay(f.date));
+      let r = rows.findIndex(last => x - last >= GAP);
+      if (r < 0) { r = rows.length; rows.push(x); } else rows[r] = x;
+      at.set(f.acc, r);
+    }
+    return {at, depth: Math.max(1, rows.length)};
+  };
+  let y = TOP;
+  const lanes = c.lanes.map(l => {
+    const ps = l.passages.filter(p => p.discloses === "ai_harm" || CASE.biz)
+      .sort((a, b) => (isMatch(b) - isMatch(a)) || ((b.discloses === "ai_harm") - (a.discloses === "ai_harm")) || a.first.localeCompare(b.first));
+    const ends = [];
+    const placed = ps.map(p => {
+      const s = parseDay(p.first), e = p.end ? parseDay(p.end) : end;
+      let r = ends.findIndex(t => t < d3.utcDay.offset(s, -20));
+      if (r < 0) { r = ends.length; ends.push(e); } else ends[r] = e;
+      return {p, s, e, r, m: isMatch(p)};
+    });
+    const st = stack(l), rowsEnd = 13 + 2 * STEP + (st.depth - 1) * GAP + 8;   // annual, 10-Q, then the current rows
+    const lane = {l, y0: y, placed, st, barTop: y + Math.max(rowsEnd, 46), before: beforeOf(l.cik, anchor),
+                  mit: l.processed ? laneMitigation(l.cik, sub, anchor) : {k: "nocode"}};
+    lane.h = lane.barTop - y + Math.max(1, ends.length) * ROW + 12;
+    y += lane.h;
+    return lane;
+  });
+  const H = y + 4;
+  svg.attr("viewBox", `0 0 ${W} ${H}`).attr("height", H).selectAll("*").remove();
+  const defs = svg.append("defs");
+  for (const [id, col] of [["m", "--s1"], ["o", "--pending"]]) {
+    const pt = defs.append("pattern").attr("id", `hatch-${id}`).attr("width", 4).attr("height", 4)
+      .attr("patternUnits", "userSpaceOnUse").attr("patternTransform", "rotate(45)");
+    pt.append("rect").attr("width", 4).attr("height", 4).style("fill", "var(--raised)");
+    pt.append("line").attr("y2", 4).style("stroke", `var(${col})`).style("stroke-width", 2);
+  }
+  defs.append("clipPath").attr("id", "tlclip").append("rect").attr("x", ML).attr("y", 0).attr("width", W - ML - MR).attr("height", H);
+
+  const x0 = d3.scaleUtc().domain([new Date(Date.UTC(2015, 0, 1)), end]).range([ML, W - MR]);
+  CASE.x = x0;
+  const gAxis = svg.append("g").attr("class", "axis").attr("transform", `translate(0,${TOP - 8})`);
+  const plot = svg.append("g").attr("clip-path", "url(#tlclip)");
+  const labels = svg.append("g");
+
+  lanes.forEach((ln, i) => {
+    const l = ln.l;
+    if (i) labels.append("line").attr("class", "sep").attr("x1", 8).attr("x2", W - MR).attr("y1", ln.y0 - 4).attr("y2", ln.y0 - 4);
+    const full = tidyName(l.name), name = full.length > 24 ? full.slice(0, 23) + "…" : full;
+    labels.append("text").attr("class", "lane-name").attr("x", 10).attr("y", ln.y0 + 12).text(name).append("title").text(full);
+    labels.append("text").attr("class", "lane-meta").attr("x", 10).attr("y", ln.y0 + 26)
+      .text((l.roles.some(r => r !== "mentioned") ? l.roles.filter(r => r !== "mentioned") : l.roles).map(roleName).join(", "));
+  });
+
+  const hBand = plot.append("rect").attr("class", "hband").attr("y", TOP - 4).attr("height", H - TOP + 4).style("display", hEnd ? null : "none");
+  const hLine = plot.append("line").attr("class", "hline").attr("y1", TOP - 4).attr("y2", H).style("display", hs ? null : "none");
+  const hLab = svg.append("text").attr("class", "harm-lab").attr("y", 11).attr("text-anchor", "middle")
+    .text(hs ? `started ${fmtHarm(harmOf(c.id))}` : "");
+  const harmLine = plot.append("line").attr("class", "harm").attr("y1", TOP - 4).attr("y2", H);
+  const harmLab = svg.append("text").attr("class", "harm-lab pub").attr("y", 25).attr("text-anchor", "middle").text(`public ${day(c.date)}`);
+  const inforce = plot.selectAll("rect.inforce").data(lanes.filter(ln => ln.before[0])).join("rect").attr("class", "inforce")
+    .attr("y", ln => ln.y0 + 4).attr("height", 2 * STEP - 1);
+  const fl = plot.selectAll("g.lane").data(lanes).join("g").attr("class", "lane");
+  const files = fl.selectAll("g.f").data(ln => ln.l.filings.filter(f => ANNUAL.includes(f.form) || f.form === "10-Q" || isCurrent(f.form))
+      .map(f => ({f, ln}))).join("g").attr("class", "f");
+  const says8k = (l, acc) => {                          // whether it responds (§9), else what its AI passages say (§7)
+    if (c.responses.some(x => x.acc === acc && x.cik === l.cik && x.responds)) return "hit";
+    return l.k8.some(p => p.reports.includes(acc) && p.discloses === "ai_harm") ? "harm" : "business";
+  };
+  files.each(function ({f, ln}) {
+    const g = d3.select(this), kind = kindOf(f), l = ln.l;
+    const cy = ln.y0 + 13 + (kind === "annual" ? 0 : kind === "10-Q" ? STEP : 2 * STEP + (ln.st.at.get(f.acc) || 0) * GAP);
+    const ps = (kind === "current" ? l.k8 : l.passages).filter(p => (p.reports || []).includes(f.acc) && p.discloses === "ai_harm" && (p.mit || []).includes(sub));
+    const k = kind === "current" ? says8k(l, f.acc) : null;
+    const filled = kind === "current" ? k === "hit" : ps.some(p => p.status === "materialised");
+    const coded = kind === "current" || f.coded;
+    SHAPE[kind](g, cy).style("stroke", ps.length || filled ? "var(--s1)" : coded ? "var(--ink2)" : "var(--muted)")
+      .style("fill", filled ? "var(--s1)" : "var(--raised)").style("stroke-width", CASE.k8 === f.acc ? 2.5 : 1.4)
+      .style("stroke-dasharray", coded ? null : "2 1.5");
+    const sel = CASE.sel.indexOf(f.acc);
+    if (sel >= 0) {
+      g.append("circle").attr("r", 8.5).attr("cy", cy).style("fill", "none").style("stroke", "var(--ink)").style("stroke-width", 2);
+      g.append("text").attr("y", cy - 11).attr("text-anchor", "middle").style("font-size", "10px").style("font-weight", 700).style("fill", "var(--ink)").text(sel ? "B" : "A");
+    }
+    g.append("circle").attr("class", "hit").attr("r", 8).attr("cy", cy)
+      .on("mousemove", e => tipFiling(e, f, k, ps.length, filled)).on("mouseleave", hideTip).on("click", e => pickFiling(f, e));
+  });
+  const bars = fl.selectAll("rect.pbar").data(ln => ln.placed.map(b => ({...b, ln}))).join("rect").attr("class", "pbar")
+    .attr("y", b => b.ln.barTop + b.r * ROW).attr("height", 8).attr("rx", 2)
+    .style("stroke", b => b.p.discloses !== "ai_harm" ? "var(--none)" : `var(${b.m ? "--s1" : "--pending"})`)
+    .style("stroke-width", b => CASE.passage === b.p.id ? 2.5 : 1.5)
+    .style("fill", b => b.p.discloses !== "ai_harm" ? "var(--g2)"
+      : b.p.status === "materialised" ? `var(${b.m ? "--s1" : "--pending"})`
+      : b.p.status === "elsewhere" ? `url(#hatch-${b.m ? "m" : "o"})` : "var(--raised)")
+    .on("mousemove", (e, b) => tipPassage(e, b.p, sub)).on("mouseleave", hideTip)
+    .on("click", (e, b) => { CASE.passage = b.p.id; CASE.diff = null; CASE.sel = []; CASE.k8 = null; CASE.ev = null; drawTimeline(); renderDetail(); });
+
+  const drops = plot.selectAll("g.dropg").data(lanes.filter(ln => ln.mit.date)).join("g").attr("class", "dropg");
+  drops.append("line").attr("class", ln => `drop${ln.mit.k === "materialised" ? " m" : ""}`)
+    .attr("y1", ln => ln.y0 + 2).attr("y2", ln => ln.y0 + ln.h - 6);
+  drops.append("text").attr("class", "drop-lab").attr("x", 4).attr("y", ln => ln.y0 + ln.h - 9)
+    .text(ln => ln.mit.k === "materialised" ? "no longer materialised" : "dropped again");
+  drops.append("title").text(ln => `From the annual filing of ${day(ln.mit.date)} on, ${ln.mit.k === "materialised"
+    ? `no AI passage says risk type ${sub} materialised any more` : `no AI passage names risk type ${sub} any more`}, and no filing since brings it back.`);
+
+  function redraw(x) {
+    CASE.view = x.domain();
+    gAxis.call(d3.axisTop(x).ticks(Math.max(3, (W - ML) / 90)).tickSizeOuter(0));
+    const lab = (t, at) => t.attr("x", Math.min(Math.max(x(at), ML + 60), W - 80)).style("display", x(at) < ML || x(at) > W - MR ? "none" : null);
+    harmLine.attr("x1", x(pub)).attr("x2", x(pub));
+    lab(harmLab, pub);
+    if (hs) {
+      const h0 = parseDay(hs);
+      hLine.attr("x1", x(h0)).attr("x2", x(h0));
+      if (hEnd) hBand.attr("x", x(h0)).attr("width", Math.max(1, x(hEnd) - x(h0)));
+      lab(hLab, h0);
+    }
+    inforce.attr("x", ln => x(parseDay(ln.before[0]))).attr("width", ln => Math.max(0, x(harm) - x(parseDay(ln.before[0]))));
+    files.attr("transform", ({f}) => `translate(${x(parseDay(f.date))},0)`);
+    bars.attr("x", b => x(b.s)).attr("width", b => Math.max(3, x(b.e) - x(b.s) - 2));
+    drops.attr("transform", ln => `translate(${x(parseDay(ln.mit.date))},0)`);
+    drops.select("text").each(function (ln) {             // keep the label inside the plot
+      const left = x(parseDay(ln.mit.date)) > W - MR - 140;
+      d3.select(this).attr("text-anchor", left ? "end" : "start").attr("x", left ? -4 : 4);
+    });
+  }
+  CASE.zoom = d3.zoom().scaleExtent([1, 80]).extent([[ML, 0], [W - MR, H]]).translateExtent([[ML, 0], [W - MR, H]])
+    .filter(e => e.type === "wheel" ? (e.ctrlKey || e.metaKey) : !e.button)
+    .on("zoom", e => redraw(e.transform.rescaleX(x0)))
+    .on("end", () => {
+      const xn = d3.scaleUtc().domain(CASE.view).range([ML, W - MR]);
+      const depth = l => { const rows = [];
+        for (const f of l.filings.filter(f => isCurrent(f.form)).sort((a, b) => a.date.localeCompare(b.date))) {
+          const x = xn(parseDay(f.date)), r = rows.findIndex(last => x - last >= GAP);
+          if (r < 0) rows.push(x); else rows[r] = x;
+        }
+        return Math.max(1, rows.length); };
+      if (lanes.some(ln => depth(ln.l) !== ln.st.depth)) drawTimeline();
+    });
+  svg.call(CASE.zoom).on("dblclick.zoom", null);
+  if (CASE.view) {                                        // keep the window across redraws
+    const [a, b] = CASE.view, k = (W - MR - ML) / (x0(b) - x0(a));
+    svg.call(CASE.zoom.transform, d3.zoomIdentity.translate(ML - k * x0(a), 0).scale(k));
+  } else zoomCase("near", false);
+}
+
+const carried = p => Object.entries(p.forms || {}).sort().map(([f, n]) => `${n} ${f}`).join(" and ");
+function tipFiling(e, f, says, names, filled) {          // the filing, its date, and the incident's risk type in it
+  const row = CASE.data && S.recs.find(d => d.id === CASE.data.id), type = row ? mitOf(row) : "";
+  const line = says === "hit" ? "Responds to this incident"
+    : names ? `${filled ? "Says risk type" : "Risk type"} ${subName(type)}${filled ? " materialised" : ""}`
+    : !isCurrent(f.form) && !f.coded ? "Not coded" : "";
+  tip.innerHTML = `<div class="t">${esc(f.form)}, ${esc(day(f.date))}</div>${line ? `<div class="m">${esc(line)}</div>` : ""}`;
+  tip.style.display = "block"; placeTip(e);
+}
+function tipPassage(e, p, sub) {                          // the passage's risk types, when it was in force, and where
+  const ms = p.discloses === "ai_harm" ? p.mit || [] : [];
+  const types = !ms.length ? ["No risk type"] : ms.length > 3 ? [`Risk types ${ms.join(", ")}`] : ms.map(m => `Risk type ${subName(m)}`);
+  tip.innerHTML = `${types.map(t => `<div class="t">${esc(t)}</div>`).join("")}
+    <div class="m">${esc(day(p.first))} → ${p.end ? esc(day(p.end)) : "the latest filing"}</div>
+    <div class="m">In ${esc(carried(p))}</div>`;
+  tip.style.display = "block"; placeTip(e);
+}
+
+function pickFiling(f, e) {
+  if (isCurrent(f.form) && !(e && (e.shiftKey || e.altKey))) {   // a current report opens; shift-click compares it
+    Object.assign(CASE, {k8: CASE.k8 === f.acc ? null : f.acc, passage: null, diff: null, sel: []});
+    drawTimeline(); renderDetail();
+    return;
+  }
+  if (!f.txt) return;
+  CASE.k8 = null;
+  const i = CASE.sel.indexOf(f.acc);
+  if (i >= 0) CASE.sel.splice(i, 1); else CASE.sel = [...CASE.sel.slice(-1), f.acc];
+  CASE.passage = null;
+  drawTimeline();
+  if (CASE.sel.length === 2) loadDiff(); else { CASE.diff = null; renderDetail(); }
+}
+function filingOf(acc) {
+  for (const l of CASE.data.lanes) { const f = l.filings.find(x => x.acc === acc); if (f) return {...f, lane: l.name}; }
+  return null;
+}
+async function loadDiff() {
+  const [a, b] = CASE.sel.map(filingOf).sort((u, v) => u.date.localeCompare(v.date));
+  CASE.diff = {a, b, loading: true}; renderDetail();
+  const same = () => CASE.diff && CASE.diff.a.acc === a.acc && CASE.diff.b.acc === b.acc;
+  const [x, y] = await Promise.all([filingText(a), filingText(b)]).catch(e => [{error: String(e)}, {}]);
+  if (!same()) return;
+  const idx = [x, y].map(t => t.index).find(st => st && st.state !== "ready");
+  if (idx) {
+    CASE.diff = {a, b, index: idx}; renderDetail();
+    if (idx.state === "building") setTimeout(() => same() && loadDiff(), 4000);
+    return;
+  }
+  if (x.error || y.error) { CASE.diff = {a, b, error: x.error || y.error}; renderDetail(); return; }
+  await new Promise(r => setTimeout(r));                     // let "Comparing…" show before the work
+  const d = compareTexts(x.text, y.text);
+  if (!same()) return;
+  CASE.diff = {...d, a: {...a, words: d.a.words}, b: {...b, words: d.b.words}};
+  renderDetail();
+}
+
+// ------------------------------------------------------------------ comparing two filings
+// The page compares the texts itself: sentences aligned first, then the words of each changed stretch; a
+// stretch of digits and punctuation alone is no change. A filing's text is its risk-factor section, or a
+// current report's AI excerpt: serve.py answers /api/text/<accession>, a static copy reads texts/<hash>.gz.
+const PAGE_BREAK = /\s*\b\d{1,3}\s+Table of Contents\b\s*|\s*\bTable of Contents\b\s*/g;
+const SENTENCE = /(?<=[.!?])\s+(?=[A-Z0-9"“(•])/;
+// src/sec_edgar.AI_TERMS, the terms the passages were cut with, copied by script; AI_CAPS is its case-sensitive part
+const AI_TERMS = new RegExp(String.raw`\b(artificial intelligence|machine learning|deep learning|generative ai|gen ai|genai|\bai\b|\bml\b|large language model|foundation model|neural network|algorithmic|automated decision|chatbot|deepfake|autonomous (?:driving|vehicle|cars?|trucks?|trucking|mobility|delivery|systems?|technolog\w*|features?|capabilit\w*|robots?|drones?|agents?)|autopilot|full self-driving|\bfsd\b|self-driving|driverless|robo-?taxis?|facial (?:recognition|analysis)|face recognition|(?:speech|voice|image|object) recognition|machine vision|biometric (?:identification|recognition|surveillance)|chatgpt|\bgpt(?:-\d\w*)?\b|\bllms?\b|(?:voice|virtual) assistants?|computer vision|natural language processing|recommendation (?:system|engine|algorithm)|\bADAS\b|advanced driver[- ]assist\w*|driver[- ]assist(?:ance|ed|ive)?\b|assisted[- ]driving|intelligent[- ]driving|\bXPILOT\b|\bXNGP\b|navigation[- ]guided pilot|super ?cruise|blue ?cruise)`, "i");
+const AI_CAPS = new RegExp(String.raw`\bAVs\b|\bAV (?:technolog\w*|partner\w*|development|deployment|business|programs?|industry|compan\w+|operations?|fleets?|rides?|platform)`);
+const mentionsAI = t => AI_TERMS.test(t) || AI_CAPS.test(t);
+const tidy = t => (t || "").replace(PAGE_BREAK, " ").replace(/\s+/g, " ").trim();
+const nWords = t => t ? t.split(" ").length : 0;
+function runs(a, b, max) {                               // jsdiff's changes as [tag, old items, new items]
+  const ch = Diff.diffArrays(a, b, max ? {maxEditLength: max} : undefined);
+  if (!ch) return null;                                  // more than `max` edits
+  const out = [];
+  for (const c of ch) {
+    const last = out[out.length - 1];
+    if (!c.added && !c.removed) out.push(["equal", c.value, c.value]);
+    else if (c.added && last && last[0] === "delete") { last[0] = "replace"; last[2] = c.value; }
+    else if (c.removed && last && last[0] === "insert") { last[0] = "replace"; last[1] = c.value; }
+    else out.push(c.added ? ["insert", [], c.value] : ["delete", c.value, []]);
+  }
+  return out;
+}
+function wordOps(o, n) {
+  const a = o ? o.split(" ") : [], b = n ? n.split(" ") : [];
+  const r = a.length > 4000 || b.length > 4000 ? null : runs(a, b, 4000);
+  if (!r) return [["del", o], ["ins", n]];
+  const out = [];
+  for (const [tag, x, y] of r) {
+    if (tag === "equal") out.push(["eq", x.join(" ")]);
+    if (tag === "delete" || tag === "replace") out.push(["del", x.join(" ")]);
+    if (tag === "insert" || tag === "replace") out.push(["ins", y.join(" ")]);
+  }
+  return out;
+}
+function compareTexts(ta, tb) {
+  ta = tidy(ta); tb = tidy(tb);
+  const sa = ta ? ta.split(SENTENCE) : [], sb = tb ? tb.split(SENTENCE) : [], hunks = [];
+  let i = 0;
+  for (const [tag, x, y] of runs(sa, sb)) {
+    if (tag !== "equal") {
+      const old = x.join(" "), neu = y.join(" ");
+      const ops = tag === "replace" ? wordOps(old, neu) : tag === "delete" ? [["del", old]] : [["ins", neu]];
+      if (!ops.every(([k, t]) => k === "eq" || !t.replace(/[\d\s.,•]/g, "")))
+        hunks.push({context: i ? sa[i - 1] : "", ops, ai: mentionsAI(old) || mentionsAI(neu),
+                    added: d3.sum(ops, ([k, t]) => k === "ins" ? nWords(t) : 0),
+                    removed: d3.sum(ops, ([k, t]) => k === "del" ? nWords(t) : 0)});
+    }
+    i += x.length;
+  }
+  return {a: {words: nWords(ta)}, b: {words: nWords(tb)}, hunks};
+}
+async function filingText(f) {
+  if (!STATIC) return getJSON(`/api/text/${encodeURIComponent(f.acc)}`);
+  const b64 = await loadData(`texts/${f.txt}`);                // the gzip-compressed text, base64-encoded
+  if (typeof b64 !== "string") return {error: `no text for ${f.acc}`};
+  const buf = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+  return {text: await new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"))).text()};
+}
+
+// the evidence a clicked label rests on; with nothing clicked, both quotes as before
+function labelQuotes(P, ev) {                            // the label's own quotes (evidence pass), if any
+  const q = P.ev || {};
+  const keys = ev === "whose" ? P.whose.map(w => `whose:${w}`)
+    : ev === "misuse" ? ["relation:misuse", ...P.misuse_by.map(m => `misuse_by:${m}`)] : [ev];
+  return [...new Set(keys.map(k => q[k]).filter(Boolean))];
+}
+function selOf(P) {
+  const [id, ev] = (CASE.ev || "").split("|");
+  if (id === P.id) return ev;
+  const row = CASE.data && S.recs.find(d => d.id === CASE.data.id), sub = row ? mitOf(row) : null;
+  const m = (P.mit || []).includes(sub) ? sub : (P.mit || [])[0];
+  return m ? `mit:${m}` : null;
+}
+function evidence(P) {
+  const ev = selOf(P);
+  if (!ev) return [[P.harm_quote, ""], [P.status_quote, "st"]];
+  if (ev === "status") return [[P.status_quote, "st"]];
+  if (ev.startsWith("subj:")) { const s = P.subjects[+ev.split(":")[1]]; return s ? [[s.name, "subj"]] : []; }
+  const own = labelQuotes(P, ev);
+  return own.length ? own.map(q => [q, ""]) : [[P.harm_quote, ""]];
+}
+function wireChips(box) {
+  box.querySelectorAll("button.chip[data-ev]").forEach(b => b.onclick = () => {
+    CASE.ev = CASE.ev === b.dataset.ev ? null : b.dataset.ev;
+    hideTip(); renderDetail(); saveHash();
+  });
+  box.querySelectorAll(".chip[data-var]").forEach(b => {          // the pointer on a pill names its variable
+    b.onmouseenter = e => { tip.innerHTML = `<div class="m">${esc(b.dataset.var)}</div>`; tip.style.display = "block"; placeTip(e); };
+    b.onmousemove = placeTip;
+    b.onmouseleave = hideTip;
+  });
+}
+// a revised passage with what changed since the passage it replaces: added words green, removed red and
+// struck; the coders' quotes highlighted in the words it keeps or adds
+function withChanges(old, text, quotes) {
+  const marks = quotes.filter(([q]) => q).map(([q, cls]) => { const i = text.indexOf(q); return i < 0 ? null : [i, i + q.length, cls]; })
+    .filter(Boolean).sort((a, b) => a[0] - b[0]);
+  const slice = (a, b) => {
+    let o = "", at = a;
+    for (const [i, j, cls] of marks) {
+      if (j <= at || i >= b) continue;
+      const s0 = Math.max(i, at), e0 = Math.min(j, b);
+      o += esc(text.slice(at, s0)) + `<mark class="${cls}">${esc(text.slice(s0, e0))}</mark>`;
+      at = e0;
+    }
+    return o + esc(text.slice(at, b));
+  };
+  let out = "", pos = 0;
+  for (const part of Diff.diffWords(old, text)) {
+    if (part.removed) { out += `<del>${esc(part.value)}</del>`; continue; }
+    const a = pos, b = pos + part.value.length;
+    pos = b;
+    out += part.added ? `<ins>${slice(a, b)}</ins>` : slice(a, b);
+  }
+  return out;
+}
+// the changes since the passage it revises show while its revision pill is selected; the quotes otherwise
+const passageText = P => selOf(P) === "rev" && P.rev && P.rev.old ? withChanges(P.rev.old, P.text, []) : withQuotes(P.text, evidence(P));
+function withQuotes(text, quotes) {                            // the coders' quotes, highlighted in place
+  const spans = quotes.filter(([q]) => q).map(([q, cls]) => { const i = text.indexOf(q); return i < 0 ? null : [i, i + q.length, cls]; })
+    .filter(Boolean).sort((a, b) => a[0] - b[0]);
+  let out = "", at = 0;
+  for (const [i, j, cls] of spans) { if (i < at) continue; out += esc(text.slice(at, i)) + `<mark class="${cls}">${esc(text.slice(i, j))}</mark>`; at = j; }
+  return out + esc(text.slice(at));
+}
+function longText(t, tag) {
+  if (t.length <= 1400) return `<${tag}>${esc(t)}</${tag}>`;
+  const words = t.split(" "), head = words.slice(0, 120).join(" ");
+  return `<${tag}>${esc(head)}</${tag}> <details><summary>… ${fmt(words.length - 120)} more words</summary><${tag}>${esc(words.slice(120).join(" "))}</${tag}></details>`;
+}
+
+function renderDetail() {
+  saveHash();
+  const box = $("#cdetail"), c = CASE.data, row = S.recs.find(d => d.id === c.id), sub = row ? mitOf(row) : null;
+  if (!box) return;
+  const D = CASE.diff;
+  if (D) {
+    const head = `<h4>${isCurrent(D.a.form) || isCurrent(D.b.form) ? "Texts" : "Risk factors"}: ${esc(D.a.form)} of ${esc(day(D.a.date))} → ${esc(D.b.form)} of ${esc(day(D.b.date))}</h4>`;
+    if (D.loading) { box.innerHTML = head + `<p class="meta">Comparing…</p>`; return; }
+    if (D.index && D.index.state !== "ready") {
+      box.innerHTML = head + `<p class="meta">${D.index.state === "failed" ? `The risk-factor index failed to build: ${esc(D.index.error)}`
+        : `The risk-factor index is still being built (${fmt(D.index.rows)} sections so far). This happens once; the comparison retries by itself.`}</p>`;
+      return;
+    }
+    if (D.error) { box.innerHTML = head + `<p class="meta">${esc(D.error)}</p>`; return; }
+    const hs = D.hunks.filter(h => !CASE.aiOnly || h.ai);
+    box.innerHTML = head + `<p class="meta"><label><input type="checkbox" id="aionly" ${CASE.aiOnly ? "checked" : ""}> only changes that mention AI</label>
+      ${D.a.form !== D.b.form && D.b.form === "10-Q" ? "<br>A 10-Q may state only the changes since the annual filing, so much of the annual text can show as removed." : ""}</p>` +
+      (hs.length ? hs.slice(0, 80).map(h => `<div class="hunk">${h.context ? `<div class="ctx">…${esc(h.context.slice(-160))}</div>` : ""}${
+        h.ops.map(([k, t]) => k === "eq" ? (t.length > 400 ? esc(t.slice(0, 180)) + " … " + esc(t.slice(-180)) : esc(t)) : longText(t, k)).join(" ")}</div>`).join("")
+        + (hs.length > 80 ? `<p class="meta">First 80 of ${fmt(hs.length)} shown.</p>` : "")
+      : `<p class="meta">No ${CASE.aiOnly ? "AI-related " : ""}changes.</p>`);
+    $("#aionly").onchange = e => { CASE.aiOnly = e.target.checked; renderDetail(); };
+    return;
+  }
+  // every label is a button: it highlights the evidence the coder gave for it — the one harm quote
+  // that backs all the harm labels, the status quote, or the subject's own words
+  const chip = (P, ev, label, cls = "", title = "") => `<button class="chip ${cls}${selOf(P) === ev ? " on" : ""}" data-ev="${esc(`${P.id}|${ev}`)}"${title ? ` data-var="${esc(title)}"` : ""}>${label}</button>`;
+  // a revised passage: its revision type, as Color by names it (how the new text speaks to this incident)
+  const revChip = P => {
+    if (!P.rev) return "";
+    const l = (P.rev.links || {})[c.event];
+    const k = l ? l.link : (P.mit || []).includes(sub) ? "risk_type_specific" : "unspecific";       // unlinked: by the passage's risk types
+    return chip(P, "rev", `${esc(REVISIONS.find(([x]) => x === k)[1])} revision`, "", "Revision type");
+  };
+  // the labels in research.md's words; a status only where a quote backs it (never "hypothetical", codebook-harm §7)
+  const STATUS_NAME = {materialised: "Materialised", elsewhere: "Occurred elsewhere"};
+  const LAYER_HARM = {capability: "Capability harm", human_interaction: "Human-interaction harm", systemic: "Systemic harm"};
+  const WHOSE_NAME = {own: "The AI actor's own AI", others: "Others' AI", general: "AI in general"};
+  // each pill names its label; the pointer on it names the variable
+  const chipsOf = P => [
+      ...P.mit.map(m => chip(P, `mit:${m}`, esc(subName(m)), "", "Risk type")),
+      STATUS_NAME[P.status] && P.status_quote && chip(P, "status", STATUS_NAME[P.status], "", "Status"),
+      ...P.harm.map(h => chip(P, `harm:${h}`, esc(h), "", "Harm type")),
+      ...P.layers.map(h => chip(P, `layer:${h}`, esc(LAYER_HARM[h] || layerName(h)), "", "Impact layer")),
+      P.whose.length && chip(P, "whose", esc(P.whose.map(w => WHOSE_NAME[w] || w).join(", ")), "", "Whose AI"),
+      ...P.relation.map(r => r === "misuse" && P.misuse_by.length
+        ? chip(P, "misuse", esc(P.misuse_by.map(m => `Misuse by ${MISUSE_BY[m] || m.replace(/_/g, " ")}`).join(", ")), "", "Intended purpose and misuse")
+        : chip(P, `relation:${r}`, r === "within_purpose" ? "Use within intended purpose" : r === "misuse" ? "Misuse" : "Use unclear", "", "Intended purpose and misuse")),
+      ...P.subjects.map((s, i) => chip(P, `subj:${i}`, `${esc(s.type)}: ${esc(s.name)}`, "", "AI subject")),
+      revChip(P),
+    ].filter(Boolean).join("");
+  if (CASE.k8) {
+    const l = c.lanes.find(l => l.filings.some(f => f.acc === CASE.k8)), f = l && l.filings.find(f => f.acc === CASE.k8);
+    const ps = l ? l.k8.filter(p => p.reports.includes(CASE.k8)) : [];
+    const rs = c.responses.filter(x => x.acc === CASE.k8 && (!l || x.cik === l.cik));
+    const rhead = !rs.length ? "" : rs.some(x => x.responds)
+      ? `<p><b>Responds to this incident:</b> <mark>${esc(rs.find(x => x.responds).quote || "")}</mark></p>`
+      : `<p class="meta">Does not respond to this incident.</p>`;
+    if (!ps.length) {
+      box.innerHTML = `<h4>${esc(l ? tidyName(l.name) : "")}: ${esc(f ? f.form : "8-K")} filed ${esc(f ? day(f.date) : "")}</h4>${rhead}
+        <p class="meta">No coded AI passage: the 8-K does not mention AI.</p>`;
+      return;
+    }
+    box.innerHTML = `<h4>${esc(l ? tidyName(l.name) : "")}: ${esc(f ? f.form : "8-K")} filed ${esc(f ? day(f.date) : "")}</h4>${rhead}` +
+      (ps.map(P => `<div class="hunk"><div class="chips">${chipsOf(P)}</div>
+        <div class="ptext">${passageText(P)}</div></div>`).join("") || `<p class="meta">No coded AI passage.</p>`);
+    wireChips(box);
+    return;
+  }
+  const P = CASE.passage && c.lanes.flatMap(l => l.passages.map(p => ({...p, lane: l.name}))).find(p => p.id === CASE.passage);
+  if (P) {
+    const chips = chipsOf(P);
+    box.innerHTML = `<h4>${esc(tidyName(P.lane))}</h4>
+      <p class="meta">In force ${esc(day(P.first))} → ${P.end ? esc(day(P.end)) : "the latest annual filing"}, carried by ${esc(carried(P))}</p>
+      <div class="chips">${chips}</div>
+      <div class="ptext">${passageText(P)}</div>`;
+    wireChips(box);
+    return;
+  }
+  const quick = c.lanes.map(l => {
+    const fs = l.filings.filter(f => f.rf_words), an = fs.filter(f => ANNUAL.includes(f.form));
+    const at = row ? anchorOf(row) : c.date;
+    const pair = list => [list.filter(f => f.date < at).pop(), list.find(f => f.date >= at)];
+    const [a1, a2] = pair(an), [f1, f2] = pair(fs);
+    const btn = (u, v, label) => u && v ? `<button class="q" data-a="${esc(u.acc)}" data-b="${esc(v.acc)}">${esc(label)}: ${esc(u.form)} ${esc(day(u.date))} → ${esc(v.form)} ${esc(day(v.date))}</button>` : "";
+    return `<p><b>${esc(l.name)}</b><br>${btn(a1, a2, `Annual before → annual after ${at === c.date ? "it became public" : "the incident started"}`) || ""}${f1 && f2 && (f1 !== a1 || f2 !== a2) ? btn(f1, f2, "Filing before → filing after") : ""}${!(a1 && a2) && !(f1 && f2) ? `<span class="meta">No filing with risk factors on both sides of the incident yet.</span>` : ""}</p>`;
+  }).join("");
+  box.innerHTML = `<p class="meta">Click a bar to read the passage, an 8-K to read what it says, or two filings to compare their risk factors word by word (shift-click an 8-K to compare its AI excerpt). Drag to pan; pinch or ⌘-scroll to zoom.</p>${quick}`;
+  box.querySelectorAll("button.q").forEach(b => b.onclick = () => { CASE.sel = [b.dataset.a, b.dataset.b]; CASE.passage = null; drawTimeline(); loadDiff(); });
+}
+new ResizeObserver(() => { if (!$("#case").hidden && CASE.data && $("#tl")) drawTimeline(); }).observe($("#case"));
+
+// ------------------------------------------------------------------ download: the tables, the docs and the codebooks
+const MARKED = "static/vendor/marked.min.js";
+const loadScript = src => new Promise((ok, no) => { const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = no; document.head.append(s); });
+const bytes = n => n >= 1e6 ? `${(n / 1e6).toFixed(n >= 1e7 ? 0 : 1)} MB` : `${Math.max(1, Math.round(n / 1e3))} kB`;
+// on Anonymous GitHub (/w/<id>/…) the page runs in a sandbox that refuses downloads: a file link opens the file
+// in the anonymised repository's viewer (/r/<id>/<path>), which downloads it, so no link names the repository
+const ANON = STATIC && location.pathname.match(/^\/w\/([^/]+)\//);
+const fileLink = (f, text, cls = "") => ANON && f.repo
+  ? `<a${cls} href="/r/${encodeURIComponent(ANON[1])}/${f.repo.split("/").map(encodeURIComponent).join("/")}">${text}</a>`
+  : `<a${cls} href="${esc(f.file)}" download>${text}</a>`;
+const DOC_TEXT = {};                                            // a static copy carries the docs' texts
+async function renderDownload() {
+  const box = $("#download");
+  if (box.dataset.ready) return;
+  box.dataset.ready = "1";
+  const d = await getJSON(API.downloads()).catch(() => ({}));
+  if (!d.tables) { box.innerHTML = `<div class="wrap"><p class="lead">The list of files did not load.</p></div>`; delete box.dataset.ready; return; }
+  [...d.docs, ...d.codebooks].forEach(f => { if (typeof f.text === "string") DOC_TEXT[f.file] = f.text; });
+  const doc = (f, title) => `<details class="cb" data-file="${esc(f.file)}"><summary><span>${esc(title)}</span>
+    ${fileLink(f, esc(f.file.split("/").pop()), ' class="raw"')}</summary><div class="md">Loading…</div></details>`;
+  box.innerHTML = `<div class="wrap">
+    <h2>The dataset</h2>
+    <p class="lead">DISC ${esc(d.version || "")}: ${d.tables.length} Parquet tables, documentation, codebooks and licence
+      (CC BY-SA 4.0).${d.sections?.length ? " The filing texts are offered separately below." : ""}</p>
+    ${fileLink({file: d.archive, repo: d.archive_repo}, `Download DISC${d.archive_bytes ? ` (zip, ${bytes(d.archive_bytes)})` : " (zip)"}`, ' class="dlmain"')}
+    <div class="tablewrap"><table class="files"><thead><tr><th>Table</th><th>One row per</th><th class="n">Rows</th><th class="n">Size</th></tr></thead><tbody>
+    ${d.tables.map(t => `<tr><td>${fileLink(t, esc(t.name))}</td><td>${esc(t.about.replace(/^one row per /, ""))}</td>
+      <td class="n">${fmt(t.rows)}</td><td class="n">${bytes(t.bytes)}</td></tr>`).join("")}
+    </tbody></table></div>
+    ${d.sections?.length ? `<h2>Filing texts</h2>
+    <p class="lead">Table <code>risk_factor_sections</code>, one file per filing year, not included in the zip: the risk factors
+      of annual and quarterly filings, the business sections of annual filings, and the AI excerpts of current filings
+      and proxy statements.</p>
+    <div class="tablewrap"><table class="files years"><thead><tr><th>Filing year</th><th class="n">Rows</th><th class="n">Size</th></tr></thead><tbody>
+    ${d.sections.map(t => `<tr><td>${fileLink(t, esc(t.year))}</td>
+      <td class="n">${fmt(t.rows)}</td><td class="n">${bytes(t.bytes)}</td></tr>`).join("")}
+    </tbody></table></div>` : ""}
+    <h2>Documentation</h2>
+    ${d.docs.map(f => doc(f, f.title)).join("")}
+    <h2>Codebooks</h2>
+    ${d.codebooks.map(f => doc(f, f.title)).join("")}
+  </div>`;
+  box.querySelectorAll("details.cb").forEach(el => el.addEventListener("toggle", () => el.open && showDoc(el)));
+  box.querySelectorAll("summary a.raw").forEach(a => a.addEventListener("click", e => e.stopPropagation()));
+}
+// a doc rendered once, on opening; links to another doc open that one, links into the research repository
+// (not part of the release) stay as plain text
+async function showDoc(el) {
+  if (el.dataset.done) return;
+  el.dataset.done = "1";
+  const md = el.querySelector(".md");
+  try {
+    if (!window.marked && el.dataset.file.endsWith(".md")) {
+      await loadScript(MARKED);
+      marked.use({renderer: {html: t => esc(typeof t === "string" ? t : t.text)}});      // raw HTML in a doc is shown, never run
+    }
+    const text = DOC_TEXT[el.dataset.file] ?? await fetch(el.dataset.file).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); });
+    if (!el.dataset.file.endsWith(".md")) { md.innerHTML = `<pre class="plain">${esc(text)}</pre>`; return; }
+    md.innerHTML = marked.parse(text);
+    md.querySelectorAll("a[href]").forEach(a => {
+      const h = a.getAttribute("href");
+      if (/^(https?:|mailto:)/.test(h)) { a.target = "_blank"; a.rel = "noopener"; return; }
+      if (h.startsWith("#")) return;
+      const name = h.split("#")[0].split("/").pop();
+      const to = name && [...document.querySelectorAll("details.cb")].find(x => x.dataset.file.split("/").pop() === name);
+      if (to) a.onclick = e => { e.preventDefault(); to.open = true; to.scrollIntoView({behavior: "smooth", block: "start"}); };
+      else a.replaceWith(...a.childNodes);
+    });
+  } catch { md.textContent = "This document did not load."; delete el.dataset.done; }
+}
+
+// ------------------------------------------------------------------ wiring
+function saveHash() {
+  const h = new URLSearchParams({view: S.view, arrange: S.arrange, color: S.colorBy});
+  if (S.hidden.size) h.set("off", [...S.hidden].join(","));
+  if (S.lit && !S.litAuto) h.set("lit", S.lit);
+  if (S.filters.length) h.set("flt", JSON.stringify(S.filters));
+  if (S.open) h.set("open", S.open);
+  if (S.open && CASE.sel.length === 2) h.set("cmp", CASE.sel.join(","));
+  if (S.open && CASE.passage) h.set("pass", CASE.passage);
+  if (S.open && CASE.k8) h.set("k8", CASE.k8);
+  if (S.open && CASE.ev) h.set("ev", CASE.ev);
+  try { history.replaceState(null, "", "#" + h); } catch { /* a sandboxed page may not rewrite its URL */ }
+}
+function readHash() {
+  const h = new URLSearchParams(location.hash.slice(1)), g = k => h.get(k);
+  if (["explore", "download"].includes(g("view"))) S.view = g("view");
+  if (Object.hasOwn(ARRANGE, g("arrange") ?? "")) S.arrange = g("arrange");
+  if (Object.hasOwn(COLOR, g("color") ?? "")) S.colorBy = g("color");
+  if (g("off")) S.hidden = new Set(g("off").split(","));
+  if (g("lit")) S.lit = g("lit");
+  const okFilter = f => f && typeof f === "object" && typeof f.mode === "string" && Object.hasOwn(COLOR, f.mode) && f.mode !== S.colorBy
+    && (Array.isArray(f.off) ? f.off.every(k => typeof k === "string") : typeof f.lit === "string");
+  try { const fs = JSON.parse(g("flt") || "[]"); S.filters = Array.isArray(fs) ? fs.filter(okFilter) : []; } catch { S.filters = []; }
+  S.pendingCase = {cmp: g("cmp"), pass: g("pass"), k8: g("k8"), ev: g("ev")};
+  return g("open");
+}
+function syncControls() {
+  $("#colorby").value = S.colorBy;
+  $("#arrange").querySelectorAll("button").forEach(x => x.classList.toggle("on", x.dataset.v === S.arrange));
+  miniLegend();
+  $("#arrangehint").textContent = ARRANGE[S.arrange].hint;
+  document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x.dataset.view === S.view));
+  const ex = S.view === "explore";
+  $("aside").hidden = !ex; $("#viz").hidden = !ex; $("#download").hidden = ex;
+}
+function rerender(animate = true) {
+  saveHash();
+  renderLegend();
+  renderViz(animate);
+}
+$("#colorby").onchange = e => { setColorBy(e.target.value); syncControls(); rerender(); };
+$("#arrange").querySelectorAll("button").forEach(b => b.onclick = () => {
+  S.arrange = b.dataset.v; syncControls(); saveHash(); renderViz(true);
+});
+let qTimer;
+$("#q").oninput = e => { clearTimeout(qTimer); qTimer = setTimeout(() => { S.query = e.target.value.trim(); renderLegend(); paint(); }, 150); };
+$("#clearq").onclick = () => { $("#q").value = ""; S.query = ""; renderLegend(); paint(); };
+document.querySelectorAll(".cell > h4").forEach(h => h.onclick = () => { h.parentElement.classList.toggle("closed"); miniLegend(); });
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
+  if (b.dataset.view === S.view) return;
+  S.view = b.dataset.view;
+  if (S.view === "download") closeCard();
+  syncControls(); saveHash();
+  if (S.view === "download") renderDownload(); else renderViz(false);
+});
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { COLORS.clear(); renderLegend(); paint(); });
+
+async function pollCodes(force = false) {
+  try {
+    const c = await getJSON(API.codes());
+    const stamp = JSON.stringify(c.files) + JSON.stringify(c.dates);
+    if (force || stamp !== S.stamp) {
+      S.stamp = stamp; S.codes = c.codes; S.files = c.files; S.dates = c.dates || {}; S.nFinal = c.n_final || 0;
+      if (S.open && !$("#card").hidden) openCard(S.open, true);
+    }
+  } catch (e) { $("#status").textContent = STATIC ? "The data files did not load." : "Server not reachable — is serve.py running?"; }
+}
+
+(async function init() {
+  const d = await getJSON(API.data());
+  // one row per incident; S.recs is the same list, which the card and the case look rows up in
+  S.recs = S.rows = d.rows;
+  S.domains = d.domains; S.subs = d.subdomains; S.version = d.version; S.annual = d.annual; S.has10q = d.has_10q; S.regnames = d.regnames || {};
+  fillColorBy();
+  const open = readHash();
+  await pollCodes(true);
+  if (COLOR[S.colorBy].kind === "multi" && !S.lit) { S.lit = topValue(COLOR[S.colorBy]); S.litAuto = true; }
+  syncControls(); saveHash(); renderLegend();
+  if (S.view === "download") renderDownload(); else renderViz(false);
+  if (open && S.view === "explore") openCard(open);
+  $("#loader").hidden = true;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+__disc("api/case/O2026-07-20-8c78",{"id":"O2026-07-20-8c78","event":"O2026-07-20-8c78","date":"2026-07-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["France Travail","deployer"],["France Travail","developer"]]});

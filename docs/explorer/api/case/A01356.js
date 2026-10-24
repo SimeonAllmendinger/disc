@@ -1,0 +1,1 @@
+__disc("api/case/A01356",{"id":"A01356","event":"A01356","date":"2025-07-09","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI, Anthropic, Google, DeepSeek, xAI and other AI chat platforms","developer"]]});

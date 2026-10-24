@@ -1,0 +1,1 @@
+__disc("api/case/O2025-12-04-1576",{"id":"O2025-12-04-1576","event":"O2025-12-04-1576","date":"2025-12-04","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["烏軍 (Ukrainian forces)","deployer"]]});

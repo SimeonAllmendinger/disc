@@ -1,0 +1,1 @@
+__disc("api/case/X1789",{"id":"X1789","event":"X1789","date":"2024-10-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["University of Illinois Urbana-Champaign researchers (Richard Fang, Dylan Bowman, Daniel Kang)","deployer"]]});

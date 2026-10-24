@@ -1,0 +1,1 @@
+__disc("api/case/A01472",{"id":"A01472","event":"A01472","date":"2026-04-28","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Google","developer"],["[private individual], Ashish Waland, [private individual] and [private individual]","deployer"]]});

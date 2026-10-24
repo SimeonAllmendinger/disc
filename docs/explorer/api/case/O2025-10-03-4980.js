@@ -1,0 +1,1 @@
+__disc("api/case/O2025-10-03-4980",{"id":"O2025-10-03-4980","event":"O2025-10-03-4980","date":"2025-10-03","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Tribunal da Relação de Lisboa; Alfredo Costa","deployer"]]});

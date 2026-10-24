@@ -1,0 +1,1 @@
+__disc("api/case/X1571",{"id":"X1571","event":"X1571","date":"2019-05-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Terrance Boult's UCCS research team","developer"],["Terrance Boult, University of Colorado Colorado Springs","deployer"]]});

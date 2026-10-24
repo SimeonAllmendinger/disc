@@ -1,0 +1,1 @@
+__disc("api/case/O2022-11-11-3c7c",{"id":"O2022-11-11-3c7c","event":"O2022-11-11-3c7c","date":"2022-11-11","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["PT Simbiotik Multitalenta Indonesia (Net89)","deployer"],["PT Simbiotik Multitalenta Indonesia (Net89)","developer"]]});

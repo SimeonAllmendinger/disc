@@ -1,0 +1,1 @@
+__disc("api/case/O2025-12-02-e6bc",{"id":"O2025-12-02-e6bc","event":"O2025-12-02-e6bc","date":"2025-12-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["الجيش الإسرائيلي (Israeli military)","deployer"],["الجيش الإسرائيلي (Israeli military)","developer"]]});

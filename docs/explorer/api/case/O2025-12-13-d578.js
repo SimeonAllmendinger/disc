@@ -1,0 +1,1 @@
+__disc("api/case/O2025-12-13-d578",{"id":"O2025-12-13-d578","event":"O2025-12-13-d578","date":"2025-12-13","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Ukrainian armed forces","deployer"]]});

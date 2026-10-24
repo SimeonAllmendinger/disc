@@ -1,0 +1,1 @@
+__disc("api/case/X1018",{"id":"X1018","event":"X1018","date":"2023-05-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["US Postal Service (USPS)","deployer"],["USPS, with the National Rural Letter Carriers Association","developer"]]});

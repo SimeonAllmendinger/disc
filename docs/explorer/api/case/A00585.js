@@ -1,0 +1,1 @@
+__disc("api/case/A00585",{"id":"A00585","event":"A00585","date":"2023-10-26","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Social Design Agency and Structura","deployer"]]});

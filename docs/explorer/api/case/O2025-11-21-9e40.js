@@ -1,0 +1,1 @@
+__disc("api/case/O2025-11-21-9e40",{"id":"O2025-11-21-9e40","event":"O2025-11-21-9e40","date":"2025-11-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Intellexa","developer"],["ΕΥΠ; Intellexa; Krikel","deployer"]]});

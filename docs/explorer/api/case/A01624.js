@@ -1,0 +1,1 @@
+__disc("api/case/A01624",{"id":"A01624","event":"A01624","date":"2024-11-25","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Boko Haram (Islamic State West Africa Province)","deployer"]]});

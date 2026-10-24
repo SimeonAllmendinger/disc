@@ -1,0 +1,1 @@
+__disc("api/case/O2024-10-09-99d9",{"id":"O2024-10-09-99d9","event":"O2024-10-09-99d9","date":"2024-10-09","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Ministério da Justiça e Segurança Pública (MJSP)","deployer"],["Ministério da Justiça e Segurança Pública (MJSP)","developer"]]});

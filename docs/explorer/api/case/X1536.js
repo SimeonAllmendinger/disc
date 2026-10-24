@@ -1,0 +1,1 @@
+__disc("api/case/X1536",{"id":"X1536","event":"X1536","date":"2019-09-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Duke University","deployer"],["Duke University","developer"]]});

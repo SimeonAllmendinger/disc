@@ -1,0 +1,1 @@
+__disc("api/case/O2024-07-15-b7fa",{"id":"O2024-07-15-b7fa","event":"O2024-07-15-b7fa","date":"2024-07-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Patagonia; Talkdesk","deployer"],["Talkdesk","developer"]]});

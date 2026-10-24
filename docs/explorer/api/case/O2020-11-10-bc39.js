@@ -1,0 +1,1 @@
+__disc("api/case/O2020-11-10-bc39",{"id":"O2020-11-10-bc39","event":"O2020-11-10-bc39","date":"2020-11-10","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Electronic Arts","deployer"],["Electronic Arts","developer"]]});

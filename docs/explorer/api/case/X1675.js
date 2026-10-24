@@ -1,0 +1,1 @@
+__disc("api/case/X1675",{"id":"X1675","event":"X1675","date":"2019-07-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Wireless Lab","deployer"],["Wireless Lab","developer"]]});

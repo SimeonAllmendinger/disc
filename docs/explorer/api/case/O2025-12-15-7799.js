@@ -1,0 +1,1 @@
+__disc("api/case/O2025-12-15-7799",{"id":"O2025-12-15-7799","event":"O2025-12-15-7799","date":"2025-12-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Anthropic; Ollama","developer"],["Global Group RaaS; ransomware operators","deployer"]]});

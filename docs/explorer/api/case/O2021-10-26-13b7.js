@@ -1,0 +1,1 @@
+__disc("api/case/O2021-10-26-13b7",{"id":"O2021-10-26-13b7","event":"O2021-10-26-13b7","date":"2021-10-26","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Chinese government","deployer"],["Hikvision; Dahua Technology","developer"]]});

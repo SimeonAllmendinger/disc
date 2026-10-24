@@ -1,0 +1,1 @@
+__disc("api/case/O2022-07-14-5fed",{"id":"O2022-07-14-5fed","event":"O2022-07-14-5fed","date":"2022-07-14","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Ministerio de Justicia y Seguridad de la CABA","deployer"]]});

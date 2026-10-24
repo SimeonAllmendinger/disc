@@ -1,0 +1,1 @@
+__disc("api/case/X0607",{"id":"X0607","event":"X0607","date":"2021-04-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Suresnes (mairie)","deployer"],["XXII Group","developer"]]});

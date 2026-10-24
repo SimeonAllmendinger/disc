@@ -1,0 +1,1 @@
+__disc("api/case/A01449",{"id":"A01449","event":"A01449","date":"2025-07-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["ChatGPT","developer"],["Krafton","deployer"]]});

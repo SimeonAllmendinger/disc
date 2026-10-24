@@ -1,0 +1,1 @@
+__disc("api/case/X2032",{"id":"X2032","event":"X2032","date":"2025-08-01","lanes":[{"cik":1181412,"name":"SPACE EXPLORATION TECHNOLOGIES CORP","regime":"none","processed":true,"roles":["developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[["xAI","deployer"]]});

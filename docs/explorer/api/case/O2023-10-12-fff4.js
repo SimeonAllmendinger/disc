@@ -1,0 +1,1 @@
+__disc("api/case/O2023-10-12-fff4",{"id":"O2023-10-12-fff4","event":"O2023-10-12-fff4","date":"2023-10-12","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Dennis P. Block and Associates; Dennis Block","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/X0613",{"id":"X0613","event":"X0613","date":"2020-10-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Central Board of Secondary Education (CBSE)","deployer"],["National e-Governance Division","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2021-06-06-6486",{"id":"O2021-06-06-6486","event":"O2021-06-06-6486","date":"2021-06-06","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Turkey; Turkish National Intelligence Organization","deployer"]]});

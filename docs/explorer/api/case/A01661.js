@@ -1,0 +1,1 @@
+__disc("api/case/A01661",{"id":"A01661","event":"A01661","date":"2026-04-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Aurora (Aur0ra) ransomware operator","deployer"],["Cursor (SpaceX)","developer"]]});

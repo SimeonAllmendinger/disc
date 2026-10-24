@@ -1,0 +1,1 @@
+__disc("api/case/O2024-02-27-fe06",{"id":"O2024-02-27-fe06","event":"O2024-02-27-fe06","date":"2024-02-27","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Secretaría de la Defensa Nacional (Sedena) — Centro de Operaciones del Ciberespacio","deployer"],["WebintPro","developer"]]});

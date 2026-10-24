@@ -1,0 +1,1 @@
+__disc("api/case/A00038",{"id":"A00038","event":"A00038","date":"2016-06-02","lanes":[{"cik":1670076,"name":"Frontier Group Holdings, Inc.","regime":"10-K","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

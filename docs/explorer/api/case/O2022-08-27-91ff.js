@@ -1,0 +1,1 @@
+__disc("api/case/O2022-08-27-91ff",{"id":"O2022-08-27-91ff","event":"O2022-08-27-91ff","date":"2022-08-27","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["État islamique au Sahel (EIS)","deployer"]]});

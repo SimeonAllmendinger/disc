@@ -1,0 +1,1 @@
+__disc("texts/583c6d6dee8f1919","H4sIAAAAAAACEx2MWw6CQBAEr9IHQCPgBYiPxPhj1AsM0LgbZcfMLhpu78pvV3WtcXc0wsmHaMmAoBgl0by80DkJD0YkRXKE+fjEIF1Sy5uThO//2/vYTTGyhw+4iCWcCpwSR5QNdIBOhiaEKQevfGvmGnBUy3yzOmNQW+ozxcDQ586eHceWhrosUG2qqsDgXxl8fXKLfDvslgpbm8RmlNtFrNc/FFihrtEAAAA=");

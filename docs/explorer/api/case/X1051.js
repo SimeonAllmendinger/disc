@@ -1,0 +1,1 @@
+__disc("api/case/X1051",{"id":"X1051","event":"X1051","date":"2019-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Huawei","developer"],["Safe City Malta","deployer"]]});

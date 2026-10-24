@@ -1,0 +1,1 @@
+__disc("api/case/O2021-11-08-de63",{"id":"O2021-11-08-de63","event":"O2021-11-08-de63","date":"2021-11-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["جيش الاحتلال الإسرائيلي","deployer"]]});

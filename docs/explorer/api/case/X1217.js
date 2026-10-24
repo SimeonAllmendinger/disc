@@ -1,0 +1,1 @@
+__disc("api/case/X1217",{"id":"X1217","event":"X1217","date":"2023-11-03","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Apollo Research","deployer"],["OpenAI","developer"]]});

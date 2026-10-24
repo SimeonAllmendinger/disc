@@ -1,0 +1,1 @@
+__disc("api/case/O2024-10-21-1fcd",{"id":"O2024-10-21-1fcd","event":"O2024-10-21-1fcd","date":"2024-10-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["City of Norfolk; Norfolk Police Department","deployer"],["Flock Safety","developer"]]});

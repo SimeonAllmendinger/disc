@@ -1,0 +1,1 @@
+__disc("api/case/A00355",{"id":"A00355","event":"A00355","date":"2018-07-07","lanes":[{"cik":1543151,"name":"Uber Technologies, Inc","regime":"10-K","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

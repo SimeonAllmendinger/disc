@@ -1,0 +1,1 @@
+__disc("api/case/X1421",{"id":"X1421","event":"X1421","date":"2024-01-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Delphi","developer"],["We Deserve Better","deployer"]]});

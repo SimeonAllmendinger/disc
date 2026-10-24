@@ -1,0 +1,1 @@
+__disc("api/case/X1772",{"id":"X1772","event":"X1772","date":"2024-10-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Perplexity","deployer"],["Perplexity","developer"]]});

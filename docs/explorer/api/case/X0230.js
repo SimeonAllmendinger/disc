@@ -1,0 +1,1 @@
+__disc("api/case/X0230",{"id":"X0230","event":"X0230","date":"2020-12-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Jumbo (Alphen aan den Rijn store)","deployer"]]});

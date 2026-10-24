@@ -1,0 +1,1 @@
+__disc("api/case/X1980",{"id":"X1980","event":"X1980","date":"2025-02-24","lanes":[{"cik":1181412,"name":"SPACE EXPLORATION TECHNOLOGIES CORP","regime":"none","processed":true,"roles":["developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

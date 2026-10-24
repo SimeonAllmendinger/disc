@@ -1,0 +1,1 @@
+__disc("api/case/O2025-11-01-2ef5",{"id":"O2025-11-01-2ef5","event":"O2025-11-01-2ef5","date":"2025-11-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Sine Engineering","developer"],["Ukrainian armed forces","deployer"]]});

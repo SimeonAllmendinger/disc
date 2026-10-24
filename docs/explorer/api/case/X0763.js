@@ -1,0 +1,1 @@
+__disc("api/case/X0763",{"id":"X0763","event":"X0763","date":"2021-10-12","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Ghost Robotics and SWORD International","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/X0162",{"id":"X0162","event":"X0162","date":"2018-03-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["IntelliFusion","developer"],["Shenzhen police","deployer"]]});

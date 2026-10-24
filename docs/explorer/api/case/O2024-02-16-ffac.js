@@ -1,0 +1,1 @@
+__disc("api/case/O2024-02-16-ffac",{"id":"O2024-02-16-ffac","event":"O2024-02-16-ffac","date":"2024-02-16","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Komisi Pemilihan Umum (KPU)","deployer"],["Komisi Pemilihan Umum (KPU)","developer"]]});

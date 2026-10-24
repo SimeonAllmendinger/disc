@@ -1,0 +1,1 @@
+__disc("api/case/O2025-05-07-d83d",{"id":"O2025-05-07-d83d","event":"O2025-05-07-d83d","date":"2025-05-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Defence Research and Development Organisation (DRDO); NewSpace Research and Technologies","developer"],["Indian Armed Forces","deployer"]]});

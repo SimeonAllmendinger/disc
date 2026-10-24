@@ -1,0 +1,1 @@
+__disc("api/case/X0587",{"id":"X0587","event":"X0587","date":"2021-12-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["38 U.S. law enforcement agencies using PredPol (e.g. Elgin, Plainfield, Decatur police departments)","deployer"],["PredPol (renamed Geolitica)","developer"]]});

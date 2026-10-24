@@ -1,0 +1,1 @@
+__disc("api/case/O2023-04-29-e6f7",{"id":"O2023-04-29-e6f7","event":"O2023-04-29-e6f7","date":"2023-04-29","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Israel Defense Forces; Israeli authorities","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2020-06-19-4780",{"id":"O2020-06-19-4780","event":"O2020-06-19-4780","date":"2020-06-19","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Universität Linz (Navid Rekab-Saz and Markus Schedl)","deployer"]]});

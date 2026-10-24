@@ -1,0 +1,1 @@
+__disc("api/case/X0705",{"id":"X0705","event":"X0705","date":"2016-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["HP Enterprise Services Italia and Finmeccanica","developer"],["Italian Ministry of Education (MIUR)","deployer"]]});

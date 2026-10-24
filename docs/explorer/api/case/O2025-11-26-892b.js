@@ -1,0 +1,1 @@
+__disc("api/case/O2025-11-26-892b",{"id":"O2025-11-26-892b","event":"O2025-11-26-892b","date":"2025-11-26","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Israel Defense Forces (צה\"ל)","deployer"],["Israel Defense Forces (צה\"ל)","developer"]]});

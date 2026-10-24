@@ -1,0 +1,1 @@
+__disc("api/case/X0572",{"id":"X0572","event":"X0572","date":"2021-02-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Find Solution AI","developer"],["True Light College and other Hong Kong schools","deployer"]]});

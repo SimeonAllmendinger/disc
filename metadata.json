@@ -1,0 +1,48 @@
+{
+ "name": "DISC",
+ "alternateName": "Disclosure–Incident Securities Corpus",
+ "version": "0.1.0",
+ "description": "AI incidents recorded by the AI Incident Database (AIID), the AIAAIC Repository and the OECD AI Incidents and Hazards Monitor (AIM), deduplicated into 9,001 incidents since 2016 and linked to the SEC filings of the AI actors they implicate. Incidents carry coded labels (AI actor positions, AI subject, autonomy, harm types, MIT risk type, impact layer, use); risk-factor, legal and current-report passages of 328 SEC-registered AI actors carry the same labels; and each matched incident × AI actor pair records whether disclosure anticipated the incident's risk type when the incident started and how it addressed it at the next report.",
+ "creator": [
+  {
+   "@type": "sc:Organization",
+   "name": "Anonymous authors"
+  }
+ ],
+ "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+ "url": "",
+ "citeAs": "DISC: Disclosure–Incident Securities Corpus (anonymised for review). Citation and DOI to follow.",
+ "keywords": [
+  "AI incidents",
+  "risk disclosure",
+  "SEC filings",
+  "AI accountability",
+  "MIT AI Risk Repository",
+  "OECD AI incidents"
+ ],
+ "rai": {
+  "dataCollection": "Incidents: the AIID snapshot of 1 September 2026, the AIAAIC Repository and OECD AIM as of 8 September 2026, deduplicated across the three into incidents with record dates from 1 January 2016; OECD AIM records were screened and linked to AI actors by the coders. Disclosure: the SEC EDGAR filings of the AI actors the incidents name that file with the SEC — annual reports (10-K, 20-F, 40-F), 10-Qs and AI-related current reports (8-K, 6-K) filed 1 January 2015 – 30 September 2026 — with risk-factor sections extracted and every sentence matching the AI terms kept with its neighbours as a passage.",
+  "dataCollectionType": "Web API and bulk downloads (AIID snapshots, SEC EDGAR); web scraping (AIAAIC Repository pages, OECD AIM web service).",
+  "dataCollectionMissingData": "74% of incidents name no AI actor that files with the SEC and cannot be matched to disclosure; 349 more name one that cannot be matched (no annual report yet, no coded report before the harm, or none after it by 30 September 2026). When the incident started is dated for 4,276 incidents and otherwise anchored on the record date. 1,403 incident × current-report pairs have no excerpt naming AI, the incident or an adverse event and were not read. Article bodies are not released.",
+  "dataCollectionRawData": "AIID incident and report records (CC BY-SA 4.0, report texts excluded), AIAAIC Repository pages (CC BY-SA 4.0), OECD AIM incident records and article metadata (OECD content under CC BY 4.0; articles remain their publishers'), and SEC EDGAR filings (public information). Licence and attribution per source: LICENSE and docs/documentation.md.",
+  "dataCollectionTimeframe": [
+   "2026-09-01T00:00:00",
+   "2026-09-30T23:59:59"
+  ],
+  "dataImputationProtocol": "No values are imputed. Where the start of an incident could not be dated, outcomes are anchored on the record date, and started_precision says so.",
+  "dataManipulationProtocol": "Evidence quotes from news articles longer than 30 words are cut to their first 30 words and marked with an ellipsis. Autonomy codes are released under the OECD's names. No other values are altered.",
+  "dataPreprocessingProtocol": "Records from the three databases are deduplicated into incidents; OECD AIM records are screened for AI involvement and linked to AI actors; AI actors are resolved to SEC registrants by CIK; risk-factor sections are extracted from filings and AI passages cut from them; near-identical passages coded differently were re-read by two blind readers.",
+  "dataAnnotationProtocol": "Incidents and passages are coded against written codebooks (attribution, harm, MIT risk) by LLM coders that quote the evidence for each label. Incident labels: AI actor positions and status, AI subject, autonomy, harm types, MIT risk domain and subdomain, impact layer, intended purpose, relation and misuse, use. Passage labels: whether an AI harm is disclosed, MIT subdomains, status (hypothetical, elsewhere, materialised), harm types, subjects, whose AI, impact layers. Current reports are coded for whether they respond to an incident. Every rule change is recorded in the codebooks before the affected items are recoded.",
+  "dataAnnotationPlatform": "A scripted LLM coding pipeline with written codebooks and coding packets (record text and source articles), and adjudication sheets; not a crowdsourcing platform.",
+  "dataAnnotationAnalysis": "Incident labels were double-coded on a fixed tenth; Cohen's κ (curated / OECD-linked / OECD-rest): provider 0.92 / 0.86 / 0.89, deployer 0.84 / 0.66 / 0.84, MIT subdomain 0.88 / 0.89 / 0.90, subject type 0.83 / 0.76 / 0.77, impact layer 0.73 / 0.75 / 0.80. Status and autonomy disagreements were adjudicated by hand; other disagreements keep coder A's label (730 incidents). Filing passages: a 213-passage pilot was double-coded (discloses κ 0.92; status 0.97; primary MIT subdomain 0.85); the full run is single-coded. Current-report responses: a blind second reader on 735 pairs, κ 0.83, its disagreements adjudicated.",
+  "dataReleaseMaintenancePlan": "Date-stamped releases, each archived with a DOI; earlier versions stay available. Maintained by the authors; corrections and takedown requests through the repository's contact, honoured within days.",
+  "personalSensitiveInformation": "Incidents name people: those harmed, parties, and people in source descriptions, evidence quotes and article headlines; some incidents concern sexual deepfakes, violence, suicide or health. Public figures named for a public role keep their names. The names of private individuals and minors are replaced by \"[private individual]\" in every incident-side text field: 3,017 names in 1,641 incidents, classified by an LLM coder with a blind second reader on a tenth (κ 0.89 on kept against removed), a re-read for the rules on sexual imagery, crime, relatives and a harmed minor's family, a scan for missed minors, and an LLM reader for the 57,907 strings in other scripts that the recogniser reads badly (κ 0.94 with a blind second reader) (docs/documentation.md, Personal data). Email addresses and telephone numbers are replaced by \"[email]\" and \"[phone]\" in every text field, the SEC filing texts included (mostly press and investor contacts in current reports). URLs are kept as published, less query parameters that grant access or identify a reader (share and gift tokens, guest keys, session and subscriber ids), and can contain names. SEC filing text is otherwise the registrants' own publication and is not redacted. No demographic attributes of individuals are coded beyond the subject type.",
+  "dataSocialImpact": "The data make it possible to check corporate AI risk disclosure against recorded AI harm — what AI actors anticipated, admitted and changed — which supports accountability research and policy on AI incident reporting and double materiality. Risks: LLM-coded labels can misattribute an incident to an AI actor or misjudge a disclosure, with reputational effect; every label therefore carries its evidence quote and source link, and the release is not a finding that any filing is misleading.",
+  "dataBiases": "Incident databases record what the press reports: coverage favours English-language media and large, well-known companies — five AI actors are implicated in 78% of the matched incidents. OECD AIM detects incidents automatically from news. Only AI actors that file with the SEC can be matched. Both LLM coders are Anthropic models, so their agreement can overstate reliability.",
+  "dataLimitations": "Incidents are a lower bound of AI harm. Each incident carries one MIT risk type while passages can name several; results at subdomain and domain level differ, most for social system harms. Annual-report and 10-Q passages are single-coded. Current reports mentioning AI were found with the AI terms before they were widened. Associations are not causal, and an unaddressed incident is not a finding that a filing is misleading. Not recommended for legal determinations, for rating individual companies, or for training classifiers without validating the labels.",
+  "dataUseCases": "Research on corporate AI risk disclosure, AI accountability and AI incident reporting; auditing disclosure against recorded incidents; the DISC explorer.",
+  "annotationsPerItem": "Incident labels: one LLM coder per incident, two on a fixed tenth. Passage labels: one, two on a 213-passage pilot. Current-report responses: one, two on 735 pairs.",
+  "annotatorDemographics": "No human crowd annotators. Labels are produced by two LLM coders; rules and adjudications are decided by the research team and recorded in the codebooks. No annotator demographics apply.",
+  "machineAnnotationTools": "Anthropic Claude Opus 5.5 (coder A) and Claude Sonnet 5.5 (coder B), prompted with the codebooks; OECD AIM's own LLM-generated labels are not used as labels."
+ }
+}

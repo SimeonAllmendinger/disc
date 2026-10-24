@@ -1,0 +1,1 @@
+__disc("api/case/X0132",{"id":"X0132","event":"X0132","date":"2018-05-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Metropolitan Police","developer"],["Metropolitan Police Service","deployer"]]});

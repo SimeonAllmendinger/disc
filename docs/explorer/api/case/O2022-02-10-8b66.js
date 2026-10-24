@@ -1,0 +1,1 @@
+__disc("api/case/O2022-02-10-8b66",{"id":"O2022-02-10-8b66","event":"O2022-02-10-8b66","date":"2022-02-10","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Houthi group (جماعة الحوثي)","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A00180",{"id":"A00180","event":"A00180","date":"2020-02-19","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Malaysian judiciary (Kota Kinabalu magistrate court)","deployer"],["Sarawak Information Systems","developer"]]});

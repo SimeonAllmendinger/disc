@@ -1,0 +1,1 @@
+__disc("api/case/A00429",{"id":"A00429","event":"A00429","date":"2016-04-01","lanes":[{"cik":1351636,"name":"SOUNDTHINKING, INC.","regime":"10-K","processed":true,"roles":["developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[["City of Rochester","deployer"]]});

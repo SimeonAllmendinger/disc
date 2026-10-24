@@ -1,0 +1,1 @@
+__disc("api/case/O2024-10-23-d782",{"id":"O2024-10-23-d782","event":"O2024-10-23-d782","date":"2024-10-23","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["[private individual]","deployer"],["[private individual]","developer"]]});
