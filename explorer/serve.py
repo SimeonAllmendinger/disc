@@ -144,8 +144,8 @@ def _position(acts: list[dict], position: str) -> list[str]:
 def _linked() -> dict:
     """incident -> the revision linked to it most closely (incident-specific, risk-type specific, unspecific):
     its revision type; and
-    incident -> whether a passage anticipating it names a harm to the AI actor itself
-    (passage_codes.registrant_harmed), for incidents with an anticipating passage."""
+    incident -> whether a prior passage of its risk type names a harm to the AI actor itself
+    (passage_codes.registrant_harmed), for incidents with a prior passage."""
     if "linked" in _T:
         return _T["linked"]
     rev = {}
@@ -157,7 +157,7 @@ def _linked() -> dict:
     harmed = {p["passage_id"]: p["registrant_harmed"] for p in table("passage_codes")}
     own = {}
     for o in table("outcomes"):
-        ps = o["anticipating_passages"] or []
+        ps = o["prior_passages"] or []
         if ps:
             own[o["incident_id"]] = own.get(o["incident_id"], False) or any(harmed.get(p) for p in ps)
     _T["linked"] = {"rev": rev, "own": own}
@@ -171,9 +171,9 @@ def rows() -> list[dict]:
     out = []
     for i, r in c["inc"].items():
         acts = c["actors"].get(i, [])
-        out.append({"id": i, "d": r["record_date"], "t": r["title"],
+        out.append({"id": i, "d": r["record_date"], "at": r["incident_date"], "t": r["title"],
                     "xa": [[a["cik"], ROLE[a["position"]]] for a in acts if a["cik"] and a["position"] in ROLE],
-                    "qd": [next((k for k, v in {"AA": "Covered", "AU": "Dropped", "UA": "Fixed", "UU": "Missed"}.items()
+                    "qd": [next((k for k, v in {"AA": "Covered", "AU": "Dropped", "UA": "Eventually Disclosed", "UU": "Missed"}.items()
                                  if v == r["quadrant"]), None) or r["where"], r["how"]] if (r["quadrant"] or r["where"]) else None,
                     "dep": _position(acts, "deployer"), "pro": _position(acts, "provider"),
                     "up": _position(acts, "upstream_provider"), "rv": lk["rev"].get(i), "rh": lk["own"].get(i)})
@@ -187,8 +187,8 @@ def codes() -> dict:
         out[i] = {"layer": r["impact_layer"], "mit": r["mit_subdomain"], "subj": r["subject_type"],
                   "harm": r["harm_types"] or [], "aut": r["autonomy_level"], "rel": r["relation"], "by": r["misuse_by"],
                   "cap": r["use_capability"], "tech": r["use_technique"], "dom": r["use_domains"] or []}
-        if r["started"]:
-            dates[i] = [r["started"], r["started_precision"], r["started_bound"] or "exact"]
+        if r["start_date"] and r["incident_date_basis"] == "start date":   # else the page dates it by the record date
+            dates[i] = [r["start_date"], r["start_date_precision"], r["start_date_bound"] or "exact"]
     return {"codes": out, "files": [{"file": f"DISC {version()}", "coder": "final", "n": len(out), "mtime": 0}],
             "n_double": 0, "n_final": len(out), "dates": dates}
 
@@ -213,8 +213,8 @@ def detail(incident_id: str) -> dict | None:
                   "acting_as": (pos.get(p) or {}).get("acting_as"), **q(p)}
               for p in ("deployer", "provider", "upstream_provider")},
            }
-    hb = {"date": r["started"], "precision": r["started_precision"], "bound": r["started_bound"],
-          "source": "coded", **q("started")} if r["started"] or q("started") else None
+    hb = {"date": r["start_date"], "precision": r["start_date_precision"], "bound": r["start_date_bound"],
+          "source": "coded", **q("start_date")} if (r["start_date"] or q("start_date")) and r["incident_date_basis"] == "start date" else None
     db = c["db"].get(incident_id, {})
     return {"id": incident_id, "ev": incident_id, "d": r["record_date"], "t": r["title"],
             "src": [s for s in ("aiid", "aiaaic", "oecd") if r[f"in_{s}"]], "win": True,

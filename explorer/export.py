@@ -67,16 +67,17 @@ def _texts(accessions: set[str]) -> dict[str, str]:
     return {acc: next(s[k] for k in serve.TEXT_SECTIONS if k in s) for acc, s in by.items()}
 
 
-def export(out: Path, repo_path: str | None = None) -> None:
+def export(out: Path, repo_path: str | None = None, keep: bool = False) -> None:
     if out.exists():
         if not (out / MARK).exists():
             raise SystemExit(f"{out} exists and is not an exported site; choose another --out")
-        shutil.rmtree(out)
-    (out / "api").mkdir(parents=True)
+        if not keep:                                     # --keep: overwrite in place, reuse the texts already written
+            shutil.rmtree(out)
+    (out / "api").mkdir(parents=True, exist_ok=True)
     (out / MARK).write_text("written by explorer/export.py; emptied and refilled at each export\n")
     size = 0
     (out / "index.html").write_text(serve.page(static=True), encoding="utf-8")
-    shutil.copytree(serve.STATIC_DIR, out / "static",               # the fonts are inline in the page
+    shutil.copytree(serve.STATIC_DIR, out / "static", dirs_exist_ok=True,               # the fonts are inline in the page
                     ignore=lambda d, names: [n for n in names if (Path(d) / n).is_file() and Path(n).suffix not in (".js", ".txt")])
     mit = serve.table("mit_taxonomy")
     size += _dump(out, "api/data.json", {
@@ -97,7 +98,7 @@ def export(out: Path, repo_path: str | None = None) -> None:
     texted = {f["acc"] for cik in ciks for f in regs[cik]["filings"] if f["txt"]}
     text = _texts(texted)
     name = {acc: hashlib.sha1(t.encode()).hexdigest()[:16] for acc, t in text.items()}
-    (out / "texts").mkdir()
+    (out / "texts").mkdir(exist_ok=True)
     tsize = 0
     for acc, t in text.items():
         f = out / "texts" / f"{name[acc]}.js"
@@ -141,5 +142,7 @@ if __name__ == "__main__":
     ap.add_argument("--out", type=Path, default=serve.HERE / "site")
     ap.add_argument("--repo-path", help="the site's folder in the release repository (e.g. docs/explorer): the "
                     "Download panel then links the repository's data/, docs/ and LICENSE instead of copies")
+    ap.add_argument("--keep", action="store_true", help="refill the site in place instead of emptying it first: "
+                    "texts already written are reused (content-addressed), so a re-export after a data change is fast")
     a = ap.parse_args()
-    export(a.out, a.repo_path)
+    export(a.out, a.repo_path, a.keep)

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <!-- everything loads from the page's own origin; serve.py page() fills in the inline script's hash -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-fSS71JYMS5Kaa9s3SbufG/8IIounmnk+UgSOcPKHPOY='; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-EdYlPAbqrb+CuR4RDtjDlsrocLauxQiHXabb2qZl5j0='; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -152,6 +152,15 @@ aside { width: 290px; flex: none; padding: 10px 12px 16px 16px; overflow-y: auto
 #viz { flex: 1; min-width: 0; position: relative; }
 #viz > svg, #viz > canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 #cv { pointer-events: none; }
+/* the sketched arrow to one dot, on entering the page: the note, then the arrow drawn towards the dot */
+.hint { pointer-events: none; }
+#hintcard { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 60; }
+.hint rect { fill: var(--page); opacity: .92; animation: hint-fade .4s .5s both; }
+.hint path { fill: none; stroke: var(--ink); stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; animation: hint-draw .5s var(--d, .8s) ease-out both; }
+.hint text { font-family: var(--serif); font-style: italic; font-size: 17px; fill: var(--ink); text-anchor: middle; paint-order: stroke; stroke: var(--page); stroke-width: 4px; stroke-linejoin: round; animation: hint-fade .4s .5s both; }
+@keyframes hint-draw { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes hint-fade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .hint path, .hint text, .hint rect { animation: none; stroke-dasharray: none; } }
 #svg { touch-action: none; cursor: grab; }
 #svg:active { cursor: grabbing; }
 #tscroll { position: absolute; bottom: 8px; height: 28px; border-radius: 6px; background: var(--g2); z-index: 2; cursor: pointer; touch-action: none; overflow: hidden; }
@@ -180,12 +189,14 @@ text.vlab { fill: var(--ink); font-size: 13px; font-weight: 650; paint-order: st
 text.vlab.big { font-size: 17px; font-weight: 750; }
 text.vlab.small { font-size: 11px; font-weight: 600; fill: var(--ink); stroke-width: 5px; }
 text.vlab .tsub { fill: var(--ink2); font-size: 12.5px; font-weight: 500; }
+text.vlab.qwhat { fill: var(--ink2); font-size: 12px; font-weight: 500; }
 text.vlab.axis { fill: var(--ink2); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; }
 text.vlab.note { fill: var(--muted); font-size: 12px; font-weight: 500; }
 .vaxis text { fill: var(--muted); font-size: 11px; font-family: inherit; }
 .vaxis path, .vaxis line { stroke: var(--axis); }
 .viztools { position: absolute; right: 14px; top: 8px; z-index: 2; display: flex; gap: 8px; align-items: center; font-size: 12.5px; color: var(--ink2); }
 .viztools button { border: 0; background: var(--raised); box-shadow: var(--shadow); border-radius: 999px; padding: 3px 12px; cursor: pointer; color: var(--ink); }
+@media (max-width: 480px) { #binlab { display: none; } }
 .empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); pointer-events: none; }
 .vlegend { position: absolute; left: 24px; top: 46px; z-index: 2; width: 260px; background: var(--raised); border-radius: 14px; box-shadow: var(--shadow); padding: 10px 10px 8px; }
 .vlegend h5 { margin: 0 0 6px 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink2); font-weight: 600; }
@@ -270,13 +281,23 @@ details.cb .md { padding: 0 20px 16px; font-size: 14px; line-height: 1.55; overf
 #card .node .q { font-size: 13px; color: var(--ink2); line-height: 1.4; margin-top: 2px; }
 #card .node .q.inc { color: var(--ink); }
 #card .node .q i { color: var(--muted); }
-#card .verdict { display: block; margin: 10px 0 4px; padding: 7px 14px; border-radius: 999px; background: var(--raised); border: 1.5px solid var(--qc); color: var(--qink); text-align: center; font-size: 13px; font-weight: 700; }
-#card .verdict.soft { border-color: var(--axis); color: var(--ink2); font-weight: 600; }
-#card button.verdict { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; font-family: inherit; cursor: pointer; }
-#card button.verdict:hover, #card button.verdict.open { background: var(--qc); color: #fff; }
-#card button.verdict.soft:hover, #card button.verdict.soft.open { background: var(--ink2); border-color: var(--ink2); color: var(--page); }
-#card button.verdict svg { width: 16px; height: 16px; stroke-width: 2.3; flex: none; transition: transform .2s; }
-#card button.verdict.open svg { transform: rotate(180deg); }
+#card .verdict { display: block; margin: 8px 0 8px; color: var(--qink); text-align: center; font-size: 13px; font-weight: 650; }
+#card .verdict.soft { color: var(--ink2); font-weight: 600; }
+#card button.opencase { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin: 0 0 6px; padding: 8px 14px; border: 0; border-radius: 999px; background: var(--qink); color: #fff; font: inherit; font-size: 13.5px; font-weight: 650; cursor: pointer; }
+#card button.opencase.soft { --qink: var(--ink2); }
+#card button.opencase:hover { filter: brightness(.88); }
+#card button.opencase.open { background: var(--raised); color: var(--qink); box-shadow: inset 0 0 0 1.5px var(--qink); }
+#card button.opencase svg { width: 16px; height: 16px; stroke-width: 2.3; flex: none; transition: transform .2s; }
+#card button.opencase.open svg { transform: rotate(180deg); }
+#card button.opencase.pulse { animation: case-pulse 1s .4s 2; }
+@keyframes case-pulse { from { box-shadow: 0 0 0 0 color-mix(in oklab, var(--qink) 55%, transparent); } to { box-shadow: 0 0 0 10px transparent; } }
+@media (prefers-reduced-motion: reduce) { #card button.opencase.pulse { animation: none; } }
+/* a filing on the card leads to that disclosure */
+#card .node.go { cursor: pointer; }
+#card .node.go .head b { text-decoration: underline dotted var(--axis); text-underline-offset: 3px; }
+#card .node.go:hover .head b { color: var(--qink); text-decoration: underline; }
+#card .node.go:hover .q { color: var(--ink); }
+#card .node.go:focus-visible { outline: 2px solid var(--qink); outline-offset: 2px; border-radius: 4px; }
 #card .csec { border: 1px solid var(--grid); border-radius: 14px; margin: 12px 0 0; padding: 11px 14px; }
 #card .csec > h4 { margin: 0; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink2); display: flex;
   justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
@@ -480,7 +501,7 @@ mark { background: color-mix(in oklab, var(--s1) 24%, transparent); color: inher
       <h4>How to read it</h4>
       <div class="body">
         <p>Each dot represents one incident.</p>
-        <p><b>Timeline</b>: when the incident started. <b>Quadrants</b>: the 2,000 matched incidents, by whether their risk type was disclosed when the incident started (anticipated) and in the next periodic filing (addressed). <b>Impact layers</b>: waves out from the AI system.</p>
+        <p><b>Timeline</b>: start of incident. <b>Quadrants</b>: the 2,000 matched incidents, by whether their risk type was disclosed when the incident started (previously disclosed) and in the next periodic filing (disclosed at the next filing). <b>Impact layers</b>: waves out from the AI system.</p>
         <p>Scroll to zoom, drag to move. Hover a dot for its labels, click it to open the incident's details.</p>
       </div>
     </section>
@@ -490,6 +511,7 @@ mark { background: color-mix(in oklab, var(--s1) 24%, transparent); color: inher
     <svg id="svgb" aria-hidden="true"></svg>
     <canvas id="cv"></canvas>
     <svg id="svg" role="img" aria-label="One dot per incident"></svg>
+    <svg id="hint" class="hint" aria-hidden="true"></svg>
     <div class="viztools"><span id="binlab"></span><button id="rz">Reset zoom</button></div>
     <div class="vlegend" id="vlegend" hidden><h5></h5><div class="legend"></div></div>
     <button class="pager next" id="pgNext" hidden aria-label="Show the unmatched incidents"><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="n"></span></button>
@@ -503,6 +525,7 @@ mark { background: color-mix(in oklab, var(--s1) 24%, transparent); color: inher
 </main>
 <div id="tip"></div>
 
+<svg id="hintcard" class="hint" aria-hidden="true"></svg>
 <script>
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
@@ -619,7 +642,7 @@ const SUBDOMAIN_DEF = {                                             // codebook-
   "7.4": "Harm arose because the system's decisions could not be explained or audited.",
   "7.5": "Concern for the moral status or treatment of AI systems.",
   "7.6": "Harm from interaction between several AI agents."};
-const CAPABILITIES = ["Estimating", "Forecasting", "Comparing", "Detecting", "Identifying", "Discovering", "Generating", "Acting"];   // codebook-harm §10
+const CAPABILITIES = ["Estimate", "Forecast", "Compare", "Detect", "Identify", "Discover", "Generate", "Act"];   // Yildirim et al. (2023), Table 3
 const AUTONOMY = [["human support", "Human support"], ["human-in-the-loop", "Human-in-the-loop"],      // codebook-attribution §5
                   ["human-on-the-loop", "Human-on-the-loop"], ["human-out-of-the-loop", "Human-out-of-the-loop"]];
 const PURPOSE = [["within_purpose", "Within intended purpose"], ["misuse:deployer", "Misuse by the deployer"],   // codebook-harm §5
@@ -649,7 +672,7 @@ const REF = {
   harm: [["OECD AI Incidents and Hazards Monitor", "https://oecd.ai/en/incidents"]],
   domain: [["Herdel et al. (2024)", "https://doi.org/10.1609/aies.v7i1.31660"]],
   technique: [["VAIR (Golpayegani, Pandit & Lewis, 2023)", "https://doi.org/10.1145/3593013.3594050"]],
-  capability: [["Herdel et al. (2024)", "https://doi.org/10.1609/aies.v7i1.31660"]],
+  capability: [["Yildirim et al. (2023)", "https://doi.org/10.1145/3563657.3596058"]],
   autonomy: [["OECD Framework for the Classification of AI Systems (2022)", "https://doi.org/10.1787/cb6d9eca-en"]],
   purpose: [["EU AI Act, Art. 3(12)–(13)", "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"]],
   deployer: [["EU AI Act, Art. 3(4)", "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"]],
@@ -671,7 +694,7 @@ const COLOR = {
     items: () => [{k: "yes", l: "Yes", c: "var(--c2)", d: "The disclosure in force when the incident started names a harm to the AI actor itself: liability, fines, lost revenue, reputation."},
                   {k: "no", l: "No", c: "var(--c1)", d: "The disclosure in force names no harm to the AI actor itself."},
                   {k: "none", l: "No disclosure before", c: "var(--none)", state: true, d: "No disclosure of the risk type was in force when the incident started."}],
-    about: "Whether the disclosure that anticipated the incident names a harm to the AI actor itself"},
+    about: "Whether the disclosure that previously disclosed the incident's risk type names a harm to the AI actor itself"},
   risk: {group: "Harm", name: "Risk type", kind: "cat", key: d => domOf(mitOf(d)),
     items: () => [...slots(Object.keys(S.domains).sort().map(k => [k, domName(k),
                     Object.keys(S.subs).filter(s => s[0] === k).sort().map(s => subName(s)).join("; ")])),
@@ -864,6 +887,7 @@ const zoom = d3.zoom()
   .filter(e => (!e.ctrlKey || e.type === "wheel") && !e.button && !(e.type === "wheel" && sideways(e)))
   .on("zoom", e => {
     if (quiet) return;
+    hintOff();
     if (S.arrange === "timeline") { TL.x = e.transform.rescaleX(TL.x0); placeTimeline(); }
     else { gZoom.attr("transform", e.transform); gZoomB.attr("transform", e.transform); draw(); }
     hideTip(); ring(null); pagers();
@@ -879,9 +903,9 @@ $("#rz").onclick = () => { ZOOMED = null; svg.transition().duration(450).call(zo
 
 const ARRANGE = {
   timeline: {layout: d => layoutTimeline(d),
-    hint: "By when the incident started. Scroll to zoom, drag or use the bar below to move in time."},
+    hint: "By start of incident. Scroll to zoom, drag or use the bar below to move in time."},
   quadrants: {layout: d => layoutQuadrants(d),
-    hint: "Rows: risk type disclosed when the incident started, or not. Columns: in the next periodic filing, or not. Click a quadrant or a bubble to zoom in; the arrow leads to the unmatched incidents."},
+    hint: "Columns: risk type disclosed when the incident started, or not. Rows: in the next periodic filing, or not. Click a quadrant or a bubble to zoom in; the arrow leads to the unmatched incidents."},
   layers: {layout: d => layoutLayers(d),
     hint: "Waves out from the AI system: capability, human interaction, systemic (Weidinger et al., 2023). Sectors are the risk domains 1 to 7."},
 };
@@ -917,6 +941,104 @@ function renderViz(animate = false) {
   paint(false);
   pagers();
   if (from) animateFrom(from); else draw();
+  placeHint();
+}
+// on entering the page, a sketched arrow to one dot, until the visitor moves the view or opens an incident.
+// The page finds free space for the note beside a real dot, in whichever arrangement is on view.
+let hintOn = true, hintKey = null;
+const hintSvg = d3.select("#hint"), HINT_W = 160, HINT_H = 52;
+function hintOff() {
+  hintOn = false; hintKey = null;
+  hintSvg.selectAll("*").remove();
+}
+// a hand-drawn line for the hints: a little shaky, drawn on after a delay (the CSS on .hint path)
+function sketcher(svg) {
+  let seed = 7;
+  const rnd = () => (seed = seed * 16807 % 2147483647) / 2147483647 - .5;
+  const line = d3.line().curve(d3.curveCatmullRom.alpha(.5));
+  const shaky = (pts, amp) => line(pts.map(([a, b], i) => i === 0 || i === pts.length - 1 ? [a, b] : [a + rnd() * amp, b + rnd() * amp]));
+  const stroke = (d, width, opacity, delay) => svg.append("path").attr("d", d).attr("pathLength", 1)
+    .attr("stroke-width", width).attr("opacity", opacity).style("--d", `${delay}s`);
+  const arrow = (sx, sy, ex, ey, side) => {                      // a bowed shaft, a second lighter pass as with a pencil, an open head
+    const qx = (sx + ex) / 2 - (ey - sy) * .22 * side, qy = (sy + ey) / 2 + (ex - sx) * .22 * side;
+    const shaft = d3.range(15).map(i => { const u = i / 14, v = 1 - u; return [v * v * sx + 2 * u * v * qx + u * u * ex, v * v * sy + 2 * u * v * qy + u * u * ey]; });
+    stroke(shaky(shaft, 1.6), 1.9, 1, .8);
+    stroke(shaky(shaft, 2.4), 1.1, .45, .85);
+    const a = Math.atan2(ey - qy, ex - qx);
+    for (const [turn, l, delay] of [[2.62, 13, 1.25], [-2.68, 11, 1.32]]) {
+      const hx = ex + Math.cos(a + turn) * l, hy = ey + Math.sin(a + turn) * l;
+      stroke(shaky([[ex, ey], [(ex + hx) / 2, (ey + hy) / 2], [hx, hy]], 1), 1.9, 1, delay);
+    }
+    return a;
+  };
+  return {shaky, stroke, arrow};
+}
+function hintSpot(inCells) {
+  const c = 6, nx = Math.ceil(W / c), ny = Math.ceil(H / c), cell = new Uint8Array(nx * ny), t = viewT(), dots = [];
+  const mark = (x0, y0, x1, y1) => {
+    for (let j = Math.max(0, Math.floor(y0 / c)); j <= Math.min(ny - 1, Math.floor(y1 / c)); j++)
+      for (let i = Math.max(0, Math.floor(x0 / c)); i <= Math.min(nx - 1, Math.floor(x1 / c)); i++) cell[j * nx + i] = 1;
+  };
+  for (const d of DOTS) {
+    const p = at(d);
+    if (!p.r) continue;
+    const [x, y] = t.apply([p.x, p.y]), r = p.r * t.k;
+    if (x < 12 || x > W - 12 || y < 12 || y > H - 12) continue;
+    mark(x - r, y - r, x + r, y + r);
+    dots.push({x, y, r});
+  }
+  const box = $("#viz").getBoundingClientRect();                  // and what else the view shows
+  document.querySelectorAll("#vlegend:not([hidden]), #viz .viztools, #viz .pager:not([hidden]), #tscroll:not([hidden]), #svg text").forEach(el => {
+    const b = el.getBoundingClientRect();
+    mark(b.left - box.left - 6, b.top - box.top - 6, b.right - box.left + 6, b.bottom - box.top + 6);
+  });
+  if (inCells) document.querySelectorAll("#svgb rect, #svg rect").forEach(el => {   // a note and its arrow stay inside a quadrant
+    const q = el.getBoundingClientRect(), l = q.left - box.left, r = q.right - box.left, u = q.top - box.top, o = q.bottom - box.top;
+    mark(l, u, r, u); mark(l, o, r, o); mark(l, u, l, o); mark(r, u, r, o);
+  });
+  const sum = new Int32Array((nx + 1) * (ny + 1)), w = nx + 1;   // summed, to ask for a whole rectangle at once
+  for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++)
+    sum[(j + 1) * w + i + 1] = cell[j * nx + i] + sum[j * w + i + 1] + sum[(j + 1) * w + i] - sum[j * w + i];
+  const used = (x0, y0, x1, y1) => {
+    const a = Math.max(0, Math.floor(x0 / c)), b = Math.max(0, Math.floor(y0 / c)), e = Math.min(nx, Math.ceil(x1 / c)), f = Math.min(ny, Math.ceil(y1 / c));
+    return sum[f * w + e] - sum[b * w + e] - sum[f * w + a] + sum[b * w + a];
+  };
+  let best = null, top = -Infinity;
+  for (const v of dots) for (const [dx, dy] of [[-120, -90], [120, -90], [-90, -110], [90, -110], [-150, -50], [150, -50], [-130, 70], [130, 70], [-45, -90], [45, -90], [0, -85], [-45, 80], [45, 80], [0, 75]]) {
+    const cx = v.x + dx, cy = v.y + dy;
+    if (cx - HINT_W / 2 < 8 || cx + HINT_W / 2 > W - 8 || cy - HINT_H / 2 < 8 || cy + HINT_H / 2 > H - 8) continue;
+    const score = -Math.abs(cx - W * .5) - Math.abs(cy - H * .55) * .6;
+    if (score <= top || used(cx - HINT_W / 2, cy - HINT_H / 2, cx + HINT_W / 2, cy + HINT_H / 2)) continue;
+    const len = Math.hypot(dx, dy);                              // the way to the dot is clear, but for the dot's own neighbours
+    let clear = true;
+    for (let k = v.r + 10; clear && k < len; k += c) {
+      const i = Math.floor((v.x + dx * k / len) / c), j = Math.floor((v.y + dy * k / len) / c);
+      if (cell[j * nx + i]) clear = false;
+    }
+    if (clear) { best = {...v, dx, dy}; top = score; }
+  }
+  return best;
+}
+function placeHint() {
+  hintSvg.attr("viewBox", `0 0 ${W} ${H}`);
+  if (!hintOn) return;
+  const spot = hintSpot(true) || hintSpot(false), key = spot && [W, H, spot.x, spot.y, spot.dx, spot.dy].map(Math.round).join();
+  if (key === hintKey) return;
+  hintKey = key;
+  hintSvg.selectAll("*").remove();
+  if (!spot) return;
+  const {x, y, r, dx, dy} = spot, cx = x + dx, cy = y + dy;
+  const {shaky, stroke, arrow} = sketcher(hintSvg);
+  // from the edge of the note, in a bowed line, to just short of the dot
+  const s = Math.min((HINT_W / 2 + 2) / Math.abs(dx), (HINT_H / 2 + 2) / Math.abs(dy)), sx = cx - dx * s, sy = cy - dy * s;
+  const len = Math.hypot(x - sx, y - sy), gap = r + 7;
+  const a = arrow(sx, sy, x - (x - sx) / len * gap, y - (y - sy) / len * gap, dx > 0 ? -1 : 1);
+  const R = r + 3.5, a0 = a + Math.PI;                            // a loose ring round the dot
+  stroke(shaky(d3.range(25).map(i => { const q = a0 + i / 24 * 2 * Math.PI * 1.08, w = R + i / 24 * .9; return [x + Math.cos(q) * w, y + Math.sin(q) * w]; }), .7), 1.4, 1, 1.4);
+  const note = hintSvg.append("text");
+  const coarse = matchMedia("(pointer: coarse)").matches;
+  note.append("tspan").attr("x", cx).attr("y", cy - 4).text(`${coarse ? "Tap" : "Click"} a dot`);
+  note.append("tspan").attr("x", cx).attr("y", cy + 15).text("to open an incident");
 }
 // a dot where it is now: between its old and new place while the arrangement changes
 function cur(d) {
@@ -1001,8 +1123,8 @@ const label = (g, x, y, cls, text, sub) => {
   return t;
 };
 
-// ---------------------------------------------------------- quadrants: anticipated × addressed, and the grey band
-const QCELL = {AA: [0, 0], AU: [1, 0], UA: [0, 1], UU: [1, 1]};          // [column, row]
+// ---------------------------------------------------------- quadrants: previously disclosed × disclosed, and the grey band
+const QCELL = {AA: [0, 0], UA: [1, 0], AU: [0, 1], UU: [1, 1]};          // [column, row]: before the incident across, after it down
 const REASON = {
   "SEC-registered AI actor: no annual report yet": "No annual filing yet",
   "SEC-registered AI actor: no coded report before the harm": "No coded filing before",
@@ -1031,23 +1153,49 @@ function layoutQuadrants(leaves) {
   const test = leaves.filter(d => quadOf(d, "quad") in QCELL), rest = leaves.filter(d => !(quadOf(d, "quad") in QCELL));
   QP.rest = rest.length; QP.matched = test.length;
   // page 1: the quadrants, square, centred between the arrows, under the two questions
-  const side = 76, lab = 58, top = 66, cs = Math.max(110, Math.min((W - lab - 2 * side) / 2, (H - top - 14) / 2));
+  const narrow = W < 480;                                         // a phone: the shorter wording, the question under Reset zoom
+  const side = 76, lab = 58, top = narrow ? 86 : 66, cs = Math.max(110, Math.min((W - lab - 2 * side) / 2, (H - top - 14) / 2));
   const gx0 = Math.round((W - 2 * cs - lab) / 2 + lab), gy0 = top;
-  label(gFront, gx0 + cs, gy0 - 40, "q", "Risk type disclosed in the next periodic filing?").attr("text-anchor", "middle");
-  label(gFront, gx0 + cs / 2, gy0 - 14, "axis", "Addressed").attr("text-anchor", "middle");
-  label(gFront, gx0 + 1.5 * cs, gy0 - 14, "axis", "Unaddressed").attr("text-anchor", "middle");
-  label(gFront, 0, 0, "q", "Risk type disclosed when the incident started?").attr("text-anchor", "middle")
+  const short = cs < 210;                                         // too small for the long axis labels
+  label(gFront, gx0 + cs, gy0 - 40, "q", narrow ? "Disclosed when it started?" : "Risk type disclosed when the incident started?").attr("text-anchor", "middle");
+  label(gFront, gx0 + cs / 2, gy0 - 14, "axis", short ? "Yes" : "Previously disclosed").attr("text-anchor", "middle");
+  label(gFront, gx0 + 1.5 * cs, gy0 - 14, "axis", short ? "No" : "Not previously disclosed").attr("text-anchor", "middle");
+  label(gFront, 0, 0, "q", narrow ? "Disclosed in the next filing?" : "Risk type disclosed in the next periodic filing?").attr("text-anchor", "middle")
     .attr("transform", `translate(${gx0 - 40},${gy0 + cs}) rotate(-90)`);
-  label(gFront, 0, 0, "axis", "Anticipated").attr("text-anchor", "middle").attr("transform", `translate(${gx0 - 14},${gy0 + cs / 2}) rotate(-90)`);
-  label(gFront, 0, 0, "axis", "Unanticipated").attr("text-anchor", "middle").attr("transform", `translate(${gx0 - 14},${gy0 + 1.5 * cs}) rotate(-90)`);
-  const byQ = d3.group(test, d => quadOf(d, "quad")), head = 40;
+  label(gFront, 0, 0, "axis", short ? "Yes" : "Disclosed").attr("text-anchor", "middle").attr("transform", `translate(${gx0 - 14},${gy0 + cs / 2}) rotate(-90)`);
+  label(gFront, 0, 0, "axis", short ? "No" : "Not disclosed").attr("text-anchor", "middle").attr("transform", `translate(${gx0 - 14},${gy0 + 1.5 * cs}) rotate(-90)`);
+  const byQ = d3.group(test, d => quadOf(d, "quad"));
+  // each cell's head fits its width: the name and count, sized to the longest name, and what the quadrant
+  // means under them; a small cell has the name and count alone (the meaning is in the hover and the Arrange note)
+  const sans = cssVar("--sans"), headW = cs - 36, cells = QUAD.filter(i => i.k in QCELL);
+  const width = (text, font) => { ctx.font = font; return ctx.measureText(text).width; };
+  const wrapped = (text, font) => {
+    const lines = [];
+    for (const word of text.split(" ")) {
+      const t = lines.length ? `${lines[lines.length - 1]} ${word}` : word;
+      if (lines.length && width(t, font) <= headW) lines[lines.length - 1] = t; else lines.push(word);
+    }
+    return lines;
+  };
+  const widest = d3.max(cells, it => width(it.l, `750 17px ${sans}`) + 8 + width(fmt((byQ.get(it.k) || []).length), `500 12.5px ${sans}`));
+  const nameSize = Math.min(17, 17 * headW / widest), compact = nameSize < 11.5, line1 = 14 + nameSize, showWhat = !compact && cs >= 200;
+  const whatOf = it => wrapped(it.what, `500 12px ${sans}`), namesOf = it => wrapped(it.l, `600 11px ${sans}`);
+  const head = compact ? 20 + 13 * d3.max(cells, it => namesOf(it).length) + 6
+    : showWhat ? line1 + 17 + 15 * (d3.max(cells, it => whatOf(it).length) - 1) + 8 : line1 + 10;
   const packs = new Map([...byQ].map(([q, xs]) => [q, packUnit(xs, nest, ord, 3)]));
   const s = Math.min(6, ...[...packs.values()].map(p => ((cs - head - 22) / 2) / p.r));
   for (const [q, [c, r]] of Object.entries(QCELL)) {
     const x0 = gx0 + c * cs, y0 = gy0 + r * cs, it = QUAD.find(i => i.k === q), xs = byQ.get(q) || [];
     gBack.append("rect").attr("class", "cellbg").attr("x", x0 + 4).attr("y", y0 + 4).attr("width", cs - 8).attr("height", cs - 8)
       .attr("rx", 16).style("fill", it.c).style("stroke", it.c).datum({...grp(it.l, it.what, xs), box: [x0, y0, x0 + cs, y0 + cs]});
-    label(gFront, x0 + 18, y0 + 30, "big", it.l, `${fmt(xs.length)}, ${it.what}`);
+    if (compact) {
+      const names = namesOf(it);
+      names.forEach((t, i) => label(gFront, x0 + 14, y0 + 20 + 13 * i, "small", t));
+      label(gFront, x0 + 14, y0 + 20 + 13 * names.length, "qwhat", fmt(xs.length));
+    } else {
+      label(gFront, x0 + 18, y0 + line1, "big", it.l, fmt(xs.length)).style("font-size", `${nameSize}px`);
+      if (showWhat) whatOf(it).forEach((t, i) => label(gFront, x0 + 18, y0 + line1 + 17 + 15 * i, "qwhat", t));
+    }
     const pk = packs.get(q);
     if (!pk) continue;
     const cx = x0 + cs / 2, cy = y0 + head + (cs - head) / 2;
@@ -1122,8 +1270,8 @@ function zoomToGroup(g) {
 // ---------------------------------------------------------- timeline: when the harm began, re-binned with the zoom
 const TL = {x0: null, x: null, items: [], y0: 0, nmax: [], home: d3.zoomIdentity};
 const INTERVALS = [["year", d3.utcYear], ["quarter", d3.utcMonth.every(3)], ["month", d3.utcMonth], ["week", d3.utcWeek], ["day", d3.utcDay]];
-function whenOf(d) {                        // the anchor notebook 03 uses: when the harm began, else the record date
-  const a = harmAnchor(harmOf(d.id), d.d);
+function whenOf(d) {                        // the date DISC reads the incident at (incidents.incident_date)
+  const a = d.at || d.d;
   if (!a) return null;
   return parseDay(a.length === 4 ? `${a}-07-01` : a.length === 7 ? `${a}-15` : a.slice(0, 10));
 }
@@ -1146,7 +1294,7 @@ function layoutTimeline(leaves) {
   TL.x0 = d3.scaleUtc().domain([lo, hi]).range([28, W - 28]);
   TL.y0 = H - 84;                                    // under the axis, the scrollbar
   gBack.append("line").attr("class", "base").attr("x1", 0).attr("x2", W).attr("y1", TL.y0 + .5).attr("y2", TL.y0 + .5);
-  label(gFront, 28, 26, "big", "When the incident started");
+  label(gFront, 28, 26, "big", "Start of incident");
   const from = new Date(Date.UTC(2016, 0, 1));       // open on the decade 2016 to today; earlier harms are a scroll away
   const k = lo < from ? (TL.x0(hi) - TL.x0(lo)) / (TL.x0(hi) - TL.x0(from)) : 1;
   TL.home = k > 1 ? d3.zoomIdentity.translate(TL.x0.range()[0] - k * TL.x0(from), 0).scale(k) : d3.zoomIdentity;
@@ -1401,7 +1549,7 @@ function cardLabels(x) {
       || (R.subject?.status === "no_harm" ? "No AI subject harmed" : "Unclear"), R.subject, R.subject?.who],
     ["Impact layer", layerName(norm(R.impact_layer?.layer)), R.impact_layer],
     ["Harm type", (R.harm_types?.types || []).join(", ") || "Unclear", R.harm_types],
-    ["When the incident started", hb && hb.date && hb.precision !== "unknown"
+    ["Start of incident", hb && hb.date && hb.precision !== "unknown"
       ? `${fmtHarm(hb)} (${hb.precision}${hb.bound === "no_later_than" ? ", no later than" : ""})` : `Unclear; first recorded ${day(x.d)}`, hb],
     ["Deployer", partyOf(R.deployer), R.deployer, R.deployer?.acting_as],
     ["Provider", partyOf(R.provider), R.provider, R.provider?.acting_as],
@@ -1460,10 +1608,10 @@ const LUCIDE = {
   };
 const icon = (n, cls = "") => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${LUCIDE[n] || ""}</svg>`;
 const DOMAIN_ICON = {"1": "scale", "2": "lock", "3": "message-square-warning", "4": "bug", "5": "brain", "6": "briefcase", "7": "triangle-alert"};
-// the card's quadrant colours: the paper's figures (notebook 04: SIDE_COL, UU_COL); Fixed's light blue darkened for text
+// the card's quadrant colours: the paper's figures (notebook 04: SIDE_COL, UU_COL); Eventually Disclosed's light blue darkened for text
 const CARD_COL = {AA: ["#1a427a", "#1a427a"], UA: ["#86b6ef", "#3d7fd1"], UU: ["#c2410c", "#c2410c"], AU: ["#9b4dca", "#7d3aa8"]};
-const VERDICT = {AA: "Incident anticipated and addressed", UA: "Incident unanticipated but addressed",
-                 AU: "Incident anticipated but unaddressed", UU: "Incident unanticipated and unaddressed",
+const VERDICT = {AA: "Risk type previously disclosed and disclosed at the next filing", UA: "Risk type disclosed only afterwards",
+                 AU: "Risk type previously disclosed, then dropped", UU: "Risk type disclosed neither before nor after",
                  untestable: "Unmatched: an SEC-registered AI actor is implicated, but a filing is missing",
                  beyond: "No SEC-registered AI actor answers for the incident"};
 const OUTCOME_WORD = {Reported: "the next filing says the incident happened", Revised: "the risk type is disclosed in revised text",
@@ -1479,21 +1627,12 @@ function shorten(t, n) {                            // at a sentence end where o
 }
 const tidyName = n => /^[A-Z0-9 ,.&'()-]+$/.test(n) ? n.toLowerCase().replace(/\b([a-z])/g, m => m.toUpperCase()).replace(/\bInc\b/, "Inc").replace(/\bLlc\b/, "LLC") : n;   // EDGAR's all-caps names
 
-// notebook 03's anchor for the outcome at the next report: when the harm began, as precisely as it is
-// known, else the record date
-function harmAnchor(h, d) {
-  if (!h || !h.date || h.precision === "unknown") return d;
-  if (h.precision === "day") return h.date;
-  if (h.precision === "month") return d && d.startsWith(h.date) ? d : `${h.date}-01`;
-  return d && d.startsWith(h.date) ? d : `${h.date}-07-01`;
-}
-
 // the rail: the filing in force when the harm began, the start of the incident, the next periodic report —
 // for the implicated AI actor whose filings decide the incident's quadrant (the first lane with a coded
 // report in force, else the first lane)
 function railOf(row, x, c) {
   const sub = mitOf(row), hb = harmOf(row.id);
-  const when = harmAnchor(hb, row.d);
+  const when = row.at || row.d;                     // incidents.incident_date, as the quadrant is read at
   const lanes = (c && c.lanes || []).filter(l => l.roles.some(r => r !== "mentioned"));
   const pick = l => {
     const fs = l.filings.filter(PERIODIC);
@@ -1508,32 +1647,39 @@ function railOf(row, x, c) {
     return {l, before, after, ofType, anyHarm, nextOf, resp};
   };
   const cands = lanes.map(pick);
-  const r = cands.find(k => k.before && k.before.coded) || cands[0];
+  const r = cands.find(k => k.ofType.length) || cands.find(k => k.before && k.before.coded) || cands[0];
   if (!r) return "";
   const [where, how] = row.qd || [];
   const quoteOf = p => p.harm_quote || p.status_quote || (p.text || "").slice(0, 220);
-  const beforeQ = !r.before ? "No periodic filing in force when the incident started."
+  const at = hb ? "when the incident started" : "on the record date";   // an incident without a start date is read at its record date
+  // the latest filing is shown, or where it is not coded and an earlier one in force carries the passage, that one
+  const before = r.before && !r.before.coded && r.ofType[0] ? [...r.l.filings].reverse().find(f => r.ofType[0].reports.includes(f.acc) && f.date < when) || r.before : r.before;
+  const beforeQ = r.ofType.length ? `“${esc(quoteOf(r.ofType[0]))}”`
+    : !r.before ? `No periodic filing in force ${at}.`
     : !r.before.coded ? "The filing in force is not coded."
-    : r.ofType.length ? `“${esc(quoteOf(r.ofType[0]))}”`
-    : r.anyHarm ? `The risk factors in force when the incident started disclose AI harms, not the incident’s risk type (${esc(sub)}).`
-    : "The risk factors in force when the incident started name no AI harm.";
+    : r.anyHarm ? `The risk factors in force ${at} disclose AI harms, not the incident’s risk type (${esc(sub)}).`
+    : `The risk factors in force ${at} name no AI harm.`;
   const afterQ = !r.after ? "No periodic filing after the incident yet."
     : how === "Reported" && r.resp.length ? `${esc(r.resp[0].form)} of ${esc(day(r.resp[0].date))}: “${esc(r.resp[0].quote || "")}”`
     : r.nextOf.length ? `“${esc(quoteOf(r.nextOf[0]))}”` + (how && OUTCOME_WORD[how] ? ` <i>(${esc(OUTCOME_WORD[how])})</i>` : "")
     : how && OUTCOME_WORD[how] ? `<i>${esc(OUTCOME_WORD[how][0].toUpperCase() + OUTCOME_WORD[how].slice(1))}.</i>` : "";
   const filing = f => f ? `${esc(f.form)}, ${esc(day(f.date))}` : "–";
+  // where a filing leads in the disclosure view: its passage on the risk type, the current filing that reported the incident, else the filing
+  const go = (p, f, k8) => { const at = k8 ? `data-k8="${esc(k8)}"` : p ? `data-pass="${esc(p.id)}"` : f ? `data-acc="${esc(f.acc)}"` : ""; return at ? ` go" role="button" tabindex="0" ${at}` : `"`; };
+  const reported = how === "Reported" && r.resp.length ? r.resp[0].acc : null;
   const incidentText = (x.text && x.text[0] && x.text[0][1]) || x.t;
   const disc = `<svg class="disc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="var(--accent)"/><g transform="translate(12 12) scale(0.62) translate(-12 -12)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${LUCIDE.zap}</g></svg>`;
   return `<div class="lblrow"><span class="lead"></span><span class="lbl">Disclosure ${icon("arrow-left-right")} Incident</span></div>
     <div class="rail">
-      <div class="node"><span class="dot"></span><div class="head"><b>${filing(r.before)}</b><span class="tag">in force when the incident started</span></div><div class="q">${beforeQ}</div></div>
-      <div class="node harm">${disc}<div class="head"><b>${esc(hb ? fmtHarm(hb) : `public ${day(row.d)}`)}</b><span class="tag">start of incident</span></div><div class="q inc">${esc(shorten(incidentText, 280))}</div></div>
-      <div class="node"><span class="dot full"></span><div class="head"><b>${filing(r.after)}</b><span class="tag">next filing</span></div><div class="q">${afterQ}</div></div>
+      <div class="node${go(r.ofType[0], before)}><span class="dot"></span><div class="head"><b>${filing(before)}</b><span class="tag">in force ${at}</span></div><div class="q">${beforeQ}</div></div>
+      <div class="node harm">${disc}<div class="head"><b>${esc(hb ? fmtHarm(hb) : day(row.d))}</b><span class="tag">${hb ? "start of incident" : "record date"}</span></div><div class="q inc">${esc(shorten(incidentText, 280))}</div></div>
+      <div class="node${go(r.nextOf[0], r.after, reported)}><span class="dot full"></span><div class="head"><b>${filing(r.after)}</b><span class="tag">next filing</span></div><div class="q">${afterQ}</div></div>
     </div>
     ${lanes.length > 1 ? `<p class="meta">Shown for ${esc(tidyName(r.l.name))}; also implicated: ${lanes.filter(l => l !== r.l).map(l => esc(tidyName(l.name))).join(", ")}.</p>` : ""}`;
 }
 
 async function openCard(id, refresh = false) {
+  hintOff(); cardHintOff();
   S.open = id; paint(); saveHash();
   if (!refresh) {
     const pend = S.pendingCase || {};
@@ -1554,10 +1700,10 @@ async function openCard(id, refresh = false) {
   const q = row.qd ? quadOf(row, "quad") : "beyond";
   const [qc, qink] = CARD_COL[q] || ["var(--pending)", "var(--ink2)"];
   card.style.setProperty("--qc", qc); card.style.setProperty("--qink", qink);
-  const qlabel = (QUAD.find(k => k.k === q) || {}).l || "Unmatched";
+  const qlabel = (QUAD.find(k => k.k === q) || {}).l || "Unmatched", matched = q in QCELL;
   const lanes = (c && c.lanes || []).filter(l => l.roles.some(r => r !== "mentioned"));
   // the AI actors by role, as facts: the SEC-registered ones where any, else the named parties
-  const short = n => tidyName(n).replace(/,?\s+(?:Inc|Corp|Corporation|Co|Ltd|Limited|LLC|plc|PLC|N\.V|S\.A|AG|SE)\.?$/, "");
+  const short = n => tidyName(n).replace(/,?\s+(?:Inc|Corp|Corporation|Co|Ltd|Limited|LLC|plc|PLC|N\.V|S\.A|AG|SE)\.?$/, "").replace(/\s+Com$/, "");   // EDGAR's "Amazon Com Inc"
   const roles = new Map();                                   // name -> its roles; names with the same roles share an entry
   for (const [n, r] of lanes.length ? lanes.flatMap(l => l.roles.map(r => [l.name, r])) : x.actors) {
     const v = n === "[private individual]" ? "Private individual (name removed)" : short(n);
@@ -1578,33 +1724,71 @@ async function openCard(id, refresh = false) {
   card.innerHTML = `<button class="x" aria-label="Close">✕</button>${hero}<div class="body">
     <h2>${esc(x.t)}</h2>
     <div class="facts">
-      <span title="When the incident started">${icon("calendar-days")}${esc(hb && hb.date && hb.precision !== "unknown" ? fmtHarm(hb) : `public ${day(x.d)}`)}</span>
+      <span title="${hb && hb.date && hb.precision !== "unknown" ? "Start of incident" : "Record date"}">${icon("calendar-days")}${esc(hb && hb.date && hb.precision !== "unknown" ? fmtHarm(hb) : `recorded ${day(x.d)}`)}</span>
       ${actorFacts}
       ${subj ? `<span title="AI subject">${icon("users")}${esc(subj)}</span>` : ""}
       <span title="Risk type">${icon("shield-alert")}Risk type ${esc(subName(mitKey))}</span>
     </div>
     ${railOf(row, x, c)}
-    ${lanes.length ? `<button class="verdict${["AA", "AU", "UA", "UU"].includes(q) ? "" : " soft"}" title="What the implicated AI actors disclosed over time">${icon("arrow-left")}${esc(VERDICT[q] || VERDICT.beyond)}</button>`
-      : `<span class="verdict soft">${esc(VERDICT[q] || VERDICT.beyond)}</span>`}
+    <p class="verdict${matched ? "" : " soft"}">${esc(VERDICT[q] || VERDICT.beyond)}</p>
+    ${lanes.length ? `<button class="opencase${matched ? "" : " soft"}">${icon("arrow-left")}See what ${esc(lanes.length > 1 ? "the AI actors" : short(lanes[0].name))} disclosed</button>` : ""}
     ${cardSection("DISC labels", cardLabels(x), false)}
     ${cardSection("Record descriptions", cardRecords(x), false)}
     ${cardSection("Record labels", cardRecordLabels(x), false)}
-    <p class="meta sources">Public ${esc(day(x.d))}${x.links.length ? `. Sources: ${x.links.map(([l, u]) => extLink(u, esc(l))).join(", ")}` : ""}</p></div>`;
+    <p class="meta sources">Recorded ${esc(day(x.d))}${x.links.length ? `. Sources: ${x.links.map(([l, u]) => extLink(u, esc(l))).join(", ")}` : ""}</p></div>`;
   card.querySelectorAll(".csec > h4").forEach(h => h.onclick = () => h.parentElement.classList.toggle("closed"));
-  const vb = card.querySelector("button.verdict");
-  if (vb) vb.onclick = () => $("#case").hidden || CASE.data?.id !== id ? openCase(id) : closeCase();
+  const vb = card.querySelector("button.opencase");
+  if (vb) {
+    vb.onclick = () => { cardHintOff(); vb.classList.remove("pulse"); $("#case").hidden || CASE.data?.id !== id ? openCase(id) : closeCase(); };
+    if (!refresh && $("#case").hidden) {
+      vb.classList.add("pulse");
+      if (matched && !cardHintDone) placeCardHint(vb);
+    }
+  }
+  card.querySelectorAll(".node.go").forEach(n => {
+    n.onclick = () => openDisclosure(id, n.dataset);
+    n.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openDisclosure(id, n.dataset); } };
+  });
   verdictState();
   card.querySelector(".x").onclick = closeCard;
 }
-// the verdict's arrow turns while the disclosure view is open
-function verdictState() { $("#card button.verdict")?.classList.toggle("open", !$("#case").hidden); }
+// a filing on the card opens the disclosure view at that very disclosure: its passage, the current filing, or the filing
+function openDisclosure(id, at) {
+  cardHintOff();
+  $("#card button.opencase")?.classList.remove("pulse");
+  if (!$("#case").hidden && CASE.data?.id === id) {
+    Object.assign(CASE, {passage: at.pass || null, k8: at.k8 || null, ev: null, diff: null, sel: at.acc ? [at.acc] : []});
+    drawTimeline(); renderDetail();
+  } else {
+    S.pendingCase = {pass: at.pass, k8: at.k8, cmp: at.acc};
+    openCase(id);
+  }
+}
+// on the first matched incident of a visit, a sketched arrow to the button, where the view has room beside the card
+let cardHintDone = false;
+const cardHintSvg = d3.select("#hintcard");
+function cardHintOff() { cardHintSvg.selectAll("*").remove(); }
+function placeCardHint(btn) {
+  cardHintDone = true;
+  const b = btn.getBoundingClientRect(), k = $("#card").getBoundingClientRect(), w = 150;
+  if (k.left < w + 40 || b.top < k.top || b.bottom > Math.min(k.bottom, innerHeight) - 4) return;
+  const cx = k.left - w / 2 - 24, cy = Math.max(32, b.top - 56);
+  const note = cardHintSvg.append("text").attr("x", cx).attr("y", cy).text("Open the SEC filings");
+  const t = note.node().getBBox();
+  cardHintSvg.insert("rect", "text").attr("x", t.x - 8).attr("y", t.y - 5).attr("width", t.width + 16).attr("height", t.height + 10).attr("rx", 8);
+  sketcher(cardHintSvg).arrow(cx + 30, cy + 11, b.left - 5, b.top + b.height / 2, 1);
+}
+addEventListener("scroll", cardHintOff, true);
+addEventListener("resize", cardHintOff);
+// the button's arrow turns while the disclosure view is open
+function verdictState() { $("#card button.opencase")?.classList.toggle("open", !$("#case").hidden); }
 function closeCase() { $("#case").hidden = true; verdictState(); }
-function closeCard() { Object.assign(CASE, {sel: [], passage: null, diff: null, k8: null}); S.open = null; $("#card").hidden = true; $("#case").hidden = true; paint(); saveHash(); }
+function closeCard() { cardHintOff(); Object.assign(CASE, {sel: [], passage: null, diff: null, k8: null}); S.open = null; $("#card").hidden = true; $("#case").hidden = true; paint(); saveHash(); }
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeCard(); });
 
 // ------------------------------------------------------------------ the quadrants of research.md
 // Every incident is placed (src/quadrants.py, served as d.qd = [where, outcome]): its risk type disclosed
-// or not when the incident started (anticipated), and in the next periodic report (addressed), and how.
+// or not on the incident date (previously disclosed), and in the next periodic report (disclosed), and how.
 // The 2,000 matched incidents fall in the four quadrants; the rest are unmatched, for the reason `where` gives.
 const UNTESTED = [
   {k: "untestable", l: "Unmatched: filings missing", c: "var(--qum)", state: true,
@@ -1613,10 +1797,10 @@ const UNTESTED = [
    d: "No AI actor the incident implicates files with the SEC."},
 ];
 const QUAD = [                                    // the paper's colours (notebook 04: SIDE_COL, UU_COL)
-  {k: "AA", l: "Covered", c: "var(--qaa)", what: "anticipated and addressed", d: "Risk type disclosed before the incident, and still after it."},
-  {k: "UA", l: "Fixed", c: "var(--qua)", what: "unanticipated, then addressed", d: "Risk type disclosed only after the incident, or the incident reported."},
-  {k: "AU", l: "Dropped", c: "var(--qau)", what: "anticipated, then unaddressed", d: "Risk type disclosed before the incident, then no longer."},
-  {k: "UU", l: "Missed", c: "var(--quu)", what: "unanticipated and unaddressed", d: "Risk type disclosed neither before nor after the incident."},
+  {k: "AA", l: "Covered", c: "var(--qaa)", what: "previously disclosed and disclosed at the next filing", d: "Risk type disclosed before the incident, and still after it."},
+  {k: "UA", l: "Eventually Disclosed", c: "var(--qua)", what: "not previously disclosed, then disclosed", d: "Risk type disclosed only after the incident, or the incident reported."},
+  {k: "AU", l: "Dropped", c: "var(--qau)", what: "previously disclosed, then no longer", d: "Risk type disclosed before the incident, then no longer."},
+  {k: "UU", l: "Missed", c: "var(--quu)", what: "disclosed neither before nor after", d: "Risk type disclosed neither before nor after the incident."},
   ...UNTESTED,
 ];
 const OUTCOME = [                                 // notebook 03's colours (HOW_COL); research.md's outcomes
@@ -1650,7 +1834,7 @@ function harmStart(id) {                                  // when the harm began
   if (!h || !h[0] || h[1] === "unknown") return null;
   return h[0].length === 4 ? `${h[0]}-01-01` : h[0].length === 7 ? `${h[0]}-01` : h[0];
 }
-const anchorOf = d => (S.anchor === "harm" && harmStart(d.id)) || d.d;
+const anchorOf = d => (S.anchor === "harm" && (d.at || harmStart(d.id))) || d.d;
 function beforeOf(cik, date) {                            // the last annual report filed strictly before the date
   const list = S.annual[cik] || [];
   let lo = 0, hi = list.length;
@@ -1725,6 +1909,7 @@ function wireSplit() {
 }
 
 async function openCase(id) {
+  cardHintOff();
   const box = $("#case");
   box.hidden = false;
   verdictState();
@@ -1872,7 +2057,7 @@ function drawTimeline() {
   const hLab = svg.append("text").attr("class", "harm-lab").attr("y", 11).attr("text-anchor", "middle")
     .text(hs ? `started ${fmtHarm(harmOf(c.id))}` : "");
   const harmLine = plot.append("line").attr("class", "harm").attr("y1", TOP - 4).attr("y2", H);
-  const harmLab = svg.append("text").attr("class", "harm-lab pub").attr("y", 25).attr("text-anchor", "middle").text(`public ${day(c.date)}`);
+  const harmLab = svg.append("text").attr("class", "harm-lab pub").attr("y", 25).attr("text-anchor", "middle").text(`recorded ${day(c.date)}`);
   const inforce = plot.selectAll("rect.inforce").data(lanes.filter(ln => ln.before[0])).join("rect").attr("class", "inforce")
     .attr("y", ln => ln.y0 + 4).attr("height", 2 * STEP - 1);
   const fl = plot.selectAll("g.lane").data(lanes).join("g").attr("class", "lane");
@@ -2234,7 +2419,7 @@ function renderDetail() {
     const pair = list => [list.filter(f => f.date < at).pop(), list.find(f => f.date >= at)];
     const [a1, a2] = pair(an), [f1, f2] = pair(fs);
     const btn = (u, v, label) => u && v ? `<button class="q" data-a="${esc(u.acc)}" data-b="${esc(v.acc)}">${esc(label)}: ${esc(u.form)} ${esc(day(u.date))} → ${esc(v.form)} ${esc(day(v.date))}</button>` : "";
-    return `<p><b>${esc(l.name)}</b><br>${btn(a1, a2, `Annual before → annual after ${at === c.date ? "it became public" : "the incident started"}`) || ""}${f1 && f2 && (f1 !== a1 || f2 !== a2) ? btn(f1, f2, "Filing before → filing after") : ""}${!(a1 && a2) && !(f1 && f2) ? `<span class="meta">No filing with risk factors on both sides of the incident yet.</span>` : ""}</p>`;
+    return `<p><b>${esc(l.name)}</b><br>${btn(a1, a2, `Annual before → annual after ${at === c.date ? "the record date" : "the incident started"}`) || ""}${f1 && f2 && (f1 !== a1 || f2 !== a2) ? btn(f1, f2, "Filing before → filing after") : ""}${!(a1 && a2) && !(f1 && f2) ? `<span class="meta">No filing with risk factors on both sides of the incident yet.</span>` : ""}</p>`;
   }).join("");
   box.innerHTML = `<p class="meta">Click a bar to read the passage, an 8-K to read what it says, or two filings to compare their risk factors word by word (shift-click an 8-K to compare its AI excerpt). Drag to pan; pinch or ⌘-scroll to zoom.</p>${quick}`;
   box.querySelectorAll("button.q").forEach(b => b.onclick = () => { CASE.sel = [b.dataset.a, b.dataset.b]; CASE.passage = null; drawTimeline(); loadDiff(); });
@@ -2390,6 +2575,7 @@ async function pollCodes(force = false) {
   await pollCodes(true);
   if (COLOR[S.colorBy].kind === "multi" && !S.lit) { S.lit = topValue(COLOR[S.colorBy]); S.litAuto = true; }
   syncControls(); saveHash(); renderLegend();
+  if (open && S.view === "explore") hintOff();
   if (S.view === "download") renderDownload(); else renderViz(false);
   if (open && S.view === "explore") openCard(open);
   $("#loader").hidden = true;
