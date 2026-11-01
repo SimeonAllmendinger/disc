@@ -44,12 +44,21 @@ EDGAR, it spans the filing dates.
 - **Matched incident** — an incident with an implicated AI actor that had a coded annual filing in
   force when the incident started and filed a periodic filing after it. Other incidents are
   unmatched; `incidents.where` gives the reason.
-- **Anticipated** — at least one implicated AI actor had the incident's risk type in force when the
-  incident started.
-- **Addressed** — at least one implicated AI actor has the risk type in force after its next
-  periodic filing, or a filing reports the incident.
-- **Quadrant** — Covered (anticipated, addressed), Fixed (unanticipated, addressed), Dropped
-  (anticipated, unaddressed), Missed (unanticipated, unaddressed).
+- **Start date** — when the incident's harm began, as the record or its articles report it, to the
+  day, month or year. **Record date** — the date under which the database lists the incident (in the
+  OECD AIM, the publication date of its news reports); a record date the database gives only to the
+  month or year is refined to the earliest dated news report the record cites in that period, but
+  never past the AI actor's own current report of the incident. **Incident date** — the date an
+  incident is read at: its start date where known, else its record date; where the two conflict, the
+  more reliable one after checking the sources (`incident_date_basis`). **Disclosure date** — the
+  filing date of the filing that decides an outcome.
+- **Previously disclosed** — at least one implicated AI actor had the incident's risk type in force
+  on the incident date.
+- **Disclosed** — at least one implicated AI actor has the risk type in force after its
+  next periodic filing, or a filing reports the incident.
+- **Quadrant** — Covered (previously disclosed, disclosed at the next filing), Eventually
+  Disclosed (not previously disclosed, disclosed at the next filing), Dropped (previously disclosed, not
+  disclosed at the next filing), Missed (neither).
 - **Outcome** — what the next periodic filing did with the risk type: Reported (a current filing
   responds to the incident, or a filing says its risk materialised in it), Revised, Retained,
   Added, Removed, Absent.
@@ -98,35 +107,38 @@ and accession number, the MIT subdomain code.
 | `in_aiid` | bool | AIID records the incident |
 | `in_aiaaic` | bool | AIAAIC records the incident |
 | `in_oecd` | bool | OECD AIM records the incident |
-| `record_date` | date | date of the earliest record |
+| `record_date` | date | record date: the date of the earliest record, refined where the database gives only a month or year |
 | `record_date_basis` | str | source of the record date: aiid, aiaaic, oecd, corrected |
 | `record_date_precision` | str | day, month, year |
-| `started` | date | when the incident started |
-| `started_precision` | str | day, month, year, unknown |
-| `started_bound` | str | exact, or no_later_than (the incident had started by this date) |
+| `record_date_refinement` | str | how a month or year record date was refined to the day: news link URL, article published, own current filing; empty if not refined |
+| `start_date` | date | start date: when the incident's harm began |
+| `start_date_precision` | str | day, month, year, unknown |
+| `start_date_bound` | str | exact, or no_later_than (the harm had begun by this date) |
+| `incident_date` | date | the date the incident is read at: the start date (a month or year on its first day), else the record date |
+| `incident_date_basis` | str | start date, or record date (no start date, or a more reliable record date) |
 | `deployer_status` | str | named, described, unknown, personal_use |
 | `provider_status` | str | named, described, unknown |
 | `upstream_provider_status` | str | named, described, unknown |
 | `subject_status` | str | named, described, no_harm, unknown |
-| `subject_type` | str | AI subject type: Individual, Group of persons, Society, Organization, Nature, Other |
+| `subject_type` | str | AI subject type (Bogucka et al., 2026): Individual, Group of persons, Society, Organization, Nature, Other |
 | `subject_who` | str | who was harmed, in the coder's words |
-| `autonomy_level` | str | action autonomy: human support, human-in-the-loop, human-on-the-loop, human-out-of-the-loop, unknown |
+| `autonomy_level` | str | action autonomy (OECD, 2022): human support, human-in-the-loop, human-on-the-loop, human-out-of-the-loop, unknown |
 | `harm_types` | list | OECD harm types |
 | `mit_domain` | str | MIT risk domain (1–7) |
 | `mit_subdomain` | str | MIT risk subdomain: the risk type |
-| `impact_layer` | str | capability, human_interaction, systemic |
+| `impact_layer` | str | impact layer (Weidinger et al., 2023): capability, human_interaction, systemic |
 | `intended_purpose` | str | what the AI system is for, in the coder's words |
 | `relation` | str | within_purpose, misuse, unclear |
 | `misuse_by` | str | deployer, user, third_party, where the use was misuse |
-| `use_capability` | str | what the AI system does, as a capability verb (Herdel et al., 2024) |
+| `use_capability` | str | what the AI system does, as one of the eight high-level AI capabilities of Yildirim et al. (2023): Estimate, Forecast, Compare, Detect, Identify, Discover, Generate, Act |
 | `use_technique` | str | the AI technique, as a class of the VAIR vocabulary (Golpayegani et al., 2023) |
-| `use_domains` | list | the domain of the use, one or two (Herdel et al., 2024) |
+| `use_domains` | list | the domain of the use, one or two of 47: the 46 of Herdel et al. (2024) and Private services |
 | `answers_for` | str | who answers for the incident: SEC registrant (annual report in force, or none yet), private AI company, other company not SEC-registered, public body, person (personal use), no AI actor named |
 | `matched` | bool | the incident is matched |
 | `where` | str | for unmatched incidents, the reason |
-| `quadrant` | str | Covered, Fixed, Dropped, Missed; empty if unmatched |
+| `quadrant` | str | Covered, Eventually Disclosed, Dropped, Missed; empty if unmatched |
 | `how` | str | outcome: Reported, Revised, Retained, Added, Removed, Absent |
-| `unaddressed_kind` | str | for Missed and Dropped: No disclosure, Incomplete disclosure |
+| `undisclosed_kind` | str | for Missed and Dropped: No disclosure, Incomplete disclosure |
 
 ### `incident_records`
 
@@ -268,13 +280,13 @@ OECD AIM's labels (generated by a language model), AIAAIC's editors' labels.
 |---|---|---|
 | `incident_id` | str | the matched incident |
 | `cik` | int | the implicated AI actor |
-| `started_used` | date | the date the outcome is read at |
-| `anticipated` | bool | the risk type was in force when the incident started |
-| `anticipating_passages` | list | the passages in force that name the risk type |
+| `incident_date` | date | the incident date the outcome is read at |
+| `previously_disclosed` | bool | the risk type was in force on the incident date |
+| `prior_passages` | list | the passages in force on the incident date that name the risk type |
 | `how` | str | Reported, Revised, Retained, Added, Removed, Absent |
-| `decided_by` | str | accession of the deciding filing: the responding current filing or the next periodic filing |
-| `decided_on` | date | its filing date |
-| `days` | int | days from when the incident started to `decided_on` |
+| `disclosure_accession` | str | accession of the deciding filing: the responding current filing or the next periodic filing |
+| `disclosure_date` | date | disclosure date: its filing date |
+| `days_to_disclosure` | int | days from the incident date to the disclosure date |
 | `current_reports` | str | read, or open (the window for current filings had not closed) |
 
 ### `responses`
@@ -371,18 +383,32 @@ jsdiff (BSD-3-Clause) and marked (MIT).
 
 ## References
 
-- Golpayegani, D., Pandit, H. J., & Lewis, D. (2023). To be high-risk, or not to be: Semantic
+- Bogucka, E., Šćepanović, S., & Quercia, D. (2026). Why AI harms can't be fixed one identity at a
+  time: What 5300 incident reports reveal about intersectionality. *Proceedings of the 2026 ACM
+  Conference on Fairness, Accountability, and Transparency*, 4581–4609.
+  https://doi.org/10.1145/3805689.3812347
+- Golpayegani, D., Pandit, H. J., & Lewis, D. (2023). To be high-risk, or not to be—Semantic
   specifications and implications of the AI Act's high-risk AI applications and harmonised standards.
   *Proceedings of the 2023 ACM Conference on Fairness, Accountability, and Transparency*, 905–915.
   https://doi.org/10.1145/3593013.3594050
 - Herdel, V., Šćepanović, S., Bogucka, E., & Quercia, D. (2024). ExploreGen: Large language models
   for envisioning the uses and risks of AI technologies. *Proceedings of the AAAI/ACM Conference on
   AI, Ethics, and Society*, 7, 584–596. https://doi.org/10.1609/aies.v7i1.31660
+- OECD (2022). *OECD Framework for the Classification of AI Systems*. OECD Digital Economy Papers, 323.
+  https://doi.org/10.1787/cb6d9eca-en
+- OECD.AI (2026). *OECD AI Incidents and Hazards Monitor (AIM)*. Accessed 8 September 2026.
+  https://oecd.ai/en/incidents
 - Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (AI Act).
   https://eur-lex.europa.eu/eli/reg/2024/1689/oj
 - Slattery, P., Saeri, A. K., Grundy, E. A. C., Graham, J., Noetel, M., Uuk, R., Dao, J., Pour, S.,
   Casper, S., & Thompson, N. (2026). The AI risk repository: A meta-review, database, and taxonomy of
   risks from artificial intelligence. *Patterns*, 7(5), 101517. https://doi.org/10.1016/j.patter.2026.101517
+- Weidinger, L., et al. (2023). Sociotechnical safety evaluation of generative AI systems.
+  https://arxiv.org/abs/2310.11986
+- Yildirim, N., Oh, C., Sayar, D., Brand, K., Challa, S., Turri, V., Crosby Walton, N., Wong, A. E.,
+  Forlizzi, J., McCann, J., & Zimmerman, J. (2023). Creating design resources to scaffold the
+  ideation of AI concepts. *Proceedings of the 2023 ACM Designing Interactive Systems Conference*,
+  2326–2346. https://doi.org/10.1145/3563657.3596058
 
 ## Citation
 

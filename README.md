@@ -2,7 +2,7 @@
 
 DISC links 9,001 AI incidents, recorded by the AI Incident Database (AIID), the AIAAIC Repository and
 the OECD AI Incidents and Hazards Monitor (AIM) since 2016, to the SEC filings of the AI actors they
-implicate. It shows, incident by incident, whether disclosure had anticipated the incident's risk
+implicate. It shows, incident by incident, whether the incident's risk type had been previously disclosed
 before the incident started, and what the next report did about it: reported it, revised or retained the
 risk, added it, removed it, or stayed silent.
 
@@ -31,7 +31,7 @@ year, described by [`croissant.json`](croissant.json) (Croissant 1.0 with its Re
 | | `passage_codes` | passage: the same labels as the incidents, plus status |
 | | `passage_evidence` | passage × label: the quote |
 | | `risk_factor_sections` | text section of a filing: risk factors, business section, or AI excerpt (24,797) |
-| The link | `outcomes` | matched incident × implicated AI actor (2,280): anticipated? how addressed? |
+| The link | `outcomes` | matched incident × implicated AI actor (2,280): previously disclosed? disclosed at the next filing, and how? |
 | | `responses` | incident × 8-K or 6-K in its window (10,866): does it respond? |
 | | `reported_references` | passage saying the incident's risk materialised, read for whether it refers to the incident |
 | | `revisions` | revised passage: what changed, and how it speaks to each incident |
@@ -39,7 +39,9 @@ year, described by [`croissant.json`](croissant.json) (Croissant 1.0 with its Re
 
 Of the 9,001 incidents, 2,000 are matched (column `matched`): an implicated AI actor files with the
 SEC, had disclosure in force when the incident started, and filed a periodic report after it. They fall into
-four quadrants: Covered 877, Fixed 104, Dropped 7, Missed 1,012.
+four quadrants: Covered 877, Eventually Disclosed 104, Dropped 7, Missed 1,012. Each incident is
+read at its incident date: its start date (when the harm began) where known, else its record date (when the
+database lists it); `outcomes.disclosure_date` is the date of the filing that decides the outcome.
 
 ## Quick start
 
@@ -100,8 +102,8 @@ The page compares the two filings in the browser, from texts it loads on demand.
 - **Disclosure.** The SEC EDGAR filings, filed 1 January 2015 – 30 September 2026, of the 328 AI actors
   that file with the SEC: annual reports (10-K, 20-F, 40-F), 10-Qs and current reports (8-K, 6-K). AI
   passages are cut from their risk factors and legal sections and coded on the incidents' labels.
-- **The link.** An incident meets an AI actor's disclosure through its MIT risk type, judged when the
-  incident started (anticipated) and at the next report (addressed).
+- **The link.** An incident meets an AI actor's disclosure through its MIT risk type, judged on the
+  incident date (previously disclosed) and at the next report (disclosed at the next filing).
 
 Reliability, limitations, biases and intended uses are in `croissant.json`'s `rai:` fields, written
 from [`metadata.json`](metadata.json). In short: incidents are a lower bound of AI harm; annual-report

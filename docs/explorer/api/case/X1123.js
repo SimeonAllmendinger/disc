@@ -1,1 +1,1 @@
-__disc("api/case/X1123",{"id":"X1123","event":"X1123","date":"2023-09-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Xiaohongshu","deployer"],["Xiaohongshu","developer"]]});
+__disc("api/case/X1123",{"id":"X1123","event":"X1123","date":"2023-09-28","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Xiaohongshu","deployer"],["Xiaohongshu","developer"]]});

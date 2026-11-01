@@ -1,1 +1,1 @@
-__disc("api/case/X0266",{"id":"X0266","event":"X0266","date":"2020-10-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Murat Ayfer (Philosopher AI)","developer"],["thegentlemetre","deployer"]]});
+__disc("api/case/X0266",{"id":"X0266","event":"X0266","date":"2020-10-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Murat Ayfer (Philosopher AI)","developer"],["thegentlemetre","deployer"]]});

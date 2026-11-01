@@ -50,7 +50,7 @@
  "conformsTo": "http://mlcommons.org/croissant/1.0",
  "name": "DISC",
  "alternateName": "Disclosure–Incident Securities Corpus",
- "description": "AI incidents recorded by the AI Incident Database (AIID), the AIAAIC Repository and the OECD AI Incidents and Hazards Monitor (AIM), deduplicated into 9,001 incidents since 2016 and linked to the SEC filings of the AI actors they implicate. Incidents carry coded labels (AI actor positions, AI subject, autonomy, harm types, MIT risk type, impact layer, use); risk-factor, legal and current-report passages of 328 SEC-registered AI actors carry the same labels; and each matched incident × AI actor pair records whether disclosure anticipated the incident's risk type when the incident started and how it addressed it at the next report.",
+ "description": "AI incidents recorded by the AI Incident Database (AIID), the AIAAIC Repository and the OECD AI Incidents and Hazards Monitor (AIM), deduplicated into 9,001 incidents since 2016 and linked to the SEC filings of the AI actors they implicate. Incidents carry coded labels (AI actor positions, AI subject, autonomy, harm types, MIT risk type, impact layer, use); risk-factor, legal and current-report passages of 328 SEC-registered AI actors carry the same labels; and each matched incident × AI actor pair records whether the incident's risk type was previously disclosed on the incident date and whether and how it was disclosed at the next report.",
  "creator": [
   {
    "@type": "sc:Organization",
@@ -68,7 +68,7 @@
   "OECD AI incidents"
  ],
  "version": "0.1.0",
- "datePublished": "2026-10-24",
+ "datePublished": "2026-11-01",
  "rai:dataCollection": "Incidents: the AIID snapshot of 1 September 2026, the AIAAIC Repository and OECD AIM as of 8 September 2026, deduplicated across the three into incidents with record dates from 1 January 2016; OECD AIM records were screened and linked to AI actors by the coders. Disclosure: the SEC EDGAR filings of the AI actors the incidents name that file with the SEC — annual reports (10-K, 20-F, 40-F), 10-Qs and AI-related current reports (8-K, 6-K) filed 1 January 2015 – 30 September 2026 — with risk-factor sections extracted and every sentence matching the AI terms kept with its neighbours as a passage.",
  "rai:dataCollectionType": "Web API and bulk downloads (AIID snapshots, SEC EDGAR); web scraping (AIAAIC Repository pages, OECD AIM web service).",
  "rai:dataCollectionMissingData": "74% of incidents name no AI actor that files with the SEC and cannot be matched to disclosure; 349 more name one that cannot be matched (no annual report yet, no coded report before the harm, or none after it by 30 September 2026). When the incident started is dated for 4,276 incidents and otherwise anchored on the record date. 1,403 incident × current-report pairs have no excerpt naming AI, the incident or an adverse event and were not read. Article bodies are not released.",
@@ -85,9 +85,9 @@
  "rai:dataAnnotationAnalysis": "Incident labels were double-coded on a fixed tenth; Cohen's κ (curated / OECD-linked / OECD-rest): provider 0.92 / 0.86 / 0.89, deployer 0.84 / 0.66 / 0.84, MIT subdomain 0.88 / 0.89 / 0.90, subject type 0.83 / 0.76 / 0.77, impact layer 0.73 / 0.75 / 0.80. Status and autonomy disagreements were adjudicated by hand; other disagreements keep coder A's label (730 incidents). Filing passages: a 213-passage pilot was double-coded (discloses κ 0.92; status 0.97; primary MIT subdomain 0.85); the full run is single-coded. Current-report responses: a blind second reader on 735 pairs, κ 0.83, its disagreements adjudicated.",
  "rai:dataReleaseMaintenancePlan": "Date-stamped releases, each archived with a DOI; earlier versions stay available. Maintained by the authors; corrections and takedown requests through the repository's contact, honoured within days.",
  "rai:personalSensitiveInformation": "Incidents name people: those harmed, parties, and people in source descriptions, evidence quotes and article headlines; some incidents concern sexual deepfakes, violence, suicide or health. Public figures named for a public role keep their names. The names of private individuals and minors are replaced by \"[private individual]\" in every incident-side text field: 3,017 names in 1,641 incidents, classified by an LLM coder with a blind second reader on a tenth (κ 0.89 on kept against removed), a re-read for the rules on sexual imagery, crime, relatives and a harmed minor's family, a scan for missed minors, and an LLM reader for the 57,907 strings in other scripts that the recogniser reads badly (κ 0.94 with a blind second reader) (docs/documentation.md, Personal data). Email addresses and telephone numbers are replaced by \"[email]\" and \"[phone]\" in every text field, the SEC filing texts included (mostly press and investor contacts in current reports). URLs are kept as published, less query parameters that grant access or identify a reader (share and gift tokens, guest keys, session and subscriber ids), and can contain names. SEC filing text is otherwise the registrants' own publication and is not redacted. No demographic attributes of individuals are coded beyond the subject type.",
- "rai:dataSocialImpact": "The data make it possible to check corporate AI risk disclosure against recorded AI harm — what AI actors anticipated, admitted and changed — which supports accountability research and policy on AI incident reporting and double materiality. Risks: LLM-coded labels can misattribute an incident to an AI actor or misjudge a disclosure, with reputational effect; every label therefore carries its evidence quote and source link, and the release is not a finding that any filing is misleading.",
+ "rai:dataSocialImpact": "The data make it possible to check corporate AI risk disclosure against recorded AI harm — what AI actors disclosed before an incident, admitted and changed — which supports accountability research and policy on AI incident reporting and double materiality. Risks: LLM-coded labels can misattribute an incident to an AI actor or misjudge a disclosure, with reputational effect; every label therefore carries its evidence quote and source link, and the release is not a finding that any filing is misleading.",
  "rai:dataBiases": "Incident databases record what the press reports: coverage favours English-language media and large, well-known companies — five AI actors are implicated in 78% of the matched incidents. OECD AIM detects incidents automatically from news. Only AI actors that file with the SEC can be matched. Both LLM coders are Anthropic models, so their agreement can overstate reliability.",
- "rai:dataLimitations": "Incidents are a lower bound of AI harm. Each incident carries one MIT risk type while passages can name several; results at subdomain and domain level differ, most for social system harms. Annual-report and 10-Q passages are single-coded. Current reports mentioning AI were found with the AI terms before they were widened. Associations are not causal, and an unaddressed incident is not a finding that a filing is misleading. Not recommended for legal determinations, for rating individual companies, or for training classifiers without validating the labels.",
+ "rai:dataLimitations": "Incidents are a lower bound of AI harm. Each incident carries one MIT risk type while passages can name several; results at subdomain and domain level differ, most for social system harms. Annual-report and 10-Q passages are single-coded. Current reports mentioning AI were found with the AI terms before they were widened. Associations are not causal, and a Missed incident is not a finding that a filing is misleading. Not recommended for legal determinations, for rating individual companies, or for training classifiers without validating the labels.",
  "rai:dataUseCases": "Research on corporate AI risk disclosure, AI accountability and AI incident reporting; auditing disclosure against recorded incidents; the DISC explorer.",
  "rai:annotationsPerItem": "Incident labels: one LLM coder per incident, two on a fixed tenth. Passage labels: one, two on a 213-passage pilot. Current-report responses: one, two on 735 pairs.",
  "rai:annotatorDemographics": "No human crowd annotators. Labels are produced by two LLM coders; rules and adjudications are decided by the research team and recorded in the codebooks. No annotator demographics apply.",
@@ -99,7 +99,7 @@
    "name": "incidents.parquet",
    "contentUrl": "data/incidents.parquet",
    "encodingFormat": "application/x-parquet",
-   "sha256": "4ba1afe98f915606b0f247ce6a1833cc2ed374cd2234c4c27a34491c6d9773fe"
+   "sha256": "a50af119c34131af32cd4ef7d51fb8d2a7bfa8b3214744eb0edd3908b281e376"
   },
   {
    "@type": "cr:FileObject",
@@ -147,7 +147,7 @@
    "name": "evidence.parquet",
    "contentUrl": "data/evidence.parquet",
    "encodingFormat": "application/x-parquet",
-   "sha256": "34546c183c4121c8d65371bbf73c757f1969f9262a00117d2f1a2d4d8ae9013b"
+   "sha256": "4822fcfda63a7539f80e40a37f5b2e5e419a008e678b3b75cc4afff7e858721c"
   },
   {
    "@type": "cr:FileObject",
@@ -187,7 +187,7 @@
    "name": "passage_evidence.parquet",
    "contentUrl": "data/passage_evidence.parquet",
    "encodingFormat": "application/x-parquet",
-   "sha256": "65e5fa854ac303d4ec76889e88372c224abf788c37ed5da268a7477134ef973d"
+   "sha256": "505b1fb42394793d4983073acd1d55e86908759107e9bb4fe44f3a54ede31dc2"
   },
   {
    "@type": "cr:FileObject",
@@ -195,7 +195,7 @@
    "name": "outcomes.parquet",
    "contentUrl": "data/outcomes.parquet",
    "encodingFormat": "application/x-parquet",
-   "sha256": "0a65bcfb6c1b2024a793a578b40343dc0a9eb7c58e30ffec94d48da2d342456a"
+   "sha256": "c8761aaa1dbbaff1e90d9ff264d5df270c7335ba015a3f23059e26301f783191"
   },
   {
    "@type": "cr:FileObject",
@@ -322,7 +322,7 @@
      "@type": "cr:Field",
      "@id": "incidents/record_date",
      "name": "record_date",
-     "description": "date of the earliest record",
+     "description": "record date: the date of the earliest record, refined where the database gives only a month or year",
      "dataType": "sc:Date",
      "source": {
       "fileObject": {
@@ -365,23 +365,38 @@
     },
     {
      "@type": "cr:Field",
-     "@id": "incidents/started",
-     "name": "started",
-     "description": "when the incident started",
+     "@id": "incidents/record_date_refinement",
+     "name": "record_date_refinement",
+     "description": "how a month or year record date was refined to the day: news link URL, article published, own current filing; empty if not refined",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "record_date_refinement"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/start_date",
+     "name": "start_date",
+     "description": "start date: when the incident's harm began",
      "dataType": "sc:Date",
      "source": {
       "fileObject": {
        "@id": "incidents.parquet"
       },
       "extract": {
-       "column": "started"
+       "column": "start_date"
       }
      }
     },
     {
      "@type": "cr:Field",
-     "@id": "incidents/started_precision",
-     "name": "started_precision",
+     "@id": "incidents/start_date_precision",
+     "name": "start_date_precision",
      "description": "day, month, year, unknown",
      "dataType": "sc:Text",
      "source": {
@@ -389,22 +404,52 @@
        "@id": "incidents.parquet"
       },
       "extract": {
-       "column": "started_precision"
+       "column": "start_date_precision"
       }
      }
     },
     {
      "@type": "cr:Field",
-     "@id": "incidents/started_bound",
-     "name": "started_bound",
-     "description": "exact, or no_later_than (the incident had started by this date)",
+     "@id": "incidents/start_date_bound",
+     "name": "start_date_bound",
+     "description": "exact, or no_later_than (the harm had begun by this date)",
      "dataType": "sc:Text",
      "source": {
       "fileObject": {
        "@id": "incidents.parquet"
       },
       "extract": {
-       "column": "started_bound"
+       "column": "start_date_bound"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/incident_date",
+     "name": "incident_date",
+     "description": "the date the incident is read at: the start date (a month or year on its first day), else the record date",
+     "dataType": "sc:Date",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "incident_date"
+      }
+     }
+    },
+    {
+     "@type": "cr:Field",
+     "@id": "incidents/incident_date_basis",
+     "name": "incident_date_basis",
+     "description": "start date, or record date (no start date, or a more reliable record date)",
+     "dataType": "sc:Text",
+     "source": {
+      "fileObject": {
+       "@id": "incidents.parquet"
+      },
+      "extract": {
+       "column": "incident_date_basis"
       }
      }
     },
@@ -472,7 +517,7 @@
      "@type": "cr:Field",
      "@id": "incidents/subject_type",
      "name": "subject_type",
-     "description": "AI subject type: Individual, Group of persons, Society, Organization, Nature, Other",
+     "description": "AI subject type (Bogucka et al., 2026): Individual, Group of persons, Society, Organization, Nature, Other",
      "dataType": "sc:Text",
      "source": {
       "fileObject": {
@@ -502,7 +547,7 @@
      "@type": "cr:Field",
      "@id": "incidents/autonomy_level",
      "name": "autonomy_level",
-     "description": "action autonomy: human support, human-in-the-loop, human-on-the-loop, human-out-of-the-loop, unknown",
+     "description": "action autonomy (OECD, 2022): human support, human-in-the-loop, human-on-the-loop, human-out-of-the-loop, unknown",
      "dataType": "sc:Text",
      "source": {
       "fileObject": {
@@ -563,7 +608,7 @@
      "@type": "cr:Field",
      "@id": "incidents/impact_layer",
      "name": "impact_layer",
-     "description": "capability, human_interaction, systemic",
+     "description": "impact layer (Weidinger et al., 2023): capability, human_interaction, systemic",
      "dataType": "sc:Text",
      "source": {
       "fileObject": {
@@ -623,7 +668,7 @@
      "@type": "cr:Field",
      "@id": "incidents/use_capability",
      "name": "use_capability",
-     "description": "what the AI system does, as a capability verb (Herdel et al., 2024)",
+     "description": "what the AI system does, as one of the eight high-level AI capabilities of Yildirim et al. (2023): Estimate, Forecast, Compare, Detect, Identify, Discover, Generate, Act",
      "dataType": "sc:Text",
      "source": {
       "fileObject": {
@@ -653,7 +698,7 @@
      "@type": "cr:Field",
      "@id": "incidents/use_domains",
      "name": "use_domains",
-     "description": "the domain of the use, one or two (Herdel et al., 2024)",
+     "description": "the domain of the use, one or two of 47: the 46 of Herdel et al. (2024) and Private services",
      "dataType": "sc:Text",
      "repeated": true,
      "source": {
@@ -714,7 +759,7 @@
      "@type": "cr:Field",
      "@id": "incidents/quadrant",
      "name": "quadrant",
-     "description": "Covered, Fixed, Dropped, Missed; empty if unmatched",
+     "description": "Covered, Eventually Disclosed, Dropped, Missed; empty if unmatched",
      "dataType": "sc:Text",
      "source": {
       "fileObject": {
@@ -742,8 +787,8 @@
     },
     {
      "@type": "cr:Field",
-     "@id": "incidents/unaddressed_kind",
-     "name": "unaddressed_kind",
+     "@id": "incidents/undisclosed_kind",
+     "name": "undisclosed_kind",
      "description": "for Missed and Dropped: No disclosure, Incomplete disclosure",
      "dataType": "sc:Text",
      "source": {
@@ -751,7 +796,7 @@
        "@id": "incidents.parquet"
       },
       "extract": {
-       "column": "unaddressed_kind"
+       "column": "undisclosed_kind"
       }
      }
     }
@@ -2022,39 +2067,39 @@
     },
     {
      "@type": "cr:Field",
-     "@id": "outcomes/started_used",
-     "name": "started_used",
-     "description": "the date the outcome is read at",
+     "@id": "outcomes/incident_date",
+     "name": "incident_date",
+     "description": "the incident date the outcome is read at",
      "dataType": "sc:Date",
      "source": {
       "fileObject": {
        "@id": "outcomes.parquet"
       },
       "extract": {
-       "column": "started_used"
+       "column": "incident_date"
       }
      }
     },
     {
      "@type": "cr:Field",
-     "@id": "outcomes/anticipated",
-     "name": "anticipated",
-     "description": "the risk type was in force when the incident started",
+     "@id": "outcomes/previously_disclosed",
+     "name": "previously_disclosed",
+     "description": "the risk type was in force on the incident date",
      "dataType": "sc:Boolean",
      "source": {
       "fileObject": {
        "@id": "outcomes.parquet"
       },
       "extract": {
-       "column": "anticipated"
+       "column": "previously_disclosed"
       }
      }
     },
     {
      "@type": "cr:Field",
-     "@id": "outcomes/anticipating_passages",
-     "name": "anticipating_passages",
-     "description": "the passages in force that name the risk type",
+     "@id": "outcomes/prior_passages",
+     "name": "prior_passages",
+     "description": "the passages in force on the incident date that name the risk type",
      "dataType": "sc:Text",
      "repeated": true,
      "source": {
@@ -2062,7 +2107,7 @@
        "@id": "outcomes.parquet"
       },
       "extract": {
-       "column": "anticipating_passages"
+       "column": "prior_passages"
       }
      }
     },
@@ -2083,8 +2128,8 @@
     },
     {
      "@type": "cr:Field",
-     "@id": "outcomes/decided_by",
-     "name": "decided_by",
+     "@id": "outcomes/disclosure_accession",
+     "name": "disclosure_accession",
      "description": "accession of the deciding filing: the responding current filing or the next periodic filing",
      "dataType": "sc:Text",
      "source": {
@@ -2092,37 +2137,37 @@
        "@id": "outcomes.parquet"
       },
       "extract": {
-       "column": "decided_by"
+       "column": "disclosure_accession"
       }
      }
     },
     {
      "@type": "cr:Field",
-     "@id": "outcomes/decided_on",
-     "name": "decided_on",
-     "description": "its filing date",
+     "@id": "outcomes/disclosure_date",
+     "name": "disclosure_date",
+     "description": "disclosure date: its filing date",
      "dataType": "sc:Date",
      "source": {
       "fileObject": {
        "@id": "outcomes.parquet"
       },
       "extract": {
-       "column": "decided_on"
+       "column": "disclosure_date"
       }
      }
     },
     {
      "@type": "cr:Field",
-     "@id": "outcomes/days",
-     "name": "days",
-     "description": "days from when the incident started to `decided_on`",
+     "@id": "outcomes/days_to_disclosure",
+     "name": "days_to_disclosure",
+     "description": "days from the incident date to the disclosure date",
      "dataType": "sc:Integer",
      "source": {
       "fileObject": {
        "@id": "outcomes.parquet"
       },
       "extract": {
-       "column": "days"
+       "column": "days_to_disclosure"
       }
      }
     },

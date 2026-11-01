@@ -1,1 +1,1 @@
-__disc("api/case/X0210",{"id":"X0210","event":"X0210","date":"2019-06-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Alberto (DeepNude's anonymous creator)","developer"]]});
+__disc("api/case/X0210",{"id":"X0210","event":"X0210","date":"2019-06-27","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Alberto (DeepNude's anonymous creator)","developer"]]});
