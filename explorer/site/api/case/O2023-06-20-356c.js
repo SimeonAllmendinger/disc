@@ -1,1 +1,0 @@
-__disc("api/case/O2023-06-20-356c",{"id":"O2023-06-20-356c","event":"O2023-06-20-356c","date":"2023-06-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Axel Springer (Bild)","deployer"]]});

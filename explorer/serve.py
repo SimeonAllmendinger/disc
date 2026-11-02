@@ -517,25 +517,38 @@ STATIC_DIR = HERE / "static"                      # the scripts and fonts the pa
 STATIC_TYPES = {".js": "text/javascript; charset=utf-8", ".woff2": "font/woff2", ".txt": "text/plain; charset=utf-8"}
 CSP_INLINE = "'sha256-INLINE'"
 FONT_URL = re.compile(r"url\(static/fonts/([\w.-]+\.woff2)\)")
+FONT_FACE = re.compile(r"^@font-face \{[^\n]*\}\n", re.M)
+
+
+def font_faces() -> list[dict]:
+    """The page's @font-face rules as data, each with its font file base64-encoded: static/fonts.js."""
+    out = []
+    for rule in FONT_FACE.findall((HERE / "index.html").read_text(encoding="utf-8")):
+        get = lambda k: (re.search(rf"{k}: ([^;]+);", rule) or [None, None])[1]          # noqa: E731
+        out.append({"family": get("font-family").strip('"'), "style": get("font-style"), "weight": get("font-weight"),
+                    "range": get("unicode-range"),
+                    "b64": base64.b64encode((STATIC_DIR / "fonts" / FONT_URL.search(rule).group(1)).read_bytes()).decode()})
+    return out
 
 
 def page(static: bool = False) -> str:
     """index.html as served (static=False) or exported (static=True): STATIC set, and the Content Security
-    Policy naming the one inline script by its hash, so that no other inline script can run. The exported
-    page carries its fonts inline: sandboxed without an origin of its own (Anonymous GitHub), it may not
-    fetch them."""
+    Policy naming the two inline scripts (the trailing-slash guard and the page's own) by their hashes, so
+    that no other inline script can run. The exported
+    page has no @font-face rules: sandboxed without an origin of its own (Anonymous GitHub), it may not fetch
+    fonts, and inline they made the page 0.9 MB before anything showed; export.py writes them to
+    static/fonts.js (font_faces), which the page hands to the browser as bytes."""
     html = (HERE / "index.html").read_text(encoding="utf-8")
     if html.count("const STATIC = false;") != 1 or html.count(CSP_INLINE) != 1:
         raise SystemExit("index.html: expected one `const STATIC = false;` and one CSP placeholder")
     if static:
-        html = html.replace("const STATIC = false;", "const STATIC = true;").replace("font-src 'self';", "font-src 'self' data:;")
-        html = FONT_URL.sub(lambda m: "url(data:font/woff2;base64,"
-                            + base64.b64encode((STATIC_DIR / "fonts" / m.group(1)).read_bytes()).decode() + ")", html)
+        html = html.replace("const STATIC = false;", "const STATIC = true;")
+        html = FONT_FACE.sub("", html)
     inline = re.findall(r"<script>(.*?)</script>", html, re.S)
-    if len(inline) != 1:
-        raise SystemExit(f"index.html: expected one inline script, found {len(inline)}")
-    digest = base64.b64encode(hashlib.sha256(inline[0].encode()).digest()).decode()
-    return html.replace(CSP_INLINE, f"'sha256-{digest}'")
+    if len(inline) != 2:                                 # the trailing-slash guard, then the page's script
+        raise SystemExit(f"index.html: expected two inline scripts, found {len(inline)}")
+    return html.replace(CSP_INLINE, " ".join(
+        f"'sha256-{base64.b64encode(hashlib.sha256(i.encode()).digest()).decode()}'" for i in inline))
 
 
 def static_path(rel: str) -> Path | None:

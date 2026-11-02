@@ -1,1 +1,0 @@
-__disc("api/case/X0253",{"id":"X0253","event":"X0253","date":"2017-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Indian government","developer"],["The government in Jharkhand","deployer"]]});

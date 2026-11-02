@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<!-- everything loads from the page's own origin; serve.py page() fills in the inline script's hash -->
+<!-- everything loads from the page's own origin; serve.py page() fills in the inline scripts' hashes -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-INLINE'; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DISC</title>
+<!-- opened as …/explorer without the slash, every relative path (static/, api/, texts/) would resolve one
+     folder up: Anonymous GitHub then answers each from the wrong place, slowly. Add the slash first. -->
+<script>if (!/\/$|\.html?$/.test(location.pathname)) location.replace(location.pathname + "/" + location.search + location.hash);</script>
 <script src="static/vendor/d3.min.js"></script>
 <script src="static/vendor/diff.min.js"></script>
 <style>
@@ -546,27 +549,51 @@ const API = {
   downloads: () => STATIC ? "api/downloads.json" : "/api/downloads",
 };
 // a static copy holds its data as scripts that hand it over through __disc(key, data): a page sandboxed
-// without an origin of its own (Anonymous GitHub's /w/ view) may load scripts where every fetch is refused
-const DATA_WAIT = new Map();                                   // key -> {promise, done}
-window.__disc = (key, data) => DATA_WAIT.get(key)?.done(data);
+// without an origin of its own (Anonymous GitHub's /w/ view) may load scripts where every fetch is refused.
+// A larger payload comes gzip-compressed and base64-encoded (__disc(key, b64, "gz")), whatever the host
+// compresses; each file is loaded once per visit, so an incident opened again, or a shared AI actor, is not.
+const DATA_WAIT = new Map();                                   // key -> {promise, done}, while its script loads
+const DATA_DONE = new Map();                                   // key -> the promise of its data, once asked for
+const gunzip = async b64 => new Response(new Blob([Uint8Array.from(atob(b64), c => c.charCodeAt(0))]).stream()
+  .pipeThrough(new DecompressionStream("gzip"))).text();
+window.__disc = (key, data, enc) => DATA_WAIT.get(key)?.done(enc === "gz" ? gunzip(data).then(JSON.parse) : data);
 function loadData(key) {
-  if (DATA_WAIT.has(key)) return DATA_WAIT.get(key).promise;
+  if (DATA_DONE.has(key)) return DATA_DONE.get(key);
   let resolve;
   const promise = new Promise(r => { resolve = r; }), s = document.createElement("script");
   const done = v => { if (DATA_WAIT.get(key)?.promise === promise) DATA_WAIT.delete(key); s.remove(); resolve(v); };
   DATA_WAIT.set(key, {promise, done});
+  DATA_DONE.set(key, promise);
+  promise.then(v => { if (v == null) DATA_DONE.delete(key); }, () => DATA_DONE.delete(key));   // a failed load may be retried
   s.src = `${key}.js`;
   s.onload = s.onerror = () => done(null);                    // after the script ran: a no-op once it handed over
   document.head.append(s);
   return promise;
 }
+// the fonts of a static copy: a script of their own, loaded beside the data rather than inline in the page,
+// and handed to the browser as bytes (FontFace), which needs no fetch
+if (STATIC) loadData("static/fonts").then(list => (list || []).forEach(f => {
+  const face = new FontFace(f.family, Uint8Array.from(atob(f.b64), c => c.charCodeAt(0)),
+                            {style: f.style, weight: f.weight, display: "swap", ...(f.range ? {unicodeRange: f.range} : {})});
+  document.fonts.add(face);
+  face.load().catch(() => {});
+}));
 const getJSON = url => STATIC ? loadData(url.replace(/\.json$/, "")).then(d => d ?? {error: "unknown incident"})
   : fetch(url).then(r => r.json());
 // a static case names its AI actors; each AI actor's filings, passages and current reports are a file of their own
 async function getCase(id) {
-  const c = await getJSON(API.case(id));
+  // the incident's AI actors are in its row (lc), so their files load beside the case, not after it
+  if (STATIC) (S.recs.find(d => d.id === id)?.lc || []).forEach(k => getJSON(`api/actor/${k}.json`));
+  const c = {...await getJSON(API.case(id))};                 // a copy: the loaded case is kept and shared
   if (STATIC && c.lanes) c.lanes = await Promise.all(c.lanes.map(async l => ({...await getJSON(`api/actor/${l.cik}.json`), ...l})));
   return c;
+}
+// a dot the pointer rests on: its incident and case start loading before the click
+let preT;
+function prefetch(id) {
+  if (!STATIC) return;
+  clearTimeout(preT);
+  preT = setTimeout(() => { getJSON(API.incident(id)); getJSON(API.case(id)); }, 250);
 }
 
 const S = {
@@ -1464,7 +1491,7 @@ function ring(d) {
 svg.on("pointermove", e => {
   if (e.buttons) return;
   const d = nearest(e);
-  if (d) { ring(d); tipLeaf(e, d); svg.style("cursor", "pointer"); return; }
+  if (d) { ring(d); tipLeaf(e, d); svg.style("cursor", "pointer"); prefetch(d.id); return; }
   ring(null); svg.style("cursor", null);
   const g = groupAt(e);
   if (g && g.box && S.arrange === "quadrants") svg.style("cursor", "zoom-in");
@@ -2258,8 +2285,7 @@ async function filingText(f) {
   if (!STATIC) return getJSON(`/api/text/${encodeURIComponent(f.acc)}`);
   const b64 = await loadData(`texts/${f.txt}`);                // the gzip-compressed text, base64-encoded
   if (typeof b64 !== "string") return {error: `no text for ${f.acc}`};
-  const buf = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
-  return {text: await new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"))).text()};
+  return {text: await gunzip(b64)};
 }
 
 // the evidence a clicked label rests on; with nothing clicked, both quotes as before
@@ -2566,6 +2592,7 @@ async function pollCodes(force = false) {
 }
 
 (async function init() {
+  if (STATIC) getJSON(API.codes());                           // beside the data, not after it (pollCodes takes it up)
   const d = await getJSON(API.data());
   // one row per incident; S.recs is the same list, which the card and the case look rows up in
   S.recs = S.rows = d.rows;

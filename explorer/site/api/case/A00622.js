@@ -1,1 +1,0 @@
-__disc("api/case/A00622",{"id":"A00622","event":"A00622","date":"2023-12-18","lanes":[],"has_10q":true,"responses":[{"cik":1467858,"name":"General Motors Co","acc":"0001467858-24-000029","date":"2024-01-30","form":"8-K","responds":false,"quote":null,"basis":null}],"responses_coded":true,"others":[["Chevrolet of Watsonville","deployer"],["Fullpath","developer"]]});

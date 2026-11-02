@@ -3,3 +3,5 @@ data/*.csv
 __pycache__/
 .DS_Store
 explorer/.cache/
+# explorer/export.py writes here by default; the published copy is docs/explorer/
+explorer/site/

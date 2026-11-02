@@ -1,1 +1,0 @@
-__disc("api/case/O2020-04-15-98c1",{"id":"O2020-04-15-98c1","event":"O2020-04-15-98c1","date":"2020-04-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Israel","deployer"]]});

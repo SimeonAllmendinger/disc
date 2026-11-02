@@ -1,1 +1,0 @@
-__disc("api/case/O2022-05-21-fdc8",{"id":"O2022-05-21-fdc8","event":"O2022-05-21-fdc8","date":"2022-05-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Cártel Jalisco Nueva Generación (CJNG)","deployer"]]});

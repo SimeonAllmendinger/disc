@@ -1,1 +1,0 @@
-__disc("api/case/O2021-12-02-e10c",{"id":"O2021-12-02-e10c","event":"O2021-12-02-e10c","date":"2021-12-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Belarusian KGB","deployer"]]});

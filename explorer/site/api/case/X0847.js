@@ -1,1 +1,0 @@
-__disc("api/case/X0847",{"id":"X0847","event":"X0847","date":"2022-03-17","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Russia","deployer"],["ZALA Aero (Kalashnikov)","developer"]]});

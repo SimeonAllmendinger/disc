@@ -1,1 +1,0 @@
-__disc("api/case/O2026-06-15-7e52",{"id":"O2026-06-15-7e52","event":"O2026-06-15-7e52","date":"2026-06-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Serasa Experian; ClearSale; Skill Tecnologia","deployer"],["Unico","developer"]]});

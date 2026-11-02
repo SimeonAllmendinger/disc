@@ -1,1 +1,0 @@
-__disc("api/case/O2026-06-02-8708",{"id":"O2026-06-02-8708","event":"O2026-06-02-8708","date":"2026-06-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Tribunal de Justiça de Minas Gerais (TJMG)","deployer"]]});

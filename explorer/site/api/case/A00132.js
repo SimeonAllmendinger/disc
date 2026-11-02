@@ -1,1 +1,0 @@
-__disc("api/case/A00132",{"id":"A00132","event":"A00132","date":"2020-12-27","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["TikTok","deployer"],["TikTok","developer"]]});

@@ -1,1 +1,0 @@
-__disc("api/case/O2021-12-03-1f2a",{"id":"O2021-12-03-1f2a","event":"O2021-12-03-1f2a","date":"2021-12-03","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Government of Israel; Israel's internal security agency","deployer"]]});

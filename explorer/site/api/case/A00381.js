@@ -1,1 +1,0 @@
-__disc("api/case/A00381",{"id":"A00381","event":"A00381","date":"2020-10-29","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["SIT Acronis Autonomous","deployer"],["SIT Acronis Autonomous","developer"]]});

@@ -7,9 +7,14 @@
 
 Writes what serve.py's routes answer as scripts that hand their data to the page (`__disc(key, data)`): a
 page sandboxed without an origin of its own, as Anonymous GitHub's /w/ view serves it, may load scripts
-where every fetch is refused. The page is serve.page(static=True), with STATIC set and the fonts inline.
+where every fetch is refused. The page is serve.page(static=True), with STATIC set; its fonts are a script
+of their own (static/fonts.js), loaded beside the data. A payload of GZ_MIN bytes or more is written
+gzip-compressed and base64-encoded (`__disc(key, b64, "gz")`): about a sixth of the JSON whether or not the
+host compresses what it serves. Each incident's row in api/data.js names its AI actors (lc), so the page
+loads their files beside the case rather than after it.
 
-    static/                           the scripts the page loads, and the licences of scripts and fonts
+    static/                           the scripts the page loads, and the licences of scripts and fonts;
+                                      static/fonts.js the fonts, base64-encoded (serve.font_faces)
     api/data.js, api/codes.js         as /api/data and /api/codes
     api/incident/<id>.js              as /api/incident/<id>
     api/case/<id>.js                  as /api/case/<id>, each AI actor reduced to its cik and roles
@@ -42,15 +47,21 @@ import pyarrow.parquet as pq
 import serve
 
 MARK = ".disc-explorer-site"                      # a folder export.py may empty and refill
+GZ_MIN = 4096                                     # bytes of JSON from which a payload is written compressed
 
 
-def _dump(out: Path, rel: str, obj) -> int:
-    """api/x.json -> out/api/x.js: a script handing obj to the page under the key "api/x"."""
+def _dump(out: Path, rel: str, obj, gz: bool = True) -> int:
+    """api/x.json -> out/api/x.js: a script handing obj to the page under the key "api/x"; from GZ_MIN bytes
+    on, its JSON gzip-compressed and base64-encoded."""
     key = rel.removesuffix(".json")
     path = out / f"{key}.js"
     path.parent.mkdir(parents=True, exist_ok=True)
     data = json.dumps(obj, ensure_ascii=False, separators=(",", ":"), default=str)
-    b = f"__disc({json.dumps(key)},{data});\n".encode()
+    if gz and len(data.encode()) >= GZ_MIN:
+        b64 = base64.b64encode(gzip.compress(data.encode(), compresslevel=9, mtime=0)).decode()
+        b = f'__disc({json.dumps(key)},"{b64}","gz");\n'.encode()
+    else:
+        b = f"__disc({json.dumps(key)},{data});\n".encode()
     path.write_bytes(b)
     return len(b)
 
@@ -77,23 +88,28 @@ def export(out: Path, repo_path: str | None = None, keep: bool = False) -> None:
     (out / MARK).write_text("written by explorer/export.py; emptied and refilled at each export\n")
     size = 0
     (out / "index.html").write_text(serve.page(static=True), encoding="utf-8")
-    shutil.copytree(serve.STATIC_DIR, out / "static", dirs_exist_ok=True,               # the fonts are inline in the page
+    shutil.copytree(serve.STATIC_DIR, out / "static", dirs_exist_ok=True,               # the fonts: static/fonts.js
                     ignore=lambda d, names: [n for n in names if (Path(d) / n).is_file() and Path(n).suffix not in (".js", ".txt")])
-    mit = serve.table("mit_taxonomy")
-    size += _dump(out, "api/data.json", {
-        "rows": serve.rows(), "domains": {m["domain"]: m["domain_name"] for m in mit},
-        "subdomains": {m["code"]: m["name"] for m in mit}, "annual": serve.annual_table(), "has_10q": True,
-        "regnames": {cik: r["name"] for cik, r in serve.regs().items()}, "version": serve.version()})
-    size += _dump(out, "api/codes.json", serve.codes())
+    size += _dump(out, "static/fonts.json", serve.font_faces(), gz=False)    # woff2 is compressed already
     ids = list(serve._cache()["inc"])
     ciks: set[int] = set()
+    lanes: dict[str, list[int]] = {}
     for i in ids:
         size += _dump(out, f"api/incident/{i}.json", serve.detail(i))
         c = serve.case(i)
         c.pop("index", None)
         c["lanes"] = [{k: l[k] for k in ("cik", "name", "regime", "processed", "roles", "dropped")} for l in c["lanes"]]
+        if c["lanes"]:
+            lanes[i] = [l["cik"] for l in c["lanes"]]
         ciks |= {l["cik"] for l in c["lanes"]}
         size += _dump(out, f"api/case/{i}.json", c)
+    mit = serve.table("mit_taxonomy")
+    rows = [{**r, "lc": lanes[r["id"]]} if r["id"] in lanes else r for r in serve.rows()]
+    size += _dump(out, "api/data.json", {
+        "rows": rows, "domains": {m["domain"]: m["domain_name"] for m in mit},
+        "subdomains": {m["code"]: m["name"] for m in mit}, "annual": serve.annual_table(), "has_10q": True,
+        "regnames": {cik: r["name"] for cik, r in serve.regs().items()}, "version": serve.version()})
+    size += _dump(out, "api/codes.json", serve.codes())
     regs = serve.regs()
     texted = {f["acc"] for cik in ciks for f in regs[cik]["filings"] if f["txt"]}
     text = _texts(texted)

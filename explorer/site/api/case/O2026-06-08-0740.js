@@ -1,1 +1,0 @@
-__disc("api/case/O2026-06-08-0740",{"id":"O2026-06-08-0740","event":"O2026-06-08-0740","date":"2026-06-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["MVTec","developer"],["大立光","deployer"]]});

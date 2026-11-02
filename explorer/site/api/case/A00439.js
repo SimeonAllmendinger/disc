@@ -1,1 +1,0 @@
-__disc("api/case/A00439",{"id":"A00439","event":"A00439","date":"2019-07-31","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["DataWorks Plus","developer"],["Detroit Police Department","deployer"]]});

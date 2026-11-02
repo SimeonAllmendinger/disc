@@ -1,1 +1,0 @@
-__disc("api/case/X0475",{"id":"X0475","event":"X0475","date":"2020-03-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Respondus, ProctorU, Proctorio, Examity, and Honorlock","developer"]]});

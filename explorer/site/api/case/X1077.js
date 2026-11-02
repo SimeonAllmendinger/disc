@@ -1,1 +1,0 @@
-__disc("api/case/X1077",{"id":"X1077","event":"X1077","date":"2023-04-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Maxpread Technologies","deployer"],["Synthesia","developer"]]});

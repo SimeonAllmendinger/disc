@@ -1,1 +1,0 @@
-__disc("api/case/A00847",{"id":"A00847","event":"A00847","date":"2024-04-14","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Cognitive Technologies","deployer"],["Cognitive Technologies","developer"]]});

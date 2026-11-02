@@ -1,1 +1,0 @@
-__disc("api/case/X0271",{"id":"X0271","event":"X0271","date":"2019-09-03","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["China Pharmaceutical University","deployer"],["Megvii","developer"]]});

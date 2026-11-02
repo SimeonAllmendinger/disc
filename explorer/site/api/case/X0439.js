@@ -1,1 +1,0 @@
-__disc("api/case/X0439",{"id":"X0439","event":"X0439","date":"2020-12-04","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Dongguan Urban Management and Law Enforcement Bureau","deployer"],["Tianjin SoLine Technologies Co. Ltd.","developer"]]});

@@ -1,1 +1,0 @@
-__disc("api/case/X0770",{"id":"X0770","event":"X0770","date":"2021-10-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Moscow Metro","deployer"],["NtechLab, VisionLabs and Tevian","developer"]]});

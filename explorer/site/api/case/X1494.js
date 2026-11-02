@@ -1,1 +1,0 @@
-__disc("api/case/X1494",{"id":"X1494","event":"X1494","date":"2024-05-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Singapore government (NMLP)","deployer"],["Singapore government (National Multimodal LLM Programme)","developer"]]});

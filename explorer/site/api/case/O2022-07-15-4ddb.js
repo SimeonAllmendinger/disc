@@ -1,1 +1,0 @@
-__disc("api/case/O2022-07-15-4ddb",{"id":"O2022-07-15-4ddb","event":"O2022-07-15-4ddb","date":"2022-07-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Proctorio","developer"],["Vrije Universiteit Amsterdam","deployer"]]});

@@ -1,1 +1,0 @@
-__disc("api/case/O2024-03-30-2cea",{"id":"O2024-03-30-2cea","event":"O2024-03-30-2cea","date":"2024-03-30","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Berliner Staatsanwaltschaft (Berlin public prosecutor's office); police of another German federal state","deployer"]]});

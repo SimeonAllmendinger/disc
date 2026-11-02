@@ -1,1 +1,0 @@
-__disc("api/case/X0787",{"id":"X0787","event":"X0787","date":"2020-02-17","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Delhi Police","deployer"],["Innefu Labs","developer"]]});

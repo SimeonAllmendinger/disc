@@ -1,1 +1,0 @@
-__disc("api/case/X0145",{"id":"X0145","event":"X0145","date":"2018-11-16","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Predictim","deployer"],["Predictim","developer"]]});

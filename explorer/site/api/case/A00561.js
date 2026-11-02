@@ -1,1 +1,0 @@
-__disc("api/case/A00561",{"id":"A00561","event":"A00561","date":"2019-03-11","lanes":[],"has_10q":true,"responses":[{"cik":789019,"name":"MICROSOFT CORP","acc":"0001193125-19-117108","date":"2019-04-24","form":"8-K","responds":false,"quote":null,"basis":null}],"responses_coded":true,"others":[["OpenAI","deployer"],["OpenAI","developer"]]});
