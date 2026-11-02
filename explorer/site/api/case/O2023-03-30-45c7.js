@@ -1,0 +1,1 @@
+__disc("api/case/O2023-03-30-45c7",{"id":"O2023-03-30-45c7","event":"O2023-03-30-45c7","date":"2023-03-30","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["NTC Vulkan","developer"],["Russian Ministry of Defence","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2020-06-16-db43",{"id":"O2020-06-16-db43","event":"O2020-06-16-db43","date":"2020-06-16","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Bahrain (BeAware Bahrain); Kuwait (Shlonik); Norway (Smittestopp)","deployer"],["Bahrain (BeAware Bahrain); Kuwait (Shlonik); Norway (Smittestopp)","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2025-10-27-81d8",{"id":"O2025-10-27-81d8","event":"O2025-10-27-81d8","date":"2025-10-27","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Defence Industries Organisation of Iran's Ministry of Defence","developer"],["Islamic Republic of Iran Army","deployer"]]});

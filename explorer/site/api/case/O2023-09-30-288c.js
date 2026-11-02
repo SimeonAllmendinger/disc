@@ -1,0 +1,1 @@
+__disc("api/case/O2023-09-30-288c",{"id":"O2023-09-30-288c","event":"O2023-09-30-288c","date":"2023-09-30","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Reactive Drone","developer"],["Ukrainian forces","deployer"]]});

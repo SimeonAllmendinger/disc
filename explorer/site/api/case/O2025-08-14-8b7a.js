@@ -1,0 +1,1 @@
+__disc("api/case/O2025-08-14-8b7a",{"id":"O2025-08-14-8b7a","event":"O2025-08-14-8b7a","date":"2025-08-14","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["[private individual]; Kristdemokraterna (KD)","deployer"]]});

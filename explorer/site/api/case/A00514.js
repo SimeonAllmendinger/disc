@@ -1,0 +1,1 @@
+__disc("api/case/A00514",{"id":"A00514","event":"A00514","date":"2023-01-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["The Washington Post (Geoffrey Fowler)","deployer"],["Turnitin","developer"]]});

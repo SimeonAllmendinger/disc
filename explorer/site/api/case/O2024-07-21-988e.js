@@ -1,0 +1,1 @@
+__disc("api/case/O2024-07-21-988e",{"id":"O2024-07-21-988e","event":"O2024-07-21-988e","date":"2024-07-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Islamska država (IS); Al-Kaida","deployer"]]});

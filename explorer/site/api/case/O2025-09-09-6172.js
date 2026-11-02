@@ -1,0 +1,1 @@
+__disc("api/case/O2025-09-09-6172",{"id":"O2025-09-09-6172","event":"O2025-09-09-6172","date":"2025-09-09","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Government of Telangana","deployer"],["Government of Telangana","developer"]]});

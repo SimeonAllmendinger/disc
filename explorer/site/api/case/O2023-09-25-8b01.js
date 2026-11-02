@@ -1,0 +1,1 @@
+__disc("api/case/O2023-09-25-8b01",{"id":"O2023-09-25-8b01","event":"O2023-09-25-8b01","date":"2023-09-25","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI; Thorn","developer"],["FBI; DHS and DOJ law enforcement agencies","deployer"]]});

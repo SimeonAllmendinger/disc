@@ -1,0 +1,1 @@
+__disc("api/case/O2022-02-02-c47f",{"id":"O2022-02-02-c47f","event":"O2022-02-02-c47f","date":"2022-02-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Shin Bet","deployer"],["Shin Bet","developer"]]});

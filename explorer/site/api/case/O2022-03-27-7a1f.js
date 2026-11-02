@@ -1,0 +1,1 @@
+__disc("api/case/O2022-03-27-7a1f",{"id":"O2022-03-27-7a1f","event":"O2022-03-27-7a1f","date":"2022-03-27","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["DatAdat group","developer"],["DatAdat group; Márki-Zay Péter's campaign","deployer"]]});

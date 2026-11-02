@@ -1,0 +1,1 @@
+__disc("api/case/A00502",{"id":"A00502","event":"A00502","date":"2017-04-10","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["AFST developers Rhema Vaithianathan (Auckland University of Technology) and Emily Putnam-Hornstein","developer"],["Allegheny County Department of Human Services","deployer"]]});

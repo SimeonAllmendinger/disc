@@ -1,0 +1,1 @@
+__disc("api/case/O2020-02-21-8efd",{"id":"O2020-02-21-8efd","event":"O2020-02-21-8efd","date":"2020-02-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Moscow city authorities; Sergei Sobyanin","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2023-10-23-67bc",{"id":"O2023-10-23-67bc","event":"O2023-10-23-67bc","date":"2023-10-23","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["NtechLab","developer"],["Russian authorities","deployer"]]});

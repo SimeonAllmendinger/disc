@@ -1,0 +1,1 @@
+__disc("api/case/O2023-03-30-0d21",{"id":"O2023-03-30-0d21","event":"O2023-03-30-0d21","date":"2023-03-30","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Dubai Police","deployer"],["Hikvision; Huawei","developer"]]});

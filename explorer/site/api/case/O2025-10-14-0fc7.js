@@ -1,0 +1,1 @@
+__disc("api/case/O2025-10-14-0fc7",{"id":"O2025-10-14-0fc7","event":"O2025-10-14-0fc7","date":"2025-10-14","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Viktor Orban; National Resistance Movement (NEM); Peter Magyar","deployer"]]});

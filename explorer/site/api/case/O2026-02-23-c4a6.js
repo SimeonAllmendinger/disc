@@ -1,0 +1,1 @@
+__disc("api/case/O2026-02-23-c4a6",{"id":"O2026-02-23-c4a6","event":"O2026-02-23-c4a6","date":"2026-02-23","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Codeway Dijital Hizmetler Anonim Sirketi; IDMerit","deployer"],["Codeway Dijital Hizmetler Anonim Sirketi; IDMerit","developer"]]});

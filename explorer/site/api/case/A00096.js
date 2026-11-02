@@ -1,0 +1,1 @@
+__disc("api/case/A00096",{"id":"A00096","event":"A00096","date":"2017-05-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Houston Independent School District","deployer"],["SAS Institute","developer"]]});

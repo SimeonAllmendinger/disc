@@ -1,0 +1,1 @@
+__disc("api/case/O2024-01-02-6c9c",{"id":"O2024-01-02-6c9c","event":"O2024-01-02-6c9c","date":"2024-01-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Polícia Militar do Rio de Janeiro; Segurança Presente","deployer"]]});

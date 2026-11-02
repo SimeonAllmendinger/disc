@@ -1,0 +1,1 @@
+__disc("api/case/O2024-12-16-acc2",{"id":"O2024-12-16-acc2","event":"O2024-12-16-acc2","date":"2024-12-16","lanes":[{"cik":2003292,"name":"Klarna Group plc","regime":"20-F/40-F","processed":true,"roles":["deployer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

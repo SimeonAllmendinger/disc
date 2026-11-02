@@ -1,0 +1,1 @@
+__disc("api/case/O2025-01-20-eb37",{"id":"O2025-01-20-eb37","event":"O2025-01-20-eb37","date":"2025-01-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Cartonajes Bañeres SA; Osasuna CF","deployer"],["dasGate","developer"]]});

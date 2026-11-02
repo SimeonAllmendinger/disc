@@ -1,0 +1,1 @@
+__disc("api/case/A01632",{"id":"A01632","event":"A01632","date":"2024-06-11","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["GPTZero","developer"],["Yale University","deployer"]]});

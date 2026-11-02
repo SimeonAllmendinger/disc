@@ -1,0 +1,1 @@
+__disc("api/case/O2025-03-14-27cc",{"id":"O2025-03-14-27cc","event":"O2025-03-14-27cc","date":"2025-03-14","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["柯某 (Ke), a web-fiction writer in Daye, Hubei","deployer"]]});

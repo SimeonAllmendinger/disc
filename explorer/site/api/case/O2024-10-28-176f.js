@@ -1,0 +1,1 @@
+__disc("api/case/O2024-10-28-176f",{"id":"O2024-10-28-176f","event":"O2024-10-28-176f","date":"2024-10-28","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["BriefCam","developer"],["Gendarmerie nationale (Service central du renseignement criminel)","deployer"]]});

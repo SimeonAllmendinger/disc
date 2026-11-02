@@ -1,0 +1,1 @@
+__disc("api/case/A00210",{"id":"A00210","event":"A00210","date":"2020-04-28","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Bharatiya Janata Party (BJP) IT cell","deployer"],["Persistent Systems","developer"]]});

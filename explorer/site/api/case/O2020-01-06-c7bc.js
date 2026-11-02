@@ -1,0 +1,1 @@
+__disc("api/case/O2020-01-06-c7bc",{"id":"O2020-01-06-c7bc","event":"O2020-01-06-c7bc","date":"2020-01-06","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Cambridge Analytica","deployer"],["Cambridge Analytica","developer"]]});

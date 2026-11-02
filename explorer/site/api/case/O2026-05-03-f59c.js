@@ -1,0 +1,1 @@
+__disc("api/case/O2026-05-03-f59c",{"id":"O2026-05-03-f59c","event":"O2026-05-03-f59c","date":"2026-05-03","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Ronaldo Caiado campaign; Tarcísio de Freitas campaign; José Dirceu campaign","deployer"],["SVA Solutions-Galaxies","developer"]]});

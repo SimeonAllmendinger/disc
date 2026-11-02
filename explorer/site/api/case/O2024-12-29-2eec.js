@@ -1,0 +1,1 @@
+__disc("api/case/O2024-12-29-2eec",{"id":"O2024-12-29-2eec","event":"O2024-12-29-2eec","date":"2024-12-29","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Israeli military (IDF)","deployer"],["Israeli military intelligence (Unit 8200)","developer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A01402",{"id":"A01402","event":"A01402","date":"2025-04-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Department of Government Efficiency (DOGE)","deployer"],["OpenAI","developer"]]});

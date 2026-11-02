@@ -1,0 +1,1 @@
+__disc("api/case/O2025-10-22-a48d",{"id":"O2025-10-22-a48d","event":"O2025-10-22-a48d","date":"2025-10-22","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Character Technologies; Glimpse.AI; Chai Research; Chub AI","developer"]]});

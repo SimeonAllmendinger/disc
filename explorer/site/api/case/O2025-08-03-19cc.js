@@ -1,0 +1,1 @@
+__disc("api/case/O2025-08-03-19cc",{"id":"O2025-08-03-19cc","event":"O2025-08-03-19cc","date":"2025-08-03","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Estado Islámico del Jorasán (ISKP)","deployer"]]});

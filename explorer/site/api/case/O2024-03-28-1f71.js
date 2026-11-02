@@ -1,0 +1,1 @@
+__disc("api/case/O2024-03-28-1f71",{"id":"O2024-03-28-1f71","event":"O2024-03-28-1f71","date":"2024-03-28","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Anviz Global","developer"],["L’Igiene Urbana Evolution s.r.l.; Airone società consortile a r.l.; Blue Work s.r.l.","deployer"]]});

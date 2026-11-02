@@ -1,0 +1,1 @@
+__disc("api/case/O2020-05-21-c90d",{"id":"O2020-05-21-c90d","event":"O2020-05-21-c90d","date":"2020-05-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["London police","deployer"]]});

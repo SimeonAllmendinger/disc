@@ -1,0 +1,1 @@
+__disc("api/case/O2021-10-27-b22f",{"id":"O2021-10-27-b22f","event":"O2021-10-27-b22f","date":"2021-10-27","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["IRGC","developer"],["Lực lượng Vệ binh Cách mạng Hồi giáo Iran (IRGC)","deployer"]]});

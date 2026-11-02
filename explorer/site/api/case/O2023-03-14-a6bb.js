@@ -1,0 +1,1 @@
+__disc("api/case/O2023-03-14-a6bb",{"id":"O2023-03-14-a6bb","event":"O2023-03-14-a6bb","date":"2023-03-14","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["David Rozado; Manhattan Institute","deployer"],["OpenAI","developer"]]});

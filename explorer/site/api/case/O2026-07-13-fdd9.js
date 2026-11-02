@@ -1,0 +1,1 @@
+__disc("api/case/O2026-07-13-fdd9",{"id":"O2026-07-13-fdd9","event":"O2026-07-13-fdd9","date":"2026-07-13","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["FSB","deployer"],["VK; Communication Platform; Citadel; VAS Experts; Norsi-Trans","developer"]]});

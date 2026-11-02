@@ -1,0 +1,1 @@
+__disc("api/case/O2021-11-16-aed1",{"id":"O2021-11-16-aed1","event":"O2021-11-16-aed1","date":"2021-11-16","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Huawei","developer"],["city of Valenciennes","deployer"]]});

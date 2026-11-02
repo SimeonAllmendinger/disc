@@ -1,0 +1,1 @@
+__disc("api/case/O2020-02-17-c064",{"id":"O2020-02-17-c064","event":"O2020-02-17-c064","date":"2020-02-17","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["Clearview AI; Toronto police; Hamilton Police Service; Halton police; Niagara police","deployer"]]});

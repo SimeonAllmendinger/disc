@@ -1,0 +1,1 @@
+__disc("api/case/O2026-05-04-cc52",{"id":"O2026-05-04-cc52","event":"O2026-05-04-cc52","date":"2026-05-04","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["MAGA Kentucky; pro-Massie PAC (unnamed)","deployer"]]});

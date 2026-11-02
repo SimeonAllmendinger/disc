@@ -1,0 +1,1 @@
+__disc("api/case/A00541",{"id":"A00541","event":"A00541","date":"2023-05-04","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["[private individual] (Levidow, Levidow & Oberman)","deployer"]]});

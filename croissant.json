@@ -68,7 +68,7 @@
   "OECD AI incidents"
  ],
  "version": "0.1.0",
- "datePublished": "2026-11-01",
+ "datePublished": "2026-11-02",
  "rai:dataCollection": "Incidents: the AIID snapshot of 1 September 2026, the AIAAIC Repository and OECD AIM as of 8 September 2026, deduplicated across the three into incidents with record dates from 1 January 2016; OECD AIM records were screened and linked to AI actors by the coders. Disclosure: the SEC EDGAR filings of the AI actors the incidents name that file with the SEC — annual reports (10-K, 20-F, 40-F), 10-Qs and AI-related current reports (8-K, 6-K) filed 1 January 2015 – 30 September 2026 — with risk-factor sections extracted and every sentence matching the AI terms kept with its neighbours as a passage.",
  "rai:dataCollectionType": "Web API and bulk downloads (AIID snapshots, SEC EDGAR); web scraping (AIAAIC Repository pages, OECD AIM web service).",
  "rai:dataCollectionMissingData": "74% of incidents name no AI actor that files with the SEC and cannot be matched to disclosure; 349 more name one that cannot be matched (no annual report yet, no coded report before the harm, or none after it by 30 September 2026). When the incident started is dated for 4,276 incidents and otherwise anchored on the record date. 1,403 incident × current-report pairs have no excerpt naming AI, the incident or an adverse event and were not read. Article bodies are not released.",
@@ -99,7 +99,7 @@
    "name": "incidents.parquet",
    "contentUrl": "data/incidents.parquet",
    "encodingFormat": "application/x-parquet",
-   "sha256": "a50af119c34131af32cd4ef7d51fb8d2a7bfa8b3214744eb0edd3908b281e376"
+   "sha256": "e48a53c4dfa06905eaacb65c49ca713637c3f29b0f1b74fe5be6ed7a083273f5"
   },
   {
    "@type": "cr:FileObject",
@@ -131,7 +131,7 @@
    "name": "incident_actors.parquet",
    "contentUrl": "data/incident_actors.parquet",
    "encodingFormat": "application/x-parquet",
-   "sha256": "7b5feb9511fcd25ec7a40236d58320de3fd69a08820740fd90cdd64174d61a36"
+   "sha256": "33a4db395e8b2234d4bf51c155d967408a75ba5621adac3e86ecff9d5c482970"
   },
   {
    "@type": "cr:FileObject",
@@ -147,7 +147,7 @@
    "name": "evidence.parquet",
    "contentUrl": "data/evidence.parquet",
    "encodingFormat": "application/x-parquet",
-   "sha256": "4822fcfda63a7539f80e40a37f5b2e5e419a008e678b3b75cc4afff7e858721c"
+   "sha256": "fd880774f7a2772564cd0e83fffcef03522ddb374f7de6c525491cbdb9c16272"
   },
   {
    "@type": "cr:FileObject",
@@ -155,7 +155,7 @@
    "name": "filings.parquet",
    "contentUrl": "data/filings.parquet",
    "encodingFormat": "application/x-parquet",
-   "sha256": "0da13d39a2aafd8d77042e18df9079dccbb2b87b9f00c2575a91c7ad2d344de8"
+   "sha256": "334ecf7eec9aec2a8377c32fda0dd460180d2e0c0d2d970a3c92d16bd749f00c"
   },
   {
    "@type": "cr:FileObject",
@@ -187,7 +187,7 @@
    "name": "passage_evidence.parquet",
    "contentUrl": "data/passage_evidence.parquet",
    "encodingFormat": "application/x-parquet",
-   "sha256": "505b1fb42394793d4983073acd1d55e86908759107e9bb4fe44f3a54ede31dc2"
+   "sha256": "a50366011747fb19b13968628d52c662fbba7ebfac7f62f6bd312503d993de12"
   },
   {
    "@type": "cr:FileObject",
@@ -195,7 +195,7 @@
    "name": "outcomes.parquet",
    "contentUrl": "data/outcomes.parquet",
    "encodingFormat": "application/x-parquet",
-   "sha256": "c8761aaa1dbbaff1e90d9ff264d5df270c7335ba015a3f23059e26301f783191"
+   "sha256": "709e52f10db2a00f30af18e1e50b6d0a15ad8fad7d01e575218778263097a764"
   },
   {
    "@type": "cr:FileObject",
@@ -203,7 +203,7 @@
    "name": "responses.parquet",
    "contentUrl": "data/responses.parquet",
    "encodingFormat": "application/x-parquet",
-   "sha256": "79cbe26a6daf31fead55055130983b5b1f46583ab2fc13678dd9729561195e17"
+   "sha256": "5ccb257f63fe1bfe22137aaad0fdde2bde1417af475469023f28a4a38e67630e"
   },
   {
    "@type": "cr:FileObject",

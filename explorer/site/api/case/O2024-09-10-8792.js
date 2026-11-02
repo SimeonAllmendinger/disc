@@ -1,0 +1,1 @@
+__disc("api/case/O2024-09-10-8792",{"id":"O2024-09-10-8792","event":"O2024-09-10-8792","date":"2024-09-10","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["American Patriots","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A01497",{"id":"A01497","event":"A01497","date":"2026-05-13","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["3rd Labor Court of Parauapebas","deployer"],["Tribunal Regional do Trabalho da 4ª Região (TRT-RS)","developer"]]});

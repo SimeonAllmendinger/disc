@@ -1,0 +1,1 @@
+__disc("api/case/O2022-02-20-bc28",{"id":"O2022-02-20-bc28","event":"O2022-02-20-bc28","date":"2022-02-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","deployer"],["Clearview AI","developer"]]});

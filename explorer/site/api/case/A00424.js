@@ -1,0 +1,1 @@
+__disc("api/case/A00424",{"id":"A00424","event":"A00424","date":"2020-03-09","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Respondus, ProctorU, ProctorTrack, Proctorio, ProctorExam, Examity","developer"]]});

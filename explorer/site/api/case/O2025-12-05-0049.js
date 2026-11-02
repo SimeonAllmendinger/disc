@@ -1,0 +1,1 @@
+__disc("api/case/O2025-12-05-0049",{"id":"O2025-12-05-0049","event":"O2025-12-05-0049","date":"2025-12-05","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Gab","developer"],["far-right extremists; Gab","deployer"]]});

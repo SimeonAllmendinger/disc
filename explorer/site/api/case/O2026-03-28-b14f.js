@@ -1,0 +1,1 @@
+__disc("api/case/O2026-03-28-b14f",{"id":"O2026-03-28-b14f","event":"O2026-03-28-b14f","date":"2026-03-28","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["National Republican Senatorial Committee; Mike Collins campaign; Republican Committee for Loudoun County; Ken Paxton campaign; John Cornyn campaign; Gavin Newsom; Trump White House","deployer"]]});

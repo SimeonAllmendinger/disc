@@ -1,0 +1,1 @@
+__disc("api/case/A01416",{"id":"A01416","event":"A01416","date":"2025-07-14","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["West Fargo Police Department","deployer"]]});

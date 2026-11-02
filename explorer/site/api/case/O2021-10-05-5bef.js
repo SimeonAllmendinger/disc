@@ -1,0 +1,1 @@
+__disc("api/case/O2021-10-05-5bef",{"id":"O2021-10-05-5bef","event":"O2021-10-05-5bef","date":"2021-10-05","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["RCMP","deployer"]]});

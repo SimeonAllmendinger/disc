@@ -1,0 +1,1 @@
+__disc("api/case/A01579",{"id":"A01579","event":"A01579","date":"2026-05-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Raphael Ablordeppey and ten other arrested suspects","deployer"]]});

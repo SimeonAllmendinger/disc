@@ -1,0 +1,1 @@
+__disc("api/case/A00557",{"id":"A00557","event":"A00557","date":"2020-06-24","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["Miami Police Department","deployer"]]});

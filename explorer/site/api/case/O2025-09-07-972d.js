@@ -1,0 +1,1 @@
+__disc("api/case/O2025-09-07-972d",{"id":"O2025-09-07-972d","event":"O2025-09-07-972d","date":"2025-09-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Research and Self-Sufficiency Jihad Organization of the Iranian Army Ground Forces","deployer"],["Research and Self-Sufficiency Jihad Organization of the Iranian Army Ground Forces","developer"]]});

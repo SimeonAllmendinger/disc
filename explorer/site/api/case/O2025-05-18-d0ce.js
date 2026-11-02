@@ -1,0 +1,1 @@
+__disc("api/case/O2025-05-18-d0ce",{"id":"O2025-05-18-d0ce","event":"O2025-05-18-d0ce","date":"2025-05-18","lanes":[{"cik":2003292,"name":"Klarna Group plc","regime":"20-F/40-F","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

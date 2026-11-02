@@ -1,0 +1,1 @@
+__disc("api/case/O2022-12-20-f1c2",{"id":"O2022-12-20-f1c2","event":"O2022-12-20-f1c2","date":"2022-12-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Hyderabad police","deployer"]]});

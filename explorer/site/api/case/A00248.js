@@ -1,0 +1,1 @@
+__disc("api/case/A00248",{"id":"A00248","event":"A00248","date":"2018-11-23","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Contra Costa County Sheriff's Department","deployer"],["Vigilant Solutions","developer"]]});

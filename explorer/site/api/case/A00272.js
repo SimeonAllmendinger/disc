@@ -1,0 +1,1 @@
+__disc("api/case/A00272",{"id":"A00272","event":"A00272","date":"2019-10-08","lanes":[{"cik":1855612,"name":"Grab Holdings Ltd","regime":"20-F/40-F","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

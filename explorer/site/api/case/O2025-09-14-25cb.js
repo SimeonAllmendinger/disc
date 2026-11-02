@@ -1,0 +1,1 @@
+__disc("api/case/O2025-09-14-25cb",{"id":"O2025-09-14-25cb","event":"O2025-09-14-25cb","date":"2025-09-14","lanes":[{"cik":2092574,"name":"Swarmer, Inc","regime":"none","processed":true,"roles":["developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Ukrainian armed forces; Azov 12th Special Purpose Brigade","deployer"]]});

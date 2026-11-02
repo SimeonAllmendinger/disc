@@ -1,0 +1,1 @@
+__disc("api/case/O2020-09-30-7f93",{"id":"O2020-09-30-7f93","event":"O2020-09-30-7f93","date":"2020-09-30","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Azerbaijani armed forces","deployer"],["Baykar","developer"]]});

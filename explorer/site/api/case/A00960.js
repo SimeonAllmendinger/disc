@@ -1,0 +1,1 @@
+__disc("api/case/A00960",{"id":"A00960","event":"A00960","date":"2025-02-06","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["[private individual] & [private individual]","deployer"],["[private individual] & [private individual]","developer"]]});

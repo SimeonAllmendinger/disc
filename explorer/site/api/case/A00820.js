@@ -1,0 +1,1 @@
+__disc("api/case/A00820",{"id":"A00820","event":"A00820","date":"2024-10-15","lanes":[],"has_10q":true,"responses":[{"cik":796343,"name":"ADOBE INC.","acc":"0000796343-24-000250","date":"2024-12-11","form":"8-K","responds":false,"quote":null,"basis":null}],"responses_coded":true,"others":[["Freepik","developer"],["Upscale Conf","deployer"]]});

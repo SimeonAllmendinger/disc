@@ -1,0 +1,1 @@
+__disc("api/case/A00774",{"id":"A00774","event":"A00774","date":"2024-05-30","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["covert influence operations Bad Grammar, Doppelganger, Spamouflage, IUVM and STOIC (Zero Zeno)","deployer"]]});

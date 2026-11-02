@@ -1,0 +1,1 @@
+__disc("api/case/A00440",{"id":"A00440","event":"A00440","date":"2022-11-25","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["Jefferson Parish Sheriff's Office","deployer"]]});

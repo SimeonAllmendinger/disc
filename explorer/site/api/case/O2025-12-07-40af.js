@@ -1,0 +1,1 @@
+__disc("api/case/O2025-12-07-40af",{"id":"O2025-12-07-40af","event":"O2025-12-07-40af","date":"2025-12-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Ukraine's military intelligence agency (Group 13)","deployer"]]});

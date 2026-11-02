@@ -1,0 +1,1 @@
+__disc("api/case/A00487",{"id":"A00487","event":"A00487","date":"2023-02-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["House of News Español (Synthesia's Venezuelan client)","deployer"],["Synthesia","developer"]]});

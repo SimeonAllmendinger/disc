@@ -1,0 +1,1 @@
+__disc("api/case/A00977",{"id":"A00977","event":"A00977","date":"2025-03-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Jewish Onliner","deployer"],["Jewish Onliner","developer"]]});

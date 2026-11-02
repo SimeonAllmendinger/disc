@@ -1,0 +1,1 @@
+__disc("api/case/O2024-12-02-fa38",{"id":"O2024-12-02-fa38","event":"O2024-12-02-fa38","date":"2024-12-02","lanes":[{"cik":1286225,"name":"RealPage","regime":"10-K","processed":true,"roles":["developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Greystar; Cortland Management; AvalonBay Communities; Equity Residential","deployer"]]});

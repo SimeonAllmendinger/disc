@@ -1,0 +1,1 @@
+__disc("api/case/O2026-06-16-a417",{"id":"O2026-06-16-a417","event":"O2026-06-16-a417","date":"2026-06-16","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Institute of the Estonian Language; NewsGuard","deployer"],["Mistral AI","developer"]]});

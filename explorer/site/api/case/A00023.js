@@ -1,0 +1,1 @@
+__disc("api/case/A00023",{"id":"A00023","event":"A00023","date":"2017-11-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Keolis North America","deployer"],["Navya","developer"]]});

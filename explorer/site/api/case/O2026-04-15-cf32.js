@@ -1,0 +1,1 @@
+__disc("api/case/O2026-04-15-cf32",{"id":"O2026-04-15-cf32","event":"O2026-04-15-cf32","date":"2026-04-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["SEA (Società per azioni esercizi aeroportuali)","deployer"]]});

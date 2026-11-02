@@ -1,0 +1,1 @@
+__disc("api/case/A00484",{"id":"A00484","event":"A00484","date":"2023-01-18","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["U.S. Customs and Border Protection (CBP)","deployer"],["U.S. Customs and Border Protection (CBP)","developer"]]});

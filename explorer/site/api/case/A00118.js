@@ -1,0 +1,1 @@
+__disc("api/case/A00118",{"id":"A00118","event":"A00118","date":"2020-08-06","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["Stanford and McMaster researchers ([private individual], Farooqi, Zou)","deployer"]]});

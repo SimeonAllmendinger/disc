@@ -1,0 +1,1 @@
+__disc("api/case/A01252",{"id":"A01252","event":"A01252","date":"2025-06-30","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI (ChatGPT) and Perplexity","developer"],["chambers of U.S. District Judges Julien Neals and Henry Wingate","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A01193",{"id":"A01193","event":"A01193","date":"2025-08-22","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Azure OpenAI","developer"],["Deloitte Australia","deployer"]]});

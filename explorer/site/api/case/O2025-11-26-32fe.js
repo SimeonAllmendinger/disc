@@ -1,0 +1,1 @@
+__disc("api/case/O2025-11-26-32fe",{"id":"O2025-11-26-32fe","event":"O2025-11-26-32fe","date":"2025-11-26","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["McKinsey & Co.","deployer"]]});

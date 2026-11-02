@@ -1,0 +1,1 @@
+__disc("api/case/O2021-12-18-eddb",{"id":"O2021-12-18-eddb","event":"O2021-12-18-eddb","date":"2021-12-18","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["US Navy","deployer"]]});

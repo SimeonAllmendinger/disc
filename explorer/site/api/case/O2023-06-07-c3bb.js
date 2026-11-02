@@ -1,0 +1,1 @@
+__disc("api/case/O2023-06-07-c3bb",{"id":"O2023-06-07-c3bb","event":"O2023-06-07-c3bb","date":"2023-06-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["集英社《週刊Playboy》","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A00823",{"id":"A00823","event":"A00823","date":"2024-05-03","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Akron Police Department; Midland County Sheriff's Office; New York State Police","deployer"],["Global Intelligence Inc.","developer"]]});

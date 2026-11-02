@@ -1,0 +1,1 @@
+__disc("api/case/O2022-10-27-3e13",{"id":"O2022-10-27-3e13","event":"O2022-10-27-3e13","date":"2022-10-27","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Ukrainian military","deployer"]]});

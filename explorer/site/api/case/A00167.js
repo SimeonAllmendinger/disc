@@ -1,0 +1,1 @@
+__disc("api/case/A00167",{"id":"A00167","event":"A00167","date":"2017-09-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Michal Kosinski and Yilun Wang","deployer"],["Michal Kosinski and Yilun Wang","developer"]]});

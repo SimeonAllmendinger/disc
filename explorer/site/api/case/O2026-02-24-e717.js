@@ -1,0 +1,1 @@
+__disc("api/case/O2026-02-24-e717",{"id":"O2026-02-24-e717","event":"O2026-02-24-e717","date":"2026-02-24","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Cártel de Jalisco Nueva Generación","deployer"]]});

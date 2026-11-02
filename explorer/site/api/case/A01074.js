@@ -1,0 +1,1 @@
+__disc("api/case/A01074",{"id":"A01074","event":"A01074","date":"2025-05-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Anthropic","developer"],["Latham & Watkins","deployer"]]});

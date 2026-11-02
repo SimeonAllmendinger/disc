@@ -1,0 +1,1 @@
+__disc("api/case/O2024-02-10-3fc7",{"id":"O2024-02-10-3fc7","event":"O2024-02-10-3fc7","date":"2024-02-10","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Israel's military","deployer"],["Smart Shooter","developer"]]});

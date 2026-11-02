@@ -1,0 +1,1 @@
+__disc("api/case/O2020-06-08-e1be",{"id":"O2020-06-08-e1be","event":"O2020-06-08-e1be","date":"2020-06-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Turkish Armed Forces (Milli Savunma Bakanlığı)","deployer"]]});

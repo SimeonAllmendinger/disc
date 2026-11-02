@@ -1,0 +1,1 @@
+__disc("api/case/O2023-10-09-49cf",{"id":"O2023-10-09-49cf","event":"O2023-10-09-49cf","date":"2023-10-09","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["中央研究院詞庫小組（CKIP）","developer"],["中研院 (Academia Sinica)","deployer"]]});

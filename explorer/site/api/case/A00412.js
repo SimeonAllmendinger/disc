@@ -1,0 +1,1 @@
+__disc("api/case/A00412",{"id":"A00412","event":"A00412","date":"2020-01-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["National Bureau of Investigation (Finland)","deployer"]]});

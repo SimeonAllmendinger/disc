@@ -1,0 +1,1 @@
+__disc("api/case/O2022-06-16-085a",{"id":"O2022-06-16-085a","event":"O2022-06-16-085a","date":"2022-06-16","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Kakaku.com","deployer"],["Kakaku.com","developer"]]});

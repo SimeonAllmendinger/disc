@@ -1,0 +1,1 @@
+__disc("api/case/O2023-05-10-0f54",{"id":"O2023-05-10-0f54","event":"O2023-05-10-0f54","date":"2023-05-10","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Universidad de Barcelona; Universidad Icesi; Universidad Ramon Llull","deployer"]]});

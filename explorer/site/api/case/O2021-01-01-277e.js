@@ -1,0 +1,1 @@
+__disc("api/case/O2021-01-01-277e",{"id":"O2021-01-01-277e","event":"O2021-01-01-277e","date":"2021-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Shin Bet; Israel's Health Ministry","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A00078",{"id":"A00078","event":"A00078","date":"2020-07-06","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["International Baccalaureate","deployer"],["International Baccalaureate","developer"]]});

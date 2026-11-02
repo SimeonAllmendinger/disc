@@ -1,0 +1,1 @@
+__disc("api/case/O2022-07-28-6c76",{"id":"O2022-07-28-6c76","event":"O2022-07-28-6c76","date":"2022-07-28","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Russian forces","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A00653",{"id":"A00653","event":"A00653","date":"2019-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Delphia (USA) Inc. and Global Predictions Inc.","deployer"],["Delphia (USA) Inc. and Global Predictions Inc.","developer"]]});

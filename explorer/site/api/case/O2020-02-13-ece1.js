@@ -1,0 +1,1 @@
+__disc("api/case/O2020-02-13-ece1",{"id":"O2020-02-13-ece1","event":"O2020-02-13-ece1","date":"2020-02-13","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Government of India (Aadhaar programme)","deployer"]]});

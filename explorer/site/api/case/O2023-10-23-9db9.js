@@ -1,0 +1,1 @@
+__disc("api/case/O2023-10-23-9db9",{"id":"O2023-10-23-9db9","event":"O2023-10-23-9db9","date":"2023-10-23","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Abin (Agência Brasileira de Inteligência)","deployer"],["Verint Systems","developer"]]});

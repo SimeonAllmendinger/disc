@@ -1,0 +1,1 @@
+__disc("api/case/A00358",{"id":"A00358","event":"A00358","date":"2018-06-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Cadillac Fairview","deployer"],["MappedIn","developer"]]});

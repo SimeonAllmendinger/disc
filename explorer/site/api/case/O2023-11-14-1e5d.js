@@ -1,0 +1,1 @@
+__disc("api/case/O2023-11-14-1e5d",{"id":"O2023-11-14-1e5d","event":"O2023-11-14-1e5d","date":"2023-11-14","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Midjourney; Dall-e","developer"],["Sergio Massa's campaign team; Javier Milei's campaign team","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2026-06-28-e471",{"id":"O2026-06-28-e471","event":"O2026-06-28-e471","date":"2026-06-28","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Korea Fair Trade Commission","deployer"],["Korea Fair Trade Commission","developer"]]});

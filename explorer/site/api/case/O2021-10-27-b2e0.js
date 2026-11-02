@@ -1,0 +1,1 @@
+__disc("api/case/O2021-10-27-b2e0",{"id":"O2021-10-27-b2e0","event":"O2021-10-27-b2e0","date":"2021-10-27","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Cnam - Caisse Nationale d'Assurance Maladie; Centrum e Zdrowia","deployer"]]});

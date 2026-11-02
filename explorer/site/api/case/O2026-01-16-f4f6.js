@@ -1,0 +1,1 @@
+__disc("api/case/O2026-01-16-f4f6",{"id":"O2026-01-16-f4f6","event":"O2026-01-16-f4f6","date":"2026-01-16","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["中信 (CTBC Bank); 國泰 (Cathay United Bank); 永豐 (Bank SinoPac); 兆豐 (Mega Bank); 第一銀行 (First Bank); 中華郵政 (Chunghwa Post); 台南市政府 (Tainan City Government)","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A00039",{"id":"A00039","event":"A00039","date":"2017-07-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["University of Washington","developer"],["University of Washington researchers","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2024-09-16-0375",{"id":"O2024-09-16-0375","event":"O2024-09-16-0375","date":"2024-09-16","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Budapesti Corvinus Egyetem; Benedek Márton; Sziklai R. Balázs","deployer"],["ChatGPT","developer"]]});

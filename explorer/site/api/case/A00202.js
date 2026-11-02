@@ -1,0 +1,1 @@
+__disc("api/case/A00202",{"id":"A00202","event":"A00202","date":"2021-12-06","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["DeepBrain AI","developer"],["People Power Party","deployer"]]});

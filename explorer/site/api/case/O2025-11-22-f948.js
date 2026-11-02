@@ -1,0 +1,1 @@
+__disc("api/case/O2025-11-22-f948",{"id":"O2025-11-22-f948","event":"O2025-11-22-f948","date":"2025-11-22","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Ministério da Justiça","developer"],["Secretaria de Governo do Rio de Janeiro (Segov)","deployer"]]});

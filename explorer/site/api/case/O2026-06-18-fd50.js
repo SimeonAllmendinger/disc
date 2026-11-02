@@ -1,0 +1,1 @@
+__disc("api/case/O2026-06-18-fd50",{"id":"O2026-06-18-fd50","event":"O2026-06-18-fd50","date":"2026-06-18","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["DHS; ICE","developer"],["ICE; local police agencies deputized under 287(g) Task Force agreements","deployer"]]});

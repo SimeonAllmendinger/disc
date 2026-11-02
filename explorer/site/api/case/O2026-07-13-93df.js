@@ -1,0 +1,1 @@
+__disc("api/case/O2026-07-13-93df",{"id":"O2026-07-13-93df","event":"O2026-07-13-93df","date":"2026-07-13","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Islamic State; Al-Qaeda; Jama'at Nusrat al-Islam wal-Muslimin (JNIM)","deployer"],["OpenAI","developer"]]});

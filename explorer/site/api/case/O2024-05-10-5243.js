@@ -1,0 +1,1 @@
+__disc("api/case/O2024-05-10-5243",{"id":"O2024-05-10-5243","event":"O2024-05-10-5243","date":"2024-05-10","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Bundeskriminalamt; Fraunhofer-Institut für Graphische Datenverarbeitung","deployer"]]});

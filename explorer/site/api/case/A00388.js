@@ -1,0 +1,1 @@
+__disc("api/case/A00388",{"id":"A00388","event":"A00388","date":"2018-12-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Government of Bahia (Secretaria de Segurança Pública)","deployer"],["Iecisa, in partnership with Huawei","developer"]]});

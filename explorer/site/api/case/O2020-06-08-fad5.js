@@ -1,0 +1,1 @@
+__disc("api/case/O2020-06-08-fad5",{"id":"O2020-06-08-fad5","event":"O2020-06-08-fad5","date":"2020-06-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Israel Security Agency (Shin Bet)","deployer"]]});

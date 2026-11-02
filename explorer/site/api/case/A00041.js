@@ -1,0 +1,1 @@
+__disc("api/case/A00041",{"id":"A00041","event":"A00041","date":"2018-04-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["MIT Media Lab","deployer"],["MIT Media Lab","developer"]]});

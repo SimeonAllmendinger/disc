@@ -1,0 +1,1 @@
+__disc("api/case/O2024-02-21-2070",{"id":"O2024-02-21-2070","event":"O2024-02-21-2070","date":"2024-02-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Turnitin","developer"],["University of North Georgia","deployer"]]});

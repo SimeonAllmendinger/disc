@@ -1,0 +1,1 @@
+__disc("api/case/A00242",{"id":"A00242","event":"A00242","date":"2021-02-24","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Automotive Stampings and Assemblies Ltd (ASAL)","deployer"]]});

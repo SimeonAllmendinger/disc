@@ -1,0 +1,1 @@
+__disc("api/case/A00085",{"id":"A00085","event":"A00085","date":"2020-10-09","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["The Guardian","deployer"]]});

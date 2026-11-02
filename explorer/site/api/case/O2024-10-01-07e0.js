@@ -1,0 +1,1 @@
+__disc("api/case/O2024-10-01-07e0",{"id":"O2024-10-01-07e0","event":"O2024-10-01-07e0","date":"2024-10-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["judicial authorities of the Swiss canton of Ticino","deployer"]]});

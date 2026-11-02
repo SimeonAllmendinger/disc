@@ -1,0 +1,1 @@
+__disc("api/case/A00636",{"id":"A00636","event":"A00636","date":"2024-02-14","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Replika, Chai, Romantic AI, EVA AI, CrushOn.AI and other romantic chatbot app companies","deployer"],["Replika, Chai, Romantic AI, EVA AI, CrushOn.AI and other romantic chatbot app companies","developer"]]});

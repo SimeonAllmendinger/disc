@@ -1,0 +1,1 @@
+__disc("api/case/O2025-01-19-28ed",{"id":"O2025-01-19-28ed","event":"O2025-01-19-28ed","date":"2025-01-19","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Shield AI","developer"],["Ukraine; Russia","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2021-01-01-f4cf",{"id":"O2021-01-01-f4cf","event":"O2021-01-01-f4cf","date":"2021-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["中央流行疫情指揮中心 (Central Epidemic Command Center)","deployer"]]});

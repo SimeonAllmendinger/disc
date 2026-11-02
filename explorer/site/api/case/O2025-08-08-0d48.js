@@ -1,0 +1,1 @@
+__disc("api/case/O2025-08-08-0d48",{"id":"O2025-08-08-0d48","event":"O2025-08-08-0d48","date":"2025-08-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Tata Consultancy Services","deployer"]]});

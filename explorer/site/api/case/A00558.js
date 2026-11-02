@@ -1,0 +1,1 @@
+__disc("api/case/A00558",{"id":"A00558","event":"A00558","date":"2020-08-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["NYPD","deployer"]]});

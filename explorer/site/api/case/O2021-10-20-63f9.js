@@ -1,0 +1,1 @@
+__disc("api/case/O2021-10-20-63f9",{"id":"O2021-10-20-63f9","event":"O2021-10-20-63f9","date":"2021-10-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Chivo S.A. de C.V.","deployer"],["Chivo S.A. de C.V.","developer"]]});

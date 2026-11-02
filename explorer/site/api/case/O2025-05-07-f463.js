@@ -1,0 +1,1 @@
+__disc("api/case/O2025-05-07-f463",{"id":"O2025-05-07-f463","event":"O2025-05-07-f463","date":"2025-05-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["órgãos públicos de segurança do Brasil; Polícia Militar de Sergipe","deployer"]]});

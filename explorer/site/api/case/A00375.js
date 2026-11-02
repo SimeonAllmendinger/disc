@@ -1,0 +1,1 @@
+__disc("api/case/A00375",{"id":"A00375","event":"A00375","date":"2019-09-29","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Thai government","deployer"],["เป๋าตัง (Pao Tang) app","developer"]]});

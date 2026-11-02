@@ -1,0 +1,1 @@
+__disc("api/case/O2025-10-21-7a9d",{"id":"O2025-10-21-7a9d","event":"O2025-10-21-7a9d","date":"2025-10-21","lanes":[{"cik":1181412,"name":"SPACE EXPLORATION TECHNOLOGIES CORP","regime":"none","processed":true,"roles":["developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[["X Corp. Japan","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2022-04-10-eb21",{"id":"O2022-04-10-eb21","event":"O2022-04-10-eb21","date":"2022-04-10","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["台北市政府","deployer"]]});

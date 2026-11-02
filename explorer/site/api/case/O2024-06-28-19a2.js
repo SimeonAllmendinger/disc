@@ -1,0 +1,1 @@
+__disc("api/case/O2024-06-28-19a2",{"id":"O2024-06-28-19a2","event":"O2024-06-28-19a2","date":"2024-06-28","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["AADE (Independent Authority for Public Revenue)","deployer"],["AADE (Independent Authority for Public Revenue)","developer"]]});

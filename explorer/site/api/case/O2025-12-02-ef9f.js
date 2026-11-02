@@ -1,0 +1,1 @@
+__disc("api/case/O2025-12-02-ef9f",{"id":"O2025-12-02-ef9f","event":"O2025-12-02-ef9f","date":"2025-12-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Copilot de Edge; Aria de Opera","developer"]]});

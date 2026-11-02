@@ -1,0 +1,1 @@
+__disc("api/case/A00768",{"id":"A00768","event":"A00768","date":"2023-03-11","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["Samsung Electronics","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A00918",{"id":"A00918","event":"A00918","date":"2025-02-04","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Ramil Pantawong and Thanawut Kanyaphan (Poipet-based scam gang)","deployer"]]});

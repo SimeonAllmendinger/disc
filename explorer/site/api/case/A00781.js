@@ -1,0 +1,1 @@
+__disc("api/case/A00781",{"id":"A00781","event":"A00781","date":"2024-09-03","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","deployer"],["Clearview AI","developer"]]});

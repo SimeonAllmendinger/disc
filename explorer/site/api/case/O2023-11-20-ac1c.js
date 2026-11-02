@@ -1,0 +1,1 @@
+__disc("api/case/O2023-11-20-ac1c",{"id":"O2023-11-20-ac1c","event":"O2023-11-20-ac1c","date":"2023-11-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["AviaGames","developer"],["AviaGames; Vickie Chen; Ping Wang; Digital Capital Management; Acme Capital","deployer"]]});

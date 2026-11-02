@@ -1,0 +1,1 @@
+__disc("api/case/A00506",{"id":"A00506","event":"A00506","date":"2023-03-29","lanes":[],"has_10q":true,"responses":[{"cik":789019,"name":"MICROSOFT CORP","acc":"0001193125-23-115280","date":"2023-04-25","form":"8-K","responds":false,"quote":null,"basis":null}],"responses_coded":true,"others":[["Eugene Volokh","deployer"],["OpenAI","developer"]]});

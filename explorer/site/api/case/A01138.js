@@ -1,0 +1,1 @@
+__disc("api/case/A01138",{"id":"A01138","event":"A01138","date":"2023-03-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["Rodrigues Blignaut Attorneys","deployer"]]});

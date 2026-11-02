@@ -1,0 +1,1 @@
+__disc("api/case/A00896",{"id":"A00896","event":"A00896","date":"2025-01-13","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["St. Louis County transit police (detective Matthew Shute)","deployer"]]});

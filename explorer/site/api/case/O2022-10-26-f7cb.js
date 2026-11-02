@@ -1,0 +1,1 @@
+__disc("api/case/O2022-10-26-f7cb",{"id":"O2022-10-26-f7cb","event":"O2022-10-26-f7cb","date":"2022-10-26","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Smart Shooter","developer"],["ЗСУ (Armed Forces of Ukraine)","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A00670",{"id":"A00670","event":"A00670","date":"2024-01-23","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["DMK (Dravida Munnetra Kazhagam)","deployer"],["Muonium","developer"]]});

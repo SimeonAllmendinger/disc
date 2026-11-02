@@ -1,0 +1,1 @@
+__disc("api/case/O2025-11-11-a646",{"id":"O2025-11-11-a646","event":"O2025-11-11-a646","date":"2025-11-11","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["チャットＧＰＴ (ChatGPT)","developer"],["埼玉県加須市の無職少年（１６）; [private individual]","deployer"]]});

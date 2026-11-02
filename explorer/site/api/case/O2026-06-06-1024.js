@@ -1,0 +1,1 @@
+__disc("api/case/O2026-06-06-1024",{"id":"O2026-06-06-1024","event":"O2026-06-06-1024","date":"2026-06-06","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Bagy Soluções de Comércio Digital","deployer"]]});

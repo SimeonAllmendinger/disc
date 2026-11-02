@@ -1,0 +1,1 @@
+__disc("api/case/O2025-10-31-06ec",{"id":"O2025-10-31-06ec","event":"O2025-10-31-06ec","date":"2025-10-31","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Character Technologies (Character.AI)","developer"]]});

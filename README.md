@@ -37,9 +37,11 @@ year, described by [`croissant.json`](croissant.json) (Croissant 1.0 with its Re
 | | `revisions` | revised passage: what changed, and how it speaks to each incident |
 | Lookup | `mit_taxonomy` | MIT AI Risk Repository subdomain (24) |
 
-Of the 9,001 incidents, 2,000 are matched (column `matched`): an implicated AI actor files with the
+Of the 9,001 incidents, 1,903 are matched (column `matched`): an implicated AI actor files with the
 SEC, had disclosure in force when the incident started, and filed a periodic report after it. They fall into
-four quadrants: Covered 877, Eventually Disclosed 104, Dropped 7, Missed 1,012. Each incident is
+four quadrants: Covered 845, Eventually Disclosed 99, Dropped 7, Missed 952. An
+incident implicates an SEC registrant only where the coders identify it, or a brand or subsidiary it owned at
+the time, as the provider or deployer (EU AI Act Art. 3(3), 3(4)); a person's private use leaves no deployer. Each incident is
 read at its incident date: its start date (when the harm began) where known, else its record date (when the
 database lists it); `outcomes.disclosure_date` is the date of the filing that decides the outcome.
 
@@ -66,8 +68,8 @@ texts = pd.concat(pd.read_parquet(f) for f in sorted(glob.glob("data/risk_factor
 ## Explorer
 
 `explorer/` browses the release, one dot per incident, all 9,001, in three arrangements: a timeline of
-when the incident started; the four quadrants of the 2,000 matched incidents (risk type disclosed or
-not when the incident started, and in the next periodic report), with the 7,001 unmatched in a band
+when the incident started; the four quadrants of the 1,903 matched incidents (risk type disclosed or
+not when the incident started, and in the next periodic report), with the 7,098 unmatched in a band
 beside them by reason; and the impact layers as waves out from the AI system, sectored
 by risk domain.
 Any label colours the dots. A dot opens the incident: its labels with their quotes, its records and

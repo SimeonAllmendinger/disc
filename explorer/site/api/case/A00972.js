@@ -1,0 +1,1 @@
+__disc("api/case/A00972",{"id":"A00972","event":"A00972","date":"2024-09-25","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Storm-1516 and [private individual]","deployer"]]});

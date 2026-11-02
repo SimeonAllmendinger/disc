@@ -1,0 +1,1 @@
+__disc("api/case/O2020-01-14-1a86",{"id":"O2020-01-14-1a86","event":"O2020-01-14-1a86","date":"2020-01-14","lanes":[{"cik":1820144,"name":"Grindr Inc.","regime":"10-K","processed":true,"roles":["deployer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

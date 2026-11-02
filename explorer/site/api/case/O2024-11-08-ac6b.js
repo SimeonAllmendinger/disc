@@ -1,0 +1,1 @@
+__disc("api/case/O2024-11-08-ac6b",{"id":"O2024-11-08-ac6b","event":"O2024-11-08-ac6b","date":"2024-11-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Luzerner Polizei","deployer"]]});

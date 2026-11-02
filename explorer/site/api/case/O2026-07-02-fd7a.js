@@ -1,0 +1,1 @@
+__disc("api/case/O2026-07-02-fd7a",{"id":"O2026-07-02-fd7a","event":"O2026-07-02-fd7a","date":"2026-07-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["[private individual]; [private individual]娛樂","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/A00011",{"id":"A00011","event":"A00011","date":"2016-05-23","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Broward County","deployer"],["Northpointe","developer"]]});

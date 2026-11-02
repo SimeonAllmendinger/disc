@@ -1,0 +1,1 @@
+__disc("api/case/A00973",{"id":"A00973","event":"A00973","date":"2025-03-05","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Canadian fraud ring of 25 Canadian nationals running Montreal call centers","deployer"]]});

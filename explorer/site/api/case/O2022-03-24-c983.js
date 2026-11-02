@@ -1,0 +1,1 @@
+__disc("api/case/O2022-03-24-c983",{"id":"O2022-03-24-c983","event":"O2022-03-24-c983","date":"2022-03-24","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Israel Defence Forces (IDF)","deployer"]]});

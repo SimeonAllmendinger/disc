@@ -1,0 +1,1 @@
+__disc("api/case/A00368",{"id":"A00368","event":"A00368","date":"2016-06-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Israeli military","deployer"],["Israeli military","developer"]]});

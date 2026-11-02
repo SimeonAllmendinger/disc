@@ -1,0 +1,1 @@
+__disc("api/case/A00747",{"id":"A00747","event":"A00747","date":"2024-07-18","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Spain's Interior Ministry","developer"],["Spanish police","deployer"]]});

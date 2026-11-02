@@ -1,0 +1,1 @@
+__disc("api/case/O2023-02-15-084e",{"id":"O2023-02-15-084e","event":"O2023-02-15-084e","date":"2023-02-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["تشكيل الوارثين (Tashkil al-Waritheen); Iran","deployer"]]});

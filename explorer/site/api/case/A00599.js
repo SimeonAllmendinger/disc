@@ -1,0 +1,1 @@
+__disc("api/case/A00599",{"id":"A00599","event":"A00599","date":"2023-11-08","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Donggoseong Export Agricultural Complex","deployer"]]});

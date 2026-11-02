@@ -1,1 +1,1 @@
-__disc("api/case/A00547",{"id":"A00547","event":"A00547","date":"2023-06-05","lanes":[{"cik":1181412,"name":"SPACE EXPLORATION TECHNOLOGIES CORP","regime":"none","processed":true,"roles":["deployer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});
+__disc("api/case/A00547",{"id":"A00547","event":"A00547","date":"2023-06-05","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Ron DeSantis presidential campaign (DeSantis War Room)","deployer"]]});
