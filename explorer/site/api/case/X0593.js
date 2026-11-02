@@ -1,0 +1,1 @@
+__disc("api/case/X0593",{"id":"X0593","event":"X0593","date":"2021-04-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["National Health Authority","deployer"],["Unique Identification Authority of India","developer"]]});

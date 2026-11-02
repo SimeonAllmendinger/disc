@@ -1,0 +1,1 @@
+__disc("api/case/X1951",{"id":"X1951","event":"X1951","date":"2025-04-01","lanes":[{"cik":1181412,"name":"SPACE EXPLORATION TECHNOLOGIES CORP","regime":"none","processed":true,"roles":["developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[["the paper's co-authors, including Willie Soon","deployer"]]});

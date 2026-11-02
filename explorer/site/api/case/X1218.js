@@ -1,0 +1,1 @@
+__disc("api/case/X1218",{"id":"X1218","event":"X1218","date":"2023-11-13","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["ChatGPT","developer"],["Judge Jefferson Rodrigues","deployer"]]});

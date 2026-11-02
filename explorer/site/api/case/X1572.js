@@ -1,0 +1,1 @@
+__disc("api/case/X1572",{"id":"X1572","event":"X1572","date":"2019-06-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Oxford University's Visual Geometry Group","deployer"],["Oxford University's Visual Geometry Group","developer"]]});

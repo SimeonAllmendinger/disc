@@ -1,0 +1,1 @@
+__disc("api/case/X1296",{"id":"X1296","event":"X1296","date":"2024-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Chattr","developer"],["Chick-fil-A and Subway franchise locations","deployer"]]});

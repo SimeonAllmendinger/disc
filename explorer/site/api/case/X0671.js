@@ -1,0 +1,1 @@
+__disc("api/case/X0671",{"id":"X0671","event":"X0671","date":"2021-07-06","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Tencent","developer"],["Tencent Games","deployer"]]});

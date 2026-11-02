@@ -1,0 +1,1 @@
+__disc("api/case/X1848",{"id":"X1848","event":"X1848","date":"2024-12-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Character.AI","deployer"],["Character.AI","developer"]]});

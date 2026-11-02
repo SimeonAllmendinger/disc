@@ -1,0 +1,1 @@
+__disc("api/case/X0272",{"id":"X0272","event":"X0272","date":"2018-09-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Hanwang Education","developer"],["Niulanshan First Secondary School","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/X1569",{"id":"X1569","event":"X1569","date":"2024-07-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Stability AI and Midjourney","deployer"],["Stability AI and Midjourney","developer"]]});

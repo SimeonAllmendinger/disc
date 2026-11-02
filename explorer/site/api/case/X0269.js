@@ -1,0 +1,1 @@
+__disc("api/case/X0269",{"id":"X0269","event":"X0269","date":"2020-08-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["AMS","deployer"],["Austria's Public Employment Service","developer"]]});

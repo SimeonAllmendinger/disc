@@ -1,0 +1,1 @@
+__disc("api/case/X1534",{"id":"X1534","event":"X1534","date":"2021-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["BiDAlab (DiveFace authors Morales, Fierrez, Vera-Rodriguez, Tolosana)","developer"]]});

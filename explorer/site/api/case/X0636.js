@@ -1,0 +1,1 @@
+__disc("api/case/X0636",{"id":"X0636","event":"X0636","date":"2021-05-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Georgetown University's Center for Security and Emerging Technology (CSET)","deployer"],["OpenAI","developer"]]});

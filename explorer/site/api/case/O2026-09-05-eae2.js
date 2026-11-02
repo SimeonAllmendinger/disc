@@ -1,0 +1,1 @@
+__disc("api/case/O2026-09-05-eae2",{"id":"O2026-09-05-eae2","event":"O2026-09-05-eae2","date":"2026-09-05","lanes":[{"cik":789019,"name":"MICROSOFT CORP","regime":"10-K","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

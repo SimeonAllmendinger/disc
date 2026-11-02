@@ -1,0 +1,1 @@
+__disc("api/case/O2026-08-27-80ed",{"id":"O2026-08-27-80ed","event":"O2026-08-27-80ed","date":"2026-08-27","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Chandler Police Department; Apache Junction Police Department; Goodyear Police Department; Surprise Police Department","deployer"],["Flock Safety","developer"]]});

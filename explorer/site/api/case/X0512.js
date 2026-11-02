@@ -1,0 +1,1 @@
+__disc("api/case/X0512",{"id":"X0512","event":"X0512","date":"2019-12-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["[private individual]","deployer"]]});

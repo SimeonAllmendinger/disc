@@ -1,0 +1,1 @@
+__disc("api/case/X1798",{"id":"X1798","event":"X1798","date":"2024-11-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["ChatGPT","developer"],["MySpiritHalloween.com","deployer"]]});

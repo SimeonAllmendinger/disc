@@ -1,0 +1,1 @@
+__disc("api/case/X1203",{"id":"X1203","event":"X1203","date":"2023-11-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Johns Hopkins University and Duke University researchers","deployer"],["OpenAI; Stability AI","developer"]]});

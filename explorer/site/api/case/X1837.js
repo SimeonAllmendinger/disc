@@ -1,0 +1,1 @@
+__disc("api/case/X1837",{"id":"X1837","event":"X1837","date":"2024-12-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["Tow Center","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2026-08-12-da71",{"id":"O2026-08-12-da71","event":"O2026-08-12-da71","date":"2026-08-12","lanes":[{"cik":1326801,"name":"Meta Platforms, Inc.","regime":"10-K","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

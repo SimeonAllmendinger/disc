@@ -1,0 +1,1 @@
+__disc("api/case/X2252",{"id":"X2252","event":"X2252","date":"2025-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Celepar and Valid","developer"],["State of Paraná (Paraná education secretariat)","deployer"]]});

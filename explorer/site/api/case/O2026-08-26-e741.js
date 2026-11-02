@@ -1,0 +1,1 @@
+__disc("api/case/O2026-08-26-e741",{"id":"O2026-08-26-e741","event":"O2026-08-26-e741","date":"2026-08-26","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Agency for Defense Development","developer"],["Republic of Korea Navy; Agency for Defense Development","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/X0307",{"id":"X0307","event":"X0307","date":"2021-02-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["Swedish Police Authority","deployer"]]});

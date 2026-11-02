@@ -1,0 +1,1 @@
+__disc("api/case/X0601",{"id":"X0601","event":"X0601","date":"2021-04-22","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Vovan and Lexus (Vladimir Kuznetsov and Alexei Stolyarov)","deployer"]]});

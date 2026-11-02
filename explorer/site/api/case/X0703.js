@@ -1,0 +1,1 @@
+__disc("api/case/X0703",{"id":"X0703","event":"X0703","date":"2020-08-03","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Huawei","developer"],["Serbian Ministry of Interior","deployer"]]});

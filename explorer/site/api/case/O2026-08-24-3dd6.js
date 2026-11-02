@@ -1,0 +1,1 @@
+__disc("api/case/O2026-08-24-3dd6",{"id":"O2026-08-24-3dd6","event":"O2026-08-24-3dd6","date":"2026-08-24","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Channel 3 (Iranian state television)","deployer"]]});

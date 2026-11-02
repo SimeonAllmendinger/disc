@@ -1,0 +1,1 @@
+__disc("api/case/X0850",{"id":"X0850","event":"X0850","date":"2022-03-13","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["Ukraine's Ministry of Defense","deployer"]]});

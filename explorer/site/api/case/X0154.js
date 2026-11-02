@@ -1,0 +1,1 @@
+__disc("api/case/X0154",{"id":"X0154","event":"X0154","date":"2018-04-01","lanes":[{"cik":1828972,"name":"BuzzFeed, Inc.","regime":"10-K","processed":true,"roles":["deployer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[["FakeApp","developer"]]});

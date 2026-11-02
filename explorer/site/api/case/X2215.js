@@ -1,0 +1,1 @@
+__disc("api/case/X2215",{"id":"X2215","event":"X2215","date":"2025-11-24","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["TIDC Worldverse","deployer"],["Tools for Humanity","developer"]]});

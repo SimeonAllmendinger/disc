@@ -1,0 +1,1 @@
+__disc("api/case/X0339",{"id":"X0339","event":"X0339","date":"2019-04-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Polish government (Ministry of Labour)","developer"],["Publiczne Służby Zatrudnienia (PSZ)","deployer"]]});

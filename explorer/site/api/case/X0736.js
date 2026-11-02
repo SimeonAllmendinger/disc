@@ -1,0 +1,1 @@
+__disc("api/case/X0736",{"id":"X0736","event":"X0736","date":"2021-09-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Genvis","developer"],["New South Wales and Victoria (state police and health departments)","deployer"]]});

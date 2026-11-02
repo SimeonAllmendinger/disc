@@ -1,0 +1,1 @@
+__disc("api/case/O2026-09-02-e1ac",{"id":"O2026-09-02-e1ac","event":"O2026-09-02-e1ac","date":"2026-09-02","lanes":[{"cik":1652044,"name":"Alphabet Inc.","regime":"10-K","processed":true,"roles":["developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

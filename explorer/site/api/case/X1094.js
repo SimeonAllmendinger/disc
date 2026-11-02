@@ -1,0 +1,1 @@
+__disc("api/case/X1094",{"id":"X1094","event":"X1094","date":"2023-08-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Kahsay Tadesse Mawcha (Aksum University)","deployer"],["OpenAI","developer"]]});

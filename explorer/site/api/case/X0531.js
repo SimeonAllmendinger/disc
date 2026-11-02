@@ -1,0 +1,1 @@
+__disc("api/case/X0531",{"id":"X0531","event":"X0531","date":"2022-11-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Israeli military","deployer"],["Smart Shooter","developer"]]});

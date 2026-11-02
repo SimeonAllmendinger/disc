@@ -1,0 +1,1 @@
+__disc("api/case/O2026-08-19-c6b2",{"id":"O2026-08-19-c6b2","event":"O2026-08-19-c6b2","date":"2026-08-19","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["gouvernement Milei; ville de Buenos Aires","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/X0562",{"id":"X0562","event":"X0562","date":"2021-03-18","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Huawei","developer"],["Naypyitaw police (under the Naypyitaw Council)","deployer"]]});

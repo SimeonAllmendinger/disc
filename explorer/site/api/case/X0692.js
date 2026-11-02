@@ -1,0 +1,1 @@
+__disc("api/case/X0692",{"id":"X0692","event":"X0692","date":"2020-07-02","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["AnyVision (since renamed Oosto)","developer"],["Mercadona","deployer"]]});

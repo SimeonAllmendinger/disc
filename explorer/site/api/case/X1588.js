@@ -1,0 +1,1 @@
+__disc("api/case/X1588",{"id":"X1588","event":"X1588","date":"2024-07-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["Tony Blair Institute for Global Change","deployer"]]});

@@ -1,0 +1,1 @@
+__disc("api/case/O2026-08-07-2527",{"id":"O2026-08-07-2527","event":"O2026-08-07-2527","date":"2026-08-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["R.T.I. Spa (Striscia la Notizia)","deployer"]]});

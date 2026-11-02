@@ -1,0 +1,1 @@
+__disc("api/case/X1481",{"id":"X1481","event":"X1481","date":"2024-03-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Thai government","developer"],["Thai government (state welfare card scheme)","deployer"]]});

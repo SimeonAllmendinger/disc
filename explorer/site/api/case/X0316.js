@@ -1,0 +1,1 @@
+__disc("api/case/X0316",{"id":"X0316","event":"X0316","date":"2021-06-21","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Epic Systems","developer"],["Michigan Medicine","deployer"]]});

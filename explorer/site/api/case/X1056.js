@@ -1,0 +1,1 @@
+__disc("api/case/X1056",{"id":"X1056","event":"X1056","date":"2023-07-04","lanes":[],"has_10q":true,"responses":[{"cik":1326801,"name":"Meta Platforms, Inc.","acc":"0001326801-23-000089","date":"2023-07-26","form":"8-K","responds":false,"quote":null,"basis":null}],"responses_coded":true,"others":[]});

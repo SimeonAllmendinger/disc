@@ -1,0 +1,1 @@
+__disc("api/case/X1820",{"id":"X1820","event":"X1820","date":"2024-11-12","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Arbejdsmarkedets Tillægspension (ATP)","developer"],["Udbetaling Danmark (UDK)","deployer"]]});

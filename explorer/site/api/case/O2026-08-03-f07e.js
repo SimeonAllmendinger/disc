@@ -1,0 +1,1 @@
+__disc("api/case/O2026-08-03-f07e",{"id":"O2026-08-03-f07e","event":"O2026-08-03-f07e","date":"2026-08-03","lanes":[{"cik":320193,"name":"Apple Inc.","regime":"10-K","processed":true,"roles":["deployer","developer"],"dropped":null}],"has_10q":true,"responses":[],"responses_coded":false,"others":[]});

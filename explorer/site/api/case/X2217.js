@@ -1,0 +1,1 @@
+__disc("api/case/X2217",{"id":"X2217","event":"X2217","date":"2025-01-01","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Government of Albania (Council of Ministers, PM Edi Rama)","deployer"],["National Agency for Information Society (AKSHI)","developer"]]});

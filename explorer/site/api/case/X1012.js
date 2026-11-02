@@ -1,0 +1,1 @@
+__disc("api/case/X1012",{"id":"X1012","event":"X1012","date":"2023-04-20","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["AxxonSoft and FaceFirst","developer"],["Canadian Tire","deployer"]]});

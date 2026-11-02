@@ -1,0 +1,1 @@
+__disc("api/case/X0769",{"id":"X0769","event":"X0769","date":"2021-10-17","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["CRB Cunninghams","developer"],["North Ayrshire Council","deployer"]]});

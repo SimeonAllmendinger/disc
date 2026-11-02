@@ -1,0 +1,1 @@
+__disc("api/case/X0483",{"id":"X0483","event":"X0483","date":"2020-04-15","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["Clearview AI","developer"],["United Federation of Teachers and Rudin Management","deployer"]]});

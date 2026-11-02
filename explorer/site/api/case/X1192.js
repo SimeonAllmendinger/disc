@@ -1,0 +1,1 @@
+__disc("api/case/X1192",{"id":"X1192","event":"X1192","date":"2023-08-07","lanes":[],"has_10q":true,"responses":[],"responses_coded":false,"others":[["OpenAI","developer"],["Purdue University researchers","deployer"]]});
