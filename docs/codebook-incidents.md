@@ -435,8 +435,9 @@ prompted:
 2. The **incident date** is the start date where known (a month on its first day, a year on 1
    January), else the record date. Where a start date falls after a precise record date, the sources
    are checked and the more reliable date kept.
-3. An **implicated AI actor** is a deployer or provider that files with the SEC, named by the coders
-   or by a database; upstream providers are not implicated. `answers_for` states who answers for the
+3. An **implicated AI actor** is a deployer or provider that files with the SEC, as the coders identify
+   it, or a brand or subsidiary it owned on the incident date. The databases' own fields do not link a
+   registrant, and upstream providers are not implicated. `answers_for` states who answers for the
    incident: an SEC registrant, a private AI company, another company, a public body, a person, or
    no AI actor named.
 4. The paper groups risk types without further coding: system failures (2.2, 3.1, 7.3), social

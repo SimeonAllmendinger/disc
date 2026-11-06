@@ -6,7 +6,7 @@ implicate. It shows, incident by incident, whether the incident's risk type had 
 before the incident started, and what the next report did about it: reported it, revised or retained the
 risk, added it, removed it, or stayed silent.
 
-Version 0.1.0, draft, not yet published. Built 16 October 2026.
+Version 0.2.0, draft.
 
 ## What is in it
 
@@ -67,7 +67,11 @@ texts = pd.concat(pd.read_parquet(f) for f in sorted(glob.glob("data/risk_factor
 
 ## Explorer
 
-`explorer/` browses the release, one dot per incident, all 9,001, in three arrangements: a timeline of
+`explorer/` opens on the Findings panel: the study's five most crucial findings, with charts that lead to the
+incidents. Every number on it is recomputed from the tables (`python explorer/findings.py` also compares them with
+the paper).
+
+Its Explore panel browses the release, one dot per incident, all 9,001, in three arrangements: a timeline of
 when the incident started; the four quadrants of the 1,901 matched incidents (risk type disclosed or
 not when the incident started, and in the next periodic report), with the 7,100 unmatched in a band
 beside them by reason; and the impact layers as waves out from the AI system, sectored
@@ -75,8 +79,8 @@ by risk domain.
 Any label colours the dots. A dot opens the incident: its labels with their quotes, its records and
 every article the databases link, and its AI actors' disclosure over time, including a word-level
 comparison of any two filings (their risk factors, or a current report's AI excerpt) and the edits of
-each revised passage against the one it replaces. Its Download panel offers the tables, the filing
-texts by year, the docs and the codebooks.
+each revised passage against the one it replaces. Its Documentation panel shows the documentation and
+the codebooks.
 
 ```bash
 pip install pandas pyarrow
@@ -86,8 +90,8 @@ python explorer/serve.py          # http://localhost:8765, reading data/
 At first start it copies the risk-factor sections into a local index (`explorer/.cache/`, a few
 minutes); comparisons are available once that is done.
 
-`docs/explorer/` is the same explorer as static files, for hosting without a server; its Download
-panel links the files in `data/` and `docs/`. To rebuild and try it:
+`docs/explorer/` is the same explorer as static files, for hosting without a server. To rebuild and
+try it:
 
 ```bash
 python explorer/export.py --out docs/explorer --repo-path docs/explorer
@@ -108,9 +112,8 @@ The page compares the two filings in the browser, from texts it loads on demand.
   incident date (previously disclosed) and at the next report (disclosed at the next filing).
 
 Reliability, limitations, biases and intended uses are in `croissant.json`'s `rai:` fields, written
-from [`metadata.json`](metadata.json). In short: incidents are a lower bound of AI harm; annual-report
-and 10-Q passages are coded by one coder; each incident carries one risk type; nothing here is a
-finding that any filing is misleading.
+from [`metadata.json`](metadata.json). In short: incidents are a lower bound of AI harm; each incident
+carries one risk type; nothing here is a finding that any filing is misleading.
 
 ## Licence and attribution
 
@@ -139,6 +142,5 @@ To follow with the DOI.
 
 ## Repository
 
-This repository holds the release: the documentation, `croissant.json`, `metadata.json` and the
-explorer. The tables in `data/` are built by `src/disc.py` in the research repository and published
-with each release, not kept in git.
+This repository holds the release: the tables in `data/`, the documentation, `croissant.json`,
+`metadata.json` and the explorer. The tables are built by `src/disc.py` in the research repository.

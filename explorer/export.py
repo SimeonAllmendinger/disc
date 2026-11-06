@@ -1,9 +1,9 @@
 """The explorer as a static site, for hosting without a server: Anonymous GitHub, GitHub Pages, any host.
 
-    python explorer/export.py                              # -> explorer/site/, the downloads copied into files/
+    python explorer/export.py                              # -> explorer/site/, the documents copied into files/
     python explorer/export.py --out docs/explorer --repo-path docs/explorer
                                                            # the site inside the release repository: the
-                                                           # downloads are the repository's data/, docs/, LICENSE
+                                                           # documents are the repository's docs/, LICENSE
 
 Writes what serve.py's routes answer as scripts that hand their data to the page (`__disc(key, data)`): a
 page sandboxed without an origin of its own, as Anonymous GitHub's /w/ view serves it, may load scripts
@@ -16,16 +16,19 @@ loads their files beside the case rather than after it.
     static/                           the scripts the page loads, and the licences of scripts and fonts;
                                       static/fonts.js the fonts, base64-encoded (serve.font_faces)
     api/data.js, api/codes.js         as /api/data and /api/codes
+    api/findings.js                   the Findings panel, as /api/findings; the export stops if its numbers
+                                      part from the paper's or its text breaks the terminology (findings.check,
+                                      findings.terminology)
     api/incident/<id>.js              as /api/incident/<id>
     api/case/<id>.js                  as /api/case/<id>, each AI actor reduced to its cik and roles
     api/actor/<cik>.js                an AI actor's filings, coded passages and current reports, which
                                       every case of that AI actor shares
     texts/<hash>.js                   each distinct text the page can compare, once, gzip-compressed and
                                       base64-encoded: a filing's risk-factor section, or a current report's AI excerpt
-    api/downloads.js                  the Download panel: the tables, the filing texts by year, the
-                                      documentation, LICENSE and the codebooks (with their texts), and the zip
-    files/                            files/disc.zip with the tables and docs; without --repo-path also a copy
-                                      of every file the panel lists. Never croissant.json or metadata.json.
+    api/docs.js                       the Documentation panel: the documentation, LICENSE and the codebooks,
+                                      with their texts
+    files/                            without --repo-path, a copy of every file the panel lists. Never the tables,
+                                      croissant.json or metadata.json.
 
 Serve the folder with any static server (`python -m http.server -d explorer/site`); the release keeps its copy
 in docs/explorer/, which docs/index.html forwards to (GitHub Pages and Anonymous GitHub publish docs/).
@@ -44,6 +47,7 @@ from pathlib import Path
 import pyarrow as pa
 import pyarrow.parquet as pq
 
+import findings
 import serve
 
 MARK = ".disc-explorer-site"                      # a folder export.py may empty and refill
@@ -79,6 +83,12 @@ def _texts(accessions: set[str]) -> dict[str, str]:
 
 
 def export(out: Path, repo_path: str | None = None, keep: bool = False) -> None:
+    parted = findings.check()
+    if parted:
+        raise SystemExit("explorer/findings.py: numbers that part from the paper (name, paper, data): " + "; ".join(map(str, parted)))
+    terms = findings.terminology()
+    if terms:
+        raise SystemExit("explorer/findings.py: terms the panel may not use (term, instead, text): " + "; ".join(map(str, terms)))
     if out.exists():
         if not (out / MARK).exists():
             raise SystemExit(f"{out} exists and is not an exported site; choose another --out")
@@ -89,7 +99,7 @@ def export(out: Path, repo_path: str | None = None, keep: bool = False) -> None:
     size = 0
     (out / "index.html").write_text(serve.page(static=True), encoding="utf-8")
     shutil.copytree(serve.STATIC_DIR, out / "static", dirs_exist_ok=True,               # the fonts: static/fonts.js
-                    ignore=lambda d, names: [n for n in names if (Path(d) / n).is_file() and Path(n).suffix not in (".js", ".txt")])
+                    ignore=lambda d, names: [n for n in names if (Path(d) / n).is_file() and Path(n).suffix not in (".js", ".txt", ".webp")])  # and the screenshots of Explore
     size += _dump(out, "static/fonts.json", serve.font_faces(), gz=False)    # woff2 is compressed already
     ids = list(serve._cache()["inc"])
     ciks: set[int] = set()
@@ -130,24 +140,17 @@ def export(out: Path, repo_path: str | None = None, keep: bool = False) -> None:
                    for f in reg["filings"]]
         size += _dump(out, f"api/actor/{cik}.json", {"cik": cik, "name": reg["name"], "regime": reg["regime"],
                                                       "filings": filings, "passages": reg["passages"], "k8": reg["k8"]})
-    dl = serve.downloads()
-    listed = dl["tables"] + dl["sections"] + dl["docs"] + dl["codebooks"]
-    for f in dl["docs"] + dl["codebooks"]:                      # shown in the panel without a fetch
-        f["text"] = (serve.HERE.parent / f["repo"]).read_text(encoding="utf-8")
-    for f in listed:
+    dl = serve.documents()
+    for f in dl["docs"] + dl["codebooks"]:
+        f["text"] = (serve.HERE.parent / f["repo"]).read_text(encoding="utf-8")   # shown in the panel without a fetch
         if repo_path:                                            # the repository's own file, relative to the site
             f["file"] = posixpath.relpath(f["repo"], repo_path)
         else:                                                    # a copy in files/
             (out / f["file"]).parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(serve.download_path(f["file"].removeprefix("files/")), out / f["file"])
+            shutil.copyfile(serve.doc_path(f["file"].removeprefix("files/")), out / f["file"])
             del f["repo"]
-    (out / "files").mkdir(exist_ok=True)
-    with open(out / dl["archive"], "wb") as fh:
-        serve.archive(fh)
-    dl["archive_bytes"] = (out / dl["archive"]).stat().st_size
-    if repo_path:
-        dl["archive_repo"] = posixpath.join(repo_path, dl["archive"])
-    size += _dump(out, "api/downloads.json", dl)
+    size += _dump(out, "api/docs.json", dl)
+    size += _dump(out, "api/findings.json", findings.findings())
     n_files = sum(1 for p in out.rglob("*") if p.is_file())
     print(f"DISC {serve.version()}: {len(ids):,} incidents, {len(ciks)} AI actors, {len(set(name.values())):,} texts "
           f"({len(text):,} filings) -> {out}; data {size / 1e6:.0f} MB, texts {tsize / 1e6:.0f} MB, {n_files:,} files")
@@ -157,7 +160,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--out", type=Path, default=serve.HERE / "site")
     ap.add_argument("--repo-path", help="the site's folder in the release repository (e.g. docs/explorer): the "
-                    "Download panel then links the repository's data/, docs/ and LICENSE instead of copies")
+                    "Documentation panel then links the repository's docs/ and LICENSE instead of copies")
     ap.add_argument("--keep", action="store_true", help="refill the site in place instead of emptying it first: "
                     "texts already written are reused (content-addressed), so a re-export after a data change is fast")
     a = ap.parse_args()

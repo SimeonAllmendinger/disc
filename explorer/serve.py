@@ -1,19 +1,20 @@
 """The DISC explorer: every incident by quadrant, over time and by impact layer, its labels with their
-evidence and sources, and its AI actors' disclosure over time; and the release to download — read from
-the released tables.
+evidence and sources, and its AI actors' disclosure over time; the findings; and the documentation — read
+from the released tables.
 
     python explorer/serve.py              # http://localhost:8765, reading data/
     python explorer/serve.py --port 9000
 
-Serves explorer/index.html, six JSON routes and the downloads:
+Serves explorer/index.html, seven JSON routes and the documents:
 
     /api/data            one row per incident, the MIT names, what each AI actor disclosed after each report
     /api/codes           the incidents' labels and when the harm began
     /api/incident/<id>   one incident: its labels with their quotes, the records and every article
     /api/case/<id>       its implicated AI actors' filings, coded passages and current reports over time
     /api/text/<acc>      a filing's risk-factor section, or a current report's AI excerpt
-    /api/downloads       what the Download panel lists
-    /files/<name>        a table, the documentation, the licence or a codebook it lists; /files/disc.zip all
+    /api/findings        the Findings panel: its text and the data of its charts (explorer/findings.py)
+    /api/docs            what the Documentation panel lists
+    /files/<name>        the documentation, the licence or a codebook it lists
 
 Everything comes from the Parquet tables in data/ (docs/documentation.md). The page compares two filings
 itself, from their texts; the texts are copied once into a local SQLite index (explorer/.cache/) so
@@ -38,6 +39,8 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 import pandas as pd
+
+import findings
 
 HERE = Path(__file__).resolve().parent
 DATA = HERE.parent / "data"
@@ -460,61 +463,33 @@ def text(accession: str) -> dict:
         {"index": st, "error": f"no risk-factor text or AI excerpt for {accession}"}
 
 
-# ── downloads ───────────────────────────────────────────────────────────────────────────────────────
+# ── documentation ───────────────────────────────────────────────────────────────────────────────────
 
-DOCS = HERE.parent / "docs"
 DOC_FILES = (("docs/documentation.md", "Documentation"), ("LICENSE", "Licence (CC BY-SA 4.0)"))
 CODEBOOKS = (("docs/codebook-incidents.md", "Incidents"), ("docs/codebook-disclosures.md", "Disclosures"))
 
 
-def downloads() -> dict:
-    """What the Download panel lists: each table (Parquet) with its rows and what one row is (the Files
-    table of docs/documentation.md, in its order), the filing texts by year (not in the zip), the
-    documentation, the licence and the codebooks. `file` is the site's path (files/<name>), `repo` the
-    path in the release repository."""
-    import pyarrow.parquet as pq
-    about = dict(re.findall(r"^\| `(\w+)` \| ([^|`]+?) \|$", (DOCS / "documentation.md").read_text(encoding="utf-8"), re.M))
-    tables = [{"name": p.stem, "file": f"files/{p.name}", "repo": f"data/{p.name}", "bytes": p.stat().st_size,
-               "rows": pq.ParquetFile(p).metadata.num_rows, "about": about.get(p.stem, "")}
-              for p in sorted(DATA.glob("*.parquet")) if not p.stem.startswith(SECTIONS)]
-    order = list(about)
-    tables.sort(key=lambda t: order.index(t["name"]) if t["name"] in order else len(order))
-    sections = [{"name": p.stem, "year": p.stem[-4:], "file": f"files/{p.name}", "repo": f"data/{p.name}",
-                 "bytes": p.stat().st_size, "rows": pq.ParquetFile(p).metadata.num_rows} for p in _sources()]
+def documents() -> dict:
+    """What the Documentation panel lists: the documentation, the licence and the codebooks. `file` is the
+    site's path (files/<name>), `repo` the path in the release repository."""
     doc = lambda rel, title: {"name": Path(rel).name, "title": title, "file": f"files/{Path(rel).name}",   # noqa: E731
-                              "repo": rel, "bytes": (HERE.parent / rel).stat().st_size}
-    return {"version": version(), "archive": f"files/{ARCHIVE}", "tables": tables, "sections": sections,
-            "docs": [doc(r, t) for r, t in DOC_FILES], "codebooks": [doc(r, t) for r, t in CODEBOOKS]}
+                              "repo": rel}
+    return {"version": version(), "docs": [doc(r, t) for r, t in DOC_FILES],
+            "codebooks": [doc(r, t) for r, t in CODEBOOKS]}
 
 
-ARCHIVE = "disc.zip"
 OFFERED_DOCS = {Path(r).name: r for r, _ in DOC_FILES + CODEBOOKS}
 
 
-def archive(fh) -> None:
-    """The dataset as one zip, under disc/: the tables downloads() lists in data/, the licence, and the
-    documentation and codebooks in docs/, as in the release."""
-    import zipfile
-    d = downloads()
-    with zipfile.ZipFile(fh, "w", zipfile.ZIP_STORED) as z:                  # Parquet is compressed already
-        for f in d["tables"]:
-            z.write(download_path(f["file"].removeprefix("files/")), f"disc/data/{f['name']}.parquet")
-        for name, rel in OFFERED_DOCS.items():
-            z.write(HERE.parent / rel, f"disc/{rel}")
-
-
-def download_path(name: str) -> Path | None:
-    """files/<name> -> the file on disk, for the names downloads() lists only."""
-    if name in OFFERED_DOCS:
-        return HERE.parent / OFFERED_DOCS[name]
-    p = DATA / name
-    return p if p.suffix == ".parquet" and p.parent == DATA and p.exists() else None
+def doc_path(name: str) -> Path | None:
+    """files/<name> -> the file on disk, for the names documents() lists only."""
+    return HERE.parent / OFFERED_DOCS[name] if name in OFFERED_DOCS else None
 
 
 # ── the page and its assets ─────────────────────────────────────────────────────────────────────────
 
 STATIC_DIR = HERE / "static"                      # the scripts and fonts the page loads, with their licences
-STATIC_TYPES = {".js": "text/javascript; charset=utf-8", ".woff2": "font/woff2", ".txt": "text/plain; charset=utf-8"}
+STATIC_TYPES = {".js": "text/javascript; charset=utf-8", ".woff2": "font/woff2", ".txt": "text/plain; charset=utf-8", ".webp": "image/webp"}
 CSP_INLINE = "'sha256-INLINE'"
 FONT_URL = re.compile(r"url\(static/fonts/([\w.-]+\.woff2)\)")
 FONT_FACE = re.compile(r"^@font-face \{[^\n]*\}\n", re.M)
@@ -597,17 +572,13 @@ class Handler(BaseHTTPRequestHandler):
         elif path.startswith("/api/incident/"):
             d = detail(path.rsplit("/", 1)[-1])
             self._json(d if d else {"error": "unknown incident"}, 200 if d else 404)
-        elif path == "/api/downloads":
-            self._json(downloads())
-        elif path == f"/files/{ARCHIVE}":
-            if "zip" not in _T:
-                import io
-                archive(buf := io.BytesIO())
-                _T["zip"] = buf.getvalue()
-            self._send(_T["zip"], "application/zip")
-        elif path.startswith("/files/") and (p := download_path(path.removeprefix("/files/"))):
+        elif path == "/api/findings":
+            self._json(findings.findings())
+        elif path == "/api/docs":
+            self._json(documents())
+        elif path.startswith("/files/") and (p := doc_path(path.removeprefix("/files/"))):
             self._send(p.read_bytes(), "text/markdown; charset=utf-8" if p.suffix == ".md"
-                       else "text/plain; charset=utf-8" if p.name == "LICENSE" else "application/octet-stream")
+                       else "text/plain; charset=utf-8")
         else:
             self._send(b"not found", "text/plain", 404)
 
