@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <!-- everything loads from the page's own origin; serve.py page() fills in the inline scripts' hashes -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-3350w0cm8vj+p3YEx5PjTYzmvxxVFAhFbOQwlfT6NTk=' 'sha256-saeRytDhmxsu6Sr8rVhPsrPQEUP0wMElKHOT1MXZcmg='; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-3350w0cm8vj+p3YEx5PjTYzmvxxVFAhFbOQwlfT6NTk=' 'sha256-ljb6qmDLmldQ4gzX6cn/DBIK2vwilRfVV36U/CCvanM='; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -300,6 +300,7 @@ details.cb .md { padding: 0 20px 16px; font-size: 14px; line-height: 1.55; overf
 .f-rail button.on i { width: 10px; height: 10px; background: color-mix(in oklab, var(--ink2) 75%, var(--page)); box-shadow: none; }
 .f-rail button:hover i, .f-rail button:focus-visible i { background: color-mix(in oklab, var(--ink2) 75%, var(--page)); }
 .f-refs { position: absolute; right: 16px; bottom: 14px; z-index: 4; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.f-src-btn { display: none; }
 #findings .f-ref { font-size: 13px; color: color-mix(in oklab, var(--ink2) 70%, var(--page)); text-decoration: none; }
 #findings .f-ref:hover, #findings .f-ref:focus-visible { text-decoration: underline; }
 .f-refs .f-ref-hero { position: absolute; right: 0; bottom: 19px; white-space: nowrap; }   /* level with the scroll-down button: its middle 43px up */
@@ -430,7 +431,15 @@ details.cb .md { padding: 0 20px 16px; font-size: 14px; line-height: 1.55; overf
   #f-story.f-last .f-dots > div { display: none; }
   #findings .f-under { display: none; }
   #findings .f-cap { max-width: none; }
-  .f-refs { right: 16px; bottom: 54px; }
+  /* on a phone the story's sources fold into a button at the bottom right, opened by a tap (user, 18 Nov): the links no longer cover the content */
+  .f-refs { right: 12px; bottom: 12px; max-width: calc(100% - 24px); }
+  .f-refs .f-ref { display: none; }
+  .f-src-btn { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border-radius: 50%; border: 1px solid color-mix(in oklab, var(--ink2) 30%, var(--page)); background: var(--page); color: var(--ink2); cursor: pointer; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; }
+  .f-src-btn svg { width: 16px; height: 16px; }
+  .f-refs.has .f-src-btn { opacity: 1; visibility: visible; }
+  .f-refs.open { z-index: 8; align-items: flex-start; gap: 6px; padding: 12px 14px 10px; border-radius: 12px; background: var(--page); box-shadow: 0 4px 20px rgba(0, 0, 0, .14); }
+  .f-refs.open .f-ref.vis:not(.f-ref-hero) { display: block; line-height: 1.35; }
+  .f-refs.open .f-src-btn { align-self: flex-end; background: var(--ink); color: var(--page); border-color: var(--ink); }
   .f-stage-in.f-nofield .f-dots, .f-stage-in.f-nofield .f-shape { visibility: hidden; }
   .f-board { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
   .f-tl { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -3035,7 +3044,7 @@ function fStory(L, T) {
   const [t1, t2, t3, t4] = T.timeline, A = T.a, B = T.b, C = T.chat;
   const VIS = fVis(T);
   const snaps = VIS.map((_, i) => `<i class="f-snap" style="top:calc(${i ? i + .5 : 0} * ${F_UNIT}cqh)"></i>`).join("");
-  const refs = `<div class="f-refs">${L.fn ? `<a class="f-ref f-ref-hero" href="${esc(L.fn.url)}" target="_blank" rel="noopener"${at(0, 1)}><sup>1</sup> ${esc(L.fn.text)}</a>` : ""}<a class="f-ref" href="${esc(C.url)}" target="_blank" rel="noopener"${at(3, last)}><sup>1</sup> Source: ${esc(C.source)}</a><a class="f-ref f-ref-mit" href="${esc(T.reference.url)}" target="_blank" rel="noopener"${at(4, last)}>${esc(T.reference.text)}</a><a class="f-ref" href="${esc(B.url)}" target="_blank" rel="noopener"${at(7, last)}><sup>2</sup> Source: ${esc(B.source)}</a><span class="f-ref f-asof"${at(last)}>${esc(T.asof)}</span></div>`;
+  const refs = `<div class="f-refs">${L.fn ? `<a class="f-ref f-ref-hero" href="${esc(L.fn.url)}" target="_blank" rel="noopener"${at(0, 1)}><sup>1</sup> ${esc(L.fn.text)}</a>` : ""}<a class="f-ref" href="${esc(C.url)}" target="_blank" rel="noopener"${at(3, last)}><sup>1</sup> Source: ${esc(C.source)}</a><a class="f-ref f-ref-mit" href="${esc(T.reference.url)}" target="_blank" rel="noopener"${at(4, last)}>${esc(T.reference.text)}</a><a class="f-ref" href="${esc(B.url)}" target="_blank" rel="noopener"${at(7, last)}><sup>2</sup> Source: ${esc(B.source)}</a><span class="f-ref f-asof"${at(last)}>${esc(T.asof)}</span><button type="button" class="f-src-btn" aria-label="Sources" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></button></div>`;
   const rail = `<nav class="f-rail" aria-label="Steps of the story">${fStepArrow(-1)}${VIS.map((k, i) => `<button type="button" data-step="${i}" title="${esc(T.steps[k].caption || L.title)}" aria-label="Step ${i + 1} of ${VIS.length}"><i></i></button>`).join("")}${fStepArrow(1)}</nav>`;
   return `<section class="f-scrolly" id="f-story" style="height:calc(100cqh + ${VIS.length} * ${F_UNIT}cqh)">${snaps}<div class="f-stage">${rail}${refs}<div class="f-stage-in" id="f-top">
       <div class="f-left"${at(0, 1)}><h2>${esc(L.title)}</h2><p class="f-big">${L.fn ? esc(L.text).replace(new RegExp(`\\b${L.fn.after}\\b`), `$&<sup class="f-fn">1</sup>`) : esc(L.text)}</p>
@@ -3382,6 +3391,9 @@ function storyStep() {
   s.dataset.step = D.step = step;
   s.classList.toggle("f-last", step >= D.last);
   s.querySelectorAll("[data-in]").forEach(e => e.classList.toggle("vis", +e.dataset.in <= step && (e.dataset.out == null || step < +e.dataset.out)));
+  const refs = s.querySelector(".f-refs");
+  refs.classList.toggle("has", !!refs.querySelector(".f-ref.vis:not(.f-ref-hero)"));
+  refs.classList.remove("open"); refs.querySelector(".f-src-btn").setAttribute("aria-expanded", "false");
   s.querySelectorAll("[data-lit]").forEach(e => e.classList.toggle("lit", +e.dataset.lit <= step));
   fType(step >= 3);
   s.classList.toggle("f-told", step >= 4);
@@ -3549,6 +3561,10 @@ function wireStory() {
   });
   // skipping the story jumps straight to What we found, without playing the steps on the way (user, 6 Nov)
   box.querySelector(".f-skip").addEventListener("click", () => $("#f-found").scrollIntoView({behavior: "instant", block: "start"}));
+  // on a phone, the sources button opens and closes the list of the step's sources; a tap elsewhere closes it
+  const srcs = box.querySelector("#f-story .f-refs"), srcBtn = srcs.querySelector(".f-src-btn");
+  srcBtn.addEventListener("click", e => { e.stopPropagation(); srcBtn.setAttribute("aria-expanded", String(srcs.classList.toggle("open"))); });
+  box.addEventListener("click", e => { if (srcs.classList.contains("open") && !srcs.contains(e.target)) { srcs.classList.remove("open"); srcBtn.setAttribute("aria-expanded", "false"); } });
   let queued = false;
   const found = $("#f-found"), still = matchMedia("(prefers-reduced-motion: reduce)");
   // the findings' chain: where the reader is, and a way to any finding
