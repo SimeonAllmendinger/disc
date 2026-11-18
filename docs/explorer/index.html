@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <!-- everything loads from the page's own origin; serve.py page() fills in the inline scripts' hashes -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-3350w0cm8vj+p3YEx5PjTYzmvxxVFAhFbOQwlfT6NTk=' 'sha256-aqCe/F3GuIUxUUaIUsHzLMQM7wUkp0pqaunsFu1Dr74='; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-3350w0cm8vj+p3YEx5PjTYzmvxxVFAhFbOQwlfT6NTk=' 'sha256-saeRytDhmxsu6Sr8rVhPsrPQEUP0wMElKHOT1MXZcmg='; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -254,7 +254,8 @@ details.cb .md { padding: 0 20px 16px; font-size: 14px; line-height: 1.55; overf
 .f-hero-fn { display: none; }
 @media (max-width: 820px) { #findings .f-hero-fn { display: block; margin: 2px 0 0; font-size: 13px; } #findings .f-hero-fn a { color: color-mix(in oklab, var(--ink2) 70%, var(--page)); text-decoration: none; } .f-refs .f-ref-hero { display: none; } }
 .f-acts { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 20px; }
-.f-skip-slot { display: block; flex: none; }
+.f-skip-slot { display: none; }
+#findings .f-skip.f-away { opacity: 0; visibility: hidden; }
 #findings .f-paper { display: inline-flex; padding: 5px 15px; border: 1px solid var(--ring); border-radius: 999px; font-size: 13px; color: var(--ink); text-decoration: none; }
 #findings .f-paper:hover, #findings .f-paper:focus-visible { background: var(--g2); }
 .f-asof { font-size: 13px; color: color-mix(in oklab, var(--ink2) 70%, var(--page)); }
@@ -262,6 +263,8 @@ details.cb .md { padding: 0 20px 16px; font-size: 14px; line-height: 1.55; overf
 .f-card.f-gem { border-radius: 16px; padding: 14px 16px; font-size: 13px; line-height: 1.45; display: flex; flex-direction: column; gap: 8px; }
 .f-gem-head { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 14.5px; color: var(--ink); }
 .f-gem-star { width: 16px; height: 16px; flex: none; color: var(--ink2); }
+[data-card="b"] .f-gem-head { margin-bottom: 6px; }
+.f-q.f-b-text { display: block; padding: 6px 8px; border-radius: 6px; }
 #f-story.f-alone .f-card.f-gem { grid-column: 1 / 6; justify-self: center; width: min(960px, 100%); padding: 24px 30px; gap: 14px; font-size: clamp(16px, 2.3cqh, 20px); line-height: 1.5; }
 #f-story.f-alone .f-gem-head { font-size: 1.1em; }
 #f-story.f-alone .f-gem-star { width: 22px; height: 22px; }
@@ -289,7 +292,7 @@ details.cb .md { padding: 0 20px 16px; font-size: 14px; line-height: 1.55; overf
 #f-story.f-told .f-type { max-height: 2.9em; -webkit-mask-image: linear-gradient(#000 45%, transparent); mask-image: linear-gradient(#000 45%, transparent); }
 /* where the reader is in the story: a quiet rail of steps on the left; each leads to its step */
 .f-rail { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 5; display: flex; flex-direction: column; gap: 6px; padding: 4px 0; opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; }
-.f-rail::before { content: ""; position: absolute; left: 50%; top: 10px; bottom: 10px; width: 1px; background: color-mix(in oklab, var(--ink2) 25%, var(--page)); }
+.f-rail::before { content: ""; position: absolute; left: 50%; top: 34px; bottom: 34px; width: 1px; background: color-mix(in oklab, var(--ink2) 25%, var(--page)); }
 #f-story.f-on .f-rail { opacity: 1; visibility: visible; }
 .f-rail button { position: relative; width: 18px; height: 18px; border: 0; padding: 0; background: none; cursor: pointer; display: grid; place-items: center; }
 .f-rail i { width: 7px; height: 7px; border-radius: 50%; background: var(--page); box-shadow: 0 0 0 1.5px color-mix(in oklab, var(--ink2) 40%, var(--page)); transition: width .25s, height .25s, background .25s; }
@@ -354,7 +357,7 @@ details.cb .md { padding: 0 20px 16px; font-size: 14px; line-height: 1.55; overf
 .f-sec-pile > i:nth-child(3) { transform: rotate(-1.6deg) translate(3px, 11px); }
 .f-sec-pile > i:nth-child(4) { transform: rotate(1.1deg) translate(-3px, 4px); }
 .f-sec-pile > i:nth-child(5) { transform: rotate(-.5deg) translate(1px, 2px); }
-.f-sec-paper { position: relative; background: #fff; color: #000; border: 1px solid #aeb4bb; box-shadow: 0 2px 6px rgb(0 0 0 / .12); font-family: "Times New Roman", Times, serif; font-size: 15.5px; line-height: 1.32; }
+.f-sec-paper { position: relative; background: #fff; color: #000; border: 1px solid #aeb4bb; box-shadow: 0 2px 6px rgb(0 0 0 / .12); font-family: var(--sans); font-size: 14px; line-height: 1.38; }
 #findings .f-sec-bar { display: block; padding: 4px 10px; background: #fff; color: #7a7f86; border-bottom: 1px solid #e3e6e9; font-family: "IBM Plex Sans", sans-serif; font-size: 13px; line-height: 1.4; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: auto; }
 #findings .f-sec-bar:hover, #findings .f-sec-bar:focus-visible { text-decoration: underline; }
 .f-sec-page { padding: 10px 14px 12px; }
@@ -461,15 +464,19 @@ details.cb .md { padding: 0 20px 16px; font-size: 14px; line-height: 1.55; overf
 #findings .f-df-start { margin: 0 0 6px; color: var(--ink2); }
 .f-dotflow canvas { display: block; }
 .f-sp-big { position: relative; height: 0; }
-.f-split .f-sp-big { height: clamp(26px, min(2.6vw, 5cqh), 34px); opacity: 0; transition: opacity .5s; }
+.f-split .f-sp-big { opacity: 0; transition: opacity .5s; }
 .f-split.done .f-sp-big { opacity: 1; }
-.f-sp-big b { position: absolute; bottom: 4px; font-size: clamp(20px, min(2.2vw, 4.4cqh), 28px); line-height: 1.1; font-variant-numeric: tabular-nums; }
-.f-sp-leg { margin-top: 10px; }
-@media (max-width: 820px) { .f-split .f-sp-big { height: 22px; } .f-sp-big b { font-size: 15px; } }
-.f-df-labs { display: flex; justify-content: space-between; gap: 16px; margin-top: 8px; opacity: 0; transition: opacity .5s; }
+#findings .f-sp-lab { position: absolute; bottom: 4px; display: flex; align-items: baseline; gap: 8px; white-space: nowrap; color: var(--ink); text-decoration: none; }
+#findings .f-sp-lab.stack { flex-direction: column-reverse; align-items: flex-start; gap: 2px; white-space: normal; }
+#findings .f-sp-lab.stack.end { align-items: flex-end; text-align: right; }
+.f-sp-lab b { font-size: clamp(20px, min(2.2vw, 4.4cqh), 28px); line-height: 1.1; font-variant-numeric: tabular-nums; }
+#findings .f-sp-lab:hover span, #findings .f-sp-lab:focus-visible span { text-decoration: underline; }
+@media (max-width: 820px) { .f-sp-lab b { font-size: 17px; } #findings .f-df-lab span, .f-sp-lab span { font-size: 13px; } }
+.f-df-labs { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 8px; opacity: 0; transition: opacity .5s; }   /* above the dots (user, 17 Nov) */
 .f-dotflow.done .f-df-labs { opacity: 1; }
-#findings .f-df-lab { display: flex; flex-direction: column; text-decoration: none; color: var(--ink2); max-width: 48%; }
-#findings .f-df-lab.UA { text-align: right; align-items: flex-end; }
+#findings .f-df-lab { display: flex; align-items: baseline; gap: 4px 8px; flex-wrap: wrap; text-decoration: none; color: var(--ink); max-width: 60%; }
+#findings .f-df-lab.UA { text-align: right; justify-content: flex-end; max-width: 38%; }
+#findings .f-df-lab span, .f-sp-lab span { font-size: 15px; line-height: 1.25; }
 .f-df-lab b { font-size: clamp(20px, min(2.2vw, 4.4cqh), 28px); line-height: 1.1; color: var(--ink); font-variant-numeric: tabular-nums; }
 .f-df-lab span { display: inline-flex; align-items: center; gap: 6px; }
 .f-df-lab span i { width: 10px; height: 10px; border-radius: 50%; flex: none; }
@@ -487,7 +494,7 @@ details.cb .md { padding: 0 20px 16px; font-size: 14px; line-height: 1.55; overf
 #f-story.f-gone #f-dots, #f-story.f-gone .f-shape { visibility: hidden; }
 .f-found-t { position: relative; z-index: 1; }
 .f-chain { position: fixed; z-index: 5; transform: translateY(-50%); opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; display: flex; flex-direction: column; gap: 6px; padding: 4px 0; }
-.f-chain::before { content: ""; position: absolute; left: 50%; top: 10px; bottom: 10px; width: 1px; background: color-mix(in oklab, var(--ink2) 25%, var(--page)); }
+.f-chain::before { content: ""; position: absolute; left: 50%; top: 34px; bottom: 34px; width: 1px; background: color-mix(in oklab, var(--ink2) 25%, var(--page)); }
 .f-chain button { position: relative; width: 18px; height: 18px; border: 0; padding: 0; background: none; cursor: pointer; display: grid; place-items: center; }
 .f-chain i { width: 7px; height: 7px; border-radius: 50%; background: var(--page); box-shadow: 0 0 0 1.5px color-mix(in oklab, var(--ink2) 40%, var(--page)); transition: width .25s, height .25s, background .25s; }
 .f-chain button.past i { background: color-mix(in oklab, var(--ink2) 40%, var(--page)); }
@@ -495,6 +502,11 @@ details.cb .md { padding: 0 20px 16px; font-size: 14px; line-height: 1.55; overf
 .f-chain button:hover i, .f-chain button:focus-visible i { background: color-mix(in oklab, var(--ink2) 75%, var(--page)); }
 @media (min-width: 821px) { .f-item { padding-left: 44px; } }
 .f-chain.shown { opacity: 1; visibility: visible; }
+/* the arrows above and below the steps' dots: one step up or down (user, 18 Nov) */
+#findings .f-step-arrow { color: color-mix(in oklab, var(--ink2) 60%, var(--page)); transition: color .2s, opacity .2s; }
+#findings .f-step-arrow svg { width: 14px; height: 14px; }
+#findings .f-step-arrow:hover, #findings .f-step-arrow:focus-visible { color: var(--ink); }
+#findings .f-step-arrow:disabled { opacity: .3; cursor: default; color: color-mix(in oklab, var(--ink2) 60%, var(--page)); }
 @media (max-width: 820px) { .f-chain-at { display: none; } }
 .f-explore { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 14px; }
 #findings .f-xcard { display: flex; flex-direction: column; gap: 4px; padding-bottom: 14px; border: 1px solid var(--grid); border-radius: 14px; overflow: hidden; background: var(--page); color: var(--ink); text-decoration: none; }
@@ -508,7 +520,7 @@ details.cb .md { padding: 0 20px 16px; font-size: 14px; line-height: 1.55; overf
 #findings .f-cite { max-width: 820px; margin: 12px 0 0; padding-left: 2em; text-indent: -2em; font-size: 15px; line-height: 1.55; color: var(--ink); }   /* a reference-list entry, hanging indent */
 #findings .f-cite a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--ring); text-underline-offset: 2px; word-break: break-all; }
 #findings .f-cite-soon { color: var(--ink2); }
-.f-foot { border-top: 1px solid var(--grid); padding: 22px 0 30px; font-size: 13px; color: var(--ink2); scroll-snap-align: end; }
+.f-foot { border-top: 1px solid var(--grid); padding: 22px 0 30px; font-size: 14.5px; color: var(--ink); scroll-snap-align: end; }
 #findings .f-foot p { max-width: none; margin: 0 0 8px; }
 .f-fig { margin: 16px 0 0; font-size: 13px; }
 .f-seg { display: flex; gap: 2px; margin-bottom: 8px; }
@@ -2996,10 +3008,13 @@ function fCapType(cap) {
   };
   D.capRaf = requestAnimationFrame(tick);
 }
+const fStepArrow = dir => `<button type="button" class="f-step-arrow" data-dir="${dir}" aria-label="${dir < 0 ? "Previous" : "Next"} step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="${dir < 0 ? "m6 15 6-6 6 6" : "m6 9 6 6 6-6"}"/></svg></button>`;
 const fArrow = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m5 12 7 7 7-7"/></svg>`;
 // The opening and the story are one pinned scene. Each element appears at its step (data-in) and leaves at another
 // (data-out) as the reader scrolls: the crowd of dots fades, one blue and one red stay, sit on a timeline and grow into cards.
+const GEM_STAR = `<svg class="f-gem-star" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1c.6 5.8 5.2 10.4 11 11-5.8.6-10.4 5.2-11 11-.6-5.8-5.2-10.4-11-11 5.8-.6 10.4-5.2 11-11z"/></svg>`;
 const F_UNIT = 110;                                     // the scroll of one step, in hundredths of the panel's height
+const fVis = T => T.steps.map((_, i) => i).filter(i => !T.steps[i].skip);   // the steps shown, by their index in the story
 function fStory(L, T) {
   const last = T.steps.length - 1;                       // the crowd comes back at the last step
   const at = (i, o) => ` data-in="${i}"${o != null ? ` data-out="${o}"` : ""}`;
@@ -3018,10 +3033,11 @@ function fStory(L, T) {
   // the filings' dates come on the timeline with their filings, the incidents' with the timeline
   const tick = (x, inn) => `<div class="f-tick" data-k="${x.k}"${inn ? at(inn, last) : ""}><i></i><b>${esc(x.date)}</b><span>${esc(x.label)}</span></div>`;
   const [t1, t2, t3, t4] = T.timeline, A = T.a, B = T.b, C = T.chat;
-  const snaps = T.steps.map((_, i) => `<i class="f-snap" style="top:calc(${i ? i + .5 : 0} * ${F_UNIT}cqh)"></i>`).join("");
-  const refs = `<div class="f-refs">${L.fn ? `<a class="f-ref f-ref-hero" href="${esc(L.fn.url)}" target="_blank" rel="noopener"${at(0, 1)}><sup>1</sup> ${esc(L.fn.text)}</a>` : ""}<a class="f-ref" href="${esc(C.url)}" target="_blank" rel="noopener"${at(3, last)}><sup>2</sup> Source: ${esc(C.source)}</a><a class="f-ref f-ref-mit" href="${esc(T.reference.url)}" target="_blank" rel="noopener"${at(4, last)}><sup>3</sup> ${esc(T.reference.text)}</a><a class="f-ref" href="${esc(B.url)}" target="_blank" rel="noopener"${at(7, last)}><sup>4</sup> Source: ${esc(B.source)}</a><span class="f-ref f-asof"${at(last)}>${esc(T.asof)}</span></div>`;
-  const rail = `<nav class="f-rail" aria-label="Steps of the story">${T.steps.map((x, i) => `<button type="button" data-step="${i}" title="${esc(x.caption || L.title)}" aria-label="Step ${i + 1} of ${T.steps.length}"><i></i></button>`).join("")}</nav>`;
-  return `<section class="f-scrolly" id="f-story" style="height:calc(100cqh + ${T.steps.length} * ${F_UNIT}cqh)">${snaps}<div class="f-stage">${rail}${refs}<div class="f-stage-in" id="f-top">
+  const VIS = fVis(T);
+  const snaps = VIS.map((_, i) => `<i class="f-snap" style="top:calc(${i ? i + .5 : 0} * ${F_UNIT}cqh)"></i>`).join("");
+  const refs = `<div class="f-refs">${L.fn ? `<a class="f-ref f-ref-hero" href="${esc(L.fn.url)}" target="_blank" rel="noopener"${at(0, 1)}><sup>1</sup> ${esc(L.fn.text)}</a>` : ""}<a class="f-ref" href="${esc(C.url)}" target="_blank" rel="noopener"${at(3, last)}><sup>1</sup> Source: ${esc(C.source)}</a><a class="f-ref f-ref-mit" href="${esc(T.reference.url)}" target="_blank" rel="noopener"${at(4, last)}>${esc(T.reference.text)}</a><a class="f-ref" href="${esc(B.url)}" target="_blank" rel="noopener"${at(7, last)}><sup>2</sup> Source: ${esc(B.source)}</a><span class="f-ref f-asof"${at(last)}>${esc(T.asof)}</span></div>`;
+  const rail = `<nav class="f-rail" aria-label="Steps of the story">${fStepArrow(-1)}${VIS.map((k, i) => `<button type="button" data-step="${i}" title="${esc(T.steps[k].caption || L.title)}" aria-label="Step ${i + 1} of ${VIS.length}"><i></i></button>`).join("")}${fStepArrow(1)}</nav>`;
+  return `<section class="f-scrolly" id="f-story" style="height:calc(100cqh + ${VIS.length} * ${F_UNIT}cqh)">${snaps}<div class="f-stage">${rail}${refs}<div class="f-stage-in" id="f-top">
       <div class="f-left"${at(0, 1)}><h2>${esc(L.title)}</h2><p class="f-big">${L.fn ? esc(L.text).replace(new RegExp(`\\b${L.fn.after}\\b`), `$&<sup class="f-fn">1</sup>`) : esc(L.text)}</p>
         <div class="f-acts"><i class="f-skip-slot"></i>${L.paper && L.paper.url && PAGES_REPO && safeUrl(L.paper.url) ? `<a class="f-paper" href="${esc(safeUrl(L.paper.url))}" target="_blank" rel="noopener">${esc(L.paper.label)} ↗</a>` : ""}</div></div>
       <div class="f-dots"><canvas id="f-dots" role="img" aria-label="${esc(`One dot per incident. ${L.groups.map(g => `${g.label}: ${g.n}`).join("; ")}`)}"></canvas><div${at(0, 1)}>${fLegend(L.groups)}${L.fn ? `<p class="f-hero-fn"><a href="${esc(L.fn.url)}" target="_blank" rel="noopener"><sup>1</sup> ${esc(L.fn.text)}</a></p>` : ""}</div></div>
@@ -3036,12 +3052,12 @@ function fStory(L, T) {
         <div class="f-board">
           <div style="grid-column:1;grid-row:1/3;display:contents">${filing(T.before, "before", 5)}</div>
           <div style="grid-column:2;grid-row:1;align-self:center">${link(T.named, 5)}</div><div style="grid-column:2;grid-row:2;align-self:start;margin-top:22px">${link(T.absent, 8, " red")}</div>
-          <article class="f-card f-gem" data-card="a"${at(3, last)}><div class="f-gem-head"><svg class="f-gem-star" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1c.6 5.8 5.2 10.4 11 11-5.8.6-10.4 5.2-11 11-.6-5.8-5.2-10.4-11-11 5.8-.6 10.4-5.2 11-11z"/></svg>Gemini</div>
+          <article class="f-card f-gem" data-card="a"${at(3, last)}><div class="f-gem-head">${GEM_STAR}Gemini</div>
             <div class="f-gem-ask">${esc(C.ask)}</div>
-            <div class="f-gem-reply"><span class="f-type"><span class="f-type-all">${esc(C.reply)}<sup class="f-fn">2</sup></span><span class="f-type-on" aria-hidden="true"></span></span></div>
-            <div class="f-gem-said"${at(4, last)}>“${quote(C.text, 4)}”<sup class="f-fn">2</sup>${risk(A)}</div>
+            <div class="f-gem-reply"><span class="f-type"><span class="f-type-all">${esc(C.reply)}<sup class="f-fn">1</sup></span><span class="f-type-on" aria-hidden="true"></span></span></div>
+            <div class="f-gem-said"${at(4, last)}>“${quote(C.text, 4)}”<sup class="f-fn">1</sup>${risk(A)}</div>
 </article>
-          <article class="f-card" style="grid-column:3;grid-row:2" data-card="b"${at(7, last)}><h4>${fGo(B.hash, "", "", esc(B.title))}</h4><span class="f-q red" data-lit="7">${esc(B.quote)}</span><sup class="f-fn">4</sup>${risk(B, " red")}</article>
+          <article class="f-card" style="grid-column:3;grid-row:2" data-card="b"${at(7, last)}><div class="f-gem-head">${GEM_STAR}Gemini</div><span class="f-q red f-b-text" data-lit="7">${esc(B.quote)}<sup class="f-fn">2</sup></span>${risk(B, " red")}</article>
           <div style="grid-column:4;grid-row:1;align-self:center">${link(T.named, 6)}</div><div style="grid-column:4;grid-row:2;align-self:start;margin-top:22px">${link(T.absent, 8, " red")}</div>
           <div style="grid-column:5;grid-row:1/3;display:contents">${filing(T.after, "after", 6)}</div>
         </div>
@@ -3243,7 +3259,8 @@ function placeSkip(home, step) {
   if (!skip || !slot) return;
   Object.assign(slot.style, {width: `${skip.offsetWidth}px`, height: `${skip.offsetHeight}px`});
   const b = home.getBoundingClientRect(), r = slot.getBoundingClientRect();
-  const at = !step ? {x: r.left - b.left, y: r.top - b.top} : {x: (home.clientWidth - skip.offsetWidth) / 2, y: home.clientHeight - 14 - skip.offsetHeight};
+  const at = {x: (home.clientWidth - skip.offsetWidth) / 2, y: home.clientHeight - 14 - skip.offsetHeight};
+  skip.classList.toggle("f-away", !step);                                // not on the opening (user, 17 Nov)
   Object.assign(skip.style, {left: `${at.x}px`, top: `${at.y}px`, bottom: "auto", transform: "none"});
   if (!skip.classList.contains("moves")) requestAnimationFrame(() => skip.classList.add("moves"));   // placed first, then it moves
 }
@@ -3339,7 +3356,7 @@ function fType(on) {
   if (!out || (on && D.typed)) return;                   // already typing or typed: let it run
   clearInterval(D.typeId); clearTimeout(D.typeWait);
   const card = out.closest(".f-card"), text = $("#f-story .f-type-all").firstChild.textContent;
-  const end = () => { out.innerHTML = `${esc(text)}<sup class="f-fn">2</sup>`; card.classList.add("typed"); };
+  const end = () => { out.innerHTML = `${esc(text)}<sup class="f-fn">1</sup>`; card.classList.add("typed"); };
   if (!on) { out.textContent = ""; D.typed = false; card.classList.remove("typed"); return; }
   D.typed = true;
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return end();
@@ -3349,9 +3366,9 @@ function fType(on) {
 function storyStep() {
   const box = $("#findings"), s = $("#f-story");
   if (!s || box.hidden || !F_DATA || !F_FIELD) return;
-  const steps = F_DATA.story.steps, total = s.offsetHeight - box.clientHeight, unit = total / steps.length;
+  const steps = F_DATA.story.steps, VIS = fVis(F_DATA.story), total = s.offsetHeight - box.clientHeight, unit = total / VIS.length;
   const y = box.getBoundingClientRect().top - s.getBoundingClientRect().top;
-  const step = Math.max(0, Math.min(steps.length - 1, Math.floor(y / unit)));
+  const vi = Math.max(0, Math.min(VIS.length - 1, Math.floor(y / unit))), step = VIS[vi];
   document.body.classList.toggle("f-hero", step === 0);                 // the header waits until the reader leaves the opening (user, 6 Nov)
   const D = F_FIELD, was = D.step, legend = s.querySelector(".f-dots > div");
   // through the opening the crowd thins with the scroll, and the two dots that stay grow
@@ -3374,10 +3391,10 @@ function storyStep() {
   legend.classList.toggle("vis", step === 0);
   if (step >= D.last && was !== undefined && was < D.last) requestAnimationFrame(() => drawYears(true));
   s.classList.toggle("f-on", step >= 1);
-  s.querySelectorAll(".f-rail button").forEach(b => { b.classList.toggle("on", +b.dataset.step === step); b.classList.toggle("past", +b.dataset.step < step); b.setAttribute("aria-current", +b.dataset.step === step ? "step" : "false"); });
+  s.querySelectorAll(".f-rail button[data-step]").forEach(b => { b.classList.toggle("on", +b.dataset.step === vi); b.classList.toggle("past", +b.dataset.step < vi); b.setAttribute("aria-current", +b.dataset.step === vi ? "step" : "false"); });
   clearTimeout(D.settle); D.settle = setTimeout(placeShapes, 700);
   s.querySelectorAll("[data-card]").forEach(e => e.classList.toggle("focus", steps[step].focus.includes(e.dataset.card)));
-  D.cv.style.pointerEvents = step === 0 ? "auto" : "none";
+  D.cv.style.pointerEvents = "none";                                    // the opening's crowd has no hover (user, 17 Nov)
   D.cv.style.cursor = step >= D.last ? "pointer" : "default";
   if (step < D.last) D.skP = null;
   placeShapes();
@@ -3524,7 +3541,7 @@ function wireStory() {
   cv.addEventListener("click", e => { const k = at(e); if (k && F_FIELD.step >= F_FIELD.last) follow(T.sides.find(x => x.k === k).hash); });
   box.querySelector(".f-down").addEventListener("click", () => {
     const s = $("#f-story");
-    box.scrollTo({top: (s.offsetHeight - box.clientHeight) * 1.5 / T.steps.length, behavior: smooth()});
+    box.scrollTo({top: (s.offsetHeight - box.clientHeight) * 1.5 / fVis(T).length, behavior: smooth()});
   });
   box.querySelector(".f-found-down")?.addEventListener("click", () => {
     const first = box.querySelector(".f-item"), panel = box.getBoundingClientRect();
@@ -3535,7 +3552,7 @@ function wireStory() {
   let queued = false;
   const found = $("#f-found"), still = matchMedia("(prefers-reduced-motion: reduce)");
   // the findings' chain: where the reader is, and a way to any finding
-  const chain = [...box.querySelectorAll(".f-chain button")];
+  const chain = [...box.querySelectorAll(".f-chain button[data-to]")];
   const chainEl = box.querySelector(".f-chain");
   const chainStep = () => {
     const panel = box.getBoundingClientRect();
@@ -3552,13 +3569,20 @@ function wireStory() {
   // the push: the browser's own snapping falls back to the same step on a small push and skips steps on a big one.
   // Touch and the keyboard keep the browser's snapping, which stops at every step (scroll-snap-stop: always).
   const stops = () => {
-    const panel = box.getBoundingClientRect(), s = $("#f-story"), n = T.steps.length, unit = (s.offsetHeight - box.clientHeight) / n;
+    const panel = box.getBoundingClientRect(), s = $("#f-story"), n = fVis(T).length, unit = (s.offsetHeight - box.clientHeight) / n;
     const base = box.scrollTop + s.getBoundingClientRect().top - panel.top;
-    return [...T.steps.map((_, i) => base + (i ? (i + .5) * unit : 0)),
+    return [...fVis(T).map((_, i) => base + (i ? (i + .5) * unit : 0)),
             ...[found, ...box.querySelectorAll(".f-item")].map(e => box.scrollTop + e.getBoundingClientRect().top - panel.top),
             box.scrollHeight - box.clientHeight];                                   // the foot of the page
   };
-  box.querySelectorAll(".f-rail button").forEach(b => b.addEventListener("click", () => box.scrollTo({top: stops()[+b.dataset.step], behavior: smooth()})));
+  box.querySelectorAll(".f-rail button[data-step]").forEach(b => b.addEventListener("click", () => box.scrollTo({top: stops()[+b.dataset.step], behavior: smooth()})));
+  // the arrows move one stop up or down, as one push of the wheel does; the down arrow rests at the foot of the page
+  const arrows = [...box.querySelectorAll(".f-step-arrow")];
+  const nextStop = dir => { const y = box.scrollTop, S = stops(); return dir > 0 ? S.find(v => v > y + 2) : [...S].reverse().find(v => v < y - 2); };
+  const arrowState = () => arrows.forEach(b => { b.disabled = nextStop(+b.dataset.dir) == null; });
+  arrows.forEach(b => b.addEventListener("click", () => { const to = nextStop(+b.dataset.dir); if (to != null) box.scrollTo({top: to, behavior: smooth()}); }));
+  box.addEventListener("scroll", () => requestAnimationFrame(arrowState), {passive: true});
+  arrowState();
   let until = 0, lastT = -1e9, lastAbs = 0, lastDir = 0, sum = 0, armed = true, heading = null, headingAt = -1e9, glideId = 0;
   // a quick glide to a stop, the snapping held off on the way so that it does not pull the page back
   const glide = (to, ms) => {
@@ -3605,15 +3629,46 @@ function wireStory() {
   }, {passive: false});
   storyStep();
 }
+// a row's dots as incidents: their ids in the order of the dots, and what each kind of dot means
+const fDotIds = (ids, kinds) => ids ? ` data-ids="${esc(JSON.stringify(ids))}" data-kinds="${esc(JSON.stringify(kinds))}"` : "";
+// the incident under the pointer in a row of dots (layerSlots places them column by column, `lines` to a column)
+function fDotAt(plot, e) {
+  const L = plot.__lay, row = plot.closest("[data-parts]");
+  if (!L || !row) return null;
+  const b = plot.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top;
+  const col = Math.floor(x / L.c), line = Math.round((y - plot.clientHeight / 2) / L.c + (L.lines - 1) / 2);
+  if (col < 0 || line < 0 || line >= L.lines) return null;
+  const j = col * L.lines + line, ids = plot.__ids || (plot.__ids = JSON.parse(plot.dataset.ids));
+  if (j >= ids.length) return null;
+  const parts = JSON.parse(row.dataset.parts), kinds = JSON.parse(plot.dataset.kinds);
+  let k = 0, n = parts[0][2];
+  while (j >= n && k < parts.length - 1) n += parts[++k][2];
+  return {id: ids[j], kind: kinds[k]};
+}
+function fFlowAt(el, e) {
+  const S = F_DOTS.get(el);
+  if (!S || !S.C || S.p < 1) return null;
+  const b = S.cv.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top, row = Math.floor(y / S.cell);
+  if (row < 0 || row >= S.rows || x < 0 || x >= S.W) return null;
+  const pick = (p, x0) => { const j = Math.floor((x - x0) / S.cell) * S.rows + row; return j < p.ids.length ? {id: p.ids[j], kind: [p.label, p.c]} : null; };
+  const P = S.C.parts;
+  if (S.paint === paintSplit) { for (let g = S.K - 1; g >= 0; g--) if (x >= S.x0s[g]) return x < S.ends[g] ? pick(P[g], S.x0s[g]) : null; return null; }
+  return x >= S.rc ? pick(P.find(p => p.k === "UA"), S.rc) : pick(P.find(p => p.k === "UU"), 0);   // those disclosed after at the right, the rest in the crowd
+}
+function fDotTip(hit) {
+  if (!S.rows) return `<div class="t">${esc(hit.id)}</div>`;
+  const titles = fDotTip.m || (fDotTip.m = new Map(S.rows.map(d => [d.id, d.t])));
+  return `<div class="t">${esc(titles.get(hit.id) || hit.id)}</div><div class="r"><span class="key" style="background:var(${hit.kind[1]});border-radius:50%"></span>${esc(hit.kind[0])}</div>`;
+}
 function fRows(C) {
   const share = (C.lines || []).length > 0;                              // finding 1 has dropped its share column (user, 6 Nov)
   const row = r => {
     const def = r.code && SUBDOMAIN_DEF[r.code];
-    const roles = (C.lines || []).filter(l => l.grey && r[l.k] != null).map(l => `<div class="r"><span class="l">${esc(l.label)}</span><span class="n">${pct(r[l.k])} of ${r[`${l.k}_n`]}</span></div>`).join("");
-    const t = fTip(`<div class="t" style="color:var(--quu)">${pct(r.value)}</div><div class="m">${esc(r.label)}: ${esc(r.count)}</div>${roles}${def ? `<div class="m">${esc(def)}</div>` : ""}`);
+    const t = fTip(`<div style="max-width:260px">${esc(def || r.label)}</div><div class="m" style="margin-top:4px"><i>${esc(r.count)} not disclosed</i></div>`);
     // the row's incidents as dots, drawn by the travelling layer: not disclosed first, then disclosed
     const parts = ` data-parts="${esc(JSON.stringify([["out", "--quu", r.m], ["in", "--qaa", r.n - r.m]]))}"`;
-    return fGo(r.hash, (C.sections ? `f-row nc${share ? "" : " ns"}` : "f-row") + (r.alt ? " alt" : ""), t + parts, `<span class="f-lab">${esc(r.label)}</span><span class="f-plot dots" role="img" aria-label="${esc(`${r.count} not disclosed`)}"></span>${C.sections ? (share ? `<span class="f-share" role="img" aria-label="${esc(`${pct(r.value)} not disclosed`)}" data-v="${r.value}"${(C.lines || []).filter(l => l.grey && r[l.k] != null).map(l => ` data-${l.k}="${r[l.k]}" data-${l.k}n="${r[`${l.k}_n`]}"`).join("")}></span>` : "") : `<span class="f-cnt">${esc(r.count)}</span>`}`);   // the share not disclosed, a red mark on a scale from 0% to 100% (user, 6 Nov); the numbers in the tooltip
+    const ids = fDotIds(r.ids, [["Not disclosed in filings", "--quu"], ["Disclosed in filings", "--qaa"]]);
+    return fGo(r.hash, (C.sections ? `f-row nc${share ? "" : " ns"}` : "f-row") + (r.alt ? " alt" : ""), parts, `<span class="f-lab"${t}>${esc(r.label)}</span><span class="f-plot dots"${ids} role="img" aria-label="${esc(`${r.count} not disclosed`)}"></span>${C.sections ? (share ? `<span class="f-share" role="img" aria-label="${esc(`${pct(r.value)} not disclosed`)}" data-v="${r.value}"${(C.lines || []).filter(l => l.grey && r[l.k] != null).map(l => ` data-${l.k}="${r[l.k]}" data-${l.k}n="${r[`${l.k}_n`]}"`).join("")}></span>` : "") : `<span class="f-cnt">${esc(r.count)}</span>`}`);   // the share not disclosed, a red mark on a scale from 0% to 100% (user, 6 Nov); the numbers in the tooltip
   };
   // what the dots are, above them, as in the chart of AI actors
   const lines = (C.lines || []).map(l => ({...l, line: true}));
@@ -3636,12 +3691,13 @@ function fStack(C) {
       `<div class="r"><span class="key" style="background:var(${l.c})"></span><span class="l">${esc(l.label)}</span><span class="n">${fmt(Math.round(r.parts[l.k]))} (${pct(r.parts[l.k] / sum)})</span></div>`).join(""));
     // the AI actor's incidents as dots, drawn by the travelling layer; an incident shared between AI actors is rounded into whole dots
     const parts = ` data-parts="${esc(JSON.stringify(C.legend.map(l => [l.k === "UU" ? "out" : "in", l.c, r.dots[l.k]])))}"`;
-    const body = `<span class="f-lab">${esc(r.label)} <span class="f-n">(${esc(r.n)})</span></span><span class="f-plot dots" role="img" aria-label="${esc(C.legend.map(l => `${l.label}: ${r.dots[l.k]}`).join("; "))}"></span>
+    const ids = fDotIds(r.ids, C.legend.map(l => [{AA: "Disclosed before and after the incident", UA: "Disclosed only after the incident", UU: "Not disclosed in filings"}[l.k], l.c]));
+    const body = `<span class="f-lab"${t}>${esc(r.label)} <span class="f-n">(${esc(r.n)})</span></span><span class="f-plot dots"${ids} role="img" aria-label="${esc(C.legend.map(l => `${l.label}: ${r.dots[l.k]}`).join("; "))}"></span>
 ${share ? `
       <span class="f-share" role="img" aria-label="${esc((C.lines || []).map(l => `${l.label}: ${pct(r.dots[l.k] / (r.dots.AA + r.dots.UA + r.dots.UU))}`).join("; "))}"${(C.lines || []).map(l => ` data-${l.k.toLowerCase()}="${r.parts[l.k] / sum}"`).join("")}></span>` : ""}
 `;
     const cls = share ? "f-row st" : "f-row st ns";                                                // no stripes; the background shows on hover (user, 6 Nov)
-    return r.hash ? fGo(r.hash, cls, t + parts, body) : `<div class="${cls}"${t}${parts}>${body}</div>`;
+    return r.hash ? fGo(r.hash, cls, parts, body) : `<div class="${cls}"${parts}>${body}</div>`;
   };
   const lines = (C.lines || []).map(l => ({...l, line: true}));
   return `${fLegend([...C.legend, ...lines])}${share ? `<div class="f-row st head"><span></span><span></span><span class="f-share-h"><span>0%</span><span>100%</span></span></div>
@@ -3653,10 +3709,9 @@ ${share ? `
 function fDots(C, i) {
   const stay = C.parts.find(p => p.k === "UU"), up = C.parts.find(p => p.k === "UA");
   const lab = p => fGo(p.hash, `f-df-lab ${p.k}`, fTip(`<div class="t">${esc(p.share)}, ${esc(p.n)} of ${esc(C.total)}</div><div class="m">${esc(p.what)}</div>`),
-    `<b>${esc(p.share)}</b><span><i style="background:var(${esc(p.c)})"></i>${esc(p.label)}: ${esc(p.n)}</span>`);
-  return `<div class="f-dotflow" data-dots="${i}"><p class="f-df-start">${esc(C.total)} incidents: ${esc(C.start)}</p>
-    <canvas role="img" aria-label="${esc(`${C.total} incidents: ${C.start}. ${C.parts.map(p => `${p.label}: ${p.n} (${p.share})`).join("; ")}`)}"></canvas>
-    <div class="f-df-labs">${lab(stay)}${lab(up)}</div></div>`;
+    `<b>${esc(p.share)}</b><span>${esc(p.label)}</span>`);
+  return `<div class="f-dotflow" data-dots="${i}"><div class="f-df-labs">${lab(stay)}${lab(up)}</div>
+    <canvas role="img" aria-label="${esc(`${C.total} incidents: ${C.start}. ${C.parts.map(p => `${p.label}: ${p.n} (${p.share})`).join("; ")}`)}"></canvas></div>`;
 }
 const F_DOTS = new Map();                                // the dot charts: their layout and how far they have played
 function drawDots(el, C) {
@@ -3668,7 +3723,7 @@ function drawDots(el, C) {
   cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.width = `${W}px`; cv.style.height = `${H}px`;
   const place = (j, x0) => [x0 + (Math.floor(j / rows) + .5) * cell, (j % rows + .5) * cell];
   const old = F_DOTS.get(el);
-  F_DOTS.set(el, {cv, W, H, dpr, n, m, r: cell * .38, place, rc: W - rc * cell, red: v("--quu"), blue: v(C.parts.find(p => p.k === "UA").c), p: old ? old.p : 0, id: old ? old.id : 0});
+  F_DOTS.set(el, {C, cell, rows, cv, W, H, dpr, n, m, r: cell * .38, place, rc: W - rc * cell, red: v("--quu"), blue: v(C.parts.find(p => p.k === "UA").c), p: old ? old.p : 0, id: old ? old.id : 0});
   paintDots(el);
 }
 function paintDots(el) {
@@ -3701,11 +3756,10 @@ function playDots(el, on) {
 // one dot per incident whose AI risk was disclosed before and after it: all in one crowd at first, then each group moves out to
 // its place and takes its colour, one group after another; the shares above the groups wide enough for them, the legend under
 function fSplit(C, i) {
-  return `<div class="f-dotflow f-split" data-dots="${i}" data-kind="split"><p class="f-df-start">${esc(C.total)} incidents: ${esc(C.start)}</p>
-    <div class="f-sp-big" aria-hidden="true"></div>
-    <canvas role="img" aria-label="${esc(`${C.total} incidents: ${C.start}. ${C.parts.map(p => `${p.label}: ${p.n} (${p.share})`).join("; ")}`)}"></canvas>
-    <div class="f-legend f-sp-leg">${C.parts.map(p => fGo(p.hash, "", fTip(`<div class="t">${esc(p.share)}, ${esc(p.n)} of ${esc(C.total)}</div><div class="m">${esc(p.label)}. ${esc(p.what)}</div>`),
-      `<span><i style="background:var(${esc(p.c)})"></i>${esc(p.label)}: ${esc(p.n)}</span>`)).join("")}</div></div>`;
+  return `<div class="f-dotflow f-split" data-dots="${i}" data-kind="split">
+    <div class="f-sp-big">${C.parts.map(p => fGo(p.hash, "f-sp-lab", fTip(`<div class="t">${esc(p.share)}, ${esc(p.n)} of ${esc(C.total)}</div><div class="m">${esc(p.label)}. ${esc(p.what)}</div>`),
+      `<b>${esc(p.share)}</b><span>${esc(p.label)}</span>`)).join("")}</div>
+    <canvas role="img" aria-label="${esc(`${C.total} incidents: ${C.start}. ${C.parts.map(p => `${p.label}: ${p.n} (${p.share})`).join("; ")}`)}"></canvas></div>`;
 }
 function drawSplit(el, C) {
   const cv = el.querySelector("canvas"), W = Math.max(280, el.clientWidth), panel = $("#findings").clientHeight;
@@ -3721,26 +3775,25 @@ function drawSplit(el, C) {
     const j = dots.length;
     dots.push({g, f: q / m, a: [(Math.floor(j / rows) + .5) * cell, (j % rows + .5) * cell], b: [x0s[g] + (Math.floor(q / rows) + .5) * cell, (q % rows + .5) * cell]});
   } });
-  // the shares, above each group wide enough for its number
-  const big = el.querySelector(".f-sp-big");
-  big.innerHTML = C.parts.map((p, g) => `<b style="left:${x0s[g]}px">${esc(p.share)}</b>`).join("");
-  const bs = [...big.children], ws = bs.map(b => b.offsetWidth), ends = cols.map((c, g) => x0s[g] + c * cell), pad = fNarrow() ? 6 : 10;
-  // one row where every share still stands over its own group, pushed apart just enough; else a share that would touch
-  // the one before it goes up a row, over its group's start (the last one ending with the chart)
-  let xs = [...x0s], row = xs.map(() => 0);
-  for (let g = 1; g < K; g++) xs[g] = Math.max(xs[g], xs[g - 1] + ws[g - 1] + pad);
-  xs[K - 1] = Math.min(xs[K - 1], W - ws[K - 1]);
-  for (let g = K - 2; g >= 0; g--) xs[g] = Math.min(xs[g], xs[g + 1] - pad - ws[g]);
-  if (!xs.every((x, g) => x >= 0 && x < ends[g] && x + ws[g] > x0s[g])) {
-    const right = [-Infinity, -Infinity, -Infinity];
-    xs = x0s.map((x, g) => x + ws[g] > W ? Math.max(0, ends[g] - ws[g]) : x);
-    row = xs.map((x, g) => { const r = Math.max(0, right.findIndex(e => x >= e + pad)); right[r] = x + ws[g]; return r; });
-  }
-  const lh = bs.length ? bs[0].offsetHeight : 0, up = Math.max(...row);
-  big.style.height = up ? `${(up + 1) * lh + 4}px` : "";
-  bs.forEach((b, g) => { b.style.left = `${Math.max(0, xs[g])}px`; b.style.bottom = `${4 + row[g] * lh}px`; });
+  // each share with its label above its group; where the next group leaves no room, the label goes over the share, wrapped
+  const big = el.querySelector(".f-sp-big"), labs = [...big.querySelectorAll(".f-sp-lab")], pad = fNarrow() ? 6 : 12;
+  const placed = [];
+  labs.forEach((b, g) => {
+    b.classList.remove("stack", "end"); b.style.width = "";
+    const room = (g < K - 1 ? x0s[g + 1] : W) - x0s[g] - pad;
+    // a width, not a limit: at the edge the box would shrink; narrow, in more lines, so that the labels need fewer tiers (user, 18 Nov)
+    if (b.offsetWidth > room) { b.classList.add("stack"); b.style.width = `${fNarrow() ? 72 : 88}px`; }
+    // over its own dots (user, 18 Nov): from where they start, or, if that runs past the chart, ending where they end, right-aligned
+    const w = b.offsetWidth, end = x0s[g] + cols[g] * cell, left = x0s[g] + w <= W ? x0s[g] : Math.max(0, end - w);
+    b.classList.toggle("end", left < x0s[g]);
+    let bottom = 4;                                                       // over a label it would touch, it goes up a tier
+    placed.forEach(q => { if (left < q.r + pad && left + w > q.l - pad) bottom = Math.max(bottom, q.top + 4); });
+    Object.assign(b.style, {left: `${left}px`, bottom: `${bottom}px`});
+    placed.push({l: left, r: left + w, top: bottom + b.offsetHeight});
+  });
+  big.style.height = `${Math.max(0, ...placed.map(q => q.top)) + 6}px`;
   const old = F_DOTS.get(el);
-  F_DOTS.set(el, {paint: paintSplit, cv, W, H, dpr, K, dots, r: cell * .38, x0s, ends: cols.map((c, g) => x0s[g] + c * cell),
+  F_DOTS.set(el, {C, cell, rows, paint: paintSplit, cv, W, H, dpr, K, dots, r: cell * .38, x0s, ends: cols.map((c, g) => x0s[g] + c * cell),
                   from: v(C.c), to: C.parts.map(p => v(p.c)), p: old ? old.p : 0, id: old ? old.id : 0});
   paintSplit(el);
 }
@@ -3952,14 +4005,14 @@ async function renderFindings() {
   if (!F.lead) { box.innerHTML = `<div class="wrap"><p class="lead">The findings did not load.</p></div>`; delete box.dataset.ready; return; }
   F_DATA = F;
   box.innerHTML = `<canvas class="f-layer" aria-hidden="true"></canvas>${fStory(F.lead, F.story)}<div class="wrap">
-    <div class="f-chain-at"><nav class="f-chain" aria-label="The findings">${[...F.findings.map(f => ({id: f.id, t: f.headline})), {id: "explore", t: F.explore.title}].map((x, i) => `<button type="button" data-to="f-${esc(x.id)}" title="${esc(x.t)}" aria-label="Finding ${i + 1}: ${esc(x.t)}"><i></i></button>`).join("")}</nav></div>
+    <div class="f-chain-at"><nav class="f-chain" aria-label="The findings">${fStepArrow(-1)}${[...F.findings.map(f => ({id: f.id, t: f.headline})), {id: "explore", t: F.explore.title}].map((x, i) => `<button type="button" data-to="f-${esc(x.id)}" title="${esc(x.t)}" aria-label="Finding ${i + 1}: ${esc(x.t)}"><i></i></button>`).join("")}${fStepArrow(1)}</nav></div>
     <h2 class="f-found" id="f-found"><canvas class="f-found-bg" aria-hidden="true"></canvas><span class="f-found-t">${esc(F.found)}</span><button class="f-down f-found-down" type="button" aria-label="Scroll to the first finding">${fArrow}</button></h2>
     ${F.findings.map(fItem).join("")}
     <section class="f-item" id="f-explore"><h3>${esc(F.explore.title)}</h3>
       <div class="f-explore">${F.explore.items.map(l => fGo(l.hash, "f-xcard", "", `<img src="${esc(l.img)}" alt="" loading="lazy"><b>${esc(l.label)} →</b><span>${esc(l.what)}</span>`)).join("")}</div>
       ${F.paper && !ANON ? `<h3 class="f-paper-h">${esc(F.paper.title)}</h3>${(() => { const P = F.paper, u = P.url && safeUrl(P.url);   // a citation, not a card (user, 6 Nov)
         return `<p class="f-cite">${P.authors ? `${esc(P.authors)} ` : ""}(${esc(P.year)}). <i>${esc(P.paper_title)}</i>. ${esc(P.venue)}. ${u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a>` : `<span class="f-cite-soon">${esc(P.soon)}</span>`}</p>`; })()}` : ""}</section>
-    <footer class="f-foot" id="f-foot">${F.notes.map(n => `<p>${esc(n)}</p>`).join("")}<p>${fGo(`view=${F.docs.view}`, "", "", `${esc(F.docs.label)} →`)}</p></footer>
+    <footer class="f-foot" id="f-foot">${F.notes.map((n, i) => `<p>${!i && F.notes_lead ? `<b>${esc(F.notes_lead)}</b> ` : ""}${esc(n)}</p>`).join("")}<p>${fGo(`view=${F.docs.view}`, "", "", `${esc(F.docs.label)} →`)}</p></footer>
   </div>`;
   wireStory();
   drawFindingCharts();
@@ -3968,7 +4021,13 @@ async function renderFindings() {
   const gone = new IntersectionObserver(es => es.forEach(e => { if (e.intersectionRatio > .5) playLines(e.target, true); else if (!e.isIntersecting) playLines(e.target, false); }), {root: box, threshold: [0, .5]});
   box.querySelectorAll("[data-lines]").forEach(el => gone.observe(el));
   const showTip = (el, e) => { tip.innerHTML = F_TIPS[+el.dataset.t]; tip.style.display = "block"; placeTip(e); };
-  box.addEventListener("pointermove", e => { const el = e.target.closest("[data-t]"); if (el) showTip(el, e); else if (!e.target.closest(".f-lines, canvas")) hideTip(); });
+  box.addEventListener("pointermove", e => {
+    const plot = e.target.closest(".f-plot[data-ids]");
+    if (plot) { const hit = fDotAt(plot, e); if (hit) { tip.innerHTML = fDotTip(hit); tip.style.display = "block"; placeTip(e); } else hideTip(); return; }
+    const flow = e.target.matches(".f-dotflow canvas") && e.target.closest("[data-dots]");
+    if (flow) { const hit = fFlowAt(flow, e); e.target.style.cursor = hit ? "pointer" : ""; if (hit) { tip.innerHTML = fDotTip(hit); tip.style.display = "block"; placeTip(e); } else hideTip(); return; }
+    const el = e.target.closest("[data-t]"); if (el) showTip(el, e); else if (!e.target.closest(".f-lines, canvas")) hideTip();
+  });
   box.addEventListener("pointerleave", hideTip);
   box.addEventListener("focusin", e => {
     const el = e.target.closest("[data-t]");
@@ -3979,6 +4038,9 @@ async function renderFindings() {
   box.addEventListener("focusout", hideTip);
   box.addEventListener("scroll", hideTip, {passive: true});
   box.addEventListener("click", e => {
+    const plot = e.target.closest(".f-plot[data-ids]"), flow = e.target.matches(".f-dotflow canvas") && e.target.closest("[data-dots]");
+    const hit = plot ? fDotAt(plot, e) : flow ? fFlowAt(flow, e) : null;
+    if (hit && !(e.metaKey || e.ctrlKey || e.shiftKey || e.button)) { e.preventDefault(); return follow(`view=explore&arrange=timeline&color=quadrant&open=${encodeURIComponent(hit.id)}&from=dot`); }   // a dot opens its incident
     const a = e.target.closest("a[data-go]");
     if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;   // a new tab or window takes the address as it is
     e.preventDefault();
