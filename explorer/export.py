@@ -92,14 +92,14 @@ def export(out: Path, repo_path: str | None = None, keep: bool = False) -> None:
     if out.exists():
         if not (out / MARK).exists():
             raise SystemExit(f"{out} exists and is not an exported site; choose another --out")
-        if not keep:                                     # --keep: overwrite in place, reuse the texts already written
+        if not keep:
             shutil.rmtree(out)
     (out / "api").mkdir(parents=True, exist_ok=True)
     (out / MARK).write_text("written by explorer/export.py; emptied and refilled at each export\n")
     size = 0
     (out / "index.html").write_text(serve.page(static=True), encoding="utf-8")
-    shutil.copytree(serve.STATIC_DIR, out / "static", dirs_exist_ok=True,               # the fonts: static/fonts.js
-                    ignore=lambda d, names: [n for n in names if (Path(d) / n).is_file() and Path(n).suffix not in (".js", ".txt", ".webp")])  # and the screenshots of Explore
+    shutil.copytree(serve.STATIC_DIR, out / "static", dirs_exist_ok=True,
+                    ignore=lambda d, names: [n for n in names if (Path(d) / n).is_file() and Path(n).suffix not in (".js", ".txt", ".webp")])
     size += _dump(out, "static/fonts.json", serve.font_faces(), gz=False)    # woff2 is compressed already
     ids = list(serve._cache()["inc"])
     ciks: set[int] = set()
@@ -142,10 +142,10 @@ def export(out: Path, repo_path: str | None = None, keep: bool = False) -> None:
                                                       "filings": filings, "passages": reg["passages"], "k8": reg["k8"]})
     dl = serve.documents()
     for f in dl["docs"] + dl["codebooks"]:
-        f["text"] = (serve.HERE.parent / f["repo"]).read_text(encoding="utf-8")   # shown in the panel without a fetch
-        if repo_path:                                            # the repository's own file, relative to the site
+        f["text"] = (serve.HERE.parent / f["repo"]).read_text(encoding="utf-8")
+        if repo_path:
             f["file"] = posixpath.relpath(f["repo"], repo_path)
-        else:                                                    # a copy in files/
+        else:
             (out / f["file"]).parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(serve.doc_path(f["file"].removeprefix("files/")), out / f["file"])
             del f["repo"]

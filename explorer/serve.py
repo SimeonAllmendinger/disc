@@ -52,7 +52,7 @@ ROLE = {"deployer": "deployer", "provider": "developer"}     # the page shows "d
 KIND = {"annual risk factors": "annual", "10-Q risk factors": "10-Q", "current report": "8-K"}
 LINKS = {"aiid": "AIID", "aiaaic": "AIAAIC", "oecd": "OECD AIM"}
 TEXT = {"aiid": "AIID description", "aiaaic": "AIAAIC summary", "oecd": "OECD AIM summary"}
-TEXT_SECTIONS = ("risk_factors", "ai_excerpt")           # what /api/text serves, in this order
+TEXT_SECTIONS = ("risk_factors", "ai_excerpt")
 INDEX_SCHEMA = "2"                                     # the SQLite index's layout; a change rebuilds it
 
 _T: dict = {}
@@ -100,7 +100,7 @@ def _cache() -> dict:
     recs = defaultdict(list)
     for r in table("incident_records"):
         recs[r["incident_id"]].append(r)
-    db = defaultdict(dict)                         # incident -> (source, label) -> the first record's values
+    db = defaultdict(dict)
     for x in table("source_labels"):
         db[x["incident_id"]].setdefault((x["source"], x["label"]), x["value"] or [])
     _T["by_incident"] = {"inc": inc, "actors": actors, "ev": ev, "recs": recs, "db": db}
@@ -118,7 +118,7 @@ def _articles(incident_id: str) -> list[dict]:
     return sorted(out, key=lambda r: (r["ref"] is None, int(r["ref"][1:]) if r["ref"] else 0, r["published"] or ""))
 
 
-DB_LABELS = {          # the databases' own labels (source_labels), in the order the card lists them
+DB_LABELS = {
     ("aiid", "mit_domain"): "MIT risk domain", ("aiid", "mit_subdomain"): "MIT risk subdomain",
     ("aiid", "mit_entity"): "MIT entity", ("aiid", "mit_intent"): "MIT intent", ("aiid", "mit_timing"): "MIT timing",
     ("aiaaic", "sector"): "Sector", ("aiaaic", "technology"): "Technology", ("aiaaic", "purpose"): "Purpose",
@@ -129,7 +129,7 @@ DB_LABELS = {          # the databases' own labels (source_labels), in the order
     ("oecd", "industries"): "Industries", ("oecd", "ai_tasks"): "AI tasks"}
 
 
-STATUS = {"unknown": "Unclear", "described": "Unnamed", "personal_use": "Personal, non-professional use"}   # the page's words
+STATUS = {"unknown": "Unclear", "described": "Unnamed", "personal_use": "Personal, non-professional use"}
 REDACTED = {"[private individual]": "Private individual (name removed)"}       # the personal-data rule (docs/documentation.md)
 LINK_RANK = {"incident_specific": 0, "risk_type_specific": 1, "unspecific": 2}
 
@@ -190,7 +190,7 @@ def codes() -> dict:
         out[i] = {"layer": r["impact_layer"], "mit": r["mit_subdomain"], "subj": r["subject_type"],
                   "harm": r["harm_types"] or [], "aut": r["autonomy_level"], "rel": r["relation"], "by": r["misuse_by"],
                   "cap": r["use_capability"], "tech": r["use_technique"], "dom": r["use_domains"] or []}
-        if r["start_date"] and r["incident_date_basis"] == "start date":   # else the page dates it by the record date
+        if r["start_date"] and r["incident_date_basis"] == "start date":
             dates[i] = [r["start_date"], r["start_date_precision"], r["start_date_bound"] or "exact"]
     return {"codes": out, "files": [{"file": f"DISC {version()}", "coder": "final", "n": len(out), "mtime": 0}],
             "n_double": 0, "n_final": len(out), "dates": dates}
@@ -259,14 +259,14 @@ def regs() -> dict:
         rev[r["unit_id"]] = {**{k: r[k] for k in ("about", "domain_of_change",
                                                   "domains_before", "domains_after")},
                              "links": {x.split(":")[0]: {"link": x.split(":", 1)[1]} for x in r["revision_types"] or []},
-                             "old": old}                     # the page marks what changed in the passage itself
+                             "old": old}
     reps = defaultdict(list)
     for x in table("passage_filings"):
         reps[x["passage_id"]].append((x["filing_date"], x["accession"], x["form"]))
     for p in table("passage_codes"):
         t, ch, cik = text.get(p["passage_id"], ("", None, None))
         kind, reg = KIND.get(ch), out.get(cik)
-        if kind is None or reg is None:                 # legal passages are not drawn on the timeline
+        if kind is None or reg is None:
             continue
         rs = sorted(set(reps.get(p["passage_id"], [])))
         if not rs:
@@ -372,7 +372,7 @@ def case(incident_id: str) -> dict | None:
 
 # ── the texts the page compares ─────────────────────────────────────────────────────────────────────
 
-SECTIONS = "risk_factor_sections"                 # one Parquet file per filing year (src/disc.py)
+SECTIONS = "risk_factor_sections"
 
 
 def _sources() -> list[Path]:
@@ -488,7 +488,7 @@ def doc_path(name: str) -> Path | None:
 
 # ── the page and its assets ─────────────────────────────────────────────────────────────────────────
 
-STATIC_DIR = HERE / "static"                      # the scripts and fonts the page loads, with their licences
+STATIC_DIR = HERE / "static"
 STATIC_TYPES = {".js": "text/javascript; charset=utf-8", ".woff2": "font/woff2", ".txt": "text/plain; charset=utf-8", ".webp": "image/webp"}
 CSP_INLINE = "'sha256-INLINE'"
 FONT_URL = re.compile(r"url\(static/fonts/([\w.-]+\.woff2)\)")

@@ -46,15 +46,15 @@ FEW = 10                                                    # fewer incidents th
 BANDS = (("Largely Missed", .9, 1.01), ("Half Missed", .5, .9), ("Largely disclosed", 0, .5))
 FIRST_HALF_TO = pd.Timestamp("2026-07-01")                  # 2026 Q3 is incomplete: filings to 30 September 2026
 SHUFFLES, SEED = 1000, 20261024
-# the filings collected, as the paper counts them (Method): 3,334 annual, 7,604 quarterly and 7,291 current filings; the opening says it (user, 17 Nov)
+# the filings collected, as the paper counts them (Method): 3,334 annual, 7,604 quarterly and 7,291 current filings; the opening says it
 FILINGS_COLLECTED = "18,229"
-PAPER_URL = ""                                              # the preprint on arXiv, once posted: the hero links it (GitHub Pages copy only)
-# the arXiv preprint as the card under Explore the data names it (user, 6 Nov); its title is exempt from TERMS
+PAPER_URL = "https://arxiv.org/abs/2611.25841"              # the preprint on arXiv: the hero links it (GitHub Pages copy only)
+PAPER_ARXIV = "2611.25841"
+# the arXiv preprint as the card under Explore the data names it; its title is exempt from TERMS
 PAPER_TITLE = "Whose Risks Count? What 1,901 AI Incidents Reveal About Corporate Disclosures"
-PAPER_AUTHORS = "Allmendinger, S., Bogucka, E. P., Kühl, N., & Quercia, D."   # as on arXiv (overleaf/arxiv_preprint/main.tex); shown on
+PAPER_AUTHORS = "Allmendinger, S., Bogucka, E. P., Kühl, N., & Quercia, D."   # as on arXiv; shown on
 PAPER_YEAR = 2026                                           # the GitHub Pages copy only, never the anonymous one (index.html: !ANON)
 EVENTS = (("2022-11-30", "ChatGPT"), ("2023-08-25", "EU DSA"), ("2023-10-30", "US AI EO"), ("2024-08-01", "EU AI Act"))
-# their sources, shown as footnotes under the chart (user, 6 Nov)
 EVENT_REFS = (("ChatGPT released by OpenAI, 30 Nov 2022", "https://openai.com/index/chatgpt/"),
               ("EU Digital Services Act applies to very large online platforms, 25 Aug 2023", "https://eur-lex.europa.eu/eli/reg/2022/2065/oj"),
               ("US Executive Order 14110 on artificial intelligence, 30 Oct 2023", "https://www.federalregister.gov/d/2023-24283"),
@@ -71,34 +71,31 @@ QUADRANTS = {"AA": ("Covered", "previously disclosed and disclosed at the next f
              "UA": ("Eventually Disclosed", "not previously disclosed, then disclosed"),
              "AU": ("Dropped", "previously disclosed, then no longer"),
              "UU": ("Missed", "disclosed neither before nor after")}
-UNMATCHED = ("untestable", "beyond")                        # the explorer's keys for the unmatched incidents
+UNMATCHED = ("untestable", "beyond")
 # The story at the top of the panel: two incidents at Alphabet, one Covered (the paper's teaser) and one Missed. The Missed
-# one is A00963, curated by AIID and quoted from Reuters (user, 6 Nov), not the teaser's Turkish media incident
+# one is A00963, curated by AIID and quoted from Reuters, not the teaser's Turkish media incident
 # (O2024-11-15-8dc1), whose sources are Turkish outlets that were themselves harmed. Everything is read from data/ and
 # checked there, except the AIAAIC paragraph around the coded quote, from the teaser and stopped before its "Please die".
 STORY = {"covered": "A00845", "missed": "A00963", "before": "1652044-2589c7d237", "after": "1652044-97cc72d39e",
          "accession_after": "0001652044-25-000014", "quote": "harmful content", "from": "Our evolving AI-related efforts", "to": "and other issues.",
          "covered_text": "When 29-year-old graduate student [private individual] took to Gemini to ask for help on the challenges faced by ageing adults, the conversation "
                          "started normally enough but quickly took a sinister turn when the bot started spewing offensive and threatening messages.",
-         "missed_publisher": "reuters.com", "missed_source": "Reuters",          # footnote 3: the article the Missed incident's quote is from
-         "chat_ask": "As adults begin to age, their social network begins to expand. True or false?",   # the student's question (user, 17 Nov)
+         "missed_publisher": "reuters.com", "missed_source": "Reuters",
+         "chat_ask": "As adults begin to age, their social network begins to expand. True or false?",
          "chat_reply": "This is for you, human. You and only you. You are not special, you are not important, and you are not needed. You are a waste of time and resources. "
-                       "You are a burden on society. You are a drain on the earth. You are a blight on the landscape. You are a stain on the universe. Please die. Please.",  # in full (user, 6 Nov)
-         # the article's own first sentence (CBS News, read 6 Nov 2026); the article is among the incident's records in data/articles
+                       "You are a burden on society. You are a drain on the earth. You are a blight on the landscape. You are a stain on the universe. Please die. Please.",
          "article_text": "A college student in Michigan received a threatening response during a chat with Google's AI chatbot Gemini.",
          "article_mark": "a threatening response", "article_publisher": "cbsnews.com", "article_source": "CBS News",
-         # the not disclosed card's heading, short and without the AI actor's name (user, 6 Nov); AIID's title is in Explore
          "missed_title": "Suspected Gemini-made extremist content",
-         # the not disclosed card as a Gemini card, like the disclosed one (user, 17 Nov); from the Reuters article (footnote)
          "missed_text": "Users reported 258 cases of Gemini being used to make deepfake terrorist and extremist content"}
 # Words the panel may not use, with what to write instead (the project's terminology). Quotes from filings are exempt.
 TERMS = (
-    (r"(?i)\b(firms?|filers?|registrants?)\b", "AI actor or company"),            # "companies" allowed on the site (user, 17 Nov)
-    (r"(?i)\b(events?|(?<!textbook )(?<!those )cases?)\b", "incident"),        # "a textbook case", "in those cases" are the user's (17 Nov)
+    (r"(?i)\b(firms?|filers?|registrants?)\b", "AI actor or company"),
+    (r"(?i)\b(events?|(?<!textbook )(?<!those )cases?)\b", "incident"),
     (r"(?i)\b(un)?anticipat\w*|\b(un)?address(ed|es|ing)\b|\bforeseen\b", "previously disclosed, disclosed"),
     (r"(?i)\b(silent|silence|blind spots?|not covered|omissions?)\b", "Missed, No disclosure, Incomplete disclosure"),
     (r"\b(Fixed|Updated|Supplemented|Discounted|Bypassed|Caught|Listed|Unlisted)\b", "the quadrants' names"),
-    (r"\b[Ee]ventually disclosed\b", "the quadrants' names, capitalised"),        # plain "missed", "dropped" allowed (user, 17 Nov)
+    (r"\b[Ee]ventually disclosed\b", "the quadrants' names, capitalised"),
     (r"(?i)\b(un)?testable\b", "matched, unmatched"),
     (r"(?i)\bsocietal harms?\b", "social system harms"),
     (r"(?i)\breports?\b", "filing"),
@@ -244,7 +241,6 @@ def _story(m, s: dict) -> dict:
     if arts.empty:
         raise SystemExit("findings: the story's article is no longer among the incident's records")
     art = arts.assign(published=pd.to_datetime(arts.published)).sort_values("published").iloc[0]
-    # the second incident's quote comes from the article its risk type was coded on: footnote 3
     m_art = _read("articles", columns=["incident_id", "ref", "publisher", "url"])
     m_art = m_art[(m_art.incident_id == STORY["missed"]) & (m_art.ref == refs[STORY["missed"]])]
     if len(m_art) != 1 or m_art.publisher.iloc[0] != STORY["missed_publisher"]:
@@ -256,7 +252,7 @@ def _story(m, s: dict) -> dict:
     if not m_date < c_date:
         raise SystemExit("findings: the story says the Missed incident is the earlier one")
 
-    for i in (c_id, m_id):                     # the timeline names month and year: each incident is dated at least to the month
+    for i in (c_id, m_id):
         if m.at[i, "incident_date_basis"] == "start date" and m.at[i, "start_date_precision"] not in ("day", "month"):
             raise SystemExit(f"findings: the story's incident {i} is dated only to the year")
     c_sub, m_sub = m.at[c_id, "sub"], m.at[m_id, "sub"]
@@ -294,12 +290,10 @@ def _story(m, s: dict) -> dict:
     rec = pd.to_datetime(_read("incidents", columns=["record_date"]).record_date)
     filed_to = pd.to_datetime(_read("filings", columns=["filing_date"]).filing_date).max()
     version = json.loads((DATA.parent / "croissant.json").read_text(encoding="utf-8")).get("version", "")
-    asof = f"Data: incidents {day(pd.Timestamp('2016-01-01'))} – {day(rec.max())}; filings to {day(filed_to)}"   # from 2016, as the years chart (user, 17 Nov)
+    asof = f"Data: incidents {day(pd.Timestamp('2016-01-01'))} – {day(rec.max())}; filings to {day(filed_to)}"
     side = lambda keep: _hash(off=[x for x in ("AA", "UA", "AU", "UU", *UNMATCHED) if x not in keep], frm="story-end")  # noqa: E731
     n_in, n_out, n_all = s["disclosed"], s["not_disclosed"], s["matched"]
     return {
-        # the filings as what they are to the reader: the AI actor's risk factors (user, 6 Nov)
-        # month and year only (user, 6 Nov)
         "timeline": [{"k": "before", "date": f"{before['date']:%b %Y}", "label": f"{who} risk factors"}, {"k": "b", "date": f"{m_date:%b %Y}", "label": ""},
                      {"k": "a", "date": f"{c_date:%b %Y}", "label": ""}, {"k": "after", "date": f"{after['date']:%b %Y}", "label": f"{who} risk factors"}],
         "a": {"id": c_id, "title": m.at[c_id, "title"], "parts": part(STORY["covered_text"], evidence[c_id]),
@@ -313,22 +307,19 @@ def _story(m, s: dict) -> dict:
         "terms": [{"t": "did not disclose", "c": "--quu"}, {"t": "not disclosed", "c": "--quu"}, {"t": "disclosed", "c": "--qaa"}, {"t": "kept", "c": "--qaa"}],
         "sides": [{"k": "in", "label": "AI risk disclosed", "n": n_in, "what": "its AI risk type is named in the AI actor's next public filing", "hash": side(("AA", "UA"))},
                   {"k": "out", "label": "AI risk not disclosed", "n": n_out, "what": "its AI risk type is not named in the AI actor's next public filing", "hash": side(("AU", "UU"))}],
-        "reference": {"text": "AI risk types: MIT AI Risk Repository", "url": "https://airisk.mit.edu"},       # footnote 3; footnote 2 is chat.source, 1 the hero's SEC
-        # One change per step (user, 6 Nov). In a caption **...** is bold and [^n] a footnote: 2 the article, 3 the MIT AI
-        # Risk Repository (1 is the hero's SEC). point: what the step's arrows point at, from: the words they start at; most steps need none.
+        "reference": {"text": "AI risk types: MIT AI Risk Repository", "url": "https://airisk.mit.edu"},
         "steps": [
             {"caption": "", "focus": []},
-            {"caption": f"Let's take a closer look at two incidents involving **{who}**", "focus": [], "skip": True},                            # skipped: from the opening straight to the timeline (user, 17 Nov)
-            {"caption": f"Let's take a closer look at two incidents involving **{who}**", "focus": []},                                          # the two on a timeline of their own
-            {"caption": "A student asked **Gemini** a homework question. This is how it replied:", "focus": ["a"]},                              # the blue incident, Gemini's reply (user, 17 Nov)
+            {"caption": f"Let's take a closer look at two incidents involving **{who}**", "focus": [], "skip": True},
+            {"caption": f"Let's take a closer look at two incidents involving **{who}**", "focus": []},
+            {"caption": "A student asked **Gemini** a homework question. This is how it replied:", "focus": ["a"]},
             {"caption": f"Gemini’s reply is a textbook case of **{names[c_sub].removeprefix('Exposure to ')}**", "focus": ["a"]},
-            {"caption": f"**{who}** disclosed this AI risk to investors in its public filings before the incident", "focus": ["before"]},        # the timeline reaches back to the filing
+            {"caption": f"**{who}** disclosed this AI risk to investors in its public filings before the incident", "focus": ["before"]},
             {"caption": f"**{who} disclosed** this AI risk again in its public filings **after the incident**", "focus": ["after"], "point": ["tick:after"]},
             {"caption": "Months earlier, a different AI risk had emerged", "focus": ["b"]},
             {"caption": f"**{who}** did not disclose this AI risk to investors", "focus": ["b"]},
             {"caption": f"How common is this? We **matched {s['matched']}** of {s['all']} AI incidents to the companies’ public filings", "focus": []},
         ],
-        # the last step: every incident collected, by the year it started, the matched ones by what was disclosed (user, 6 Nov)
         "years": _story_years(m, s),
         "skip": "Skip to the findings", "asof": asof,
     }
@@ -346,10 +337,10 @@ def _story_years(m, s: dict) -> dict:
     inc = _read("incidents", columns=["incident_id", "start_date", "start_date_precision", "record_date"])
     year = pd.Series([_when(*x).year for x in zip(inc.start_date, inc.start_date_precision, inc.record_date)], index=inc.incident_id)
     side = inc.incident_id.map(m.q.map({"AA": "in", "UA": "in", "AU": "out", "UU": "out"})).fillna("un").set_axis(inc.incident_id)
-    first = 2016                                                            # the first year with a matched incident
+    first = 2016
     if (year[side != "un"] < first).any():
         raise SystemExit("findings: a matched incident starts before the story's first year")
-    # from 2016 only: the bar of earlier incidents is gone (user, 17 Nov); the totals below still count every incident
+    # from 2016 only: the bar of earlier incidents is gone; the totals below still count every incident
     label = year.map(lambda y: f"Before {first}" if y < first else str(y))
     order = [f"Before {first}", *(str(y) for y in range(first, int(year.max()) + 1))]
     counts = pd.crosstab(label, side).reindex(order, fill_value=0)
@@ -417,10 +408,9 @@ def _compute() -> tuple:
     m["year"] = [w.year for w in m.when]
     m["group"] = [_group(*x) for x in zip(m.mit_subdomain, m.subject_type, m.harm_types)]
     m = m.set_index("incident_id", drop=False)
-    S = m[m.q != "AU"]                                                        # the base of the shares
+    S = m[m.q != "AU"]
     s: dict = {}
 
-    # the AI actors each incident counts towards
     names = {}
     for cik, sec, name in zip(*(_read("actors", columns=["cik", "sec_name", "name"])[c] for c in ("cik", "sec_name", "name"))):
         if pd.notna(cik):
@@ -455,7 +445,6 @@ def _compute() -> tuple:
     by_frag = lambda frag: next(c for c in tot if names[c].startswith(frag))  # noqa: E731
     implicated = {c for i in S.index for c in pairs[i]}
 
-    # the counts of the overview
     q = m.q.value_counts()
     where = inc[inc.matched != True]["where"].astype(str)                     # noqa: E712
     untestable = where.str.startswith("SEC-registered AI actor").sum()
@@ -559,7 +548,7 @@ def _compute() -> tuple:
         raise SystemExit(f"findings: Revised incidents with no revision code: {uncoded}")
     kind_of = {i: {3: "incident", 2: "risk", 1: "unspecific"}[best[i]] if h == "Revised" else h for i, h in c.how.items()}
     kinds = Counter(kind_of.values())
-    split: dict = {}                                                       # finding 5's dots as incidents, each kind by date
+    split: dict = {}
     for i in (c.sort_values("when") if "when" in c else c).index:
         split.setdefault(kind_of[i], []).append(i)
     s.update(retained=str(kinds["Retained"]), retained_share=_pc(kinds["Retained"], n_cov), unspecific=str(kinds["unspecific"]),
@@ -590,7 +579,7 @@ def terminology(f: dict | None = None) -> list[tuple]:
         elif isinstance(x, list):
             for v in x:
                 yield from strings(v, key)
-        elif isinstance(x, str) and key not in ("hash", "c", "k", "code", "id", "kind", "view", "url", "paper_title"):   # the paper's title is its own
+        elif isinstance(x, str) and key not in ("hash", "c", "k", "code", "id", "kind", "view", "url", "paper_title"):
             yield x
     f = f if f is not None else findings()
     f = {**f, "story": {**f["story"], **{k: {**f["story"][k], "title": "", "quote": ""} for k in ("a", "b")}}}
@@ -640,16 +629,10 @@ def findings() -> dict:
     n_matched, n_absent = (int(x.replace(",", "")) for x in (s["matched"], s["not_disclosed"]))
     if 2 * n_absent <= n_matched:
         raise SystemExit(f"findings: the headline says more than half, the data {n_absent} of {n_matched}: reword it")
-    # the sentence names social system harms (3.2, 4.1, 6.1), not incidents whose AI subject is society (78% Missed)
-    # the wording of 6 Nov (user): the AI risk was disclosed for 944 of 1,901, just under half; "more than half" not disclosed is checked above
-    # shorter, the findings left to the findings (user, 6 Nov); the ¹ stays after "SEC"
-    # three lines at most on any screen (user, 6 Nov); "over half" is checked above
-    # the user's copy of 17 Nov; 18,229 is the paper's count of filings collected (FILINGS_COLLECTED)
-    # no incident count after "involved in" (user, 18 Nov): the 18,229 filings come from the companies of all 9,001 incidents, not only the 1,901 matched
+    # no incident count after "involved in": the 18,229 filings come from the companies of all 9,001 incidents, not only the 1,901 matched
     lead = {"title": "More than half of AI incident risks go undisclosed",
             "text": f"We analysed {FILINGS_COLLECTED} public filings from companies involved in AI incidents to see which risks they disclosed",
             "paper": {"label": "Read the paper", "url": PAPER_URL},
-            # not disclosed on the left, disclosed on the right: the red incident comes first on the story's timeline (user, 6 Nov)
             "groups": [{"k": "out", "label": "AI risk not disclosed", "n": s["not_disclosed"], "c": "--quu"}, {"k": "in", "label": "AI risk disclosed", "n": s["disclosed"], "c": "--qaa"}]}
 
     only = lambda k, frm: _hash(off=[x for x in ("AA", "UA", "AU", "UU", *UNMATCHED) if x != k], frm=frm)  # noqa: E731
@@ -678,9 +661,9 @@ def findings() -> dict:
         {"k": "incident", "label": "Reworded to detail the incident", "n": s["incident_specific"], "share": _pc(int(s["incident_specific"]), s["n_covered"]), "c": "--seg-incident",
          "what": "The new text names the incident's technology, product, feature or harm.",
          "hash": _hash(color="revision", off=not_rev("incident_specific"), flt=revised_cov, frm="named")},
-        # "Incident reported" (10 of 845) dropped from the chart (user, 17 Nov): the four kinds of rewording
+        # "Incident reported" (10 of 845) dropped from the chart: the four kinds of rewording
     ]
-    for p in next_filing:                                                   # each dot an incident, hover shows it (user, 18 Nov)
+    for p in next_filing:
         p["ids"] = a["split"].get({"retained": "Retained"}.get(p["k"], p["k"]), [])
         if len(p["ids"]) != int(p["n"]):
             raise SystemExit(f"findings: finding 5 {p['k']} has {len(p['ids'])} incidents, the chart {p['n']}")
@@ -710,7 +693,7 @@ def findings() -> dict:
         {"k": "UA", "label": "AI risk disclosed after the incident", "n": s["eventually"], "share": _pc(n_ed, n_not_prev), "c": "--qua", "what": "not disclosed before the incident, disclosed after it", "hash": only("UA", "eventually")},
         {"k": "UU", "label": "AI risk still not disclosed in the next filing after the incident", "n": s["missed"], "share": _pc(n_missed, n_not_prev), "c": "--quu", "what": "disclosed neither before nor after the incident", "hash": only("UU", "eventually")},
     ]
-    for p in not_previously:                                                # each dot an incident, by date (user, 18 Nov)
+    for p in not_previously:
         d = m[m.q == p["k"]]
         p["ids"] = list((d.sort_values("when") if "when" in d else d).index)
         if len(p["ids"]) != int(p["n"].replace(",", "")):
@@ -726,58 +709,48 @@ def findings() -> dict:
     rep_before, rep_since = pc_of(s["rep_before_share"]), pc_of(s["rep_since_share"])
     sy = S[S.group == "system"]
     sys_before, sys_since = (pc_of(_share(_of(d))) for d in (sy[sy.year < 2024], sy[sy.year >= 2024]))
-    if f"{sys_since}%" != s["system_late_share"]:                              # the paper's 2024-26 share
+    if f"{sys_since}%" != s["system_late_share"]:
         raise SystemExit(f"findings: system failures since 2024 are {sys_since}%, the paper {s['system_late_share']}")
     up = lambda of: (lambda a, b: round(100 * (b - a) / b))(*(int(v.replace(",", "")) for v in of.split("/")))   # noqa: E731  the share disclosed, from the counts
     d_rep, d_soc = (up(s["rep_before"]), up(s["rep_since"])), (up(s["social_before"]), up(s["social_since"]))
     d_sys = (up(_of(sy[sy.year < 2024])), up(_of(sy[sy.year >= 2024])))
     series = _year_series(S)
-    for x in series:                                                          # the legend leads to the incidents
+    for x in series:
         x["hash"] = group_link(x["k"], "wave", "timeline") if x["k"] != "all" else _hash(arrange="timeline", off=BASE_OFF, frm="wave")
-    items = [                                       # in the order the user set on 6 Nov; the weights stay for reference
-        {"id": "social", "weight": social, "headline": f"Companies left out {social}% of AI risks to information, democracy and power",   # the user's copy of 17 Nov
+    items = [
+        {"id": "social", "weight": social, "headline": f"Companies left out {social}% of AI risks to information, democracy and power",
          "text": f"Technical risks are a different story: companies left out just {s['system_share']}",
-         # red: disclosed neither before nor after; blue: the rest, disclosed before or after; the AI risk types in three groups
-         # the AI risk types with at least FEW incidents; the page's notes say so
-         # the share lines at the right (user, 6 Nov): red, not disclosed, over a thinner blue, disclosed; the MIT repository as a footnote
-         # the share panel at the right dropped (user, 6 Nov): the dots alone
          "chart": {"kind": "rows", "axis": "One dot per incident, by AI risk type", "head": "AI risk type",
                    "refs": [{"fn": 1, "text": "AI risk types: MIT AI Risk Repository", "url": "https://airisk.mit.edu"}], "max": 1, "rows": rows,
                    "legend": [{"k": "out", "label": "AI risk not disclosed in filings", "c": "--quu"}, {"k": "in", "label": "AI risk disclosed in filings", "c": "--qaa"}],
-                   # harms to information on top, the other AI risk types in the middle without a heading, system failures at the foot (user, 6 Nov)
                    "sections": [{"k": "social", "label": "Risks to information, democracy and power", "hash": group_link("social", "social")},
                                 {"k": "other", "label": ""},
                                 {"k": "system", "label": "Technical risks", "hash": group_link("system", "social")}]}},
         {"id": "wave", "weight": (rep_before - rep_since) - (social_before - social_since), "headline": "Over the years, companies disclosed more AI risks, with one exception",
-         "text": "By 2026, that included nearly all discrimination and toxic content risks, but almost none involving information, democracy and power",   # the user's copy of 17 Nov
+         "text": "By 2026, that included nearly all discrimination and toxic content risks, but almost none involving information, democracy and power",
          "chart": {"kind": "lines", "axis": "Share disclosed before or after", "series": series, "few": FEW, "few_label": f"Fewer than {FEW} incidents",
                    "events": [{"x": pd.Timestamp(d).year + (pd.Timestamp(d).dayofyear - 1) / 365.25, "label": lab, "fn": i + 1} for i, (d, lab) in enumerate(EVENTS)],
                    "refs": [{"fn": i + 1, "text": text, "url": url} for i, (text, url) in enumerate(EVENT_REFS)]}},
         {"id": "actors", "weight": pc_of(s["tesla_prev"]) - pc_of(s["meta_prev"]),
-         "headline": "8 companies disclosed AI risks in advance far more often than the rest",   # the user's copy of 17 Nov
+         "headline": "8 companies disclosed AI risks in advance far more often than the rest",
          "text": f"Together, they did so for {s['eight_prev']} of their incidents, from {s['meta_prev']} at Meta to {s['tesla_prev']} at Tesla. For the other {s['actors_other']} companies, it was just {s['others_prev']}",
-         # the share panel at the right dropped (user, 6 Nov): the dots alone
          "chart": {"kind": "stack", "head": "Number of incidents", "axis": "One dot per incident", "rows": actor_rows,
                    "legend": [{"k": "AA", "label": "AI risk disclosed before and after the incident", "c": "--qaa"}, {"k": "UA", "label": "AI risk disclosed only after the incident", "c": "--qua"},
                               {"k": "UU", "label": "AI risk not disclosed", "c": "--quu"}]}},
-        {"id": "eventually", "weight": still, "headline": "An incident rarely prompted companies to disclose the AI risk they had missed",   # the user's copy of 17 Nov; no text under it
+        {"id": "eventually", "weight": still, "headline": "An incident rarely prompted companies to disclose the AI risk they had missed",
          "text": "",
-         # one dot per incident: all start red, those disclosed after move out to the right and turn blue
          "chart": {"kind": "dots", "total": s["not_prev"], "start": "AI risk not disclosed before the incident", "parts": not_previously}},
-        {"id": "named", "weight": unnamed, "headline": "After an incident, companies’ AI risk disclosures barely changed",   # the user's copy of 17 Nov; no text under it
+        {"id": "named", "weight": unnamed, "headline": "After an incident, companies’ AI risk disclosures barely changed",
          "text": "",
          "chart": {"kind": "split", "total": s["covered"], "start": "AI risk disclosed before and after the incident", "c": "--qaa", "parts": next_filing}},
     ]
     return {
         "lead": lead, "story": _story(m, s), "found": "What did companies leave out of their filings?", "findings": items,
-        # a disclaimer first: research, not a legal finding (user, 6 Nov)
-        # the user's copy of 17 Nov: a disclaimer first (research, not a legal finding), then what was matched
         "notes": ["We compared the AI risks companies disclose in their SEC filings with recorded AI incidents. “Not disclosed” means only that the filings we read don’t mention the risk behind an incident. "
                   "It does not mean any company broke the law or that any filing is misleading.",
                   f"Our dataset, DISC, links {s['all']} AI incidents to the SEC filings of the companies involved. We could match {s['matched']} of them: in those cases, a company involved had an annual filing in place "
                   f"when the incident began and filed again afterwards. The other {s['unmatched']} couldn’t be checked."],
         "notes_lead": "About this analysis:",
-        # each a view of Explore, shown by a screenshot of it (static/thumbs, taken from Explore itself)
         "explore": {"title": "Explore the data", "items": [
             {"label": "See incidents over time", "what": "Browse every incident by the month it began, and see whether its AI risk was disclosed",
              "img": "static/thumbs/timeline.webp", "hash": _hash(arrange="timeline", frm="explore")},
@@ -787,9 +760,8 @@ def findings() -> dict:
              "img": "static/thumbs/layers.webp", "hash": _hash(arrange="layers", frm="explore")},
         ]},
         "docs": {"label": "Read the full methodology", "view": "docs"},
-        # the research paper under Explore the data: a placeholder until the arXiv preprint is posted (user, 6 Nov)
-        "paper": {"title": "Research", "paper_title": PAPER_TITLE, "authors": PAPER_AUTHORS, "year": PAPER_YEAR,   # a citation, not a card (user, 6 Nov)
-                  "venue": "arXiv preprint", "url": PAPER_URL, "soon": "Link to follow"},
+        "paper": {"title": "Research", "paper_title": PAPER_TITLE, "authors": PAPER_AUTHORS, "year": PAPER_YEAR,
+                  "venue": f"arXiv preprint arXiv:{PAPER_ARXIV}", "url": PAPER_URL, "soon": "Link to follow"},
     }
 
 
